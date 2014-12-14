@@ -15,7 +15,6 @@
 #include "TBranch.h"
 #include "TFile.h"
 #include "TTree.h"
-#include "TSystem.h"
 
 // STL
 #include <iostream>
@@ -57,8 +56,6 @@ void processEvent(unsigned iEvent, albers::EventStore& store, albers::Writer& wr
 
 
 int main(){
-  gSystem->Load("libDataModelExample.so");
-
   std::cout<<"start processing"<<std::endl;
 
   albers::Registry   registry;
