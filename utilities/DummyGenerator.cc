@@ -38,8 +38,8 @@ DummyGenerator::DummyGenerator(int npart,
 
 void DummyGenerator::generate() {
 
-  generate_jet(200., TVector3(1,0,0) );
-  generate_jet(200., TVector3(-1,0,0) );
+  generate_jet(200., TVector3(1,0,0.5) );
+  generate_jet(200., TVector3(-1,0,0.5) );
 
   // add 50 particles of underlying event
   for(unsigned i=0; i<50; ++i) {
@@ -109,7 +109,7 @@ void DummyGenerator::generate_jet(float energy, const TVector3& direction) {
   TLorentzVector jetlv;
   float gamma = energy/p4star.M();
   float beta = sqrt(1 - 1/(gamma*gamma));
-  TVector3 boost(direction);
+  TVector3 boost(direction.Unit());
   boost *= static_cast<double>(beta);
   for(ParticleHandle& ptc : particles) {
     TLorentzVector lv = utils::lvFromPOD( ptc.read().Core.P4 );
@@ -121,6 +121,13 @@ void DummyGenerator::generate_jet(float energy, const TVector3& direction) {
   }
   // BareJet core = jet.Core();
   jet.mod().Core.P4 = utils::lvToPOD(jetlv);
+  // std::cout<<"jet "
+  // 	   <<jet.read().Core.P4.Eta<<" "
+  // 	   <<jet.read().Core.P4.Phi<<" "
+  // 	   <<jet.read().Core.P4.Pt<<" "
+  // 	   <<jet.read().Core.P4.Mass
+  // 	   <<std::endl;
+
   // jet.setCore( core );
 }
 
