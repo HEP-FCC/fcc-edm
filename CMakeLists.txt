@@ -59,7 +59,7 @@ add_subdirectory(examples)
 # ===============================
 
 # Add all targets to the build-tree export set
-export(TARGETS datamodel utilities fccedm-write fccedm-read
+export(TARGETS datamodel utilities fccedm-write fccedm-read fccedm-simplewrite
   FILE "${PROJECT_BINARY_DIR}/fccedmTargets.cmake")
 
 # Export the package for use from the build-tree
