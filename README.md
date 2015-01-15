@@ -3,7 +3,7 @@ fcc-edm
 
 FCC Event Data Model, version 1.
 
-Prerequisite: before doing anything, compile albers and source its init script to set your environment for albers. 
+Prerequisite: before doing anything, compile albers-core and source its init script to set your environment for the use of this package.
 
 Before compiling or using on lxplus:
 
