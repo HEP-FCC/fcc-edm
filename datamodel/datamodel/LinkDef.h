@@ -138,9 +138,9 @@
 #pragma link C++ class ParticleClusterAssociationCollection+;
 
 
-#pragma link C++ class albers::CollectionBase+;
-#pragma link C++ class albers::Registry+;
+// #pragma link C++ class albers::CollectionBase+;
+// #pragma link C++ class albers::Registry+;
 
-#pragma link C++ class PyEventStore+;
+// #pragma link C++ class PyEventStore+;
 
 #endif
