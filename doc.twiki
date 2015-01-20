@@ -1,0 +1,219 @@
+---+ FCC Event Data Model
+
+%TOC{title="Contents"}%
+
+---++ Overview
+
+The FCC event data model is based on simple C++ classes called POD structs (Plain Old Data structures). A POD struct can be thought of as a basic C struct.
+
+This page presents the following packages: 
+   * albers-core: a standalone library containing the tools necessary to define an EDM based on PODs, and to write and read events based on this EDM.
+   * fcc-edm: the official FCC event data model, based on albers-core
+   * analysis-cpp: example analysis code showing how to read FCC EDM events.
+
+*Create an FCC directory on your computer (either lxplus6 or a mac), and keep track of this directory:*
+
+<pre>
+mkdir FCC
+cd FCC
+export FCC=$PWD
+</pre>
+
+---++ Albers
+
+Albers is a standalone library used to:
+   * define complex event data models in a simple way
+   * write and read edm events.
+
+---+++ Installation
+
+The code of Albers is available on [[https://github.com/HEP-FCC/albers-core][HEP-FCC/albers-core.git]].
+
+Clone this repository in your FCC directory:
+
+<pre>
+cd $FCC
+git clone git@github.com:HEP-FCC/albers-core.git
+cd albers-core
+</pre>
+
+And follow the instructions in the [[https://github.com/HEP-FCC/albers-core/blob/master/README.md][README.md]]. Make sure the tests work before proceeding to the next sections. 
+
+---+++ PODs, handles, collections
+
+Albers comes with a very simple test EDM, described in [[https://github.com/HEP-FCC/albers-core/blob/master/examples/example_edm.yaml][example_edm.yaml]]. A code generation script takes this yaml file in input to produce all classes in the [[https://github.com/HEP-FCC/albers-core/tree/master/datamodel/datamodel][datamodel/datamodel/]] directory.
+
+For each datatype in the yaml file, three classes are generated:
+   * the POD itself, e.g. [[https://github.com/HEP-FCC/albers-core/blob/master/datamodel/datamodel/Particle.h][Particle.h]].
+   * a Handle to the POD, e.g. [[https://github.com/HEP-FCC/albers-core/blob/master/datamodel/datamodel/ParticleHandle.h][ParticleHandle.h]].
+   * a collection of Handles, e.g. [[https://github.com/HEP-FCC/albers-core/blob/master/datamodel/datamodel/ParticleCollection.h][ParticleCollection.h]].
+
+PODs are used as simple structs, for example:
+<pre>
+Particle ptc;
+ptc.P4 = LorentzVector(pt, eta, phi, m);
+ptc.ID = 25
+ptc.Status = 3
+std::cout << ptc.Status << std::endl;
+</pre>
+
+A Handle contains a pointer to an existing POD. If you have a handle, you can get a readable reference to the corresponding POD by doing:
+<pre>
+const Particle& ptc = ptchandle.read();
+std::cout << ptc.Status << std::endl;
+ptc.Status = 1; // ERROR! CANNOT MODIFY THE POD
+</pre>
+In case you wish to modify a POD, you can instead do: 
+<pre>
+Particle& ptc = ptchandle.mod();
+ptc.Status = 1; // That works :-)
+std::cout << ptc.Status << std::endl;
+</pre>
+Handles can be stored in a POD, as a reference to another POD.
+They are also used to manipulate to manipulate PODs stored in the event. 
+
+%T% if you are not allowed to modify a POD, the compiler will let you know.
+
+%T% *if your goal is just to read a POD, call read(). Only call mod() when you need to modify the POD.*
+
+The [[https://github.com/HEP-FCC/albers-core/blob/master/examples/example_edm.yaml][yaml file]] also contains "components". Components are PODs that can be used as building blocks in other PODs. For each component, the code generation script only produces the POD class, meaning that components cannot be pointed to by a Handle, and cannot be stored in a Collection. 
+
+---+++ Exercise 1: Writing a collection
+
+Modify [[https://github.com/HEP-FCC/albers-core/blob/master/examples/write.cc][write.cc]] to write a second collection in the event, containing Particles.
+
+*As usual, compile and run your code, and check the output.*
+
+Tips:
+   * Get inspiration from the code writing to the EventInfo collection. The only difference here is that you are going to store several Particles in your particle collection. Just write two particles
+   * Create handles to the particles in a similar way as for the EventInfo. Mofidy the Particle POD corresponding to the handle, setting its attributes to dummy values of your choice.
+   * To check the output, open the resulting root file, and look at the events TTree.
+
+
+---+++ Exercise 2: Modifying the EDM
+
+Modify [[https://github.com/HEP-FCC/albers-core/blob/master/examples/example_edm.yaml][example_edm.yaml]] to add a new datatype of your own.
+
+Run the code generator:
+<pre>
+python $ALBERS/../python/albers_class_generator.py  examples/example_edm.yaml datamodel datamodel
+</pre>
+
+Check that the classes for your new datatype have been created in  =datamodel/datamodel/=.
+
+Remove the =build/= directory, run !CMake again, and compile as explained in the [[https://github.com/HEP-FCC/albers-core/blob/master/README.md][README.md].
+
+Modify [[https://github.com/HEP-FCC/albers-core/blob/master/examples/write.cc][write.cc]] to write another collection in the event, containing objects of your new datatype.
+
+Compile again, run, and check the output root file with root to make sure that your objects have been written correctly. 
+
+
+---++ The FCC event data model
+
+fcc-edm is a library based on Albers, defining the FCC event data model. 
+
+---+++ Installation
+
+The code of is available on [[https://github.com/HEP-FCC/fcc-edm][HEP-FCC/fcc-edm.git]].
+
+Clone this repository in your FCC directory:
+
+<pre>
+cd $FCC
+git clone git@github.com:HEP-FCC/fcc-edm.git
+cd fcc-edm
+</pre>
+
+And follow the instructions in the [[https://github.com/HEP-FCC/fcc-edm/blob/master/README.md][README.md]]. Make sure the tests work before proceeding to the next sections. 
+
+---+++ Exercise 1
+
+The file [[https://github.com/HEP-FCC/fcc-edm/blob/master/edm_1.yaml][edm_1.yaml]] describes the whole FCC data model.
+
+Read this file, and make sure you understand all data types. In particular, you should be able to make the difference between a POD that refers to another POD (through a Handle) and a POD that contains another POD (a component).
+
+---+++ Exercise 2
+
+Can you find a missing datatype or a missing attribute in an existing POD?
+
+If that is the case:
+   * add it to the yaml file
+   * run the code generator again
+   * compile and run the tests
+   * contact Colin to discuss the change 
+
+---++ Event analysis in C++
+
+analysis-cpp is a package showing how to create analysis code based on the albers and fcc-edm libraries, so that the analysis code is able to understand the FCC event data model. 
+
+---+++ Installation
+
+The code of is available on [[https://github.com/HEP-FCC/analysis-cpp][HEP-FCC/analysis-cpp.git]].
+
+Clone this repository in your FCC directory:
+
+<pre>
+cd $FCC
+git clone git@github.com:HEP-FCC/analysis-cpp.git
+cd analysis-cpp
+</pre>
+
+And follow the instructions in the [[https://github.com/HEP-FCC/analysis-cpp/blob/master/README.md][README.md]]. Make sure the tests work before proceeding to the next sections. 
+
+
+---+++ Exercise 1
+
+Add a new histogram to the MyAnalysis class showing the event number. 
+Make sure it is filled, and display it in the macro.
+
+---+++ Exercise 2
+
+Fire up root and open the example file
+
+<pre>
+root
+TFile f("example.root")
+</pre>
+
+You should see a lot of warnings from TClass which indicate that no dictionary is present for the various EDM classes. The dictionary is necessary for root to understand the classes stored in the events tree of =example.root=.
+
+The dictionary is stored in the fcc-edm shared library, =libdatamodel.so= (libdatamodel.dylib) on Linux (on !MacOs).
+
+Quit root.
+
+Open it again, load the fcc-edm shared library, and open the file:
+
+<pre>
+root
+gSystem.Load("libdatamodel")
+TFile f("example.root")
+</pre>
+
+Note that the warnings have disappeared.
+
+ROOT is able to find this library because it is in one of the directories present in your LD_LIBRARY_PATH (DYLD_LIBRARY_PATH on !MacOs). Print this environment variable:
+
+on Linux: 
+
+<pre>
+echo $LD_LIBRARY_PATH
+</pre>
+
+on !MacOs:
+
+<pre>
+echo $DYLD_LIBRARY_PATH
+</pre>
+
+list the contents of each of the directories, e.g.:
+
+ls /Users/HEP-FCC/Code/FCC/fcc-edm/install/lib
+
+
+---++ Event analysis in python 
+
+See FccSoftwareHeppy
+
+---++ Exercises
+
+-- Main.ColinBernet - 2014-12-15
