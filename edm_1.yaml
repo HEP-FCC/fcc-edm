@@ -90,9 +90,12 @@ datatypes :
      - name: Core
        type: BareParticle
        description: "Basic particle information."
-     - name: Endvertex
-       type: Point
-       description: "Position of the decay."
+     - name: StartVertex
+       type: GenVertexHandle
+       description: "Reference to the vertex in which the particle was created."
+     - name: EndVertex
+       type: GenVertexHandle
+       description: "Reference to the vertex in which the particle disappeared."
 
   MCParticleAssociation:
     description: "Directed association between two MCParticles, for parentship."
@@ -349,6 +352,17 @@ datatypes :
      - name: Bits
        type: unsigned
        description: "Stores flags."
+
+  GenVertex:
+    description: "Generated vertex. MCParticles refer to their start and end vertex."
+    author : "C. Bernet, B. Hegner"
+    members:
+     - name: Position
+       type: Point
+       description: "Vertex position in cm"
+     - name: Ctau
+       type: float
+       description: "Not sure how it's defined."
 
   VertexTrackAssociation:
     description: "Association between a track and a vertex, with a weight"
