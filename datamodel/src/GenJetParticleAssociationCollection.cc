@@ -10,6 +10,7 @@ const GenJetParticleAssociationHandle& GenJetParticleAssociationCollection::get(
 GenJetParticleAssociationHandle& GenJetParticleAssociationCollection::create() {
   m_data->emplace_back(GenJetParticleAssociation());
   int index = m_data->size()-1;
+  // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(GenJetParticleAssociationHandle(index,m_collectionID, m_data));
   auto& tmp_handle = m_handles.back();
 

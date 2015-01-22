@@ -25,7 +25,7 @@ void TrackStateHandle::prepareAfterRead(albers::Registry* registry){
 }
 
 
-TrackStateHandle::TrackStateHandle(int index, int containerID, std::vector<TrackState>* container) :
+TrackStateHandle::TrackStateHandle(int index, unsigned containerID, std::vector<TrackState>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)

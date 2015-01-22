@@ -25,7 +25,7 @@ void CaloClusterHandle::prepareAfterRead(albers::Registry* registry){
 }
 
 
-CaloClusterHandle::CaloClusterHandle(int index, int containerID, std::vector<CaloCluster>* container) :
+CaloClusterHandle::CaloClusterHandle(int index, unsigned containerID, std::vector<CaloCluster>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)

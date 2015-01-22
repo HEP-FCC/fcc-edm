@@ -22,7 +22,19 @@ class TrackStateAssociationHandle {
 
 public:
 
-  TrackStateAssociationHandle(){};
+  TrackStateAssociationHandle() :
+  		      m_index(-1),
+		      m_containerID(0),
+		      m_container(0),
+		      m_registry(0)
+		      {}	
+
+  TrackStateAssociationHandle(const TrackStateAssociationHandle& other) :
+  		      m_index(other.m_index),
+		      m_containerID(other.m_containerID),
+		      m_container(other.m_container),
+		      m_registry(other.m_registry)
+		      {}	
 
 //TODO: Proper syntax to use, but ROOT doesn't handle it:  TrackStateAssociationHandle() = default;
 
@@ -41,6 +53,10 @@ public:
   
   void prepareAfterRead(albers::Registry*);   // use m_containerID to set m_container properly
 
+  int index() const {return m_index;}
+
+  int containerID() const {return m_containerID;}
+
   /// equality operator (true if both the index and the container ID are equal)
   bool operator==(const TrackStateAssociationHandle& other) const {
        return (m_index==other.m_index) && (other.m_containerID==other.m_containerID);
@@ -51,9 +67,9 @@ public:
 			 const TrackStateAssociationHandle& p2 );
 
 private:
-  TrackStateAssociationHandle(int index, int containerID,  std::vector<TrackStateAssociation>* container);
+  TrackStateAssociationHandle(int index, unsigned containerID,  std::vector<TrackStateAssociation>* container);
   int m_index;
-  int m_containerID;
+  unsigned m_containerID;
   mutable std::vector<TrackStateAssociation>* m_container; //! transient
   albers::Registry* m_registry; //! transient
   //  bool _retrieveData();

@@ -10,6 +10,7 @@ const VertexTrackAssociationHandle& VertexTrackAssociationCollection::get(int in
 VertexTrackAssociationHandle& VertexTrackAssociationCollection::create() {
   m_data->emplace_back(VertexTrackAssociation());
   int index = m_data->size()-1;
+  // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(VertexTrackAssociationHandle(index,m_collectionID, m_data));
   auto& tmp_handle = m_handles.back();
 

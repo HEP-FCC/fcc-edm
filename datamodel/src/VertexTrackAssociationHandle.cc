@@ -25,7 +25,7 @@ void VertexTrackAssociationHandle::prepareAfterRead(albers::Registry* registry){
 }
 
 
-VertexTrackAssociationHandle::VertexTrackAssociationHandle(int index, int containerID, std::vector<VertexTrackAssociation>* container) :
+VertexTrackAssociationHandle::VertexTrackAssociationHandle(int index, unsigned containerID, std::vector<VertexTrackAssociation>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)

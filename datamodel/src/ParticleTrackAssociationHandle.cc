@@ -25,7 +25,7 @@ void ParticleTrackAssociationHandle::prepareAfterRead(albers::Registry* registry
 }
 
 
-ParticleTrackAssociationHandle::ParticleTrackAssociationHandle(int index, int containerID, std::vector<ParticleTrackAssociation>* container) :
+ParticleTrackAssociationHandle::ParticleTrackAssociationHandle(int index, unsigned containerID, std::vector<ParticleTrackAssociation>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)

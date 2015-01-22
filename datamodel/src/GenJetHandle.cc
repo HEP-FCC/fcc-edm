@@ -25,7 +25,7 @@ void GenJetHandle::prepareAfterRead(albers::Registry* registry){
 }
 
 
-GenJetHandle::GenJetHandle(int index, int containerID, std::vector<GenJet>* container) :
+GenJetHandle::GenJetHandle(int index, unsigned containerID, std::vector<GenJet>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)

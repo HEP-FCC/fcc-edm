@@ -25,7 +25,7 @@ void MCParticleAssociationHandle::prepareAfterRead(albers::Registry* registry){
 }
 
 
-MCParticleAssociationHandle::MCParticleAssociationHandle(int index, int containerID, std::vector<MCParticleAssociation>* container) :
+MCParticleAssociationHandle::MCParticleAssociationHandle(int index, unsigned containerID, std::vector<MCParticleAssociation>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)

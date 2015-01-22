@@ -2,11 +2,12 @@
 #define MCParticleHANDLE_H
 #include "datamodel/MCParticle.h"
 #include "datamodel/BareParticle.h"
-#include "datamodel/Point.h"
+#include "datamodel/GenVertexHandle.h"
+#include "datamodel/GenVertexHandle.h"
 
 #include <vector>
 
-// Position of the decay.
+// Reference to the vertex in which the particle disappeared.
 // author: C. Bernet, B. Hegner
 
 //forward declaration of MCParticle container
@@ -22,7 +23,19 @@ class MCParticleHandle {
 
 public:
 
-  MCParticleHandle(){};
+  MCParticleHandle() :
+  		      m_index(-1),
+		      m_containerID(0),
+		      m_container(0),
+		      m_registry(0)
+		      {}	
+
+  MCParticleHandle(const MCParticleHandle& other) :
+  		      m_index(other.m_index),
+		      m_containerID(other.m_containerID),
+		      m_container(other.m_container),
+		      m_registry(other.m_registry)
+		      {}	
 
 //TODO: Proper syntax to use, but ROOT doesn't handle it:  MCParticleHandle() = default;
 
@@ -41,6 +54,10 @@ public:
   
   void prepareAfterRead(albers::Registry*);   // use m_containerID to set m_container properly
 
+  int index() const {return m_index;}
+
+  int containerID() const {return m_containerID;}
+
   /// equality operator (true if both the index and the container ID are equal)
   bool operator==(const MCParticleHandle& other) const {
        return (m_index==other.m_index) && (other.m_containerID==other.m_containerID);
@@ -51,9 +68,9 @@ public:
 			 const MCParticleHandle& p2 );
 
 private:
-  MCParticleHandle(int index, int containerID,  std::vector<MCParticle>* container);
+  MCParticleHandle(int index, unsigned containerID,  std::vector<MCParticle>* container);
   int m_index;
-  int m_containerID;
+  unsigned m_containerID;
   mutable std::vector<MCParticle>* m_container; //! transient
   albers::Registry* m_registry; //! transient
   //  bool _retrieveData();

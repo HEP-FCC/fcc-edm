@@ -25,7 +25,7 @@ void SimCaloClusterHandle::prepareAfterRead(albers::Registry* registry){
 }
 
 
-SimCaloClusterHandle::SimCaloClusterHandle(int index, int containerID, std::vector<SimCaloCluster>* container) :
+SimCaloClusterHandle::SimCaloClusterHandle(int index, unsigned containerID, std::vector<SimCaloCluster>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)

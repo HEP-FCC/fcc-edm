@@ -25,7 +25,7 @@ void MCParticleHandle::prepareAfterRead(albers::Registry* registry){
 }
 
 
-MCParticleHandle::MCParticleHandle(int index, int containerID, std::vector<MCParticle>* container) :
+MCParticleHandle::MCParticleHandle(int index, unsigned containerID, std::vector<MCParticle>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)

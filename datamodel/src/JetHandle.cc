@@ -25,7 +25,7 @@ void JetHandle::prepareAfterRead(albers::Registry* registry){
 }
 
 
-JetHandle::JetHandle(int index, int containerID, std::vector<Jet>* container) :
+JetHandle::JetHandle(int index, unsigned containerID, std::vector<Jet>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)

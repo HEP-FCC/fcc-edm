@@ -10,6 +10,7 @@ const TrackClusterHitsAssociationHandle& TrackClusterHitsAssociationCollection::
 TrackClusterHitsAssociationHandle& TrackClusterHitsAssociationCollection::create() {
   m_data->emplace_back(TrackClusterHitsAssociation());
   int index = m_data->size()-1;
+  // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(TrackClusterHitsAssociationHandle(index,m_collectionID, m_data));
   auto& tmp_handle = m_handles.back();
 

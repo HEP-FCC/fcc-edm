@@ -21,7 +21,19 @@ class CaloHitHandle {
 
 public:
 
-  CaloHitHandle(){};
+  CaloHitHandle() :
+  		      m_index(-1),
+		      m_containerID(0),
+		      m_container(0),
+		      m_registry(0)
+		      {}	
+
+  CaloHitHandle(const CaloHitHandle& other) :
+  		      m_index(other.m_index),
+		      m_containerID(other.m_containerID),
+		      m_container(other.m_container),
+		      m_registry(other.m_registry)
+		      {}	
 
 //TODO: Proper syntax to use, but ROOT doesn't handle it:  CaloHitHandle() = default;
 
@@ -40,6 +52,10 @@ public:
   
   void prepareAfterRead(albers::Registry*);   // use m_containerID to set m_container properly
 
+  int index() const {return m_index;}
+
+  int containerID() const {return m_containerID;}
+
   /// equality operator (true if both the index and the container ID are equal)
   bool operator==(const CaloHitHandle& other) const {
        return (m_index==other.m_index) && (other.m_containerID==other.m_containerID);
@@ -50,9 +66,9 @@ public:
 			 const CaloHitHandle& p2 );
 
 private:
-  CaloHitHandle(int index, int containerID,  std::vector<CaloHit>* container);
+  CaloHitHandle(int index, unsigned containerID,  std::vector<CaloHit>* container);
   int m_index;
-  int m_containerID;
+  unsigned m_containerID;
   mutable std::vector<CaloHit>* m_container; //! transient
   albers::Registry* m_registry; //! transient
   //  bool _retrieveData();

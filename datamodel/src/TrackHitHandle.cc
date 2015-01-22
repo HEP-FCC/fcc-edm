@@ -25,7 +25,7 @@ void TrackHitHandle::prepareAfterRead(albers::Registry* registry){
 }
 
 
-TrackHitHandle::TrackHitHandle(int index, int containerID, std::vector<TrackHit>* container) :
+TrackHitHandle::TrackHitHandle(int index, unsigned containerID, std::vector<TrackHit>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)

@@ -25,7 +25,7 @@ void ParticleClusterAssociationHandle::prepareAfterRead(albers::Registry* regist
 }
 
 
-ParticleClusterAssociationHandle::ParticleClusterAssociationHandle(int index, int containerID, std::vector<ParticleClusterAssociation>* container) :
+ParticleClusterAssociationHandle::ParticleClusterAssociationHandle(int index, unsigned containerID, std::vector<ParticleClusterAssociation>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)

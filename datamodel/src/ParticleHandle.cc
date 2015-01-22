@@ -25,7 +25,7 @@ void ParticleHandle::prepareAfterRead(albers::Registry* registry){
 }
 
 
-ParticleHandle::ParticleHandle(int index, int containerID, std::vector<Particle>* container) :
+ParticleHandle::ParticleHandle(int index, unsigned containerID, std::vector<Particle>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)

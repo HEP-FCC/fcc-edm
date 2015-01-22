@@ -10,6 +10,7 @@ const ParticleMCAssociationHandle& ParticleMCAssociationCollection::get(int inde
 ParticleMCAssociationHandle& ParticleMCAssociationCollection::create() {
   m_data->emplace_back(ParticleMCAssociation());
   int index = m_data->size()-1;
+  // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(ParticleMCAssociationHandle(index,m_collectionID, m_data));
   auto& tmp_handle = m_handles.back();
 

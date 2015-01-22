@@ -80,10 +80,10 @@
 #pragma link C++ class std::vector<EventInfo>+;
 #pragma link C++ class EventInfoHandle+;
 #pragma link C++ class EventInfoCollection+;
-#pragma link C++ class TrackHit+;
-#pragma link C++ class std::vector<TrackHit>+;
-#pragma link C++ class TrackHitHandle+;
-#pragma link C++ class TrackHitCollection+;
+#pragma link C++ class GenVertex+;
+#pragma link C++ class std::vector<GenVertex>+;
+#pragma link C++ class GenVertexHandle+;
+#pragma link C++ class GenVertexCollection+;
 #pragma link C++ class GenJetParticleAssociation+;
 #pragma link C++ class std::vector<GenJetParticleAssociation>+;
 #pragma link C++ class GenJetParticleAssociationHandle+;
@@ -128,6 +128,10 @@
 #pragma link C++ class std::vector<SimCaloHitMCParticleAssociation>+;
 #pragma link C++ class SimCaloHitMCParticleAssociationHandle+;
 #pragma link C++ class SimCaloHitMCParticleAssociationCollection+;
+#pragma link C++ class TrackHit+;
+#pragma link C++ class std::vector<TrackHit>+;
+#pragma link C++ class TrackHitHandle+;
+#pragma link C++ class TrackHitCollection+;
 #pragma link C++ class TrackStateAssociation+;
 #pragma link C++ class std::vector<TrackStateAssociation>+;
 #pragma link C++ class TrackStateAssociationHandle+;
@@ -137,10 +141,5 @@
 #pragma link C++ class ParticleClusterAssociationHandle+;
 #pragma link C++ class ParticleClusterAssociationCollection+;
 
-
-// #pragma link C++ class albers::CollectionBase+;
-// #pragma link C++ class albers::Registry+;
-
-// #pragma link C++ class PyEventStore+;
 
 #endif

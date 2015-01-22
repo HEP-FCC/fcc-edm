@@ -25,7 +25,7 @@ void SimCaloClusterHitAssociationHandle::prepareAfterRead(albers::Registry* regi
 }
 
 
-SimCaloClusterHitAssociationHandle::SimCaloClusterHitAssociationHandle(int index, int containerID, std::vector<SimCaloClusterHitAssociation>* container) :
+SimCaloClusterHitAssociationHandle::SimCaloClusterHitAssociationHandle(int index, unsigned containerID, std::vector<SimCaloClusterHitAssociation>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)

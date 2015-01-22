@@ -10,6 +10,7 @@ const SimCaloClusterHandle& SimCaloClusterCollection::get(int index) const{
 SimCaloClusterHandle& SimCaloClusterCollection::create() {
   m_data->emplace_back(SimCaloCluster());
   int index = m_data->size()-1;
+  // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(SimCaloClusterHandle(index,m_collectionID, m_data));
   auto& tmp_handle = m_handles.back();
 

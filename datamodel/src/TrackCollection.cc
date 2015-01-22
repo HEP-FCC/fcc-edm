@@ -10,6 +10,7 @@ const TrackHandle& TrackCollection::get(int index) const{
 TrackHandle& TrackCollection::create() {
   m_data->emplace_back(Track());
   int index = m_data->size()-1;
+  // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(TrackHandle(index,m_collectionID, m_data));
   auto& tmp_handle = m_handles.back();
 

@@ -10,6 +10,7 @@ const VertexHandle& VertexCollection::get(int index) const{
 VertexHandle& VertexCollection::create() {
   m_data->emplace_back(Vertex());
   int index = m_data->size()-1;
+  // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(VertexHandle(index,m_collectionID, m_data));
   auto& tmp_handle = m_handles.back();
 

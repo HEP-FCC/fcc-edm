@@ -25,7 +25,7 @@ void SimCaloHitMCParticleAssociationHandle::prepareAfterRead(albers::Registry* r
 }
 
 
-SimCaloHitMCParticleAssociationHandle::SimCaloHitMCParticleAssociationHandle(int index, int containerID, std::vector<SimCaloHitMCParticleAssociation>* container) :
+SimCaloHitMCParticleAssociationHandle::SimCaloHitMCParticleAssociationHandle(int index, unsigned containerID, std::vector<SimCaloHitMCParticleAssociation>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)

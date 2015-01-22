@@ -10,6 +10,7 @@ const ParticleTrackAssociationHandle& ParticleTrackAssociationCollection::get(in
 ParticleTrackAssociationHandle& ParticleTrackAssociationCollection::create() {
   m_data->emplace_back(ParticleTrackAssociation());
   int index = m_data->size()-1;
+  // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(ParticleTrackAssociationHandle(index,m_collectionID, m_data));
   auto& tmp_handle = m_handles.back();
 

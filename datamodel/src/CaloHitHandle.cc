@@ -25,7 +25,7 @@ void CaloHitHandle::prepareAfterRead(albers::Registry* registry){
 }
 
 
-CaloHitHandle::CaloHitHandle(int index, int containerID, std::vector<CaloHit>* container) :
+CaloHitHandle::CaloHitHandle(int index, unsigned containerID, std::vector<CaloHit>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)

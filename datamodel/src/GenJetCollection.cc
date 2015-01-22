@@ -10,6 +10,7 @@ const GenJetHandle& GenJetCollection::get(int index) const{
 GenJetHandle& GenJetCollection::create() {
   m_data->emplace_back(GenJet());
   int index = m_data->size()-1;
+  // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(GenJetHandle(index,m_collectionID, m_data));
   auto& tmp_handle = m_handles.back();
 

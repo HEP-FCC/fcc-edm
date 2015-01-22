@@ -10,6 +10,7 @@ const MissingEnergyHandle& MissingEnergyCollection::get(int index) const{
 MissingEnergyHandle& MissingEnergyCollection::create() {
   m_data->emplace_back(MissingEnergy());
   int index = m_data->size()-1;
+  // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(MissingEnergyHandle(index,m_collectionID, m_data));
   auto& tmp_handle = m_handles.back();
 

@@ -25,7 +25,7 @@ void GenJetParticleAssociationHandle::prepareAfterRead(albers::Registry* registr
 }
 
 
-GenJetParticleAssociationHandle::GenJetParticleAssociationHandle(int index, int containerID, std::vector<GenJetParticleAssociation>* container) :
+GenJetParticleAssociationHandle::GenJetParticleAssociationHandle(int index, unsigned containerID, std::vector<GenJetParticleAssociation>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)

@@ -10,6 +10,7 @@ const SimCaloHitHandle& SimCaloHitCollection::get(int index) const{
 SimCaloHitHandle& SimCaloHitCollection::create() {
   m_data->emplace_back(SimCaloHit());
   int index = m_data->size()-1;
+  // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(SimCaloHitHandle(index,m_collectionID, m_data));
   auto& tmp_handle = m_handles.back();
 

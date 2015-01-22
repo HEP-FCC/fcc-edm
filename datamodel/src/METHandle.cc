@@ -25,7 +25,7 @@ void METHandle::prepareAfterRead(albers::Registry* registry){
 }
 
 
-METHandle::METHandle(int index, int containerID, std::vector<MET>* container) :
+METHandle::METHandle(int index, unsigned containerID, std::vector<MET>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)

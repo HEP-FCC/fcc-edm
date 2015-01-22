@@ -25,7 +25,7 @@ void VertexHandle::prepareAfterRead(albers::Registry* registry){
 }
 
 
-VertexHandle::VertexHandle(int index, int containerID, std::vector<Vertex>* container) :
+VertexHandle::VertexHandle(int index, unsigned containerID, std::vector<Vertex>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)

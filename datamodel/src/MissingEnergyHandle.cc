@@ -25,7 +25,7 @@ void MissingEnergyHandle::prepareAfterRead(albers::Registry* registry){
 }
 
 
-MissingEnergyHandle::MissingEnergyHandle(int index, int containerID, std::vector<MissingEnergy>* container) :
+MissingEnergyHandle::MissingEnergyHandle(int index, unsigned containerID, std::vector<MissingEnergy>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)

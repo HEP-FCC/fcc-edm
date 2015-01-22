@@ -25,7 +25,7 @@ void TrackClusterHitsAssociationHandle::prepareAfterRead(albers::Registry* regis
 }
 
 
-TrackClusterHitsAssociationHandle::TrackClusterHitsAssociationHandle(int index, int containerID, std::vector<TrackClusterHitsAssociation>* container) :
+TrackClusterHitsAssociationHandle::TrackClusterHitsAssociationHandle(int index, unsigned containerID, std::vector<TrackClusterHitsAssociation>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)

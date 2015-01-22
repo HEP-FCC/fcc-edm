@@ -25,7 +25,7 @@ void TrackClusterHandle::prepareAfterRead(albers::Registry* registry){
 }
 
 
-TrackClusterHandle::TrackClusterHandle(int index, int containerID, std::vector<TrackCluster>* container) :
+TrackClusterHandle::TrackClusterHandle(int index, unsigned containerID, std::vector<TrackCluster>* container) :
   m_index(index),
   m_containerID(containerID),
   m_container(container)
