@@ -83,7 +83,7 @@ void DummyGenerator::generate_jet(float energy, const TVector3& direction) {
       if(not result.first)
 	continue;
       else {
-	ParticleHandle& ptc = *(result.second);
+	ParticleHandle& ptc = result.second;
 	p4star += utils::lvFromPOD( ptc.read().Core.P4 );
 	JetParticleAssociationHandle assoc = acoll->create();
 	assoc.mod().Jet = jet;
@@ -97,7 +97,7 @@ void DummyGenerator::generate_jet(float energy, const TVector3& direction) {
   // last particle is created to allow vector momentum conservation in jet com frame
   TLorentzVector opposite(-p4star.Vect(), p4star.E());
   auto result = generate_particle(&opposite);
-  ParticleHandle& ptc = *(result.second);
+  ParticleHandle& ptc = result.second;
   TLorentzVector final = utils::lvFromPOD( ptc.read().Core.P4 );
   p4star += final;
   JetParticleAssociationHandle assoc = acoll->create();
@@ -131,7 +131,7 @@ void DummyGenerator::generate_jet(float energy, const TVector3& direction) {
   // jet.setCore( core );
 }
 
-std::pair<bool, ParticleHandle*> DummyGenerator::generate_particle(const TLorentzVector* lv, int itype) {
+std::pair<bool, ParticleHandle> DummyGenerator::generate_particle(const TLorentzVector* lv, int itype) {
 
   // particle type and mass
   if (itype == -1) {
@@ -160,7 +160,7 @@ std::pair<bool, ParticleHandle*> DummyGenerator::generate_particle(const TLorent
     float thetastar = m_theta(m_engine);
     float etastar = -log ( tan(thetastar/2.) );
     if(fabs(etastar)>5.)
-      return std::make_pair<bool, ParticleHandle*>(false, nullptr);
+      return std::pair<bool, ParticleHandle>(false, ParticleHandle());
     float ptstar = -1;
     while(ptstar<0.1 || ptstar>1) { // truncated gaussian to avoid numerical issues
       ptstar = m_pstar(m_engine);
@@ -196,5 +196,5 @@ std::pair<bool, ParticleHandle*> DummyGenerator::generate_particle(const TLorent
     std::cout<<"\tparticle "<<ptc.read().Core.Type<<" "<<lv.Eta()<<" "<<lv.Phi()<<" "<<lv.Pt()<<" "<<lv.E()<<std::endl;
   }
 
-  return std::make_pair<bool, ParticleHandle*>(true, &ptc);
+  return std::pair<bool, ParticleHandle>(true, ptc);
 }
