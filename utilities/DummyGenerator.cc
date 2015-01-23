@@ -160,7 +160,7 @@ std::pair<bool, ParticleHandle> DummyGenerator::generate_particle(const TLorentz
     float thetastar = m_theta(m_engine);
     float etastar = -log ( tan(thetastar/2.) );
     if(fabs(etastar)>5.)
-      return std::make_pair<bool, ParticleHandle>(false, ParticleHandle());
+      return std::pair<bool, ParticleHandle>(false, ParticleHandle());
     float ptstar = -1;
     while(ptstar<0.1 || ptstar>1) { // truncated gaussian to avoid numerical issues
       ptstar = m_pstar(m_engine);
@@ -196,5 +196,5 @@ std::pair<bool, ParticleHandle> DummyGenerator::generate_particle(const TLorentz
     std::cout<<"\tparticle "<<ptc.read().Core.Type<<" "<<lv.Eta()<<" "<<lv.Phi()<<" "<<lv.Pt()<<" "<<lv.E()<<std::endl;
   }
 
-  return std::make_pair<bool, ParticleHandle>(true, ParticleHandle(ptc));
+  return std::pair<bool, ParticleHandle>(true, ptc);
 }
