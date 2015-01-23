@@ -7,23 +7,21 @@ const GenVertexHandle& GenVertexCollection::get(int index) const{
   return m_handles[index];
 }
 
-GenVertexHandle& GenVertexCollection::create() {
+GenVertexHandle GenVertexCollection::create() {
   m_data->emplace_back(GenVertex());
   int index = m_data->size()-1;
   // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(GenVertexHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }
 
-GenVertexHandle& GenVertexCollection::insert(const GenVertexHandle& origin) {
+GenVertexHandle GenVertexCollection::insert(const GenVertexHandle& origin) {
   m_data->emplace_back(origin.read());
   int index = m_data->size()-1;
   m_handles.emplace_back(GenVertexHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }  
 
 void GenVertexCollection::clear(){

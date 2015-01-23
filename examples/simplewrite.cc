@@ -56,10 +56,10 @@ int main(){
       std::cerr<<"collection EventInfo does not exist!"<<std::endl;
       return 1;
     }
-    EventInfoHandle& evinfo = evinfocoll->create();
+    EventInfoHandle evinfo = evinfocoll->create();
     evinfo.mod().Number = iev;
 
-    MCParticleHandle& ptc = pcoll.create();
+    MCParticleHandle ptc = pcoll.create();
     ptc.mod().Core.Type = 25;
     auto& p4 = ptc.mod().Core.P4;
     p4.Pt = static_cast<float>(iev);

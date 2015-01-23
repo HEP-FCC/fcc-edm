@@ -55,11 +55,11 @@ public:
   void clear();
 
   /// Append a new object to the collection, and return a Handle to this object.
-  ParticleClusterAssociationHandle& create();
+  ParticleClusterAssociationHandle create();
 
   /// Insert an existing handle into the collection. 
   /// In this operation, the data pointed by the handle is copied.
-  ParticleClusterAssociationHandle& insert(const ParticleClusterAssociationHandle& origin);  
+  ParticleClusterAssociationHandle insert(const ParticleClusterAssociationHandle& origin);  
   
   /// Returns a Handle to the object at position index in the collection
   const ParticleClusterAssociationHandle& get(int index) const;

@@ -55,11 +55,11 @@ public:
   void clear();
 
   /// Append a new object to the collection, and return a Handle to this object.
-  EventInfoHandle& create();
+  EventInfoHandle create();
 
   /// Insert an existing handle into the collection. 
   /// In this operation, the data pointed by the handle is copied.
-  EventInfoHandle& insert(const EventInfoHandle& origin);  
+  EventInfoHandle insert(const EventInfoHandle& origin);  
   
   /// Returns a Handle to the object at position index in the collection
   const EventInfoHandle& get(int index) const;

@@ -7,23 +7,21 @@ const GenJetHandle& GenJetCollection::get(int index) const{
   return m_handles[index];
 }
 
-GenJetHandle& GenJetCollection::create() {
+GenJetHandle GenJetCollection::create() {
   m_data->emplace_back(GenJet());
   int index = m_data->size()-1;
   // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(GenJetHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }
 
-GenJetHandle& GenJetCollection::insert(const GenJetHandle& origin) {
+GenJetHandle GenJetCollection::insert(const GenJetHandle& origin) {
   m_data->emplace_back(origin.read());
   int index = m_data->size()-1;
   m_handles.emplace_back(GenJetHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }  
 
 void GenJetCollection::clear(){

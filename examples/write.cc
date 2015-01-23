@@ -42,7 +42,7 @@ void processEvent(unsigned iEvent, albers::EventStore& store, albers::Writer& wr
     std::cerr<<"collection EventInfo does not exist!"<<std::endl;
     return;
   }
-  EventInfoHandle& evinfo = evinfocoll->create();
+  EventInfoHandle evinfo = evinfocoll->create();
   evinfo.mod().Number = iEvent;
 
   // and now for the writing

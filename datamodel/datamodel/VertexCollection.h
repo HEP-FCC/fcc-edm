@@ -55,11 +55,11 @@ public:
   void clear();
 
   /// Append a new object to the collection, and return a Handle to this object.
-  VertexHandle& create();
+  VertexHandle create();
 
   /// Insert an existing handle into the collection. 
   /// In this operation, the data pointed by the handle is copied.
-  VertexHandle& insert(const VertexHandle& origin);  
+  VertexHandle insert(const VertexHandle& origin);  
   
   /// Returns a Handle to the object at position index in the collection
   const VertexHandle& get(int index) const;

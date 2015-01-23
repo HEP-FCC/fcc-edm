@@ -7,23 +7,21 @@ const SimCaloHitMCParticleAssociationHandle& SimCaloHitMCParticleAssociationColl
   return m_handles[index];
 }
 
-SimCaloHitMCParticleAssociationHandle& SimCaloHitMCParticleAssociationCollection::create() {
+SimCaloHitMCParticleAssociationHandle SimCaloHitMCParticleAssociationCollection::create() {
   m_data->emplace_back(SimCaloHitMCParticleAssociation());
   int index = m_data->size()-1;
   // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(SimCaloHitMCParticleAssociationHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }
 
-SimCaloHitMCParticleAssociationHandle& SimCaloHitMCParticleAssociationCollection::insert(const SimCaloHitMCParticleAssociationHandle& origin) {
+SimCaloHitMCParticleAssociationHandle SimCaloHitMCParticleAssociationCollection::insert(const SimCaloHitMCParticleAssociationHandle& origin) {
   m_data->emplace_back(origin.read());
   int index = m_data->size()-1;
   m_handles.emplace_back(SimCaloHitMCParticleAssociationHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }  
 
 void SimCaloHitMCParticleAssociationCollection::clear(){

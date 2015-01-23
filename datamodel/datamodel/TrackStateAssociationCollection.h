@@ -55,11 +55,11 @@ public:
   void clear();
 
   /// Append a new object to the collection, and return a Handle to this object.
-  TrackStateAssociationHandle& create();
+  TrackStateAssociationHandle create();
 
   /// Insert an existing handle into the collection. 
   /// In this operation, the data pointed by the handle is copied.
-  TrackStateAssociationHandle& insert(const TrackStateAssociationHandle& origin);  
+  TrackStateAssociationHandle insert(const TrackStateAssociationHandle& origin);  
   
   /// Returns a Handle to the object at position index in the collection
   const TrackStateAssociationHandle& get(int index) const;

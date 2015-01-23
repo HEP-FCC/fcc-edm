@@ -55,11 +55,11 @@ public:
   void clear();
 
   /// Append a new object to the collection, and return a Handle to this object.
-  GenJetHandle& create();
+  GenJetHandle create();
 
   /// Insert an existing handle into the collection. 
   /// In this operation, the data pointed by the handle is copied.
-  GenJetHandle& insert(const GenJetHandle& origin);  
+  GenJetHandle insert(const GenJetHandle& origin);  
   
   /// Returns a Handle to the object at position index in the collection
   const GenJetHandle& get(int index) const;

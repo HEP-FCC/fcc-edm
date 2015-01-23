@@ -7,23 +7,21 @@ const MCParticleHandle& MCParticleCollection::get(int index) const{
   return m_handles[index];
 }
 
-MCParticleHandle& MCParticleCollection::create() {
+MCParticleHandle MCParticleCollection::create() {
   m_data->emplace_back(MCParticle());
   int index = m_data->size()-1;
   // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(MCParticleHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }
 
-MCParticleHandle& MCParticleCollection::insert(const MCParticleHandle& origin) {
+MCParticleHandle MCParticleCollection::insert(const MCParticleHandle& origin) {
   m_data->emplace_back(origin.read());
   int index = m_data->size()-1;
   m_handles.emplace_back(MCParticleHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }  
 
 void MCParticleCollection::clear(){

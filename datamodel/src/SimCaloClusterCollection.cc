@@ -7,23 +7,21 @@ const SimCaloClusterHandle& SimCaloClusterCollection::get(int index) const{
   return m_handles[index];
 }
 
-SimCaloClusterHandle& SimCaloClusterCollection::create() {
+SimCaloClusterHandle SimCaloClusterCollection::create() {
   m_data->emplace_back(SimCaloCluster());
   int index = m_data->size()-1;
   // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(SimCaloClusterHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }
 
-SimCaloClusterHandle& SimCaloClusterCollection::insert(const SimCaloClusterHandle& origin) {
+SimCaloClusterHandle SimCaloClusterCollection::insert(const SimCaloClusterHandle& origin) {
   m_data->emplace_back(origin.read());
   int index = m_data->size()-1;
   m_handles.emplace_back(SimCaloClusterHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }  
 
 void SimCaloClusterCollection::clear(){

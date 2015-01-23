@@ -68,7 +68,7 @@ void DummyGenerator::generate_jet(float energy, const TVector3& direction) {
 
   JetCollection* jcoll = nullptr;
   m_store.get("GenJet", jcoll);
-  JetHandle& jet = jcoll->create();
+  JetHandle jet = jcoll->create();
   JetParticleAssociationCollection* acoll = nullptr;
   m_store.get("GenJetParticle", acoll);
   TLorentzVector p4star;
@@ -85,7 +85,7 @@ void DummyGenerator::generate_jet(float energy, const TVector3& direction) {
       else {
 	ParticleHandle& ptc = *(result.second);
 	p4star += utils::lvFromPOD( ptc.read().Core.P4 );
-	JetParticleAssociationHandle& assoc = acoll->create();
+	JetParticleAssociationHandle assoc = acoll->create();
 	assoc.mod().Jet = jet;
 	assoc.mod().Particle = ptc;
 	particles.push_back(ptc);
@@ -100,7 +100,7 @@ void DummyGenerator::generate_jet(float energy, const TVector3& direction) {
   ParticleHandle& ptc = *(result.second);
   TLorentzVector final = utils::lvFromPOD( ptc.read().Core.P4 );
   p4star += final;
-  JetParticleAssociationHandle& assoc = acoll->create();
+  JetParticleAssociationHandle assoc = acoll->create();
   assoc.mod().Jet = jet;
   assoc.mod().Particle = ptc;
   particles.push_back(ptc);
@@ -185,7 +185,7 @@ std::pair<bool, ParticleHandle*> DummyGenerator::generate_particle(const TLorent
 
   ParticleCollection* pcoll = nullptr;
   m_store.get("GenParticle", pcoll);
-  ParticleHandle& ptc = pcoll->create();
+  ParticleHandle ptc = pcoll->create();
   // BareParticle core = ptc.Core();
   ptc.mod().Core.Type = id; 
   ptc.mod().Core.P4 = lvpod;

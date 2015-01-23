@@ -7,23 +7,21 @@ const ParticleTrackAssociationHandle& ParticleTrackAssociationCollection::get(in
   return m_handles[index];
 }
 
-ParticleTrackAssociationHandle& ParticleTrackAssociationCollection::create() {
+ParticleTrackAssociationHandle ParticleTrackAssociationCollection::create() {
   m_data->emplace_back(ParticleTrackAssociation());
   int index = m_data->size()-1;
   // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(ParticleTrackAssociationHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }
 
-ParticleTrackAssociationHandle& ParticleTrackAssociationCollection::insert(const ParticleTrackAssociationHandle& origin) {
+ParticleTrackAssociationHandle ParticleTrackAssociationCollection::insert(const ParticleTrackAssociationHandle& origin) {
   m_data->emplace_back(origin.read());
   int index = m_data->size()-1;
   m_handles.emplace_back(ParticleTrackAssociationHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }  
 
 void ParticleTrackAssociationCollection::clear(){

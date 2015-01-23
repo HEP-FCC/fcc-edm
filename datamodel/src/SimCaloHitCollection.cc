@@ -7,23 +7,21 @@ const SimCaloHitHandle& SimCaloHitCollection::get(int index) const{
   return m_handles[index];
 }
 
-SimCaloHitHandle& SimCaloHitCollection::create() {
+SimCaloHitHandle SimCaloHitCollection::create() {
   m_data->emplace_back(SimCaloHit());
   int index = m_data->size()-1;
   // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(SimCaloHitHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }
 
-SimCaloHitHandle& SimCaloHitCollection::insert(const SimCaloHitHandle& origin) {
+SimCaloHitHandle SimCaloHitCollection::insert(const SimCaloHitHandle& origin) {
   m_data->emplace_back(origin.read());
   int index = m_data->size()-1;
   m_handles.emplace_back(SimCaloHitHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }  
 
 void SimCaloHitCollection::clear(){

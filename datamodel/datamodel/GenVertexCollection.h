@@ -55,11 +55,11 @@ public:
   void clear();
 
   /// Append a new object to the collection, and return a Handle to this object.
-  GenVertexHandle& create();
+  GenVertexHandle create();
 
   /// Insert an existing handle into the collection. 
   /// In this operation, the data pointed by the handle is copied.
-  GenVertexHandle& insert(const GenVertexHandle& origin);  
+  GenVertexHandle insert(const GenVertexHandle& origin);  
   
   /// Returns a Handle to the object at position index in the collection
   const GenVertexHandle& get(int index) const;

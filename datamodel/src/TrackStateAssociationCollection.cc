@@ -7,23 +7,21 @@ const TrackStateAssociationHandle& TrackStateAssociationCollection::get(int inde
   return m_handles[index];
 }
 
-TrackStateAssociationHandle& TrackStateAssociationCollection::create() {
+TrackStateAssociationHandle TrackStateAssociationCollection::create() {
   m_data->emplace_back(TrackStateAssociation());
   int index = m_data->size()-1;
   // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(TrackStateAssociationHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }
 
-TrackStateAssociationHandle& TrackStateAssociationCollection::insert(const TrackStateAssociationHandle& origin) {
+TrackStateAssociationHandle TrackStateAssociationCollection::insert(const TrackStateAssociationHandle& origin) {
   m_data->emplace_back(origin.read());
   int index = m_data->size()-1;
   m_handles.emplace_back(TrackStateAssociationHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }  
 
 void TrackStateAssociationCollection::clear(){

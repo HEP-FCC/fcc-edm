@@ -7,23 +7,21 @@ const VertexHandle& VertexCollection::get(int index) const{
   return m_handles[index];
 }
 
-VertexHandle& VertexCollection::create() {
+VertexHandle VertexCollection::create() {
   m_data->emplace_back(Vertex());
   int index = m_data->size()-1;
   // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(VertexHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }
 
-VertexHandle& VertexCollection::insert(const VertexHandle& origin) {
+VertexHandle VertexCollection::insert(const VertexHandle& origin) {
   m_data->emplace_back(origin.read());
   int index = m_data->size()-1;
   m_handles.emplace_back(VertexHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }  
 
 void VertexCollection::clear(){

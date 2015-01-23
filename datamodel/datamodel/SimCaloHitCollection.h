@@ -55,11 +55,11 @@ public:
   void clear();
 
   /// Append a new object to the collection, and return a Handle to this object.
-  SimCaloHitHandle& create();
+  SimCaloHitHandle create();
 
   /// Insert an existing handle into the collection. 
   /// In this operation, the data pointed by the handle is copied.
-  SimCaloHitHandle& insert(const SimCaloHitHandle& origin);  
+  SimCaloHitHandle insert(const SimCaloHitHandle& origin);  
   
   /// Returns a Handle to the object at position index in the collection
   const SimCaloHitHandle& get(int index) const;

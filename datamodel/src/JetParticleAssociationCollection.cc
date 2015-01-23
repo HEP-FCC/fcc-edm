@@ -7,23 +7,21 @@ const JetParticleAssociationHandle& JetParticleAssociationCollection::get(int in
   return m_handles[index];
 }
 
-JetParticleAssociationHandle& JetParticleAssociationCollection::create() {
+JetParticleAssociationHandle JetParticleAssociationCollection::create() {
   m_data->emplace_back(JetParticleAssociation());
   int index = m_data->size()-1;
   // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(JetParticleAssociationHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }
 
-JetParticleAssociationHandle& JetParticleAssociationCollection::insert(const JetParticleAssociationHandle& origin) {
+JetParticleAssociationHandle JetParticleAssociationCollection::insert(const JetParticleAssociationHandle& origin) {
   m_data->emplace_back(origin.read());
   int index = m_data->size()-1;
   m_handles.emplace_back(JetParticleAssociationHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }  
 
 void JetParticleAssociationCollection::clear(){

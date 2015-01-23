@@ -7,23 +7,21 @@ const TrackHitHandle& TrackHitCollection::get(int index) const{
   return m_handles[index];
 }
 
-TrackHitHandle& TrackHitCollection::create() {
+TrackHitHandle TrackHitCollection::create() {
   m_data->emplace_back(TrackHit());
   int index = m_data->size()-1;
   // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
   m_handles.emplace_back(TrackHitHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }
 
-TrackHitHandle& TrackHitCollection::insert(const TrackHitHandle& origin) {
+TrackHitHandle TrackHitCollection::insert(const TrackHitHandle& origin) {
   m_data->emplace_back(origin.read());
   int index = m_data->size()-1;
   m_handles.emplace_back(TrackHitHandle(index,m_collectionID, m_data));
-  auto& tmp_handle = m_handles.back();
 
-  return tmp_handle;
+  return m_handles.back();
 }  
 
 void TrackHitCollection::clear(){
