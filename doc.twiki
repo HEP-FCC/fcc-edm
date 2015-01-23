@@ -209,11 +209,166 @@ list the contents of each of the directories, e.g.:
 
 ls /Users/HEP-FCC/Code/FCC/fcc-edm/install/lib
 
-
 ---++ Event analysis in python 
 
 See FccSoftwareHeppy
 
----++ Exercises
+---++ Standalone applications based on the FCC EDM
+
+The FCC Event Data Model can easily be used in standalone applications. 
+For example, one could generate events with pythia and write the particles in the FCC EDM format, 
+so that these particles can be analyzed transparently later on using analysis-cpp or heppy. 
+That is precisely the subject of the exercise below. 
+
+---+++ Exercise 1: Set up a standalone pythia8 + FCC EDM application. 
+
+This exercise is not for the faint of heart :-).
+
+---++++ Step 1: Set up the new package. 
+
+Copy analysis-cpp and name it differently, e.g. pythiafcc. In the package, grep for all occurences of analysis-cpp or analysiscpp and replace by pythiafcc. 
+To do the replacement in one command, you could use a combination of the find and sed commands like, on Mac OS:
+
+<pre>
+find . -type f | grep -v /.git/ | xargs sed -i '' 's/analysiscpp/pythiafcc/g'
+</pre>
+
+*Note that the command is different on linux, google for more information.*
+
+Remove the contents of the =build/= directory, run cmake, compile, and check that all tests are running.
+
+Copy =example/read.cc= into =example/generate.cc=.
+Modify all CMakeLists so that you create an executable called pythiafcc-generate out of this file.
+
+Remove the contents of the =build/= directory, run cmake, compile, and run the new executable.
+
+---++++ Step 2: Plug pythia 
+
+Our application will use pythia8.
+
+First, install pythia8. Remember which install prefix you have used for pythia. 
+
+We must make sure that the pythia headers and libraries can be found. This is done by modifying the CMakeLists.txt file. This file contains find_package commands: 
+
+<pre>
+# Make sure we find the Find*.cmake functions distributed with this package
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+set(CMAKE_PREFIX_PATH $ENV{ALBERS} $ENV{FCCEDM})
+find_package(alberscore REQUIRED)
+find_package(fccedm REQUIRED)
+find_package(ROOT REQUIRED)
+</pre> 
+
+We want to add a find_package call for Pythia8: 
+<pre>
+find_package(Pythia8)
+</pre>
+
+This command in fact calls a function in a cmake module called FindPythia8.cmake. With google again, you can easily find such a function. Here is what I got: 
+
+<pre>
+# Find the Pythia8 includes and library.
+#
+# This module defines
+# PYTHIA8_INCLUDE_DIR   where to locate Pythia.h file
+# PYTHIA8_LIBRARY       where to find the libpythia8 library
+# PYTHIA8_<lib>_LIBRARY Addicional libraries
+# PYTHIA8_LIBRARIES     (not cached) the libraries to link against to use Pythia8
+# PYTHIA8_FOUND         if false, you cannot build anything that requires Pythia8
+# PYTHIA8_VERSION       version of Pythia8 if found
+
+set(_pythia8dirs ${PYTHIA8_DIR} $ENV{PYTHIA8_DIR} /usr /opt/pythia8)
+
+find_path(PYTHIA8_INCLUDE_DIR
+          NAMES Pythia.h Pythia8/Pythia.h
+          HINTS ${_pythia8dirs}
+          PATH_SUFFIXES include
+          DOC "Specify the directory containing Pythia.h.")
+
+find_library(PYTHIA8_LIBRARY
+             NAMES pythia8 Pythia8
+             HINTS ${_pythia8dirs}
+             PATH_SUFFIXES lib
+             DOC "Specify the Pythia8 library here.")
+
+find_library(PYTHIA8_hepmcinterface_LIBRARY
+             NAMES hepmcinterface pythia8tohepmc
+             HINTS ${_pythia8dirs}
+             PATH_SUFFIXES lib)
+
+find_library(PYTHIA8_lhapdfdummy_LIBRARY
+             NAMES lhapdfdummy
+             HINTS ${_pythia8dirs}
+             PATH_SUFFIXES lib)
+
+foreach(_lib PYTHIA8_LIBRARY PYTHIA8_hepmcinterface_LIBRARY PYTHIA8_lhapdfdummy_LIBRARY)
+  if(${_lib})
+    set(PYTHIA8_LIBRARIES ${PYTHIA8_LIBRARIES} ${${_lib}})
+  endif()
+endforeach()
+set(PYTHIA8_INCLUDE_DIRS ${PYTHIA8_INCLUDE_DIR} ${PYTHIA8_INCLUDE_DIR}/Pythia8 )
+
+# handle the QUIETLY and REQUIRED arguments and set PYTHIA8_FOUND to TRUE if
+# all listed variables are TRUE
+
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(Pythia8 DEFAULT_MSG PYTHIA8_INCLUDE_DIR PYTHIA8_LIBRARY)
+mark_as_advanced(PYTHIA8_INCLUDE_DIR PYTHIA8_LIBRARY PYTHIA8_hepmcinterface_LIBRARY PYTHIA8_lhapdfdummy_LIBRARY)
+</pre>
+
+Put it in the cmake/ directory, where you can also find the FindROOT.cmake function.
+
+You don't need to understand everything in this function, but you still need to understand:
+   * which variables this function relies upon for finding pythia. For example, we see that it is enough to have an environment variable called =PYTHIA8_DIR= set to the installation directory of pythia. Inside this directory, cmake will look for an =include/= subdirectory containing =Pythia.h= and =Pythia8/Pythia.h=.
+   * which cmake variables this function is setting. You can see that it sets =PYTHIA8_LIBRARIES= and =PYTHIA8_INCLUDE_DIRS=. You will need to make use of these variables in your =CMakeLists.txt= files.
+
+Set the =PYTHIA8_DIR= environment variable:
+<pre>
+export PYTHIA8_DIR=<the installation path of pythia on your computer>
+</pre>
+   
+Modify =pythiafcc/CMakeLists.txt= to:
+   * add the find_package call for pythia8
+   * add the pythia include directories to the list of include_directories
+
+Modify =pythiafcc/example= to add the pythia8 libraries to the list of libraries linked with the executable. 
+
+Run cmake in the usual way, making sure that pythia8 is found.
+In =pythiafcc/CMakeLists.txt=, write at the end:
+<pre>
+message(${PYTHIA8_INCLUDE_DIRS})
+message(${PYTHIA8_LIBRARIES})
+</pre>
+
+Run cmake again and check the value of these variables. You should see something like this:
+<pre>
+/Users/cbernet/local/include/Users/cbernet/local/include/Pythia8
+/Users/cbernet/local/lib/libpythia8.a
+</pre>
+Check that this directory and this static library are indeed there.
+
+*If everything's alright, you may keep going. If not, you need to sort that out.*
+
+
+---++++ Step 3 : Use pythia
+
+In this step, we are finally going to modify =example/generate.cc= to use pythia.
+At each step, make sure your code compiles and runs as expected before going further. 
+
+You will need only the =main= function, so remove the rest.
+
+At the beginning of the =main=, perform the initialization of pythia. Look for some inspiration and code in one of the many example executables distributed with pythia8. You should see the pythia initialization message when you run your executable. 
+
+Generate some events. You should see pythia event printouts. 
+
+For each event, access the particles generated by pythia, convert them to FCC MCParticles, and write them to an output root file. Some example code is available in [[https://github.com/HEP-FCC/fcc-edm/blob/master/examples/simplewrite.cc][the fcc-edm simplewrite.cc]].
+
+
+---++++ Step 4: A more complex event content
+
+In the previous step, we have stored MCParticles to the ROOT file.
+In this step:
+   * add the GenVertex collection
+   * keep track of the production and end vertex of each particle in the MCParticle
 
 -- Main.ColinBernet - 2014-12-15
