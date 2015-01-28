@@ -327,7 +327,7 @@ You don't need to understand everything in this function, but you still need to 
 
 Set the =PYTHIA8_DIR= environment variable:
 <pre>
-export PYTHIA8_DIR=<the installation path of pythia on your computer>
+export PYTHIA8_DIR=the_installation_path_of_pythia_on_your_computer
 </pre>
    
 Modify =pythiafcc/CMakeLists.txt= to:
