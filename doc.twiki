@@ -70,7 +70,7 @@ ptc.Status = 1; // That works :-)
 std::cout << ptc.Status << std::endl;
 </pre>
 Handles can be stored in a POD, as a reference to another POD.
-They are also used to manipulate to manipulate PODs stored in the event. 
+They are also used to manipulate PODs stored in the event. 
 
 %T% if you are not allowed to modify a POD, the compiler will let you know.
 
@@ -82,12 +82,12 @@ The [[https://github.com/HEP-FCC/albers-core/blob/master/examples/example_edm.ya
 
 Modify [[https://github.com/HEP-FCC/albers-core/blob/master/examples/write.cc][write.cc]] to write a second collection in the event, containing Particles.
 
-*As usual, compile and run your code, and check the output.*
+*As usual, compile and run your code, and check the output root file.*
 
 Tips:
-   * Get inspiration from the code writing to the EventInfo collection. The only difference here is that you are going to store several Particles in your particle collection. Just write two particles
-   * Create handles to the particles in a similar way as for the EventInfo. Mofidy the Particle POD corresponding to the handle, setting its attributes to dummy values of your choice.
-   * To check the output, open the resulting root file, and look at the events TTree.
+   * Get inspiration from the code writing the EventInfo collection. The only conceptual difference here is that you are going to store several Particles in your particle collection. For each event, you will create two Particles in the Particle collection.
+   * For each of the two Particles, create a handle in a similar way as for the EventInfo. Mofidy the Particle POD corresponding to the handle, setting its attributes to dummy values of your choice.
+   * To check the output, open the resulting root file in root, and look at the events TTree. Plot the Particle attributes and make sure they correspond to what you have written. 
 
 
 ---+++ Exercise 2: Modifying the EDM
@@ -96,12 +96,13 @@ Modify [[https://github.com/HEP-FCC/albers-core/blob/master/examples/example_edm
 
 Run the code generator:
 <pre>
-python $ALBERS/../python/albers_class_generator.py  examples/example_edm.yaml datamodel datamodel
+cd $ALBERS/..
+python python/albers_class_generator.py  examples/example_edm.yaml datamodel datamodel
 </pre>
 
 Check that the classes for your new datatype have been created in  =datamodel/datamodel/=.
 
-Remove the =build/= directory, run !CMake again, and compile as explained in the [[https://github.com/HEP-FCC/albers-core/blob/master/README.md][README.md].
+Remove the =build/= directory, run !CMake again, and compile as explained in the [[https://github.com/HEP-FCC/albers-core/blob/master/README.md][README.md]].
 
 Modify [[https://github.com/HEP-FCC/albers-core/blob/master/examples/write.cc][write.cc]] to write another collection in the event, containing objects of your new datatype.
 
@@ -137,10 +138,10 @@ Read this file, and make sure you understand all data types. In particular, you 
 Can you find a missing datatype or a missing attribute in an existing POD?
 
 If that is the case:
-   * add it to the yaml file
-   * run the code generator again
-   * compile and run the tests
-   * contact Colin to discuss the change 
+   * add it to the yaml file.
+   * run the code generator, *this time from the fcc-edm package, not from albers-core!*.
+   * compile and run the tests.
+   * contact Colin to discuss the change.
 
 ---++ Event analysis in C++
 
@@ -191,7 +192,7 @@ TFile f("example.root")
 
 Note that the warnings have disappeared.
 
-ROOT is able to find this library because it is in one of the directories present in your LD_LIBRARY_PATH (DYLD_LIBRARY_PATH on !MacOs). Print this environment variable:
+ROOT is able to find this library because it is in one of the directories present in your LD_LIBRARY_PATH (DYLD_LIBRARY_PATH on !MacOs). Quit root and print this environment variable:
 
 on Linux: 
 
@@ -205,9 +206,11 @@ on !MacOs:
 echo $DYLD_LIBRARY_PATH
 </pre>
 
-list the contents of each of the directories, e.g.:
+list the contents of each of the directories, until you find =libdatamodel.so= in the =fcc-edm= package, e.g.: 
 
+<pre>
 ls /Users/HEP-FCC/Code/FCC/fcc-edm/install/lib
+</pre>
 
 ---++ Event analysis in python 
 
