@@ -1,5 +1,5 @@
-#ifndef ParticleMCAssociation_H 
-#define ParticleMCAssociation_H
+#ifndef ParticleMCParticleAssociation_H 
+#define ParticleMCParticleAssociation_H
 
 // Reference to the Monte-Carlo particle
 // author: C. Bernet, B. Hegner
@@ -8,7 +8,7 @@
 #include "datamodel/MCParticleHandle.h"
 
 
-class ParticleMCAssociation {
+class ParticleMCParticleAssociation {
 public:
   ParticleHandle Rec; //Reference to the reconstructed particle 
   MCParticleHandle Sim; //Reference to the Monte-Carlo particle 

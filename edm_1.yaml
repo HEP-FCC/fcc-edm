@@ -108,7 +108,7 @@ datatypes :
        type: MCParticleHandle
        description: "The daughter."
     
-  ParticleMCAssociation:
+  ParticleMCParticleAssociation:
     description : "Association between a Particle and a MCParticle, used to keep track of the correspondance between MC and reconstruted particles"
     author : "C. Bernet, B. Hegner"
     members :
