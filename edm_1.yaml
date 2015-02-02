@@ -362,7 +362,7 @@ datatypes :
        description: "Vertex position in cm"
      - name: Ctau
        type: float
-       description: "Not sure how it's defined."
+       description: "Time coordinate in cm"
 
   VertexTrackAssociation:
     description: "Association between a track and a vertex, with a weight"

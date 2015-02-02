@@ -1,7 +1,7 @@
 #ifndef GenVertex_H 
 #define GenVertex_H
 
-// Not sure how it's defined.
+// Time coordinate in cm
 // author: C. Bernet, B. Hegner
 
 #include "datamodel/Point.h"
@@ -10,7 +10,7 @@
 class GenVertex {
 public:
   Point Position; //Vertex position in cm 
-  float Ctau; //Not sure how it's defined. 
+  float Ctau; //Time coordinate in cm 
 
 };
 

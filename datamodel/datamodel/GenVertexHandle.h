@@ -5,7 +5,7 @@
 
 #include <vector>
 
-// Not sure how it's defined.
+// Time coordinate in cm
 // author: C. Bernet, B. Hegner
 
 //forward declaration of GenVertex container
