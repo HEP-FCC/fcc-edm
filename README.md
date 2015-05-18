@@ -13,6 +13,11 @@ Before compiling or using on mac os:
 
     source init_macos.sh
 
+On Linux (tested on Ubuntu), do:
+
+    source init_linux.sh 
+
+
 Compilation:
 
     mkdir build
