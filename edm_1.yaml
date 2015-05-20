@@ -29,6 +29,7 @@ components:
     
   BareParticle:
     Type: int
+    Charge: int
     Status: unsigned
     Vertex: Point
     P4: LorentzVector

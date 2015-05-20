@@ -1,17 +1,18 @@
 #ifndef BareParticle_H 
 #define BareParticle_H
 
-#include "datamodel/Point.h"
 #include "datamodel/LorentzVector.h"
+#include "datamodel/Point.h"
 
 
 class BareParticle {
 public:
   unsigned Status;
-  unsigned Bits;
+  int Charge;
   int Type;
-  Point Vertex;
   LorentzVector P4;
+  Point Vertex;
+  unsigned Bits;
 
 };
 
