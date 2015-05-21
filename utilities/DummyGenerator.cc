@@ -158,22 +158,28 @@ std::pair<bool, ParticleHandle> DummyGenerator::generate_particle(const TLorentz
   if( lv == nullptr ) {
     float phistar = m_phi(m_engine);
     float thetastar = m_theta(m_engine);
-    float etastar = -log ( tan(thetastar/2.) );
-    if(fabs(etastar)>5.)
-      return std::pair<bool, ParticleHandle>(false, ParticleHandle());
-    float ptstar = -1;
-    while(ptstar<0.1 || ptstar>1) { // truncated gaussian to avoid numerical issues
-      ptstar = m_pstar(m_engine);
-    }
+    float costheta = cos(thetastar); 
+    float sintheta = sin(thetastar);
+    float cosphi = cos(phistar);
+    float sinphi = sin(phistar);
+    // float etastar = -log ( tan(thetastar/2.) );
+    // if(fabs(etastar)>5.)
+    //  return std::pair<bool, ParticleHandle>(false, ParticleHandle());
+    // float ptstar = -1;
+    // while(ptstar<0.1 || ptstar>1) { // truncated gaussian to avoid numerical issues
+    // ptstar = m_pstar(m_engine);
+    // }
 
-    float phi = phistar;
-    float eta = etastar;
-    float pt = ptstar;
-
-    lvpod.Phi  = phi;
-    lvpod.Eta  = eta;
-    lvpod.Mass = mass;
-    lvpod.Pt   = pt;
+    float pstar = m_pstar(m_engine);
+    
+    // lvpod.Phi  = phi;
+    // lvpod.Eta  = eta;
+    // lvpod.Mass = mass;
+    // lvpod.Pt   = pt;
+    lvpod.Mass = mass; 
+    lvpod.Px = pstar * sintheta * cosphi;
+    lvpod.Py = pstar * sintheta * sinphi;
+    lvpod.Pz = pstar * costheta;
   }
   else{
     float pmag = lv->Vect().Mag();

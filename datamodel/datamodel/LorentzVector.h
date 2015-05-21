@@ -5,10 +5,10 @@
 
 class LorentzVector {
 public:
-  float Phi;
-  float Eta;
+  float Pz;
+  float Px;
+  float Py;
   float Mass;
-  float Pt;
 
 };
 

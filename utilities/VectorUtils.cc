@@ -9,25 +9,29 @@ namespace utils {
 
   TLorentzVector lvFromPOD(const LorentzVector& lv) {
     TLorentzVector tlv; // COLIN need to fill it
-    tlv.SetPtEtaPhiM( lv.Pt, lv.Eta, lv.Phi, lv.Mass);
+    tlv.SetXYZM( lv.Px, lv.Py, lv.Pz, lv.Mass);
     return tlv;
   }
 
   LorentzVector lvToPOD(const TLorentzVector& tlv) {
     LorentzVector lv; // COLIN need to fill it
-    lv.Pt = tlv.Pt();
-    lv.Eta = tlv.Eta();
-    lv.Phi = tlv.Phi();
+    lv.Px = tlv.Px();
+    lv.Py = tlv.Py();
+    lv.Pz = tlv.Pz();
     lv.Mass = tlv.M();
     return lv;
   }
 
   float deltaEta(const LorentzVector& lv1, const LorentzVector& lv2) {
-    return lv1.Eta - lv2.Eta;
+    TLorentzVector tlv1 = lvFromPOD(lv1);
+    TLorentzVector tlv2 = lvFromPOD(lv2);
+    return tlv1.Eta() - tlv2.Eta();
   }
 
   float deltaPhi(const LorentzVector& lv1, const LorentzVector& lv2) {
-    double result = lv1.Phi - lv2.Phi;
+    TLorentzVector tlv1 = lvFromPOD(lv1);
+    TLorentzVector tlv2 = lvFromPOD(lv2);
+    double result = tlv1.Phi() - tlv2.Phi();
     while (result > M_PI) result -= 2*M_PI;
     while (result <= -M_PI) result += 2*M_PI;
     return result;

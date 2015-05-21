@@ -62,14 +62,10 @@ int main(){
     MCParticleHandle ptc = pcoll.create();
     ptc.mod().Core.Type = 25;
     auto& p4 = ptc.mod().Core.P4;
-    p4.Pt = static_cast<float>(iev);
-    p4.Eta = 0.;
-    p4.Phi = 0.;
+    p4.Px = static_cast<float>(iev);
+    p4.Py = 0.;
+    p4.Pz = 0.;
     p4.Mass = 126.;
-
-    if(iev%1000 == 0) {
-      std::cout<<"writing a single Higgs with pT="<<p4.Pt<<std::endl;
-    }
 
     writer.writeEvent();
     store.next();

@@ -6,9 +6,9 @@ components:
 
   LorentzVector:
     Mass : float
-    Pt : float
-    Eta : float
-    Phi : float
+    Px : float
+    Py : float
+    Pz : float
 
   Point:
     X : float 

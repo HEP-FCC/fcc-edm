@@ -53,21 +53,22 @@ namespace utils {
 
 
   float sumPt(const std::vector<ParticleHandle>& ps) {
-    float result = 0;
-    for(const auto& particle : ps) {
-      result += particle.read().Core.P4.Pt;
-    }
-    return result;
+    return sumP4(ps).Vect().Pt();
   }
 
 
   float sumP(const std::vector<ParticleHandle>& ps) {
-    float result = 0;
+    return sumP4(ps).Vect().Mag();
+  }
+
+
+  TLorentzVector sumP4(const std::vector<ParticleHandle>& ps) {
+    TLorentzVector sum; 
     for(const auto& particle : ps) {
       TLorentzVector lv = lvFromPOD( particle.read().Core.P4 );
-      result += lv.Vect().Mag();
-    }
-    return result;
+      sum += lv;
+    }    
+    return sum;
   }
 
 
@@ -76,9 +77,11 @@ namespace utils {
 std::ostream& operator<<(std::ostream& out, const ParticleHandle& ptc) {
   if(not out) return out;
   const BareParticle& pcore = ptc.read().Core; 
+  TLorentzVector p4 = utils::lvFromPOD(pcore.P4);
   out<<"particle ID "<<pcore.Type
-     <<" pt "<<pcore.P4.Pt
-     <<" eta "<<pcore.P4.Eta
-     <<" phi "<<pcore.P4.Phi;
+     <<" e "<<p4.E()
+     <<" pt "<<p4.Pt()
+     <<" eta "<<p4.Eta()
+     <<" phi "<<p4.Phi();
   return out;
 }

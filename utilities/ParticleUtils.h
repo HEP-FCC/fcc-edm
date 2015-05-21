@@ -4,6 +4,8 @@
 #include <vector>
 #include <iostream>
 
+#include "TLorentzVector.h"
+
 class ParticleHandle;
 class LorentzVector;
 
@@ -27,6 +29,8 @@ namespace utils {
   /// returns the scalar sum p of the particles in ps
   float sumP(const std::vector<ParticleHandle>& ps);
 
+  /// returns the sum of the p4 of the particles in ps
+  TLorentzVector sumP4(const std::vector<ParticleHandle>& ps);
 
 }
 
