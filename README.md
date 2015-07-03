@@ -7,15 +7,15 @@ Prerequisite: before doing anything, compile albers-core and source its init scr
 
 Before compiling or using on lxplus:
 
-    source init.sh
+    source ./init.sh
 
 Before compiling or using on mac os: 
 
-    source init_macos.sh
+    source ./init_macos.sh
 
 On Linux (tested on Ubuntu), do:
 
-    source init_linux.sh 
+    source ./init_linux.sh 
 
 
 Compilation:
