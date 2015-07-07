@@ -4,3 +4,5 @@ source /afs/cern.ch/sw/lcg/app/releases/ROOT/5.34.20/x86_64-slc6-gcc48-opt/root/
 
 export FCCEDM=$PWD/install
 export LD_LIBRARY_PATH=$FCCEDM/lib:$LD_LIBRARY_PATH
+export PATH=$FCCEDM/bin:$PATH
+
