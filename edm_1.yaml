@@ -109,7 +109,7 @@ datatypes :
        type: MCParticleHandle
        description: "The daughter."
     
-  ParticleMCAssociation:
+  ParticleMCParticleAssociation:
     description : "Association between a Particle and a MCParticle, used to keep track of the correspondance between MC and reconstruted particles"
     author : "C. Bernet, B. Hegner"
     members :
@@ -363,7 +363,7 @@ datatypes :
        description: "Vertex position in cm"
      - name: Ctau
        type: float
-       description: "Not sure how it's defined."
+       description: "Time coordinate in cm"
 
   VertexTrackAssociation:
     description: "Association between a track and a vertex, with a weight"
