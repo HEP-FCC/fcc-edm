@@ -1,0 +1,943 @@
+<lcgdict>
+    <selection>
+
+          <class name="std::vector<BareHit>" />
+
+          <class name="BareHit">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<BareJet>" />
+
+          <class name="BareJet">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<LorentzVector>" />
+
+          <class name="LorentzVector">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<Point>" />
+
+          <class name="Point">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<BareParticle>" />
+
+          <class name="BareParticle">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<BareCluster>" />
+
+          <class name="BareCluster">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<JetData>" />
+
+          <class name="JetData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<Jet>" />
+
+          <class name="Jet">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstJet>" />
+
+          <class name="ConstJet">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<JetCollection>" />
+
+          <class name="JetCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<JetObj>" />
+
+          <class name="JetObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<MissingEnergyData>" />
+
+          <class name="MissingEnergyData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<MissingEnergy>" />
+
+          <class name="MissingEnergy">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstMissingEnergy>" />
+
+          <class name="ConstMissingEnergy">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<MissingEnergyCollection>" />
+
+          <class name="MissingEnergyCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<MissingEnergyObj>" />
+
+          <class name="MissingEnergyObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<SimCaloClusterData>" />
+
+          <class name="SimCaloClusterData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<SimCaloCluster>" />
+
+          <class name="SimCaloCluster">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstSimCaloCluster>" />
+
+          <class name="ConstSimCaloCluster">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<SimCaloClusterCollection>" />
+
+          <class name="SimCaloClusterCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<SimCaloClusterObj>" />
+
+          <class name="SimCaloClusterObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackClusterHitsAssociationData>" />
+
+          <class name="TrackClusterHitsAssociationData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackClusterHitsAssociation>" />
+
+          <class name="TrackClusterHitsAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstTrackClusterHitsAssociation>" />
+
+          <class name="ConstTrackClusterHitsAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackClusterHitsAssociationCollection>" />
+
+          <class name="TrackClusterHitsAssociationCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackClusterHitsAssociationObj>" />
+
+          <class name="TrackClusterHitsAssociationObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ParticleMCParticleAssociationData>" />
+
+          <class name="ParticleMCParticleAssociationData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ParticleMCParticleAssociation>" />
+
+          <class name="ParticleMCParticleAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstParticleMCParticleAssociation>" />
+
+          <class name="ConstParticleMCParticleAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ParticleMCParticleAssociationCollection>" />
+
+          <class name="ParticleMCParticleAssociationCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ParticleMCParticleAssociationObj>" />
+
+          <class name="ParticleMCParticleAssociationObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<GenVertexData>" />
+
+          <class name="GenVertexData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<GenVertex>" />
+
+          <class name="GenVertex">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstGenVertex>" />
+
+          <class name="ConstGenVertex">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<GenVertexCollection>" />
+
+          <class name="GenVertexCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<GenVertexObj>" />
+
+          <class name="GenVertexObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<JetParticleAssociationData>" />
+
+          <class name="JetParticleAssociationData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<JetParticleAssociation>" />
+
+          <class name="JetParticleAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstJetParticleAssociation>" />
+
+          <class name="ConstJetParticleAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<JetParticleAssociationCollection>" />
+
+          <class name="JetParticleAssociationCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<JetParticleAssociationObj>" />
+
+          <class name="JetParticleAssociationObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackClusterAssociationData>" />
+
+          <class name="TrackClusterAssociationData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackClusterAssociation>" />
+
+          <class name="TrackClusterAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstTrackClusterAssociation>" />
+
+          <class name="ConstTrackClusterAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackClusterAssociationCollection>" />
+
+          <class name="TrackClusterAssociationCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackClusterAssociationObj>" />
+
+          <class name="TrackClusterAssociationObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackData>" />
+
+          <class name="TrackData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<Track>" />
+
+          <class name="Track">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstTrack>" />
+
+          <class name="ConstTrack">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackCollection>" />
+
+          <class name="TrackCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackObj>" />
+
+          <class name="TrackObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<VertexData>" />
+
+          <class name="VertexData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<Vertex>" />
+
+          <class name="Vertex">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstVertex>" />
+
+          <class name="ConstVertex">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<VertexCollection>" />
+
+          <class name="VertexCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<VertexObj>" />
+
+          <class name="VertexObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<GenJetData>" />
+
+          <class name="GenJetData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<GenJet>" />
+
+          <class name="GenJet">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstGenJet>" />
+
+          <class name="ConstGenJet">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<GenJetCollection>" />
+
+          <class name="GenJetCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<GenJetObj>" />
+
+          <class name="GenJetObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ParticleClusterAssociationData>" />
+
+          <class name="ParticleClusterAssociationData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ParticleClusterAssociation>" />
+
+          <class name="ParticleClusterAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstParticleClusterAssociation>" />
+
+          <class name="ConstParticleClusterAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ParticleClusterAssociationCollection>" />
+
+          <class name="ParticleClusterAssociationCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ParticleClusterAssociationObj>" />
+
+          <class name="ParticleClusterAssociationObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ParticleTrackAssociationData>" />
+
+          <class name="ParticleTrackAssociationData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ParticleTrackAssociation>" />
+
+          <class name="ParticleTrackAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstParticleTrackAssociation>" />
+
+          <class name="ConstParticleTrackAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ParticleTrackAssociationCollection>" />
+
+          <class name="ParticleTrackAssociationCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ParticleTrackAssociationObj>" />
+
+          <class name="ParticleTrackAssociationObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackClusterData>" />
+
+          <class name="TrackClusterData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackCluster>" />
+
+          <class name="TrackCluster">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstTrackCluster>" />
+
+          <class name="ConstTrackCluster">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackClusterCollection>" />
+
+          <class name="TrackClusterCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackClusterObj>" />
+
+          <class name="TrackClusterObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ParticleData>" />
+
+          <class name="ParticleData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<Particle>" />
+
+          <class name="Particle">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstParticle>" />
+
+          <class name="ConstParticle">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ParticleCollection>" />
+
+          <class name="ParticleCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ParticleObj>" />
+
+          <class name="ParticleObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<CaloClusterData>" />
+
+          <class name="CaloClusterData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<CaloCluster>" />
+
+          <class name="CaloCluster">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstCaloCluster>" />
+
+          <class name="ConstCaloCluster">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<CaloClusterCollection>" />
+
+          <class name="CaloClusterCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<CaloClusterObj>" />
+
+          <class name="CaloClusterObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<MCParticleData>" />
+
+          <class name="MCParticleData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<MCParticle>" />
+
+          <class name="MCParticle">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstMCParticle>" />
+
+          <class name="ConstMCParticle">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<MCParticleCollection>" />
+
+          <class name="MCParticleCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<MCParticleObj>" />
+
+          <class name="MCParticleObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<CaloHitAssociationData>" />
+
+          <class name="CaloHitAssociationData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<CaloHitAssociation>" />
+
+          <class name="CaloHitAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstCaloHitAssociation>" />
+
+          <class name="ConstCaloHitAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<CaloHitAssociationCollection>" />
+
+          <class name="CaloHitAssociationCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<CaloHitAssociationObj>" />
+
+          <class name="CaloHitAssociationObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<MCParticleAssociationData>" />
+
+          <class name="MCParticleAssociationData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<MCParticleAssociation>" />
+
+          <class name="MCParticleAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstMCParticleAssociation>" />
+
+          <class name="ConstMCParticleAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<MCParticleAssociationCollection>" />
+
+          <class name="MCParticleAssociationCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<MCParticleAssociationObj>" />
+
+          <class name="MCParticleAssociationObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<VertexTrackAssociationData>" />
+
+          <class name="VertexTrackAssociationData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<VertexTrackAssociation>" />
+
+          <class name="VertexTrackAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstVertexTrackAssociation>" />
+
+          <class name="ConstVertexTrackAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<VertexTrackAssociationCollection>" />
+
+          <class name="VertexTrackAssociationCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<VertexTrackAssociationObj>" />
+
+          <class name="VertexTrackAssociationObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<GenJetParticleAssociationData>" />
+
+          <class name="GenJetParticleAssociationData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<GenJetParticleAssociation>" />
+
+          <class name="GenJetParticleAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstGenJetParticleAssociation>" />
+
+          <class name="ConstGenJetParticleAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<GenJetParticleAssociationCollection>" />
+
+          <class name="GenJetParticleAssociationCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<GenJetParticleAssociationObj>" />
+
+          <class name="GenJetParticleAssociationObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<CaloHitData>" />
+
+          <class name="CaloHitData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<CaloHit>" />
+
+          <class name="CaloHit">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstCaloHit>" />
+
+          <class name="ConstCaloHit">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<CaloHitCollection>" />
+
+          <class name="CaloHitCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<CaloHitObj>" />
+
+          <class name="CaloHitObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<SimCaloHitData>" />
+
+          <class name="SimCaloHitData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<SimCaloHit>" />
+
+          <class name="SimCaloHit">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstSimCaloHit>" />
+
+          <class name="ConstSimCaloHit">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<SimCaloHitCollection>" />
+
+          <class name="SimCaloHitCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<SimCaloHitObj>" />
+
+          <class name="SimCaloHitObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<EventInfoData>" />
+
+          <class name="EventInfoData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<EventInfo>" />
+
+          <class name="EventInfo">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstEventInfo>" />
+
+          <class name="ConstEventInfo">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<EventInfoCollection>" />
+
+          <class name="EventInfoCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<EventInfoObj>" />
+
+          <class name="EventInfoObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<SimCaloClusterHitAssociationData>" />
+
+          <class name="SimCaloClusterHitAssociationData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<SimCaloClusterHitAssociation>" />
+
+          <class name="SimCaloClusterHitAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstSimCaloClusterHitAssociation>" />
+
+          <class name="ConstSimCaloClusterHitAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<SimCaloClusterHitAssociationCollection>" />
+
+          <class name="SimCaloClusterHitAssociationCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<SimCaloClusterHitAssociationObj>" />
+
+          <class name="SimCaloClusterHitAssociationObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackHitData>" />
+
+          <class name="TrackHitData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackHit>" />
+
+          <class name="TrackHit">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstTrackHit>" />
+
+          <class name="ConstTrackHit">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackHitCollection>" />
+
+          <class name="TrackHitCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackHitObj>" />
+
+          <class name="TrackHitObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<METData>" />
+
+          <class name="METData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<MET>" />
+
+          <class name="MET">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstMET>" />
+
+          <class name="ConstMET">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<METCollection>" />
+
+          <class name="METCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<METObj>" />
+
+          <class name="METObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackStateData>" />
+
+          <class name="TrackStateData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackState>" />
+
+          <class name="TrackState">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstTrackState>" />
+
+          <class name="ConstTrackState">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackStateCollection>" />
+
+          <class name="TrackStateCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackStateObj>" />
+
+          <class name="TrackStateObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<SimCaloHitMCParticleAssociationData>" />
+
+          <class name="SimCaloHitMCParticleAssociationData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<SimCaloHitMCParticleAssociation>" />
+
+          <class name="SimCaloHitMCParticleAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstSimCaloHitMCParticleAssociation>" />
+
+          <class name="ConstSimCaloHitMCParticleAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<SimCaloHitMCParticleAssociationCollection>" />
+
+          <class name="SimCaloHitMCParticleAssociationCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<SimCaloHitMCParticleAssociationObj>" />
+
+          <class name="SimCaloHitMCParticleAssociationObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackStateAssociationData>" />
+
+          <class name="TrackStateAssociationData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackStateAssociation>" />
+
+          <class name="TrackStateAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<ConstTrackStateAssociation>" />
+
+          <class name="ConstTrackStateAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackStateAssociationCollection>" />
+
+          <class name="TrackStateAssociationCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<TrackStateAssociationObj>" />
+
+          <class name="TrackStateAssociationObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+
+
+    </selection>
+</lcgdict>

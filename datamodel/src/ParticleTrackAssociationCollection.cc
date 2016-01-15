@@ -1,73 +1,142 @@
-#include "datamodel/ParticleTrackAssociationCollection.h"
+// standard includes
+#include <stdexcept>
+#include "ParticleCollection.h" 
+#include "TrackCollection.h" 
 
-ParticleTrackAssociationCollection::ParticleTrackAssociationCollection() : m_collectionID(0), m_data(new ParticleTrackAssociationVector() ){
+
+#include "ParticleTrackAssociationCollection.h"
+
+
+
+ParticleTrackAssociationCollection::ParticleTrackAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Particle(new std::vector<ConstParticle>()),m_rel_Track(new std::vector<ConstTrack>()),m_refCollections(nullptr), m_data(new ParticleTrackAssociationDataContainer() ) {
+    m_refCollections = new podio::CollRefCollection();
+  m_refCollections->push_back(new std::vector<podio::ObjectID>());
+  m_refCollections->push_back(new std::vector<podio::ObjectID>());
+
 }
 
-const ParticleTrackAssociationHandle& ParticleTrackAssociationCollection::get(int index) const{
-  return m_handles[index];
+const ParticleTrackAssociation ParticleTrackAssociationCollection::operator[](unsigned int index) const {
+  return ParticleTrackAssociation(m_entries[index]);
 }
 
-ParticleTrackAssociationHandle ParticleTrackAssociationCollection::create() {
-  m_data->emplace_back(ParticleTrackAssociation());
-  int index = m_data->size()-1;
-  // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
-  m_handles.emplace_back(ParticleTrackAssociationHandle(index,m_collectionID, m_data));
-
-  return m_handles.back();
+const ParticleTrackAssociation ParticleTrackAssociationCollection::at(unsigned int index) const {
+  return ParticleTrackAssociation(m_entries.at(index));
 }
 
-ParticleTrackAssociationHandle ParticleTrackAssociationCollection::insert(const ParticleTrackAssociationHandle& origin) {
-  m_data->emplace_back(origin.read());
-  int index = m_data->size()-1;
-  m_handles.emplace_back(ParticleTrackAssociationHandle(index,m_collectionID, m_data));
+int  ParticleTrackAssociationCollection::size() const {
+  return m_entries.size();
+}
 
-  return m_handles.back();
-}  
+ParticleTrackAssociation ParticleTrackAssociationCollection::create(){
+  auto obj = new ParticleTrackAssociationObj();
+  m_entries.emplace_back(obj);
+
+  obj->id = {int(m_entries.size()-1),m_collectionID};
+  return ParticleTrackAssociation(obj);
+}
 
 void ParticleTrackAssociationCollection::clear(){
   m_data->clear();
-  m_handles.clear();
+  for (auto& pointer : (*m_refCollections)) {pointer->clear(); }
+  for (auto& item : (*m_rel_Particle)) {item.unlink(); }
+  m_rel_Particle->clear();
+  for (auto& item : (*m_rel_Track)) {item.unlink(); }
+  m_rel_Track->clear();
 
+  for (auto& obj : m_entries) { delete obj; }
+  m_entries.clear();
 }
 
-void ParticleTrackAssociationCollection::prepareForWrite(const albers::Registry* registry){
-  for(auto& data : *m_data){
-     data.Particle.prepareForWrite(registry);
-    data.Track.prepareForWrite(registry);
-  }
-}
-
-void ParticleTrackAssociationCollection::prepareAfterRead(albers::Registry* registry){
-  m_handles.clear();
+void ParticleTrackAssociationCollection::prepareForWrite(){
   int index = 0;
-  // fix. otherwise, m_collectionID == 0..
-  m_collectionID = registry->getIDFromPODAddress( _getBuffer() );
-  for (auto& data : *m_data){
-    data.Particle.prepareAfterRead(registry);
-data.Track.prepareAfterRead(registry);
+  auto size = m_entries.size();
+  m_data->reserve(size);
+  for (auto& obj : m_entries) {m_data->push_back(obj->data); }
+  if (m_refCollections != nullptr) {
+    for (auto& pointer : (*m_refCollections)) {pointer->clear(); }
+  }
+  
+  for(int i=0, size = m_data->size(); i != size; ++i){
+  
+  }
+    for (auto& obj : m_entries) {
+if (obj->m_Particle != nullptr){
+(*m_refCollections)[0]->emplace_back(obj->m_Particle->getObjectID());} else {(*m_refCollections)[0]->push_back({-2,-2}); } }
+  for (auto& obj : m_entries) {
+if (obj->m_Track != nullptr){
+(*m_refCollections)[1]->emplace_back(obj->m_Track->getObjectID());} else {(*m_refCollections)[1]->push_back({-2,-2}); } }
 
-    m_handles.emplace_back(ParticleTrackAssociationHandle(index,m_collectionID, m_data));
+}
+
+void ParticleTrackAssociationCollection::prepareAfterRead(){
+  int index = 0;
+  for (auto& data : *m_data){
+    auto obj = new ParticleTrackAssociationObj({index,m_collectionID}, data);
+    
+    m_entries.emplace_back(obj);
     ++index;
   }
 }
 
+bool ParticleTrackAssociationCollection::setReferences(const podio::ICollectionProvider* collectionProvider){
 
-void ParticleTrackAssociationCollection::setPODsAddress(const void* address){
-  m_data = (ParticleTrackAssociationVector*)address;
+  for(unsigned int i=0, size=m_entries.size();i!=size;++i ) {
+    auto id = (*(*m_refCollections)[0])[i];
+    if (id.index != podio::ObjectID::invalid) {
+      CollectionBase* coll = nullptr;
+      collectionProvider->get(id.collectionID,coll);
+      ParticleCollection* tmp_coll = static_cast<ParticleCollection*>(coll);
+      m_entries[i]->m_Particle = new ConstParticle((*tmp_coll)[id.index]);
+    } else {
+      m_entries[i]->m_Particle = nullptr;
+    }
+  }
+  for(unsigned int i=0, size=m_entries.size();i!=size;++i ) {
+    auto id = (*(*m_refCollections)[1])[i];
+    if (id.index != podio::ObjectID::invalid) {
+      CollectionBase* coll = nullptr;
+      collectionProvider->get(id.collectionID,coll);
+      TrackCollection* tmp_coll = static_cast<TrackCollection*>(coll);
+      m_entries[i]->m_Track = new ConstTrack((*tmp_coll)[id.index]);
+    } else {
+      m_entries[i]->m_Track = nullptr;
+    }
+  }
+
+  return true; //TODO: check success
+}
+
+void ParticleTrackAssociationCollection::push_back(ConstParticleTrackAssociation object){
+    int size = m_entries.size();
+    auto obj = object.m_obj;
+    if (obj->id.index == podio::ObjectID::untracked) {
+        obj->id = {size,m_collectionID};
+        m_entries.push_back(obj);
+        
+    } else {
+      throw std::invalid_argument( "Object already in a collection. Cannot add it to a second collection " );
+
+    }
+}
+
+void ParticleTrackAssociationCollection::setBuffer(void* address){
+  m_data = static_cast<ParticleTrackAssociationDataContainer*>(address);
 }
 
 
-const ParticleTrackAssociationHandle ParticleTrackAssociationCollectionIterator::operator* () const {
-  return m_collection->get(m_index);
+const ParticleTrackAssociation ParticleTrackAssociationCollectionIterator::operator* () const {
+  m_object.m_obj = (*m_collection)[m_index];
+  return m_object;
 }
 
-//std::vector<std::pair<std::string,albers::CollectionBase*>>& referenceCollections() {
-//}
-
-
-void ParticleTrackAssociationCollection::print() const {
-  std::cout<<"collection "<<m_collectionID
-           <<", buf "<<m_data
-           <<", nhandles "<<m_handles.size()<<std::endl;
+const ParticleTrackAssociation* ParticleTrackAssociationCollectionIterator::operator-> () const {
+    m_object.m_obj = (*m_collection)[m_index];
+    return &m_object;
 }
+
+const ParticleTrackAssociationCollectionIterator& ParticleTrackAssociationCollectionIterator::operator++() const {
+  ++m_index;
+ return *this;
+}
+
 

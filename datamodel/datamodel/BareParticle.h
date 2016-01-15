@@ -1,8 +1,8 @@
-#ifndef BareParticle_H 
+#ifndef BareParticle_H
 #define BareParticle_H
+#include "LorentzVector.h"
+#include "Point.h"
 
-#include "datamodel/LorentzVector.h"
-#include "datamodel/Point.h"
 
 
 class BareParticle {

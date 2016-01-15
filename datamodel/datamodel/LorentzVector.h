@@ -1,4 +1,4 @@
-#ifndef LorentzVector_H 
+#ifndef LorentzVector_H
 #define LorentzVector_H
 
 

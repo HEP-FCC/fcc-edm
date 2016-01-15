@@ -6,100 +6,119 @@
 #include <string>
 #include <vector>
 #include <deque>
+#include <array>
 
-// albers specific includes
-#include "albers/Registry.h"
-#include "albers/CollectionBase.h"
+// podio specific includes
+#include "podio/ICollectionProvider.h"
+#include "podio/CollectionBase.h"
+#include "podio/CollectionIDTable.h"
 
 // datamodel specific includes
-#include "datamodel/GenJetParticleAssociation.h"
-#include "datamodel/GenJetParticleAssociationHandle.h"
+#include "GenJetParticleAssociationData.h"
+#include "GenJetParticleAssociation.h"
+#include "GenJetParticleAssociationObj.h"
 
-typedef std::vector<GenJetParticleAssociation> GenJetParticleAssociationVector;
-typedef std::vector<GenJetParticleAssociationHandle> GenJetParticleAssociationHandleContainer;
+
+typedef std::vector<GenJetParticleAssociationData> GenJetParticleAssociationDataContainer;
+typedef std::deque<GenJetParticleAssociationObj*> GenJetParticleAssociationObjPointerContainer;
 
 class GenJetParticleAssociationCollectionIterator {
 
   public:
-    GenJetParticleAssociationCollectionIterator(int index, const GenJetParticleAssociationCollection* collection) : m_index(index), m_collection(collection) {}
+    GenJetParticleAssociationCollectionIterator(int index, const GenJetParticleAssociationObjPointerContainer* collection) : m_index(index), m_object(nullptr), m_collection(collection) {}
 
     bool operator!=(const GenJetParticleAssociationCollectionIterator& x) const {
       return m_index != x.m_index; //TODO: may not be complete
     }
 
-    const GenJetParticleAssociationHandle operator*() const;
-
-    const GenJetParticleAssociationCollectionIterator& operator++() const {
-      ++m_index;
-      return *this;
-    }
+    const GenJetParticleAssociation operator*() const;
+    const GenJetParticleAssociation* operator->() const;
+    const GenJetParticleAssociationCollectionIterator& operator++() const;
 
   private:
     mutable int m_index;
-    const GenJetParticleAssociationCollection* m_collection;
+    mutable GenJetParticleAssociation m_object;
+    const GenJetParticleAssociationObjPointerContainer* m_collection;
 };
 
 /**
 A Collection is identified by an ID.
 */
 
-class GenJetParticleAssociationCollection : public albers::CollectionBase {
+class GenJetParticleAssociationCollection : public podio::CollectionBase {
 
 public:
   typedef const GenJetParticleAssociationCollectionIterator const_iterator;
 
   GenJetParticleAssociationCollection();
+//  GenJetParticleAssociationCollection(const GenJetParticleAssociationCollection& ) = delete; // deletion doesn't work w/ ROOT IO ! :-(
 //  GenJetParticleAssociationCollection(GenJetParticleAssociationVector* data, int collectionID);
   ~GenJetParticleAssociationCollection(){};
 
   void clear();
+  /// Append a new object to the collection, and return this object.
+  GenJetParticleAssociation create();
 
-  /// Append a new object to the collection, and return a Handle to this object.
-  GenJetParticleAssociationHandle create();
+  /// Append a new object to the collection, and return this object.
+  /// Initialized with the parameters given
+  template<typename... Args>
+  GenJetParticleAssociation create(Args&&... args);
+  int size() const;
 
-  /// Insert an existing handle into the collection. 
-  /// In this operation, the data pointed by the handle is copied.
-  GenJetParticleAssociationHandle insert(const GenJetParticleAssociationHandle& origin);  
-  
-  /// Returns a Handle to the object at position index in the collection
-  const GenJetParticleAssociationHandle& get(int index) const;
+  /// Returns the object of given index
+  const GenJetParticleAssociation operator[](unsigned int index) const;
+  /// Returns the object of given index
+  const GenJetParticleAssociation at(unsigned int index) const;
 
-  /// Currently does nothing
-  void prepareForWrite(const albers::Registry* registry);
-  void prepareAfterRead(albers::Registry* registry);
-  void setPODsAddress(const void* address);
+
+  /// Append object to the collection
+  void push_back(ConstGenJetParticleAssociation object);
+
+  void prepareForWrite();
+  void prepareAfterRead();
+  void setBuffer(void* address);
+  bool setReferences(const podio::ICollectionProvider* collectionProvider);
+
+  podio::CollRefCollection* referenceCollections() { return m_refCollections;};
 
   void setID(unsigned ID){m_collectionID = ID;};
 
   // support for the iterator protocol
   const const_iterator begin() const {
-    return const_iterator(0, this);
+    return const_iterator(0, &m_entries);
   }
   const	const_iterator end() const {
-    return const_iterator(m_handles.size(), this);
+    return const_iterator(m_entries.size(), &m_entries);
   }
 
-//  std::vector<std::pair<std::string,albers::CollectionBase*>>& referenceCollections();
-
   /// returns the address of the pointer to the data buffer
-  void* _getRawBuffer() { return (void*)&m_data;};
+  void* getBufferAddress() { return (void*)&m_data;};
 
   /// returns the pointer to the data buffer
-  std::vector<GenJetParticleAssociation>* _getBuffer() { return m_data;};
+  std::vector<GenJetParticleAssociationData>* _getBuffer() { return m_data;};
 
-  /// returns the collection of Handles
-  const GenJetParticleAssociationHandleContainer& getHandles() { return m_handles; }
-
-  /// print some information
-  void print() const;
-
+   
 
 private:
-  unsigned m_collectionID;
-  GenJetParticleAssociationVector* m_data;
-  GenJetParticleAssociationHandleContainer m_handles;
+  int m_collectionID;
+  GenJetParticleAssociationObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  
+  std::vector<ConstGenJet>* m_rel_Jet; //relation buffer for r/w
+  std::vector<ConstMCParticle>* m_rel_Particle; //relation buffer for r/w
+
+  // members to handle streaming
+  podio::CollRefCollection* m_refCollections;
+  GenJetParticleAssociationDataContainer* m_data;
 };
+
+template<typename... Args>
+GenJetParticleAssociation  GenJetParticleAssociationCollection::create(Args&&... args){
+  int size = m_entries.size();
+  auto obj = new GenJetParticleAssociationObj({size,m_collectionID},{args...});
+  m_entries.push_back(obj);
+  return GenJetParticleAssociation(obj);
+}
+
+
 
 #endif

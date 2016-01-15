@@ -6,100 +6,161 @@
 #include <string>
 #include <vector>
 #include <deque>
+#include <array>
 
-// albers specific includes
-#include "albers/Registry.h"
-#include "albers/CollectionBase.h"
+// podio specific includes
+#include "podio/ICollectionProvider.h"
+#include "podio/CollectionBase.h"
+#include "podio/CollectionIDTable.h"
 
 // datamodel specific includes
-#include "datamodel/TrackState.h"
-#include "datamodel/TrackStateHandle.h"
+#include "TrackStateData.h"
+#include "TrackState.h"
+#include "TrackStateObj.h"
 
-typedef std::vector<TrackState> TrackStateVector;
-typedef std::vector<TrackStateHandle> TrackStateHandleContainer;
+
+typedef std::vector<TrackStateData> TrackStateDataContainer;
+typedef std::deque<TrackStateObj*> TrackStateObjPointerContainer;
 
 class TrackStateCollectionIterator {
 
   public:
-    TrackStateCollectionIterator(int index, const TrackStateCollection* collection) : m_index(index), m_collection(collection) {}
+    TrackStateCollectionIterator(int index, const TrackStateObjPointerContainer* collection) : m_index(index), m_object(nullptr), m_collection(collection) {}
 
     bool operator!=(const TrackStateCollectionIterator& x) const {
       return m_index != x.m_index; //TODO: may not be complete
     }
 
-    const TrackStateHandle operator*() const;
-
-    const TrackStateCollectionIterator& operator++() const {
-      ++m_index;
-      return *this;
-    }
+    const TrackState operator*() const;
+    const TrackState* operator->() const;
+    const TrackStateCollectionIterator& operator++() const;
 
   private:
     mutable int m_index;
-    const TrackStateCollection* m_collection;
+    mutable TrackState m_object;
+    const TrackStateObjPointerContainer* m_collection;
 };
 
 /**
 A Collection is identified by an ID.
 */
 
-class TrackStateCollection : public albers::CollectionBase {
+class TrackStateCollection : public podio::CollectionBase {
 
 public:
   typedef const TrackStateCollectionIterator const_iterator;
 
   TrackStateCollection();
+//  TrackStateCollection(const TrackStateCollection& ) = delete; // deletion doesn't work w/ ROOT IO ! :-(
 //  TrackStateCollection(TrackStateVector* data, int collectionID);
   ~TrackStateCollection(){};
 
   void clear();
+  /// Append a new object to the collection, and return this object.
+  TrackState create();
 
-  /// Append a new object to the collection, and return a Handle to this object.
-  TrackStateHandle create();
+  /// Append a new object to the collection, and return this object.
+  /// Initialized with the parameters given
+  template<typename... Args>
+  TrackState create(Args&&... args);
+  int size() const;
 
-  /// Insert an existing handle into the collection. 
-  /// In this operation, the data pointed by the handle is copied.
-  TrackStateHandle insert(const TrackStateHandle& origin);  
-  
-  /// Returns a Handle to the object at position index in the collection
-  const TrackStateHandle& get(int index) const;
+  /// Returns the object of given index
+  const TrackState operator[](unsigned int index) const;
+  /// Returns the object of given index
+  const TrackState at(unsigned int index) const;
 
-  /// Currently does nothing
-  void prepareForWrite(const albers::Registry* registry);
-  void prepareAfterRead(albers::Registry* registry);
-  void setPODsAddress(const void* address);
+
+  /// Append object to the collection
+  void push_back(ConstTrackState object);
+
+  void prepareForWrite();
+  void prepareAfterRead();
+  void setBuffer(void* address);
+  bool setReferences(const podio::ICollectionProvider* collectionProvider);
+
+  podio::CollRefCollection* referenceCollections() { return m_refCollections;};
 
   void setID(unsigned ID){m_collectionID = ID;};
 
   // support for the iterator protocol
   const const_iterator begin() const {
-    return const_iterator(0, this);
+    return const_iterator(0, &m_entries);
   }
   const	const_iterator end() const {
-    return const_iterator(m_handles.size(), this);
+    return const_iterator(m_entries.size(), &m_entries);
   }
 
-//  std::vector<std::pair<std::string,albers::CollectionBase*>>& referenceCollections();
-
   /// returns the address of the pointer to the data buffer
-  void* _getRawBuffer() { return (void*)&m_data;};
+  void* getBufferAddress() { return (void*)&m_data;};
 
   /// returns the pointer to the data buffer
-  std::vector<TrackState>* _getBuffer() { return m_data;};
+  std::vector<TrackStateData>* _getBuffer() { return m_data;};
 
-  /// returns the collection of Handles
-  const TrackStateHandleContainer& getHandles() { return m_handles; }
-
-  /// print some information
-  void print() const;
+     template<size_t arraysize>  
+  const std::array<float,arraysize> Location() const;
+  template<size_t arraysize>  
+  const std::array<float,arraysize> Omega() const;
+  template<size_t arraysize>  
+  const std::array<float,arraysize> D0() const;
+  template<size_t arraysize>  
+  const std::array<float,arraysize> Z0() const;
 
 
 private:
-  unsigned m_collectionID;
-  TrackStateVector* m_data;
-  TrackStateHandleContainer m_handles;
+  int m_collectionID;
+  TrackStateObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  
+
+  // members to handle streaming
+  podio::CollRefCollection* m_refCollections;
+  TrackStateDataContainer* m_data;
 };
+
+template<typename... Args>
+TrackState  TrackStateCollection::create(Args&&... args){
+  int size = m_entries.size();
+  auto obj = new TrackStateObj({size,m_collectionID},{args...});
+  m_entries.push_back(obj);
+  return TrackState(obj);
+}
+
+template<size_t arraysize>
+const std::array<float,arraysize> TrackStateCollection::Location() const {
+  std::array<float,arraysize> tmp;
+  auto valid_size = std::min(arraysize,m_entries.size());
+  for (unsigned i = 0; i<valid_size; ++i){
+    tmp[i] = m_entries[i]->data.Location;
+ }
+ return tmp;
+}
+template<size_t arraysize>
+const std::array<float,arraysize> TrackStateCollection::Omega() const {
+  std::array<float,arraysize> tmp;
+  auto valid_size = std::min(arraysize,m_entries.size());
+  for (unsigned i = 0; i<valid_size; ++i){
+    tmp[i] = m_entries[i]->data.Omega;
+ }
+ return tmp;
+}
+template<size_t arraysize>
+const std::array<float,arraysize> TrackStateCollection::D0() const {
+  std::array<float,arraysize> tmp;
+  auto valid_size = std::min(arraysize,m_entries.size());
+  for (unsigned i = 0; i<valid_size; ++i){
+    tmp[i] = m_entries[i]->data.D0;
+ }
+ return tmp;
+}
+template<size_t arraysize>
+const std::array<float,arraysize> TrackStateCollection::Z0() const {
+  std::array<float,arraysize> tmp;
+  auto valid_size = std::min(arraysize,m_entries.size());
+  for (unsigned i = 0; i<valid_size; ++i){
+    tmp[i] = m_entries[i]->data.Z0;
+ }
+ return tmp;
+}
+
 
 #endif

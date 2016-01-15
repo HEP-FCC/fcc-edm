@@ -1,73 +1,142 @@
-#include "datamodel/TrackClusterHitsAssociationCollection.h"
+// standard includes
+#include <stdexcept>
+#include "TrackClusterCollection.h" 
+#include "TrackHitCollection.h" 
 
-TrackClusterHitsAssociationCollection::TrackClusterHitsAssociationCollection() : m_collectionID(0), m_data(new TrackClusterHitsAssociationVector() ){
+
+#include "TrackClusterHitsAssociationCollection.h"
+
+
+
+TrackClusterHitsAssociationCollection::TrackClusterHitsAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Cluster(new std::vector<ConstTrackCluster>()),m_rel_Hit(new std::vector<ConstTrackHit>()),m_refCollections(nullptr), m_data(new TrackClusterHitsAssociationDataContainer() ) {
+    m_refCollections = new podio::CollRefCollection();
+  m_refCollections->push_back(new std::vector<podio::ObjectID>());
+  m_refCollections->push_back(new std::vector<podio::ObjectID>());
+
 }
 
-const TrackClusterHitsAssociationHandle& TrackClusterHitsAssociationCollection::get(int index) const{
-  return m_handles[index];
+const TrackClusterHitsAssociation TrackClusterHitsAssociationCollection::operator[](unsigned int index) const {
+  return TrackClusterHitsAssociation(m_entries[index]);
 }
 
-TrackClusterHitsAssociationHandle TrackClusterHitsAssociationCollection::create() {
-  m_data->emplace_back(TrackClusterHitsAssociation());
-  int index = m_data->size()-1;
-  // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
-  m_handles.emplace_back(TrackClusterHitsAssociationHandle(index,m_collectionID, m_data));
-
-  return m_handles.back();
+const TrackClusterHitsAssociation TrackClusterHitsAssociationCollection::at(unsigned int index) const {
+  return TrackClusterHitsAssociation(m_entries.at(index));
 }
 
-TrackClusterHitsAssociationHandle TrackClusterHitsAssociationCollection::insert(const TrackClusterHitsAssociationHandle& origin) {
-  m_data->emplace_back(origin.read());
-  int index = m_data->size()-1;
-  m_handles.emplace_back(TrackClusterHitsAssociationHandle(index,m_collectionID, m_data));
+int  TrackClusterHitsAssociationCollection::size() const {
+  return m_entries.size();
+}
 
-  return m_handles.back();
-}  
+TrackClusterHitsAssociation TrackClusterHitsAssociationCollection::create(){
+  auto obj = new TrackClusterHitsAssociationObj();
+  m_entries.emplace_back(obj);
+
+  obj->id = {int(m_entries.size()-1),m_collectionID};
+  return TrackClusterHitsAssociation(obj);
+}
 
 void TrackClusterHitsAssociationCollection::clear(){
   m_data->clear();
-  m_handles.clear();
+  for (auto& pointer : (*m_refCollections)) {pointer->clear(); }
+  for (auto& item : (*m_rel_Cluster)) {item.unlink(); }
+  m_rel_Cluster->clear();
+  for (auto& item : (*m_rel_Hit)) {item.unlink(); }
+  m_rel_Hit->clear();
 
+  for (auto& obj : m_entries) { delete obj; }
+  m_entries.clear();
 }
 
-void TrackClusterHitsAssociationCollection::prepareForWrite(const albers::Registry* registry){
-  for(auto& data : *m_data){
-     data.Cluster.prepareForWrite(registry);
-    data.Hit.prepareForWrite(registry);
-  }
-}
-
-void TrackClusterHitsAssociationCollection::prepareAfterRead(albers::Registry* registry){
-  m_handles.clear();
+void TrackClusterHitsAssociationCollection::prepareForWrite(){
   int index = 0;
-  // fix. otherwise, m_collectionID == 0..
-  m_collectionID = registry->getIDFromPODAddress( _getBuffer() );
-  for (auto& data : *m_data){
-    data.Cluster.prepareAfterRead(registry);
-data.Hit.prepareAfterRead(registry);
+  auto size = m_entries.size();
+  m_data->reserve(size);
+  for (auto& obj : m_entries) {m_data->push_back(obj->data); }
+  if (m_refCollections != nullptr) {
+    for (auto& pointer : (*m_refCollections)) {pointer->clear(); }
+  }
+  
+  for(int i=0, size = m_data->size(); i != size; ++i){
+  
+  }
+    for (auto& obj : m_entries) {
+if (obj->m_Cluster != nullptr){
+(*m_refCollections)[0]->emplace_back(obj->m_Cluster->getObjectID());} else {(*m_refCollections)[0]->push_back({-2,-2}); } }
+  for (auto& obj : m_entries) {
+if (obj->m_Hit != nullptr){
+(*m_refCollections)[1]->emplace_back(obj->m_Hit->getObjectID());} else {(*m_refCollections)[1]->push_back({-2,-2}); } }
 
-    m_handles.emplace_back(TrackClusterHitsAssociationHandle(index,m_collectionID, m_data));
+}
+
+void TrackClusterHitsAssociationCollection::prepareAfterRead(){
+  int index = 0;
+  for (auto& data : *m_data){
+    auto obj = new TrackClusterHitsAssociationObj({index,m_collectionID}, data);
+    
+    m_entries.emplace_back(obj);
     ++index;
   }
 }
 
+bool TrackClusterHitsAssociationCollection::setReferences(const podio::ICollectionProvider* collectionProvider){
 
-void TrackClusterHitsAssociationCollection::setPODsAddress(const void* address){
-  m_data = (TrackClusterHitsAssociationVector*)address;
+  for(unsigned int i=0, size=m_entries.size();i!=size;++i ) {
+    auto id = (*(*m_refCollections)[0])[i];
+    if (id.index != podio::ObjectID::invalid) {
+      CollectionBase* coll = nullptr;
+      collectionProvider->get(id.collectionID,coll);
+      TrackClusterCollection* tmp_coll = static_cast<TrackClusterCollection*>(coll);
+      m_entries[i]->m_Cluster = new ConstTrackCluster((*tmp_coll)[id.index]);
+    } else {
+      m_entries[i]->m_Cluster = nullptr;
+    }
+  }
+  for(unsigned int i=0, size=m_entries.size();i!=size;++i ) {
+    auto id = (*(*m_refCollections)[1])[i];
+    if (id.index != podio::ObjectID::invalid) {
+      CollectionBase* coll = nullptr;
+      collectionProvider->get(id.collectionID,coll);
+      TrackHitCollection* tmp_coll = static_cast<TrackHitCollection*>(coll);
+      m_entries[i]->m_Hit = new ConstTrackHit((*tmp_coll)[id.index]);
+    } else {
+      m_entries[i]->m_Hit = nullptr;
+    }
+  }
+
+  return true; //TODO: check success
+}
+
+void TrackClusterHitsAssociationCollection::push_back(ConstTrackClusterHitsAssociation object){
+    int size = m_entries.size();
+    auto obj = object.m_obj;
+    if (obj->id.index == podio::ObjectID::untracked) {
+        obj->id = {size,m_collectionID};
+        m_entries.push_back(obj);
+        
+    } else {
+      throw std::invalid_argument( "Object already in a collection. Cannot add it to a second collection " );
+
+    }
+}
+
+void TrackClusterHitsAssociationCollection::setBuffer(void* address){
+  m_data = static_cast<TrackClusterHitsAssociationDataContainer*>(address);
 }
 
 
-const TrackClusterHitsAssociationHandle TrackClusterHitsAssociationCollectionIterator::operator* () const {
-  return m_collection->get(m_index);
+const TrackClusterHitsAssociation TrackClusterHitsAssociationCollectionIterator::operator* () const {
+  m_object.m_obj = (*m_collection)[m_index];
+  return m_object;
 }
 
-//std::vector<std::pair<std::string,albers::CollectionBase*>>& referenceCollections() {
-//}
-
-
-void TrackClusterHitsAssociationCollection::print() const {
-  std::cout<<"collection "<<m_collectionID
-           <<", buf "<<m_data
-           <<", nhandles "<<m_handles.size()<<std::endl;
+const TrackClusterHitsAssociation* TrackClusterHitsAssociationCollectionIterator::operator-> () const {
+    m_object.m_obj = (*m_collection)[m_index];
+    return &m_object;
 }
+
+const TrackClusterHitsAssociationCollectionIterator& TrackClusterHitsAssociationCollectionIterator::operator++() const {
+  ++m_index;
+ return *this;
+}
+
 

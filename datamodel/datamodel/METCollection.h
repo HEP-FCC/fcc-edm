@@ -6,100 +6,139 @@
 #include <string>
 #include <vector>
 #include <deque>
+#include <array>
 
-// albers specific includes
-#include "albers/Registry.h"
-#include "albers/CollectionBase.h"
+// podio specific includes
+#include "podio/ICollectionProvider.h"
+#include "podio/CollectionBase.h"
+#include "podio/CollectionIDTable.h"
 
 // datamodel specific includes
-#include "datamodel/MET.h"
-#include "datamodel/METHandle.h"
+#include "METData.h"
+#include "MET.h"
+#include "METObj.h"
 
-typedef std::vector<MET> METVector;
-typedef std::vector<METHandle> METHandleContainer;
+
+typedef std::vector<METData> METDataContainer;
+typedef std::deque<METObj*> METObjPointerContainer;
 
 class METCollectionIterator {
 
   public:
-    METCollectionIterator(int index, const METCollection* collection) : m_index(index), m_collection(collection) {}
+    METCollectionIterator(int index, const METObjPointerContainer* collection) : m_index(index), m_object(nullptr), m_collection(collection) {}
 
     bool operator!=(const METCollectionIterator& x) const {
       return m_index != x.m_index; //TODO: may not be complete
     }
 
-    const METHandle operator*() const;
-
-    const METCollectionIterator& operator++() const {
-      ++m_index;
-      return *this;
-    }
+    const MET operator*() const;
+    const MET* operator->() const;
+    const METCollectionIterator& operator++() const;
 
   private:
     mutable int m_index;
-    const METCollection* m_collection;
+    mutable MET m_object;
+    const METObjPointerContainer* m_collection;
 };
 
 /**
 A Collection is identified by an ID.
 */
 
-class METCollection : public albers::CollectionBase {
+class METCollection : public podio::CollectionBase {
 
 public:
   typedef const METCollectionIterator const_iterator;
 
   METCollection();
+//  METCollection(const METCollection& ) = delete; // deletion doesn't work w/ ROOT IO ! :-(
 //  METCollection(METVector* data, int collectionID);
   ~METCollection(){};
 
   void clear();
+  /// Append a new object to the collection, and return this object.
+  MET create();
 
-  /// Append a new object to the collection, and return a Handle to this object.
-  METHandle create();
+  /// Append a new object to the collection, and return this object.
+  /// Initialized with the parameters given
+  template<typename... Args>
+  MET create(Args&&... args);
+  int size() const;
 
-  /// Insert an existing handle into the collection. 
-  /// In this operation, the data pointed by the handle is copied.
-  METHandle insert(const METHandle& origin);  
-  
-  /// Returns a Handle to the object at position index in the collection
-  const METHandle& get(int index) const;
+  /// Returns the object of given index
+  const MET operator[](unsigned int index) const;
+  /// Returns the object of given index
+  const MET at(unsigned int index) const;
 
-  /// Currently does nothing
-  void prepareForWrite(const albers::Registry* registry);
-  void prepareAfterRead(albers::Registry* registry);
-  void setPODsAddress(const void* address);
+
+  /// Append object to the collection
+  void push_back(ConstMET object);
+
+  void prepareForWrite();
+  void prepareAfterRead();
+  void setBuffer(void* address);
+  bool setReferences(const podio::ICollectionProvider* collectionProvider);
+
+  podio::CollRefCollection* referenceCollections() { return m_refCollections;};
 
   void setID(unsigned ID){m_collectionID = ID;};
 
   // support for the iterator protocol
   const const_iterator begin() const {
-    return const_iterator(0, this);
+    return const_iterator(0, &m_entries);
   }
   const	const_iterator end() const {
-    return const_iterator(m_handles.size(), this);
+    return const_iterator(m_entries.size(), &m_entries);
   }
 
-//  std::vector<std::pair<std::string,albers::CollectionBase*>>& referenceCollections();
-
   /// returns the address of the pointer to the data buffer
-  void* _getRawBuffer() { return (void*)&m_data;};
+  void* getBufferAddress() { return (void*)&m_data;};
 
   /// returns the pointer to the data buffer
-  std::vector<MET>* _getBuffer() { return m_data;};
+  std::vector<METData>* _getBuffer() { return m_data;};
 
-  /// returns the collection of Handles
-  const METHandleContainer& getHandles() { return m_handles; }
-
-  /// print some information
-  void print() const;
+     template<size_t arraysize>  
+  const std::array<float,arraysize> Pt() const;
+  template<size_t arraysize>  
+  const std::array<float,arraysize> Phi() const;
 
 
 private:
-  unsigned m_collectionID;
-  METVector* m_data;
-  METHandleContainer m_handles;
+  int m_collectionID;
+  METObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  
+
+  // members to handle streaming
+  podio::CollRefCollection* m_refCollections;
+  METDataContainer* m_data;
 };
+
+template<typename... Args>
+MET  METCollection::create(Args&&... args){
+  int size = m_entries.size();
+  auto obj = new METObj({size,m_collectionID},{args...});
+  m_entries.push_back(obj);
+  return MET(obj);
+}
+
+template<size_t arraysize>
+const std::array<float,arraysize> METCollection::Pt() const {
+  std::array<float,arraysize> tmp;
+  auto valid_size = std::min(arraysize,m_entries.size());
+  for (unsigned i = 0; i<valid_size; ++i){
+    tmp[i] = m_entries[i]->data.Pt;
+ }
+ return tmp;
+}
+template<size_t arraysize>
+const std::array<float,arraysize> METCollection::Phi() const {
+  std::array<float,arraysize> tmp;
+  auto valid_size = std::min(arraysize,m_entries.size());
+  for (unsigned i = 0; i<valid_size; ++i){
+    tmp[i] = m_entries[i]->data.Phi;
+ }
+ return tmp;
+}
+
 
 #endif

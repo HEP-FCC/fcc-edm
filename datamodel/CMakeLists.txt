@@ -4,12 +4,12 @@ include_directories(
 )
 
 file(GLOB sources src/*.cc datamodel/*.h)
-file(GLOB headers datamodel/*.h albers/PyEventStore.h)
+file(GLOB headers datamodel/*.h podio/PythonEventStore.h)
 
-ROOT_GENERATE_DICTIONARY(ExampleDict datamodel/*.h albers/PyEventStore.h LINKDEF LinkDef.h )
+REFLEX_GENERATE_DICTIONARY(ExampleDict ${headers} SELECTION src/selection.xml )
 
-add_library(datamodel SHARED ${sources} ${}ExampleDict.cxx)
-target_link_libraries(datamodel albers ${ROOT_LIBRARIES} ${ROOT_COMPONENT_LIBRARIES})
+add_library(datamodel SHARED ${sources} ExampleDict.cxx)
+target_link_libraries(datamodel podio ${ROOT_LIBRARIES} ${ROOT_COMPONENT_LIBRARIES})
 
 set_target_properties(datamodel PROPERTIES
   PUBLIC_HEADER "${headers}")

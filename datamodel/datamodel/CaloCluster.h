@@ -1,16 +1,82 @@
-#ifndef CaloCluster_H 
+#ifndef CaloCluster_H
 #define CaloCluster_H
+#include "CaloClusterData.h"
+#include "BareCluster.h"
 
-// contains basic cluster information
+#include <vector>
+#include "podio/ObjectID.h"
+
+//  contains basic cluster information
 // author: C. Bernet, B. Hegner
 
-#include "datamodel/BareCluster.h"
+//forward declarations
 
+
+#include "CaloClusterConst.h"
+#include "CaloClusterObj.h"
+
+
+
+class CaloClusterCollection;
+class CaloClusterCollectionIterator;
+class ConstCaloCluster;
 
 class CaloCluster {
+
+  friend CaloClusterCollection;
+  friend CaloClusterCollectionIterator;
+  friend ConstCaloCluster;
+
 public:
-  BareCluster Core; //contains basic cluster information 
+
+  /// default constructor
+  CaloCluster();
+    CaloCluster(BareCluster Core);
+
+  /// constructor from existing CaloClusterObj
+  CaloCluster(CaloClusterObj* obj);
+  /// copy constructor
+  CaloCluster(const CaloCluster& other);
+  /// copy-assignment operator
+  CaloCluster& operator=(const CaloCluster& other);
+  /// support cloning (deep-copy)
+  CaloCluster clone() const;
+  /// destructor
+  ~CaloCluster();
+
+  /// conversion to const object
+  operator ConstCaloCluster () const;
+
+public:
+
+  const BareCluster& Core() const;
+
+  BareCluster& Core();
+  void Core(class BareCluster value);
+
+
+  /// check whether the object is actually available
+  bool isAvailable() const;
+  /// disconnect from CaloClusterObj instance
+  void unlink(){m_obj = nullptr;}
+
+  bool operator==(const CaloCluster& other) const {
+       return (m_obj==other.m_obj);
+  }
+
+  bool operator==(const ConstCaloCluster& other) const;
+
+// less comparison operator, so that objects can be e.g. stored in sets.
+//  friend bool operator< (const CaloCluster& p1,
+//       const CaloCluster& p2 );
+
+  const podio::ObjectID getObjectID() const;
+
+private:
+  CaloClusterObj* m_obj;
 
 };
+
+
 
 #endif
