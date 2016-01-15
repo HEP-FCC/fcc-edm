@@ -44,7 +44,7 @@ datatypes :
 # Datatypes are components that can be stored in a Collection
 
   EventInfo :
-    Aescription : "Event Info Data"
+    Description : "Event Info Data"
     Author : "C. Bernet, B. Hegner"
     Members :
      - int Number // Event number
@@ -58,7 +58,6 @@ datatypes :
   ParticleTrackAssociation:
     Description: "Association between a Particle and a Track."
     Author : "C. Bernet, B. Hegner"
-    Members:
     OneToOneRelations:
      - Particle Particle // The particle
      - Track Track // The track
@@ -66,7 +65,7 @@ datatypes :
   ParticleClusterAssociation:
     Description: "Association between a Particle and a Cluster."
     Author : "C. Bernet, B. Hegner"
-    Members:
+    OneToOneRelations:
      - Particle Particle // The particle
      - CaloCluster Cluster // The cluster
 
@@ -86,8 +85,8 @@ datatypes :
      - MCParticle Mother // The mother.
      - MCParticle Daughter // The daughter.
 
-  ParticleMCAssociation:
-    Description : "Association between a Particle and a MCParticle, used to keep track of the correspondance between MC and reconstruted particles"
+  ParticleMCParticleAssociation:
+    Description : "Association between a Particle and a MCParticle, used to keep track of the correspondence between MC and reconstructed particles"
     Author : "C. Bernet, B. Hegner"
     OneToOneRelations :
       - Particle Rec // Reference to the reconstructed particle
@@ -113,8 +112,8 @@ datatypes :
      - BareJet Core // Basic jet information.
 
   GenJetParticleAssociation:
-    description : "Association between a GenJet and a MCParticle. Used to keep track of jet constituents"
-    author : "C. Bernet, B. Hegner"
+    Description : "Association between a GenJet and a MCParticle. Used to keep track of jet constituents"
+    Author : "C. Bernet, B. Hegner"
     OneToOneRelations :
      - GenJet Jet // Reference to the gen jet
      - MCParticle Particle // Reference to the mc particle
@@ -244,7 +243,7 @@ datatypes :
     Author : "C. Bernet, B. Hegner"
     Members:
      - Point Position // Vertex position in cm
-     - float Ctau // Not sure how it's defined.
+     - float Ctau // Time coordinate in cm
 
   VertexTrackAssociation:
     Description: "Association between a track and a vertex, with a weight"
