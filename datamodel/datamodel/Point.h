@@ -1,4 +1,4 @@
-#ifndef Point_H 
+#ifndef Point_H
 #define Point_H
 
 

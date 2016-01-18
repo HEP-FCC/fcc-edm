@@ -1,68 +1,104 @@
-#include "datamodel/SimCaloClusterCollection.h"
+// standard includes
+#include <stdexcept>
 
-SimCaloClusterCollection::SimCaloClusterCollection() : m_collectionID(0), m_data(new SimCaloClusterVector() ){
+
+#include "SimCaloClusterCollection.h"
+
+
+
+SimCaloClusterCollection::SimCaloClusterCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new SimCaloClusterDataContainer() ) {
+  
 }
 
-const SimCaloClusterHandle& SimCaloClusterCollection::get(int index) const{
-  return m_handles[index];
+const SimCaloCluster SimCaloClusterCollection::operator[](unsigned int index) const {
+  return SimCaloCluster(m_entries[index]);
 }
 
-SimCaloClusterHandle SimCaloClusterCollection::create() {
-  m_data->emplace_back(SimCaloCluster());
-  int index = m_data->size()-1;
-  // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
-  m_handles.emplace_back(SimCaloClusterHandle(index,m_collectionID, m_data));
-
-  return m_handles.back();
+const SimCaloCluster SimCaloClusterCollection::at(unsigned int index) const {
+  return SimCaloCluster(m_entries.at(index));
 }
 
-SimCaloClusterHandle SimCaloClusterCollection::insert(const SimCaloClusterHandle& origin) {
-  m_data->emplace_back(origin.read());
-  int index = m_data->size()-1;
-  m_handles.emplace_back(SimCaloClusterHandle(index,m_collectionID, m_data));
+int  SimCaloClusterCollection::size() const {
+  return m_entries.size();
+}
 
-  return m_handles.back();
-}  
+SimCaloCluster SimCaloClusterCollection::create(){
+  auto obj = new SimCaloClusterObj();
+  m_entries.emplace_back(obj);
+
+  obj->id = {int(m_entries.size()-1),m_collectionID};
+  return SimCaloCluster(obj);
+}
 
 void SimCaloClusterCollection::clear(){
   m_data->clear();
-  m_handles.clear();
 
+  for (auto& obj : m_entries) { delete obj; }
+  m_entries.clear();
 }
 
-void SimCaloClusterCollection::prepareForWrite(const albers::Registry* registry){
-
-}
-
-void SimCaloClusterCollection::prepareAfterRead(albers::Registry* registry){
-  m_handles.clear();
+void SimCaloClusterCollection::prepareForWrite(){
   int index = 0;
-  // fix. otherwise, m_collectionID == 0..
-  m_collectionID = registry->getIDFromPODAddress( _getBuffer() );
+  auto size = m_entries.size();
+  m_data->reserve(size);
+  for (auto& obj : m_entries) {m_data->push_back(obj->data); }
+  if (m_refCollections != nullptr) {
+    for (auto& pointer : (*m_refCollections)) {pointer->clear(); }
+  }
+  
+  for(int i=0, size = m_data->size(); i != size; ++i){
+  
+  }
+  
+}
+
+void SimCaloClusterCollection::prepareAfterRead(){
+  int index = 0;
   for (auto& data : *m_data){
+    auto obj = new SimCaloClusterObj({index,m_collectionID}, data);
     
-    m_handles.emplace_back(SimCaloClusterHandle(index,m_collectionID, m_data));
+    m_entries.emplace_back(obj);
     ++index;
   }
 }
 
+bool SimCaloClusterCollection::setReferences(const podio::ICollectionProvider* collectionProvider){
 
-void SimCaloClusterCollection::setPODsAddress(const void* address){
-  m_data = (SimCaloClusterVector*)address;
+
+  return true; //TODO: check success
+}
+
+void SimCaloClusterCollection::push_back(ConstSimCaloCluster object){
+    int size = m_entries.size();
+    auto obj = object.m_obj;
+    if (obj->id.index == podio::ObjectID::untracked) {
+        obj->id = {size,m_collectionID};
+        m_entries.push_back(obj);
+        
+    } else {
+      throw std::invalid_argument( "Object already in a collection. Cannot add it to a second collection " );
+
+    }
+}
+
+void SimCaloClusterCollection::setBuffer(void* address){
+  m_data = static_cast<SimCaloClusterDataContainer*>(address);
 }
 
 
-const SimCaloClusterHandle SimCaloClusterCollectionIterator::operator* () const {
-  return m_collection->get(m_index);
+const SimCaloCluster SimCaloClusterCollectionIterator::operator* () const {
+  m_object.m_obj = (*m_collection)[m_index];
+  return m_object;
 }
 
-//std::vector<std::pair<std::string,albers::CollectionBase*>>& referenceCollections() {
-//}
-
-
-void SimCaloClusterCollection::print() const {
-  std::cout<<"collection "<<m_collectionID
-           <<", buf "<<m_data
-           <<", nhandles "<<m_handles.size()<<std::endl;
+const SimCaloCluster* SimCaloClusterCollectionIterator::operator-> () const {
+    m_object.m_obj = (*m_collection)[m_index];
+    return &m_object;
 }
+
+const SimCaloClusterCollectionIterator& SimCaloClusterCollectionIterator::operator++() const {
+  ++m_index;
+ return *this;
+}
+
 

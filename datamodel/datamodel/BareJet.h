@@ -1,7 +1,7 @@
-#ifndef BareJet_H 
+#ifndef BareJet_H
 #define BareJet_H
+#include "LorentzVector.h"
 
-#include "datamodel/LorentzVector.h"
 
 
 class BareJet {

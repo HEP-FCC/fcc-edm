@@ -6,100 +6,128 @@
 #include <string>
 #include <vector>
 #include <deque>
+#include <array>
 
-// albers specific includes
-#include "albers/Registry.h"
-#include "albers/CollectionBase.h"
+// podio specific includes
+#include "podio/ICollectionProvider.h"
+#include "podio/CollectionBase.h"
+#include "podio/CollectionIDTable.h"
 
 // datamodel specific includes
-#include "datamodel/CaloCluster.h"
-#include "datamodel/CaloClusterHandle.h"
+#include "CaloClusterData.h"
+#include "CaloCluster.h"
+#include "CaloClusterObj.h"
 
-typedef std::vector<CaloCluster> CaloClusterVector;
-typedef std::vector<CaloClusterHandle> CaloClusterHandleContainer;
+
+typedef std::vector<CaloClusterData> CaloClusterDataContainer;
+typedef std::deque<CaloClusterObj*> CaloClusterObjPointerContainer;
 
 class CaloClusterCollectionIterator {
 
   public:
-    CaloClusterCollectionIterator(int index, const CaloClusterCollection* collection) : m_index(index), m_collection(collection) {}
+    CaloClusterCollectionIterator(int index, const CaloClusterObjPointerContainer* collection) : m_index(index), m_object(nullptr), m_collection(collection) {}
 
     bool operator!=(const CaloClusterCollectionIterator& x) const {
       return m_index != x.m_index; //TODO: may not be complete
     }
 
-    const CaloClusterHandle operator*() const;
-
-    const CaloClusterCollectionIterator& operator++() const {
-      ++m_index;
-      return *this;
-    }
+    const CaloCluster operator*() const;
+    const CaloCluster* operator->() const;
+    const CaloClusterCollectionIterator& operator++() const;
 
   private:
     mutable int m_index;
-    const CaloClusterCollection* m_collection;
+    mutable CaloCluster m_object;
+    const CaloClusterObjPointerContainer* m_collection;
 };
 
 /**
 A Collection is identified by an ID.
 */
 
-class CaloClusterCollection : public albers::CollectionBase {
+class CaloClusterCollection : public podio::CollectionBase {
 
 public:
   typedef const CaloClusterCollectionIterator const_iterator;
 
   CaloClusterCollection();
+//  CaloClusterCollection(const CaloClusterCollection& ) = delete; // deletion doesn't work w/ ROOT IO ! :-(
 //  CaloClusterCollection(CaloClusterVector* data, int collectionID);
   ~CaloClusterCollection(){};
 
   void clear();
+  /// Append a new object to the collection, and return this object.
+  CaloCluster create();
 
-  /// Append a new object to the collection, and return a Handle to this object.
-  CaloClusterHandle create();
+  /// Append a new object to the collection, and return this object.
+  /// Initialized with the parameters given
+  template<typename... Args>
+  CaloCluster create(Args&&... args);
+  int size() const;
 
-  /// Insert an existing handle into the collection. 
-  /// In this operation, the data pointed by the handle is copied.
-  CaloClusterHandle insert(const CaloClusterHandle& origin);  
-  
-  /// Returns a Handle to the object at position index in the collection
-  const CaloClusterHandle& get(int index) const;
+  /// Returns the object of given index
+  const CaloCluster operator[](unsigned int index) const;
+  /// Returns the object of given index
+  const CaloCluster at(unsigned int index) const;
 
-  /// Currently does nothing
-  void prepareForWrite(const albers::Registry* registry);
-  void prepareAfterRead(albers::Registry* registry);
-  void setPODsAddress(const void* address);
+
+  /// Append object to the collection
+  void push_back(ConstCaloCluster object);
+
+  void prepareForWrite();
+  void prepareAfterRead();
+  void setBuffer(void* address);
+  bool setReferences(const podio::ICollectionProvider* collectionProvider);
+
+  podio::CollRefCollection* referenceCollections() { return m_refCollections;};
 
   void setID(unsigned ID){m_collectionID = ID;};
 
   // support for the iterator protocol
   const const_iterator begin() const {
-    return const_iterator(0, this);
+    return const_iterator(0, &m_entries);
   }
   const	const_iterator end() const {
-    return const_iterator(m_handles.size(), this);
+    return const_iterator(m_entries.size(), &m_entries);
   }
 
-//  std::vector<std::pair<std::string,albers::CollectionBase*>>& referenceCollections();
-
   /// returns the address of the pointer to the data buffer
-  void* _getRawBuffer() { return (void*)&m_data;};
+  void* getBufferAddress() { return (void*)&m_data;};
 
   /// returns the pointer to the data buffer
-  std::vector<CaloCluster>* _getBuffer() { return m_data;};
+  std::vector<CaloClusterData>* _getBuffer() { return m_data;};
 
-  /// returns the collection of Handles
-  const CaloClusterHandleContainer& getHandles() { return m_handles; }
-
-  /// print some information
-  void print() const;
+     template<size_t arraysize>  
+  const std::array<BareCluster,arraysize> Core() const;
 
 
 private:
-  unsigned m_collectionID;
-  CaloClusterVector* m_data;
-  CaloClusterHandleContainer m_handles;
+  int m_collectionID;
+  CaloClusterObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  
+
+  // members to handle streaming
+  podio::CollRefCollection* m_refCollections;
+  CaloClusterDataContainer* m_data;
 };
+
+template<typename... Args>
+CaloCluster  CaloClusterCollection::create(Args&&... args){
+  int size = m_entries.size();
+  auto obj = new CaloClusterObj({size,m_collectionID},{args...});
+  m_entries.push_back(obj);
+  return CaloCluster(obj);
+}
+
+template<size_t arraysize>
+const std::array<class BareCluster,arraysize> CaloClusterCollection::Core() const {
+  std::array<class BareCluster,arraysize> tmp;
+  auto valid_size = std::min(arraysize,m_entries.size());
+  for (unsigned i = 0; i<valid_size; ++i){
+    tmp[i] = m_entries[i]->data.Core;
+ }
+ return tmp;
+}
+
 
 #endif

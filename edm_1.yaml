@@ -11,14 +11,14 @@ components:
     Pz : float
 
   Point:
-    X : float 
-    Y : float 
+    X : float
+    Y : float
     Z : float
 
   BareHit:
     Cellid : unsigned
     Energy : float
-    Time : float 
+    Time : float
     Bits : unsigned
 
   BareCluster:
@@ -26,7 +26,7 @@ components:
     Time : float
     position : Point
     Bits : unsigned
-    
+
   BareParticle:
     Type: int
     Charge: int
@@ -44,337 +44,212 @@ datatypes :
 # Datatypes are components that can be stored in a Collection
 
   EventInfo :
-    description : "Event Info Data"
-    author : "C. Bernet, B. Hegner"
-    members :
-     - name : Number
-       type : int
-       description: "Event number"
+    Description : "Event Info Data"
+    Author : "C. Bernet, B. Hegner"
+    Members :
+     - int Number // Event number
 
   Particle :
-    description : "Reconstructed particle"
-    author : "C. Bernet, B. Hegner"
-    members :
-     - name : Core
-       type : BareParticle
-       description : "Contains basic particle information."
-#     - name : Cov
-#       type : ???
-#       description : "covariance matrix"
+    Description : "Reconstructed particle"
+    Author : "C. Bernet, B. Hegner"
+    Members :
+     - BareParticle Core // Contains basic particle information.
 
   ParticleTrackAssociation:
-    description: "Association between a Particle and a Track."
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Particle
-       type: ParticleHandle
-       description: "The particle"
-     - name: Track
-       type: TrackHandle
-       description: "The track"
+    Description: "Association between a Particle and a Track."
+    Author : "C. Bernet, B. Hegner"
+    OneToOneRelations:
+     - Particle Particle // The particle
+     - Track Track // The track
 
   ParticleClusterAssociation:
-    description: "Association between a Particle and a Cluster."
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Particle
-       type: ParticleHandle
-       description: "The particle"
-     - name: Cluster
-       type: CaloClusterHandle
-       description: "The cluster"
+    Description: "Association between a Particle and a Cluster."
+    Author : "C. Bernet, B. Hegner"
+    OneToOneRelations:
+     - Particle Particle // The particle
+     - CaloCluster Cluster // The cluster
 
   MCParticle:
-    description: "Monte-Carlo Particle, either generated or simulated."
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Core
-       type: BareParticle
-       description: "Basic particle information."
-     - name: StartVertex
-       type: GenVertexHandle
-       description: "Reference to the vertex in which the particle was created."
-     - name: EndVertex
-       type: GenVertexHandle
-       description: "Reference to the vertex in which the particle disappeared."
+    Description: "Monte-Carlo Particle, either generated or simulated."
+    Author : "C. Bernet, B. Hegner"
+    Members:
+     - BareParticle Core // Basic particle information.
+    OneToOneRelations:
+     - GenVertex StartVertex // Reference to the vertex in which the particle was created.
+     - GenVertex EndVertex // Reference to the vertex in which the particle was created.
 
   MCParticleAssociation:
-    description: "Directed association between two MCParticles, for parentship."
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Mother
-       type: MCParticleHandle
-       description: "The mother."
-     - name: Daughter
-       type: MCParticleHandle
-       description: "The daughter."
-    
+    Description: "Directed association between two MCParticles, for parentship."
+    Author : "C. Bernet, B. Hegner"
+    OneToOneRelations:
+     - MCParticle Mother // The mother.
+     - MCParticle Daughter // The daughter.
+
   ParticleMCParticleAssociation:
-    description : "Association between a Particle and a MCParticle, used to keep track of the correspondance between MC and reconstruted particles"
-    author : "C. Bernet, B. Hegner"
-    members :
-      - name : Rec
-        type : ParticleHandle
-        description : "Reference to the reconstructed particle"
-      - name : Sim
-        type : MCParticleHandle
-        description : "Reference to the Monte-Carlo particle"
+    Description : "Association between a Particle and a MCParticle, used to keep track of the correspondence between MC and reconstructed particles"
+    Author : "C. Bernet, B. Hegner"
+    OneToOneRelations :
+      - Particle Rec // Reference to the reconstructed particle
+      - MCParticle Sim // Reference to the Monte-Carlo particle
 
   Jet :
-    description : "Reconstructed jet."
-    author : "C. Bernet, B. Hegner"
-    members :
-     - name: Core
-       type : BareJet
-       description : "Basic jet information."
-#    OneToManyRelations:
-#     - name: Particles
-#       type: Particle
-#       description: "Particles making up this jet"
+    Description : "Reconstructed jet."
+    Author : "C. Bernet, B. Hegner"
+    Members :
+     - BareJet Core // Basic jet information.
 
   JetParticleAssociation :
-    description : "Association between a Jet and a Particle. Used to keep track of jet constituents"
-    author : "C. Bernet, B. Hegner"
-    members :
-     - name : Jet
-       type : JetHandle
-       description : "Reference to the jet"
-     - name : Particle
-       type : ParticleHandle
-       description : "Reference to the particle"
+    Description : "Association between a Jet and a Particle. Used to keep track of jet constituents"
+    Author : "C. Bernet, B. Hegner"
+    OneToOneRelations :
+     - Jet Jet // Reference to the jet
+     - Particle Particle // Reference to the particle
 
   GenJet :
-    description : "Generated jet."
-    author : "C. Bernet, B. Hegner"
-    members :
-     - name: Core
-       type : BareJet
-       description : "Basic jet information."
+    Description : "Generated jet."
+    Author : "C. Bernet, B. Hegner"
+    Members :
+     - BareJet Core // Basic jet information.
 
   GenJetParticleAssociation:
-    description : "Association between a GenJet and a MCParticle. Used to keep track of jet constituents"
-    author : "C. Bernet, B. Hegner"
-    members :
-     - name : Jet
-       type : GenJetHandle
-       description : "Reference to the gen jet"
-     - name : Particle
-       type : MCParticleHandle
-       description : "Reference to the mc particle"
-  
+    Description : "Association between a GenJet and a MCParticle. Used to keep track of jet constituents"
+    Author : "C. Bernet, B. Hegner"
+    OneToOneRelations :
+     - GenJet Jet // Reference to the gen jet
+     - MCParticle Particle // Reference to the mc particle
+
   MET:
-    description : "Naive MET type"
-    author : "C. Bernet, B. Hegner"
-    members :
-     - name: Pt
-       type : float
-       description : ""
-     - name: Phi
-       type : float
-       description : ""
+    Description : "Naive MET type"
+    Author : "C. Bernet, B. Hegner"
+    Members :
+     - float Pt // .
+     - float Phi // .
 
   MissingEnergy:
-    description : "Naive missing energy type"
-    author : "C. Bernet, B. Hegner"
-    members :
-     - name: Energy
-       type : float
-       description : ""
-     - name: Phi
-       type : float
-       description : ""
-
+    Description : "Naive missing energy type"
+    Author : "C. Bernet, B. Hegner"
+    Members :
+     - float Energy // .
+     - float Phi // .
 
   TrackHit:
-    description : "A tracker hit"
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Core
-       type: BareHit
-       description : "contains basic hit information"
+    Description : "A tracker hit"
+    Author : "C. Bernet, B. Hegner"
+    Members:
+     - BareHit Core // contains basic hit information
 
   CaloHit:
-    description : "A calorimeter hit"
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Core
-       type: BareHit
-       description : "contains basic hit information"
+    Description : "A calorimeter hit"
+    Author : "C. Bernet, B. Hegner"
+    Members:
+     - BareHit Core // contains basic hit information
 
   SimCaloHit:
-    description : "A simulated calorimeter hit"
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Core
-       type: BareHit
-       description : "contains basic hit information"
+    Description : "A simulated calorimeter hit"
+    Author : "C. Bernet, B. Hegner"
+    Members:
+     - BareHit Core // contains basic hit information
 
   SimCaloHitMCParticleAssociation:
-    description: "Association between a SimCaloHit and a particle that contributed to the hit."
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Hit
-       type: SimCaloHitHandle
-       description: "The hit."
-     - name: Particle
-       type: MCParticleHandle
-       description: "The particle."
-     - name: Fraction
-       type: float
-       description: "Fraction of the particle energy used in the hit."
+    Description: "Association between a SimCaloHit and a particle that contributed to the hit."
+    Author : "C. Bernet, B. Hegner"
+    Members:
+     - float Fraction // Fraction of the particle energy used in the hit.
+    OneToOneRelations:
+     - SimCaloHit Hit // the hit
+     - MCParticle Particle // the particle
 
   CaloHitAssociation:
-    description: "Association between a CaloHit and the corresponding SimCaloHit"
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Rec
-       type: CaloHitHandle
-       description: "The reconstruted hit."
-     - name: Sim
-       type: SimCaloHitHandle
-       description: "The simulated hit."
+    Description: "Association between a CaloHit and the corresponding SimCaloHit"
+    Author : "C. Bernet, B. Hegner"
+    OneToOneRelations:
+     - CaloHit Rec // The reconstruted hit.
+     - SimCaloHit Sim // The simulated hit.
 
   TrackCluster:
-    description : "A track cluster, made of TrackHits"
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Core
-       type: BareCluster
-       description : "contains basic cluster information"
+    Description : "A track cluster, made of TrackHits"
+    Author : "C. Bernet, B. Hegner"
+    Members:
+     - BareCluster Core // contains basic cluster information
 
   CaloCluster:
-    description : "A calo cluster, made of CaloHits"
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Core
-       type: BareCluster
-       description : "contains basic cluster information"
+    Description : "A calo cluster, made of CaloHits"
+    Author : "C. Bernet, B. Hegner"
+    Members:
+     - BareCluster Core // contains basic cluster information
 
   SimCaloCluster:
-    description : "A simulated calo cluster, made of SimCaloHits"
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Core
-       type: BareCluster
-       description: "contains basic cluster information."
+    Description : "A simulated calo cluster, made of SimCaloHits"
+    Author : "C. Bernet, B. Hegner"
+    Members:
+     - BareCluster Core // contains basic cluster information.
 
   SimCaloClusterHitAssociation:
-    description: "Association between a simulated calo cluster and a simulated hit. Used to keep track of the hits used to build a given cluster"
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Cluster
-       type: SimCaloClusterHandle
-       description: "The cluster"
-     - name: Hit
-       type: SimCaloHitHandle
-       description: "The hit"
+    Description: "Association between a simulated calo cluster and a simulated hit. Used to keep track of the hits used to build a given cluster"
+    Author : "C. Bernet, B. Hegner"
+    OneToOneRelations:
+     - SimCaloCluster Cluster // The cluster
+     - SimCaloHit Hit // the hit
 
   TrackClusterHitsAssociation:
-    description : "Association between a track cluster and a track hit"
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Cluster
-       type: TrackClusterHandle
-       description: "cluster handle"
-     - name: Hit
-       type: TrackHitHandle
-       description: "hit handle"
+    Description : "Association between a track cluster and a track hit"
+    Author : "C. Bernet, B. Hegner"
+    OneToOneRelations:
+     - TrackCluster Cluster // cluster handle
+     - TrackHit Hit // hit handle
 
   Track:
-    description: "Track reconstructed from clusters in the inner tracker"
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Chi2
-       type: float
-       description: "chi2 returned by the track fit"
-     - name: Ndf
-       type: unsigned
-       description: "Number of degrees of freedom of the track fit"
-     - name: Bits
-       type: unsigned
-       description: "Stores flags."
+    Description: "Track reconstructed from clusters in the inner tracker"
+    Author : "C. Bernet, B. Hegner"
+    Members:
+     - float Chi2 // chi2 returned by the track fit
+     - unsigned Ndf // Number of degrees of freedom of the track fit
+     - unsigned Bits // Stores flags
 
   TrackClusterAssociation:
-    description: "Association between a track and a track cluster"
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Track
-       type: TrackHandle
-       description: "The track."
-     - name: Cluster
-       type: TrackClusterHandle
-       description: "The cluster."
+    Description: "Association between a track and a track cluster"
+    Author : "C. Bernet, B. Hegner"
+    OneToOneRelations :
+     - Track Track // The track.
+     - TrackCluster Cluster // The cluster.
 
   TrackState:
-    description: "Track state at a given point on the track."
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Location
-       type: float
-       description: "Location on the track. (Radius?)"
-     - name: Omega
-       type: float
-       description: "Track curvature in cm."
-     - name: D0
-       type: float
-       description: "Transverse impact parameter"
-     - name: Z0
-       type: float
-       description: "Longitudinal impact parameter"
-#     - name: cov
-#       type: ??? Need a matrix type
-#       description: "Covariance matrix."
+    Description: "Track state at a given point on the track."
+    Author : "C. Bernet, B. Hegner"
+    Members:
+     - float Location // Location on the track. (Radius?)
+     - float Omega // Track curvature in cm.
+     - float D0 // Transverse impact parameter
+     - float Z0 // Longitudinal impact parameter
 
   TrackStateAssociation:
-    description: "Association between a track and a track state."
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Track
-       type: TrackHandle
-       description: "The track."
-     - name: State
-       type: TrackStateHandle
-       description: "The track state."
-
+    Description: "Association between a track and a track state."
+    Author : "C. Bernet, B. Hegner"
+    OneToOneRelations:
+     - Track Track // the track
+     - TrackState State // the track state
 
   Vertex:
-    description: "Vertex reconstructed from tracks"
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Chi2
-       type: float
-       description: "chi2 returned by the vertex fit"
-     - name: Ndf
-       type: unsigned
-       description: "Number of degrees of freedom of the vertex fit"
-     - name: Position
-       type: Point
-       description: "Vertex position in cm"
-     - name: Bits
-       type: unsigned
-       description: "Stores flags."
+    Description: "Vertex reconstructed from tracks"
+    Author : "C. Bernet, B. Hegner"
+    Members:
+     - float Chi2 // chi2 returned by the vertex fit
+     - unsigned Ndf // Number of degrees of freedom of the vertex fit
+     - Point Position // Vertex position in cm
+     - unsigned Bits // Stored flags
 
   GenVertex:
-    description: "Generated vertex. MCParticles refer to their start and end vertex."
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Position
-       type: Point
-       description: "Vertex position in cm"
-     - name: Ctau
-       type: float
-       description: "Time coordinate in cm"
+    Description: "Generated vertex. MCParticles refer to their start and end vertex."
+    Author : "C. Bernet, B. Hegner"
+    Members:
+     - Point Position // Vertex position in cm
+     - float Ctau // Time coordinate in cm
 
   VertexTrackAssociation:
-    description: "Association between a track and a vertex, with a weight"
-    author : "C. Bernet, B. Hegner"
-    members:
-     - name: Track
-       type: TrackHandle
-       description: "The track."
-     - name: Vertex
-       type: VertexHandle
-       description: "The vertex."
-     - name: Weight
-       type: float
-       description: "Weight of the track in the vertex."
+    Description: "Association between a track and a vertex, with a weight"
+    Author : "C. Bernet, B. Hegner"
+    Members:
+     - float Weight // Weight of the track in the vertex.
+    OneToOneRelations:
+       - Track Track // The track.
+       - Vertex Vertex // The vertex.

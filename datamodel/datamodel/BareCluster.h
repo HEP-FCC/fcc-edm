@@ -1,7 +1,7 @@
-#ifndef BareCluster_H 
+#ifndef BareCluster_H
 #define BareCluster_H
+#include "Point.h"
 
-#include "datamodel/Point.h"
 
 
 class BareCluster {

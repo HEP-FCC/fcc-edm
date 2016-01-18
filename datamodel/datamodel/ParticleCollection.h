@@ -6,100 +6,128 @@
 #include <string>
 #include <vector>
 #include <deque>
+#include <array>
 
-// albers specific includes
-#include "albers/Registry.h"
-#include "albers/CollectionBase.h"
+// podio specific includes
+#include "podio/ICollectionProvider.h"
+#include "podio/CollectionBase.h"
+#include "podio/CollectionIDTable.h"
 
 // datamodel specific includes
-#include "datamodel/Particle.h"
-#include "datamodel/ParticleHandle.h"
+#include "ParticleData.h"
+#include "Particle.h"
+#include "ParticleObj.h"
 
-typedef std::vector<Particle> ParticleVector;
-typedef std::vector<ParticleHandle> ParticleHandleContainer;
+
+typedef std::vector<ParticleData> ParticleDataContainer;
+typedef std::deque<ParticleObj*> ParticleObjPointerContainer;
 
 class ParticleCollectionIterator {
 
   public:
-    ParticleCollectionIterator(int index, const ParticleCollection* collection) : m_index(index), m_collection(collection) {}
+    ParticleCollectionIterator(int index, const ParticleObjPointerContainer* collection) : m_index(index), m_object(nullptr), m_collection(collection) {}
 
     bool operator!=(const ParticleCollectionIterator& x) const {
       return m_index != x.m_index; //TODO: may not be complete
     }
 
-    const ParticleHandle operator*() const;
-
-    const ParticleCollectionIterator& operator++() const {
-      ++m_index;
-      return *this;
-    }
+    const Particle operator*() const;
+    const Particle* operator->() const;
+    const ParticleCollectionIterator& operator++() const;
 
   private:
     mutable int m_index;
-    const ParticleCollection* m_collection;
+    mutable Particle m_object;
+    const ParticleObjPointerContainer* m_collection;
 };
 
 /**
 A Collection is identified by an ID.
 */
 
-class ParticleCollection : public albers::CollectionBase {
+class ParticleCollection : public podio::CollectionBase {
 
 public:
   typedef const ParticleCollectionIterator const_iterator;
 
   ParticleCollection();
+//  ParticleCollection(const ParticleCollection& ) = delete; // deletion doesn't work w/ ROOT IO ! :-(
 //  ParticleCollection(ParticleVector* data, int collectionID);
   ~ParticleCollection(){};
 
   void clear();
+  /// Append a new object to the collection, and return this object.
+  Particle create();
 
-  /// Append a new object to the collection, and return a Handle to this object.
-  ParticleHandle create();
+  /// Append a new object to the collection, and return this object.
+  /// Initialized with the parameters given
+  template<typename... Args>
+  Particle create(Args&&... args);
+  int size() const;
 
-  /// Insert an existing handle into the collection. 
-  /// In this operation, the data pointed by the handle is copied.
-  ParticleHandle insert(const ParticleHandle& origin);  
-  
-  /// Returns a Handle to the object at position index in the collection
-  const ParticleHandle& get(int index) const;
+  /// Returns the object of given index
+  const Particle operator[](unsigned int index) const;
+  /// Returns the object of given index
+  const Particle at(unsigned int index) const;
 
-  /// Currently does nothing
-  void prepareForWrite(const albers::Registry* registry);
-  void prepareAfterRead(albers::Registry* registry);
-  void setPODsAddress(const void* address);
+
+  /// Append object to the collection
+  void push_back(ConstParticle object);
+
+  void prepareForWrite();
+  void prepareAfterRead();
+  void setBuffer(void* address);
+  bool setReferences(const podio::ICollectionProvider* collectionProvider);
+
+  podio::CollRefCollection* referenceCollections() { return m_refCollections;};
 
   void setID(unsigned ID){m_collectionID = ID;};
 
   // support for the iterator protocol
   const const_iterator begin() const {
-    return const_iterator(0, this);
+    return const_iterator(0, &m_entries);
   }
   const	const_iterator end() const {
-    return const_iterator(m_handles.size(), this);
+    return const_iterator(m_entries.size(), &m_entries);
   }
 
-//  std::vector<std::pair<std::string,albers::CollectionBase*>>& referenceCollections();
-
   /// returns the address of the pointer to the data buffer
-  void* _getRawBuffer() { return (void*)&m_data;};
+  void* getBufferAddress() { return (void*)&m_data;};
 
   /// returns the pointer to the data buffer
-  std::vector<Particle>* _getBuffer() { return m_data;};
+  std::vector<ParticleData>* _getBuffer() { return m_data;};
 
-  /// returns the collection of Handles
-  const ParticleHandleContainer& getHandles() { return m_handles; }
-
-  /// print some information
-  void print() const;
+     template<size_t arraysize>  
+  const std::array<BareParticle,arraysize> Core() const;
 
 
 private:
-  unsigned m_collectionID;
-  ParticleVector* m_data;
-  ParticleHandleContainer m_handles;
+  int m_collectionID;
+  ParticleObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  
+
+  // members to handle streaming
+  podio::CollRefCollection* m_refCollections;
+  ParticleDataContainer* m_data;
 };
+
+template<typename... Args>
+Particle  ParticleCollection::create(Args&&... args){
+  int size = m_entries.size();
+  auto obj = new ParticleObj({size,m_collectionID},{args...});
+  m_entries.push_back(obj);
+  return Particle(obj);
+}
+
+template<size_t arraysize>
+const std::array<class BareParticle,arraysize> ParticleCollection::Core() const {
+  std::array<class BareParticle,arraysize> tmp;
+  auto valid_size = std::min(arraysize,m_entries.size());
+  for (unsigned i = 0; i<valid_size; ++i){
+    tmp[i] = m_entries[i]->data.Core;
+ }
+ return tmp;
+}
+
 
 #endif

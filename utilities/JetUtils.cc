@@ -1,25 +1,24 @@
 #include "JetUtils.h"
 
-#include "datamodel/ParticleHandle.h"
-#include "datamodel/JetHandle.h"
+#include "datamodel/Particle.h"
+#include "datamodel/Jet.h"
 #include "datamodel/JetParticleAssociationCollection.h"
 #include <iostream>
 
 namespace utils {
 
-  std::vector<ParticleHandle> associatedParticles( const JetHandle& jet,
-						   const JetParticleAssociationCollection& associations ) {
+  std::vector<Particle> associatedParticles( const Jet& jet,
+                                             const JetParticleAssociationCollection& associations ) {
 
-    std::vector<ParticleHandle> result;
+    std::vector<Particle> result;
     if(not jet.isAvailable()) {
       std::cerr<<"Jet handle is not available"<<std::endl;
       return result;
       // COLIN should throw an exception
     }
-    for(const auto& assoch : associations){
-      const JetParticleAssociation& assoc = assoch.read();
-      if( assoc.Jet == jet ) {
-	result.emplace_back(assoc.Particle);
+    for(const auto& assoc : associations){
+      if( assoc.Jet() == jet ) {
+        result.emplace_back(assoc.Particle().Core());
       }
     }
     return result;

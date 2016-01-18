@@ -1,19 +1,88 @@
-#ifndef Vertex_H 
+#ifndef Vertex_H
 #define Vertex_H
+#include "VertexData.h"
+#include "Point.h"
 
-// Stores flags.
+#include <vector>
+#include "podio/ObjectID.h"
+
+//  Stored flags
 // author: C. Bernet, B. Hegner
 
-#include "datamodel/Point.h"
+//forward declarations
 
+
+#include "VertexConst.h"
+#include "VertexObj.h"
+
+
+
+class VertexCollection;
+class VertexCollectionIterator;
+class ConstVertex;
 
 class Vertex {
+
+  friend VertexCollection;
+  friend VertexCollectionIterator;
+  friend ConstVertex;
+
 public:
-  float Chi2; //chi2 returned by the vertex fit 
-  unsigned Ndf; //Number of degrees of freedom of the vertex fit 
-  Point Position; //Vertex position in cm 
-  unsigned Bits; //Stores flags. 
+
+  /// default constructor
+  Vertex();
+    Vertex(float Chi2,unsigned Ndf,Point Position,unsigned Bits);
+
+  /// constructor from existing VertexObj
+  Vertex(VertexObj* obj);
+  /// copy constructor
+  Vertex(const Vertex& other);
+  /// copy-assignment operator
+  Vertex& operator=(const Vertex& other);
+  /// support cloning (deep-copy)
+  Vertex clone() const;
+  /// destructor
+  ~Vertex();
+
+  /// conversion to const object
+  operator ConstVertex () const;
+
+public:
+
+  const float& Chi2() const;
+  const unsigned& Ndf() const;
+  const Point& Position() const;
+  const unsigned& Bits() const;
+
+  void Chi2(float value);
+  void Ndf(unsigned value);
+  Point& Position();
+  void Position(class Point value);
+  void Bits(unsigned value);
+
+
+  /// check whether the object is actually available
+  bool isAvailable() const;
+  /// disconnect from VertexObj instance
+  void unlink(){m_obj = nullptr;}
+
+  bool operator==(const Vertex& other) const {
+       return (m_obj==other.m_obj);
+  }
+
+  bool operator==(const ConstVertex& other) const;
+
+// less comparison operator, so that objects can be e.g. stored in sets.
+//  friend bool operator< (const Vertex& p1,
+//       const Vertex& p2 );
+
+  const podio::ObjectID getObjectID() const;
+
+private:
+  VertexObj* m_obj;
 
 };
+
+
 
 #endif

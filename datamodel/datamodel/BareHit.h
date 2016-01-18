@@ -1,4 +1,4 @@
-#ifndef BareHit_H 
+#ifndef BareHit_H
 #define BareHit_H
 
 
