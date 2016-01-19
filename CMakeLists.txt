@@ -39,8 +39,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -DDROP_CGAL ${CPP11FLAGS} -Wall -W
 
 # Make sure we find the Find*.cmake functions distributed with this package
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-set(CMAKE_PREFIX_PATH $ENV{PODIO})
-find_package(podio REQUIRED)
+find_package(podio REQUIRED HINTS $ENV{PODIO})
 message(STATUS "Found podio: ${podio_DIR}")
 # Make sure the library is found.
 # Not the case if LD_LIBRARY_PATH is wrong
