@@ -13,9 +13,9 @@ MET::MET() : m_obj(new METObj()){
  m_obj->acquire();
 }
 
-MET::MET(float Pt,float Phi) : m_obj(new METObj()){
+MET::MET(float Magnitude,float Phi,float ScalarSum) : m_obj(new METObj()){
  m_obj->acquire();
-   m_obj->data.Pt = Pt;  m_obj->data.Phi = Phi;
+   m_obj->data.Magnitude = Magnitude;  m_obj->data.Phi = Phi;  m_obj->data.ScalarSum = ScalarSum;
 }
 
 
@@ -44,11 +44,13 @@ MET::~MET(){
 
 MET::operator ConstMET() const {return ConstMET(m_obj);}
 
-  const float& MET::Pt() const { return m_obj->data.Pt; }
+  const float& MET::Magnitude() const { return m_obj->data.Magnitude; }
   const float& MET::Phi() const { return m_obj->data.Phi; }
+  const float& MET::ScalarSum() const { return m_obj->data.ScalarSum; }
 
-void MET::Pt(float value){ m_obj->data.Pt = value;}
+void MET::Magnitude(float value){ m_obj->data.Magnitude = value;}
 void MET::Phi(float value){ m_obj->data.Phi = value;}
+void MET::ScalarSum(float value){ m_obj->data.ScalarSum = value;}
 
 
 bool  MET::isAvailable() const {

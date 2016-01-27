@@ -67,36 +67,6 @@
             <field name="m_registry" transient="true"/>
             <field name="m_container" transient="true"/>
           </class>
-          <class name="std::vector<MissingEnergyData>" />
-
-          <class name="MissingEnergyData">
-            <field name="m_registry" transient="true"/>
-            <field name="m_container" transient="true"/>
-          </class>
-          <class name="std::vector<MissingEnergy>" />
-
-          <class name="MissingEnergy">
-            <field name="m_registry" transient="true"/>
-            <field name="m_container" transient="true"/>
-          </class>
-          <class name="std::vector<ConstMissingEnergy>" />
-
-          <class name="ConstMissingEnergy">
-            <field name="m_registry" transient="true"/>
-            <field name="m_container" transient="true"/>
-          </class>
-          <class name="std::vector<MissingEnergyCollection>" />
-
-          <class name="MissingEnergyCollection">
-            <field name="m_registry" transient="true"/>
-            <field name="m_container" transient="true"/>
-          </class>
-          <class name="std::vector<MissingEnergyObj>" />
-
-          <class name="MissingEnergyObj">
-            <field name="m_registry" transient="true"/>
-            <field name="m_container" transient="true"/>
-          </class>
           <class name="std::vector<SimCaloClusterData>" />
 
           <class name="SimCaloClusterData">

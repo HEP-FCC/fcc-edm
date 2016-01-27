@@ -13,9 +13,9 @@ ConstMET::ConstMET() : m_obj(new METObj()){
  m_obj->acquire();
 }
 
-ConstMET::ConstMET(float Pt,float Phi) : m_obj(new METObj()){
+ConstMET::ConstMET(float Magnitude,float Phi,float ScalarSum) : m_obj(new METObj()){
  m_obj->acquire();
-   m_obj->data.Pt = Pt;  m_obj->data.Phi = Phi;
+   m_obj->data.Magnitude = Magnitude;  m_obj->data.Phi = Phi;  m_obj->data.ScalarSum = ScalarSum;
 }
 
 
@@ -42,8 +42,9 @@ ConstMET::~ConstMET(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const float& ConstMET::Pt() const { return m_obj->data.Pt; }
+  const float& ConstMET::Magnitude() const { return m_obj->data.Magnitude; }
   const float& ConstMET::Phi() const { return m_obj->data.Phi; }
+  const float& ConstMET::ScalarSum() const { return m_obj->data.ScalarSum; }
 
 
 bool  ConstMET::isAvailable() const {
