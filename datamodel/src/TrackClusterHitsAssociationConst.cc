@@ -9,7 +9,7 @@
 #include "TrackHit.h"
 
 
-
+namespace fcc {
 
 ConstTrackClusterHitsAssociation::ConstTrackClusterHitsAssociation() : m_obj(new TrackClusterHitsAssociationObj()){
  m_obj->acquire();
@@ -40,12 +40,12 @@ ConstTrackClusterHitsAssociation::~ConstTrackClusterHitsAssociation(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const ConstTrackCluster ConstTrackClusterHitsAssociation::Cluster() const { if (m_obj->m_Cluster == nullptr) {
- return ConstTrackCluster(nullptr);}
- return ConstTrackCluster(*(m_obj->m_Cluster));}
-  const ConstTrackHit ConstTrackClusterHitsAssociation::Hit() const { if (m_obj->m_Hit == nullptr) {
- return ConstTrackHit(nullptr);}
- return ConstTrackHit(*(m_obj->m_Hit));}
+  const fcc::ConstTrackCluster ConstTrackClusterHitsAssociation::Cluster() const { if (m_obj->m_Cluster == nullptr) {
+ return fcc::ConstTrackCluster(nullptr);}
+ return fcc::ConstTrackCluster(*(m_obj->m_Cluster));}
+  const fcc::ConstTrackHit ConstTrackClusterHitsAssociation::Hit() const { if (m_obj->m_Hit == nullptr) {
+ return fcc::ConstTrackHit(nullptr);}
+ return fcc::ConstTrackHit(*(m_obj->m_Hit));}
 
 
 bool  ConstTrackClusterHitsAssociation::isAvailable() const {
@@ -74,4 +74,4 @@ bool ConstTrackClusterHitsAssociation::operator==(const TrackClusterHitsAssociat
 //  }
 //}
 
-
+} // namespace fcc

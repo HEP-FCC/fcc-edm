@@ -9,7 +9,7 @@
 #include "Track.h"
 
 
-
+namespace fcc {
 
 ConstParticleTrackAssociation::ConstParticleTrackAssociation() : m_obj(new ParticleTrackAssociationObj()){
  m_obj->acquire();
@@ -40,12 +40,12 @@ ConstParticleTrackAssociation::~ConstParticleTrackAssociation(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const ConstParticle ConstParticleTrackAssociation::Particle() const { if (m_obj->m_Particle == nullptr) {
- return ConstParticle(nullptr);}
- return ConstParticle(*(m_obj->m_Particle));}
-  const ConstTrack ConstParticleTrackAssociation::Track() const { if (m_obj->m_Track == nullptr) {
- return ConstTrack(nullptr);}
- return ConstTrack(*(m_obj->m_Track));}
+  const fcc::ConstParticle ConstParticleTrackAssociation::Particle() const { if (m_obj->m_Particle == nullptr) {
+ return fcc::ConstParticle(nullptr);}
+ return fcc::ConstParticle(*(m_obj->m_Particle));}
+  const fcc::ConstTrack ConstParticleTrackAssociation::Track() const { if (m_obj->m_Track == nullptr) {
+ return fcc::ConstTrack(nullptr);}
+ return fcc::ConstTrack(*(m_obj->m_Track));}
 
 
 bool  ConstParticleTrackAssociation::isAvailable() const {
@@ -74,4 +74,4 @@ bool ConstParticleTrackAssociation::operator==(const ParticleTrackAssociation& o
 //  }
 //}
 
-
+} // namespace fcc

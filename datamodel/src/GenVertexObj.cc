@@ -1,7 +1,7 @@
 #include "GenVertexObj.h"
 
 
-
+namespace fcc {
 GenVertexObj::GenVertexObj() :
     ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}
     ,data()
@@ -24,4 +24,4 @@ GenVertexObj::~GenVertexObj() {
 
   }
 }
-
+} // namespace fcc

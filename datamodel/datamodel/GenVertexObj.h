@@ -16,7 +16,7 @@ class GenVertex;
 class ConstGenVertex;
 
 
-
+namespace fcc {
 class GenVertexObj : public podio::ObjBase {
 public:
   /// constructor
@@ -33,7 +33,7 @@ public:
 
 
 };
-
+} // namespace fcc
 
 
 #endif

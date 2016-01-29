@@ -9,16 +9,18 @@
 // author: C. Bernet, B. Hegner
 
 //forward declarations
+namespace fcc {
 class SimCaloHit;
 class ConstSimCaloHit;
 class MCParticle;
 class ConstMCParticle;
+}
 
 
 #include "SimCaloHitMCParticleAssociationConst.h"
 #include "SimCaloHitMCParticleAssociationObj.h"
 
-
+namespace fcc {
 
 class SimCaloHitMCParticleAssociationCollection;
 class SimCaloHitMCParticleAssociationCollectionIterator;
@@ -53,12 +55,12 @@ public:
 public:
 
   const float& Fraction() const;
-  const ConstSimCaloHit Hit() const;
-  const ConstMCParticle Particle() const;
+  const fcc::ConstSimCaloHit Hit() const;
+  const fcc::ConstMCParticle Particle() const;
 
   void Fraction(float value);
-  void Hit(ConstSimCaloHit value);
-  void Particle(ConstMCParticle value);
+  void Hit(fcc::ConstSimCaloHit value);
+  void Particle(fcc::ConstMCParticle value);
 
 
   /// check whether the object is actually available
@@ -83,6 +85,6 @@ private:
 
 };
 
-
+} // namespace fcc
 
 #endif

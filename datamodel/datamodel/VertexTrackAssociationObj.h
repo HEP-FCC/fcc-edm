@@ -14,11 +14,12 @@
 // forward declarations
 class VertexTrackAssociation;
 class ConstVertexTrackAssociation;
-class ConstTrack;
+namespace fcc {class ConstTrack;
 class ConstVertex;
+}
 
 
-
+namespace fcc {
 class VertexTrackAssociationObj : public podio::ObjBase {
 public:
   /// constructor
@@ -32,12 +33,12 @@ public:
 
 public:
   VertexTrackAssociationData data;
-  ConstTrack* m_Track;
-  ConstVertex* m_Vertex;
+  ::fcc::ConstTrack* m_Track;
+  ::fcc::ConstVertex* m_Vertex;
 
 
 };
-
+} // namespace fcc
 
 
 #endif

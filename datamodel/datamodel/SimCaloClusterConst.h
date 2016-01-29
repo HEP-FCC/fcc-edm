@@ -14,7 +14,7 @@
 
 #include "SimCaloClusterObj.h"
 
-
+namespace fcc {
 
 class SimCaloClusterObj;
 class SimCaloCluster;
@@ -31,7 +31,7 @@ public:
 
   /// default constructor
   ConstSimCaloCluster();
-  ConstSimCaloCluster(BareCluster Core);
+  ConstSimCaloCluster(fcc::BareCluster Core);
 
   /// constructor from existing SimCaloClusterObj
   ConstSimCaloCluster(SimCaloClusterObj* obj);
@@ -47,7 +47,7 @@ public:
 
 public:
 
-  const BareCluster& Core() const;
+  const fcc::BareCluster& Core() const;
 
 
   /// check whether the object is actually available
@@ -71,6 +71,6 @@ private:
   SimCaloClusterObj* m_obj;
 
 };
-
+} // namespace fcc
 
 #endif

@@ -14,11 +14,12 @@
 // forward declarations
 class TrackClusterHitsAssociation;
 class ConstTrackClusterHitsAssociation;
-class ConstTrackCluster;
+namespace fcc {class ConstTrackCluster;
 class ConstTrackHit;
+}
 
 
-
+namespace fcc {
 class TrackClusterHitsAssociationObj : public podio::ObjBase {
 public:
   /// constructor
@@ -32,12 +33,12 @@ public:
 
 public:
   TrackClusterHitsAssociationData data;
-  ConstTrackCluster* m_Cluster;
-  ConstTrackHit* m_Hit;
+  ::fcc::ConstTrackCluster* m_Cluster;
+  ::fcc::ConstTrackHit* m_Hit;
 
 
 };
-
+} // namespace fcc
 
 
 #endif

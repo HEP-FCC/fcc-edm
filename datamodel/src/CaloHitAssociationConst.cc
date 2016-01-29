@@ -9,7 +9,7 @@
 #include "SimCaloHit.h"
 
 
-
+namespace fcc {
 
 ConstCaloHitAssociation::ConstCaloHitAssociation() : m_obj(new CaloHitAssociationObj()){
  m_obj->acquire();
@@ -40,12 +40,12 @@ ConstCaloHitAssociation::~ConstCaloHitAssociation(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const ConstCaloHit ConstCaloHitAssociation::Rec() const { if (m_obj->m_Rec == nullptr) {
- return ConstCaloHit(nullptr);}
- return ConstCaloHit(*(m_obj->m_Rec));}
-  const ConstSimCaloHit ConstCaloHitAssociation::Sim() const { if (m_obj->m_Sim == nullptr) {
- return ConstSimCaloHit(nullptr);}
- return ConstSimCaloHit(*(m_obj->m_Sim));}
+  const fcc::ConstCaloHit ConstCaloHitAssociation::Rec() const { if (m_obj->m_Rec == nullptr) {
+ return fcc::ConstCaloHit(nullptr);}
+ return fcc::ConstCaloHit(*(m_obj->m_Rec));}
+  const fcc::ConstSimCaloHit ConstCaloHitAssociation::Sim() const { if (m_obj->m_Sim == nullptr) {
+ return fcc::ConstSimCaloHit(nullptr);}
+ return fcc::ConstSimCaloHit(*(m_obj->m_Sim));}
 
 
 bool  ConstCaloHitAssociation::isAvailable() const {
@@ -74,4 +74,4 @@ bool ConstCaloHitAssociation::operator==(const CaloHitAssociation& other) const 
 //  }
 //}
 
-
+} // namespace fcc

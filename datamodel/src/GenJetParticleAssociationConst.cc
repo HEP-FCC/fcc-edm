@@ -9,7 +9,7 @@
 #include "MCParticle.h"
 
 
-
+namespace fcc {
 
 ConstGenJetParticleAssociation::ConstGenJetParticleAssociation() : m_obj(new GenJetParticleAssociationObj()){
  m_obj->acquire();
@@ -40,12 +40,12 @@ ConstGenJetParticleAssociation::~ConstGenJetParticleAssociation(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const ConstGenJet ConstGenJetParticleAssociation::Jet() const { if (m_obj->m_Jet == nullptr) {
- return ConstGenJet(nullptr);}
- return ConstGenJet(*(m_obj->m_Jet));}
-  const ConstMCParticle ConstGenJetParticleAssociation::Particle() const { if (m_obj->m_Particle == nullptr) {
- return ConstMCParticle(nullptr);}
- return ConstMCParticle(*(m_obj->m_Particle));}
+  const fcc::ConstGenJet ConstGenJetParticleAssociation::Jet() const { if (m_obj->m_Jet == nullptr) {
+ return fcc::ConstGenJet(nullptr);}
+ return fcc::ConstGenJet(*(m_obj->m_Jet));}
+  const fcc::ConstMCParticle ConstGenJetParticleAssociation::Particle() const { if (m_obj->m_Particle == nullptr) {
+ return fcc::ConstMCParticle(nullptr);}
+ return fcc::ConstMCParticle(*(m_obj->m_Particle));}
 
 
 bool  ConstGenJetParticleAssociation::isAvailable() const {
@@ -74,4 +74,4 @@ bool ConstGenJetParticleAssociation::operator==(const GenJetParticleAssociation&
 //  }
 //}
 
-
+} // namespace fcc

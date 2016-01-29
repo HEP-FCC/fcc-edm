@@ -7,13 +7,13 @@
 #include <iostream>
 
 
-
+namespace fcc {
 
 SimCaloHit::SimCaloHit() : m_obj(new SimCaloHitObj()){
  m_obj->acquire();
 }
 
-SimCaloHit::SimCaloHit(BareHit Core) : m_obj(new SimCaloHitObj()){
+SimCaloHit::SimCaloHit(fcc::BareHit Core) : m_obj(new SimCaloHitObj()){
  m_obj->acquire();
    m_obj->data.Core = Core;
 }
@@ -44,10 +44,10 @@ SimCaloHit::~SimCaloHit(){
 
 SimCaloHit::operator ConstSimCaloHit() const {return ConstSimCaloHit(m_obj);}
 
-  const BareHit& SimCaloHit::Core() const { return m_obj->data.Core; }
+  const fcc::BareHit& SimCaloHit::Core() const { return m_obj->data.Core; }
 
-  BareHit& SimCaloHit::Core() { return m_obj->data.Core; }
-void SimCaloHit::Core(class BareHit value){ m_obj->data.Core = value;}
+  fcc::BareHit& SimCaloHit::Core() { return m_obj->data.Core; }
+void SimCaloHit::Core(class fcc::BareHit value){ m_obj->data.Core = value;}
 
 
 bool  SimCaloHit::isAvailable() const {
@@ -77,4 +77,4 @@ bool SimCaloHit::operator==(const ConstSimCaloHit& other) const {
 //  }
 //}
 
-
+} // namespace fcc

@@ -9,7 +9,7 @@
 #include "MCParticle.h"
 
 
-
+namespace fcc {
 
 ConstParticleMCParticleAssociation::ConstParticleMCParticleAssociation() : m_obj(new ParticleMCParticleAssociationObj()){
  m_obj->acquire();
@@ -40,12 +40,12 @@ ConstParticleMCParticleAssociation::~ConstParticleMCParticleAssociation(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const ConstParticle ConstParticleMCParticleAssociation::Rec() const { if (m_obj->m_Rec == nullptr) {
- return ConstParticle(nullptr);}
- return ConstParticle(*(m_obj->m_Rec));}
-  const ConstMCParticle ConstParticleMCParticleAssociation::Sim() const { if (m_obj->m_Sim == nullptr) {
- return ConstMCParticle(nullptr);}
- return ConstMCParticle(*(m_obj->m_Sim));}
+  const fcc::ConstParticle ConstParticleMCParticleAssociation::Rec() const { if (m_obj->m_Rec == nullptr) {
+ return fcc::ConstParticle(nullptr);}
+ return fcc::ConstParticle(*(m_obj->m_Rec));}
+  const fcc::ConstMCParticle ConstParticleMCParticleAssociation::Sim() const { if (m_obj->m_Sim == nullptr) {
+ return fcc::ConstMCParticle(nullptr);}
+ return fcc::ConstMCParticle(*(m_obj->m_Sim));}
 
 
 bool  ConstParticleMCParticleAssociation::isAvailable() const {
@@ -74,4 +74,4 @@ bool ConstParticleMCParticleAssociation::operator==(const ParticleMCParticleAsso
 //  }
 //}
 
-
+} // namespace fcc

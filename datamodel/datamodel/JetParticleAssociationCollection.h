@@ -18,7 +18,7 @@
 #include "JetParticleAssociation.h"
 #include "JetParticleAssociationObj.h"
 
-
+namespace fcc {
 typedef std::vector<JetParticleAssociationData> JetParticleAssociationDataContainer;
 typedef std::deque<JetParticleAssociationObj*> JetParticleAssociationObjPointerContainer;
 
@@ -103,8 +103,8 @@ private:
   int m_collectionID;
   JetParticleAssociationObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  std::vector<ConstJet>* m_rel_Jet; //relation buffer for r/w
-  std::vector<ConstParticle>* m_rel_Particle; //relation buffer for r/w
+  std::vector<::fcc::ConstJet>* m_rel_Jet; //relation buffer for r/w
+  std::vector<::fcc::ConstParticle>* m_rel_Particle; //relation buffer for r/w
 
   // members to handle streaming
   podio::CollRefCollection* m_refCollections;
@@ -120,5 +120,5 @@ JetParticleAssociation  JetParticleAssociationCollection::create(Args&&... args)
 }
 
 
-
+} // namespace fcc
 #endif

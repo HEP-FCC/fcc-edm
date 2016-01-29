@@ -9,16 +9,18 @@
 // author: C. Bernet, B. Hegner
 
 //forward declarations
+namespace fcc {
 class MCParticle;
 class ConstMCParticle;
 class MCParticle;
 class ConstMCParticle;
+}
 
 
 #include "MCParticleAssociationConst.h"
 #include "MCParticleAssociationObj.h"
 
-
+namespace fcc {
 
 class MCParticleAssociationCollection;
 class MCParticleAssociationCollectionIterator;
@@ -51,11 +53,11 @@ public:
 
 public:
 
-  const ConstMCParticle Mother() const;
-  const ConstMCParticle Daughter() const;
+  const fcc::ConstMCParticle Mother() const;
+  const fcc::ConstMCParticle Daughter() const;
 
-  void Mother(ConstMCParticle value);
-  void Daughter(ConstMCParticle value);
+  void Mother(fcc::ConstMCParticle value);
+  void Daughter(fcc::ConstMCParticle value);
 
 
   /// check whether the object is actually available
@@ -80,6 +82,6 @@ private:
 
 };
 
-
+} // namespace fcc
 
 #endif

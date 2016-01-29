@@ -9,7 +9,7 @@
 #include "TrackCluster.h"
 
 
-
+namespace fcc {
 
 ConstTrackClusterAssociation::ConstTrackClusterAssociation() : m_obj(new TrackClusterAssociationObj()){
  m_obj->acquire();
@@ -40,12 +40,12 @@ ConstTrackClusterAssociation::~ConstTrackClusterAssociation(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const ConstTrack ConstTrackClusterAssociation::Track() const { if (m_obj->m_Track == nullptr) {
- return ConstTrack(nullptr);}
- return ConstTrack(*(m_obj->m_Track));}
-  const ConstTrackCluster ConstTrackClusterAssociation::Cluster() const { if (m_obj->m_Cluster == nullptr) {
- return ConstTrackCluster(nullptr);}
- return ConstTrackCluster(*(m_obj->m_Cluster));}
+  const fcc::ConstTrack ConstTrackClusterAssociation::Track() const { if (m_obj->m_Track == nullptr) {
+ return fcc::ConstTrack(nullptr);}
+ return fcc::ConstTrack(*(m_obj->m_Track));}
+  const fcc::ConstTrackCluster ConstTrackClusterAssociation::Cluster() const { if (m_obj->m_Cluster == nullptr) {
+ return fcc::ConstTrackCluster(nullptr);}
+ return fcc::ConstTrackCluster(*(m_obj->m_Cluster));}
 
 
 bool  ConstTrackClusterAssociation::isAvailable() const {
@@ -74,4 +74,4 @@ bool ConstTrackClusterAssociation::operator==(const TrackClusterAssociation& oth
 //  }
 //}
 
-
+} // namespace fcc

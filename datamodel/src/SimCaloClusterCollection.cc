@@ -4,7 +4,7 @@
 
 #include "SimCaloClusterCollection.h"
 
-
+namespace fcc {
 
 SimCaloClusterCollection::SimCaloClusterCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new SimCaloClusterDataContainer() ) {
   
@@ -101,4 +101,4 @@ const SimCaloClusterCollectionIterator& SimCaloClusterCollectionIterator::operat
  return *this;
 }
 
-
+} // namespace fcc

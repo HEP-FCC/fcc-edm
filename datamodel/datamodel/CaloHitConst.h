@@ -14,7 +14,7 @@
 
 #include "CaloHitObj.h"
 
-
+namespace fcc {
 
 class CaloHitObj;
 class CaloHit;
@@ -31,7 +31,7 @@ public:
 
   /// default constructor
   ConstCaloHit();
-  ConstCaloHit(BareHit Core);
+  ConstCaloHit(fcc::BareHit Core);
 
   /// constructor from existing CaloHitObj
   ConstCaloHit(CaloHitObj* obj);
@@ -47,7 +47,7 @@ public:
 
 public:
 
-  const BareHit& Core() const;
+  const fcc::BareHit& Core() const;
 
 
   /// check whether the object is actually available
@@ -71,6 +71,6 @@ private:
   CaloHitObj* m_obj;
 
 };
-
+} // namespace fcc
 
 #endif

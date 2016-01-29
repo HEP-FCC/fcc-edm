@@ -9,7 +9,7 @@
 #include "MCParticle.h"
 
 
-
+namespace fcc {
 
 ConstSimCaloHitMCParticleAssociation::ConstSimCaloHitMCParticleAssociation() : m_obj(new SimCaloHitMCParticleAssociationObj()){
  m_obj->acquire();
@@ -45,12 +45,12 @@ ConstSimCaloHitMCParticleAssociation::~ConstSimCaloHitMCParticleAssociation(){
 }
 
   const float& ConstSimCaloHitMCParticleAssociation::Fraction() const { return m_obj->data.Fraction; }
-  const ConstSimCaloHit ConstSimCaloHitMCParticleAssociation::Hit() const { if (m_obj->m_Hit == nullptr) {
- return ConstSimCaloHit(nullptr);}
- return ConstSimCaloHit(*(m_obj->m_Hit));}
-  const ConstMCParticle ConstSimCaloHitMCParticleAssociation::Particle() const { if (m_obj->m_Particle == nullptr) {
- return ConstMCParticle(nullptr);}
- return ConstMCParticle(*(m_obj->m_Particle));}
+  const fcc::ConstSimCaloHit ConstSimCaloHitMCParticleAssociation::Hit() const { if (m_obj->m_Hit == nullptr) {
+ return fcc::ConstSimCaloHit(nullptr);}
+ return fcc::ConstSimCaloHit(*(m_obj->m_Hit));}
+  const fcc::ConstMCParticle ConstSimCaloHitMCParticleAssociation::Particle() const { if (m_obj->m_Particle == nullptr) {
+ return fcc::ConstMCParticle(nullptr);}
+ return fcc::ConstMCParticle(*(m_obj->m_Particle));}
 
 
 bool  ConstSimCaloHitMCParticleAssociation::isAvailable() const {
@@ -79,4 +79,4 @@ bool ConstSimCaloHitMCParticleAssociation::operator==(const SimCaloHitMCParticle
 //  }
 //}
 
-
+} // namespace fcc

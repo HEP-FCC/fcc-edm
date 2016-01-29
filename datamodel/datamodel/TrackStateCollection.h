@@ -18,7 +18,7 @@
 #include "TrackState.h"
 #include "TrackStateObj.h"
 
-
+namespace fcc {
 typedef std::vector<TrackStateData> TrackStateDataContainer;
 typedef std::deque<TrackStateObj*> TrackStateObjPointerContainer;
 
@@ -162,5 +162,5 @@ const std::array<float,arraysize> TrackStateCollection::Z0() const {
  return tmp;
 }
 
-
+} // namespace fcc
 #endif

@@ -14,11 +14,12 @@
 // forward declarations
 class ParticleClusterAssociation;
 class ConstParticleClusterAssociation;
-class ConstParticle;
+namespace fcc {class ConstParticle;
 class ConstCaloCluster;
+}
 
 
-
+namespace fcc {
 class ParticleClusterAssociationObj : public podio::ObjBase {
 public:
   /// constructor
@@ -32,12 +33,12 @@ public:
 
 public:
   ParticleClusterAssociationData data;
-  ConstParticle* m_Particle;
-  ConstCaloCluster* m_Cluster;
+  ::fcc::ConstParticle* m_Particle;
+  ::fcc::ConstCaloCluster* m_Cluster;
 
 
 };
-
+} // namespace fcc
 
 
 #endif

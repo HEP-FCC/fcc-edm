@@ -7,13 +7,13 @@
 #include <iostream>
 
 
-
+namespace fcc {
 
 ConstGenJet::ConstGenJet() : m_obj(new GenJetObj()){
  m_obj->acquire();
 }
 
-ConstGenJet::ConstGenJet(BareJet Core) : m_obj(new GenJetObj()){
+ConstGenJet::ConstGenJet(fcc::BareJet Core) : m_obj(new GenJetObj()){
  m_obj->acquire();
    m_obj->data.Core = Core;
 }
@@ -42,7 +42,7 @@ ConstGenJet::~ConstGenJet(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const BareJet& ConstGenJet::Core() const { return m_obj->data.Core; }
+  const fcc::BareJet& ConstGenJet::Core() const { return m_obj->data.Core; }
 
 
 bool  ConstGenJet::isAvailable() const {
@@ -71,4 +71,4 @@ bool ConstGenJet::operator==(const GenJet& other) const {
 //  }
 //}
 
-
+} // namespace fcc

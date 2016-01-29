@@ -14,7 +14,7 @@
 
 #include "GenJetObj.h"
 
-
+namespace fcc {
 
 class GenJetObj;
 class GenJet;
@@ -31,7 +31,7 @@ public:
 
   /// default constructor
   ConstGenJet();
-  ConstGenJet(BareJet Core);
+  ConstGenJet(fcc::BareJet Core);
 
   /// constructor from existing GenJetObj
   ConstGenJet(GenJetObj* obj);
@@ -47,7 +47,7 @@ public:
 
 public:
 
-  const BareJet& Core() const;
+  const fcc::BareJet& Core() const;
 
 
   /// check whether the object is actually available
@@ -71,6 +71,6 @@ private:
   GenJetObj* m_obj;
 
 };
-
+} // namespace fcc
 
 #endif

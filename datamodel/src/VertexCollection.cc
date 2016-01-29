@@ -4,7 +4,7 @@
 
 #include "VertexCollection.h"
 
-
+namespace fcc {
 
 VertexCollection::VertexCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new VertexDataContainer() ) {
   
@@ -101,4 +101,4 @@ const VertexCollectionIterator& VertexCollectionIterator::operator++() const {
  return *this;
 }
 
-
+} // namespace fcc

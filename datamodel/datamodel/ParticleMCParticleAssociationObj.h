@@ -14,11 +14,12 @@
 // forward declarations
 class ParticleMCParticleAssociation;
 class ConstParticleMCParticleAssociation;
-class ConstParticle;
+namespace fcc {class ConstParticle;
 class ConstMCParticle;
+}
 
 
-
+namespace fcc {
 class ParticleMCParticleAssociationObj : public podio::ObjBase {
 public:
   /// constructor
@@ -32,12 +33,12 @@ public:
 
 public:
   ParticleMCParticleAssociationData data;
-  ConstParticle* m_Rec;
-  ConstMCParticle* m_Sim;
+  ::fcc::ConstParticle* m_Rec;
+  ::fcc::ConstMCParticle* m_Sim;
 
 
 };
-
+} // namespace fcc
 
 
 #endif

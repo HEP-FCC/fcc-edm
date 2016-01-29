@@ -6,12 +6,12 @@
 
 
 
-
+namespace fcc {
 class EventInfoData {
 public:
   int Number; /// Event number 
 
 };
-
+} // namespace fcc
 
 #endif

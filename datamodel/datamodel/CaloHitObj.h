@@ -16,7 +16,7 @@ class CaloHit;
 class ConstCaloHit;
 
 
-
+namespace fcc {
 class CaloHitObj : public podio::ObjBase {
 public:
   /// constructor
@@ -33,7 +33,7 @@ public:
 
 
 };
-
+} // namespace fcc
 
 
 #endif

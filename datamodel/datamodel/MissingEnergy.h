@@ -14,7 +14,7 @@
 #include "MissingEnergyConst.h"
 #include "MissingEnergyObj.h"
 
-
+namespace fcc {
 
 class MissingEnergyCollection;
 class MissingEnergyCollectionIterator;
@@ -77,6 +77,6 @@ private:
 
 };
 
-
+} // namespace fcc
 
 #endif

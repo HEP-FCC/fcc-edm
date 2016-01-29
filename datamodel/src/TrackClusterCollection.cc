@@ -4,7 +4,7 @@
 
 #include "TrackClusterCollection.h"
 
-
+namespace fcc {
 
 TrackClusterCollection::TrackClusterCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new TrackClusterDataContainer() ) {
   
@@ -101,4 +101,4 @@ const TrackClusterCollectionIterator& TrackClusterCollectionIterator::operator++
  return *this;
 }
 
-
+} // namespace fcc

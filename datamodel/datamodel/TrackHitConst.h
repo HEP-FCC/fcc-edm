@@ -14,7 +14,7 @@
 
 #include "TrackHitObj.h"
 
-
+namespace fcc {
 
 class TrackHitObj;
 class TrackHit;
@@ -31,7 +31,7 @@ public:
 
   /// default constructor
   ConstTrackHit();
-  ConstTrackHit(BareHit Core);
+  ConstTrackHit(fcc::BareHit Core);
 
   /// constructor from existing TrackHitObj
   ConstTrackHit(TrackHitObj* obj);
@@ -47,7 +47,7 @@ public:
 
 public:
 
-  const BareHit& Core() const;
+  const fcc::BareHit& Core() const;
 
 
   /// check whether the object is actually available
@@ -71,6 +71,6 @@ private:
   TrackHitObj* m_obj;
 
 };
-
+} // namespace fcc
 
 #endif

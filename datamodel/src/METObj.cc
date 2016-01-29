@@ -1,7 +1,7 @@
 #include "METObj.h"
 
 
-
+namespace fcc {
 METObj::METObj() :
     ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}
     ,data()
@@ -24,4 +24,4 @@ METObj::~METObj() {
 
   }
 }
-
+} // namespace fcc

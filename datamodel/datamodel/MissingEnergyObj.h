@@ -16,7 +16,7 @@ class MissingEnergy;
 class ConstMissingEnergy;
 
 
-
+namespace fcc {
 class MissingEnergyObj : public podio::ObjBase {
 public:
   /// constructor
@@ -33,7 +33,7 @@ public:
 
 
 };
-
+} // namespace fcc
 
 
 #endif

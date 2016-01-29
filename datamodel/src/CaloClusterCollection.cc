@@ -4,7 +4,7 @@
 
 #include "CaloClusterCollection.h"
 
-
+namespace fcc {
 
 CaloClusterCollection::CaloClusterCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new CaloClusterDataContainer() ) {
   
@@ -101,4 +101,4 @@ const CaloClusterCollectionIterator& CaloClusterCollectionIterator::operator++()
  return *this;
 }
 
-
+} // namespace fcc

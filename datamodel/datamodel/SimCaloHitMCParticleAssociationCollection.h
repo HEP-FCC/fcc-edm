@@ -18,7 +18,7 @@
 #include "SimCaloHitMCParticleAssociation.h"
 #include "SimCaloHitMCParticleAssociationObj.h"
 
-
+namespace fcc {
 typedef std::vector<SimCaloHitMCParticleAssociationData> SimCaloHitMCParticleAssociationDataContainer;
 typedef std::deque<SimCaloHitMCParticleAssociationObj*> SimCaloHitMCParticleAssociationObjPointerContainer;
 
@@ -105,8 +105,8 @@ private:
   int m_collectionID;
   SimCaloHitMCParticleAssociationObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  std::vector<ConstSimCaloHit>* m_rel_Hit; //relation buffer for r/w
-  std::vector<ConstMCParticle>* m_rel_Particle; //relation buffer for r/w
+  std::vector<::fcc::ConstSimCaloHit>* m_rel_Hit; //relation buffer for r/w
+  std::vector<::fcc::ConstMCParticle>* m_rel_Particle; //relation buffer for r/w
 
   // members to handle streaming
   podio::CollRefCollection* m_refCollections;
@@ -131,5 +131,5 @@ const std::array<float,arraysize> SimCaloHitMCParticleAssociationCollection::Fra
  return tmp;
 }
 
-
+} // namespace fcc
 #endif

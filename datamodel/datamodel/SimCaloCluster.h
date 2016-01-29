@@ -15,7 +15,7 @@
 #include "SimCaloClusterConst.h"
 #include "SimCaloClusterObj.h"
 
-
+namespace fcc {
 
 class SimCaloClusterCollection;
 class SimCaloClusterCollectionIterator;
@@ -31,7 +31,7 @@ public:
 
   /// default constructor
   SimCaloCluster();
-    SimCaloCluster(BareCluster Core);
+    SimCaloCluster(fcc::BareCluster Core);
 
   /// constructor from existing SimCaloClusterObj
   SimCaloCluster(SimCaloClusterObj* obj);
@@ -49,10 +49,10 @@ public:
 
 public:
 
-  const BareCluster& Core() const;
+  const fcc::BareCluster& Core() const;
 
-  BareCluster& Core();
-  void Core(class BareCluster value);
+  fcc::BareCluster& Core();
+  void Core(class fcc::BareCluster value);
 
 
   /// check whether the object is actually available
@@ -77,6 +77,6 @@ private:
 
 };
 
-
+} // namespace fcc
 
 #endif

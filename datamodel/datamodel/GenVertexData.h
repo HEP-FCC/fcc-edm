@@ -7,13 +7,13 @@
 #include "Point.h"
 
 
-
+namespace fcc {
 class GenVertexData {
 public:
-  Point Position; /// Vertex position in cm 
+  fcc::Point Position; /// Vertex position in cm 
   float Ctau; /// Time coordinate in cm 
 
 };
-
+} // namespace fcc
 
 #endif

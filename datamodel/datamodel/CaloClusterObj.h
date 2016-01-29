@@ -16,7 +16,7 @@ class CaloCluster;
 class ConstCaloCluster;
 
 
-
+namespace fcc {
 class CaloClusterObj : public podio::ObjBase {
 public:
   /// constructor
@@ -33,7 +33,7 @@ public:
 
 
 };
-
+} // namespace fcc
 
 
 #endif

@@ -14,7 +14,7 @@
 #include "EventInfoConst.h"
 #include "EventInfoObj.h"
 
-
+namespace fcc {
 
 class EventInfoCollection;
 class EventInfoCollectionIterator;
@@ -75,6 +75,6 @@ private:
 
 };
 
-
+} // namespace fcc
 
 #endif

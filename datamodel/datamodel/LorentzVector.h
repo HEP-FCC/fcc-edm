@@ -2,7 +2,7 @@
 #define LorentzVector_H
 
 
-
+namespace fcc {
 class LorentzVector {
 public:
   float Pz;
@@ -11,5 +11,5 @@ public:
   float Mass;
 
 };
-
+} // namespace fcc
 #endif

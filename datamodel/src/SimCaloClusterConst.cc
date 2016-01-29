@@ -7,13 +7,13 @@
 #include <iostream>
 
 
-
+namespace fcc {
 
 ConstSimCaloCluster::ConstSimCaloCluster() : m_obj(new SimCaloClusterObj()){
  m_obj->acquire();
 }
 
-ConstSimCaloCluster::ConstSimCaloCluster(BareCluster Core) : m_obj(new SimCaloClusterObj()){
+ConstSimCaloCluster::ConstSimCaloCluster(fcc::BareCluster Core) : m_obj(new SimCaloClusterObj()){
  m_obj->acquire();
    m_obj->data.Core = Core;
 }
@@ -42,7 +42,7 @@ ConstSimCaloCluster::~ConstSimCaloCluster(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const BareCluster& ConstSimCaloCluster::Core() const { return m_obj->data.Core; }
+  const fcc::BareCluster& ConstSimCaloCluster::Core() const { return m_obj->data.Core; }
 
 
 bool  ConstSimCaloCluster::isAvailable() const {
@@ -71,4 +71,4 @@ bool ConstSimCaloCluster::operator==(const SimCaloCluster& other) const {
 //  }
 //}
 
-
+} // namespace fcc

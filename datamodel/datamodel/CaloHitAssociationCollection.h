@@ -18,7 +18,7 @@
 #include "CaloHitAssociation.h"
 #include "CaloHitAssociationObj.h"
 
-
+namespace fcc {
 typedef std::vector<CaloHitAssociationData> CaloHitAssociationDataContainer;
 typedef std::deque<CaloHitAssociationObj*> CaloHitAssociationObjPointerContainer;
 
@@ -103,8 +103,8 @@ private:
   int m_collectionID;
   CaloHitAssociationObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  std::vector<ConstCaloHit>* m_rel_Rec; //relation buffer for r/w
-  std::vector<ConstSimCaloHit>* m_rel_Sim; //relation buffer for r/w
+  std::vector<::fcc::ConstCaloHit>* m_rel_Rec; //relation buffer for r/w
+  std::vector<::fcc::ConstSimCaloHit>* m_rel_Sim; //relation buffer for r/w
 
   // members to handle streaming
   podio::CollRefCollection* m_refCollections;
@@ -120,5 +120,5 @@ CaloHitAssociation  CaloHitAssociationCollection::create(Args&&... args){
 }
 
 
-
+} // namespace fcc
 #endif

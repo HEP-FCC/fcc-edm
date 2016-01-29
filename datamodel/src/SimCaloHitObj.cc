@@ -1,7 +1,7 @@
 #include "SimCaloHitObj.h"
 
 
-
+namespace fcc {
 SimCaloHitObj::SimCaloHitObj() :
     ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}
     ,data()
@@ -24,4 +24,4 @@ SimCaloHitObj::~SimCaloHitObj() {
 
   }
 }
-
+} // namespace fcc

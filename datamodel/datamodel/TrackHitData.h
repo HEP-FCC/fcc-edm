@@ -7,12 +7,12 @@
 #include "BareHit.h"
 
 
-
+namespace fcc {
 class TrackHitData {
 public:
-  BareHit Core; /// contains basic hit information 
+  fcc::BareHit Core; /// contains basic hit information 
 
 };
-
+} // namespace fcc
 
 #endif

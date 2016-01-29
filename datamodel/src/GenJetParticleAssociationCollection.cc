@@ -6,9 +6,9 @@
 
 #include "GenJetParticleAssociationCollection.h"
 
+namespace fcc {
 
-
-GenJetParticleAssociationCollection::GenJetParticleAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Jet(new std::vector<ConstGenJet>()),m_rel_Particle(new std::vector<ConstMCParticle>()),m_refCollections(nullptr), m_data(new GenJetParticleAssociationDataContainer() ) {
+GenJetParticleAssociationCollection::GenJetParticleAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Jet(new std::vector<::fcc::ConstGenJet>()),m_rel_Particle(new std::vector<::fcc::ConstMCParticle>()),m_refCollections(nullptr), m_data(new GenJetParticleAssociationDataContainer() ) {
     m_refCollections = new podio::CollRefCollection();
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
@@ -85,7 +85,7 @@ bool GenJetParticleAssociationCollection::setReferences(const podio::ICollection
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      GenJetCollection* tmp_coll = static_cast<GenJetCollection*>(coll);
+      fcc::GenJetCollection* tmp_coll = static_cast<fcc::GenJetCollection*>(coll);
       m_entries[i]->m_Jet = new ConstGenJet((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Jet = nullptr;
@@ -96,7 +96,7 @@ bool GenJetParticleAssociationCollection::setReferences(const podio::ICollection
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      MCParticleCollection* tmp_coll = static_cast<MCParticleCollection*>(coll);
+      fcc::MCParticleCollection* tmp_coll = static_cast<fcc::MCParticleCollection*>(coll);
       m_entries[i]->m_Particle = new ConstMCParticle((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Particle = nullptr;
@@ -139,4 +139,4 @@ const GenJetParticleAssociationCollectionIterator& GenJetParticleAssociationColl
  return *this;
 }
 
-
+} // namespace fcc

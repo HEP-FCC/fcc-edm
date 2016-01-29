@@ -1,7 +1,7 @@
 #include "MissingEnergyObj.h"
 
 
-
+namespace fcc {
 MissingEnergyObj::MissingEnergyObj() :
     ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}
     ,data()
@@ -24,4 +24,4 @@ MissingEnergyObj::~MissingEnergyObj() {
 
   }
 }
-
+} // namespace fcc

@@ -18,7 +18,7 @@
 #include "VertexTrackAssociation.h"
 #include "VertexTrackAssociationObj.h"
 
-
+namespace fcc {
 typedef std::vector<VertexTrackAssociationData> VertexTrackAssociationDataContainer;
 typedef std::deque<VertexTrackAssociationObj*> VertexTrackAssociationObjPointerContainer;
 
@@ -105,8 +105,8 @@ private:
   int m_collectionID;
   VertexTrackAssociationObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  std::vector<ConstTrack>* m_rel_Track; //relation buffer for r/w
-  std::vector<ConstVertex>* m_rel_Vertex; //relation buffer for r/w
+  std::vector<::fcc::ConstTrack>* m_rel_Track; //relation buffer for r/w
+  std::vector<::fcc::ConstVertex>* m_rel_Vertex; //relation buffer for r/w
 
   // members to handle streaming
   podio::CollRefCollection* m_refCollections;
@@ -131,5 +131,5 @@ const std::array<float,arraysize> VertexTrackAssociationCollection::Weight() con
  return tmp;
 }
 
-
+} // namespace fcc
 #endif

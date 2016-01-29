@@ -6,11 +6,11 @@
 
 
 
-
+namespace fcc {
 class JetParticleAssociationData {
 public:
 
 };
-
+} // namespace fcc
 
 #endif

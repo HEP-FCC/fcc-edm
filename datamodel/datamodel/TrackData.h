@@ -6,7 +6,7 @@
 
 
 
-
+namespace fcc {
 class TrackData {
 public:
   float Chi2; /// chi2 returned by the track fit 
@@ -14,6 +14,6 @@ public:
   unsigned Bits; /// Stores flags 
 
 };
-
+} // namespace fcc
 
 #endif

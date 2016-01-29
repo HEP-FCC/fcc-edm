@@ -13,7 +13,7 @@
 
 #include "METObj.h"
 
-
+namespace fcc {
 
 class METObj;
 class MET;
@@ -71,6 +71,6 @@ private:
   METObj* m_obj;
 
 };
-
+} // namespace fcc
 
 #endif

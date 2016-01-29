@@ -7,12 +7,12 @@
 #include "BareCluster.h"
 
 
-
+namespace fcc {
 class CaloClusterData {
 public:
-  BareCluster Core; /// contains basic cluster information 
+  fcc::BareCluster Core; /// contains basic cluster information 
 
 };
-
+} // namespace fcc
 
 #endif

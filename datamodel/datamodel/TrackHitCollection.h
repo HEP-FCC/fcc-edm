@@ -18,7 +18,7 @@
 #include "TrackHit.h"
 #include "TrackHitObj.h"
 
-
+namespace fcc {
 typedef std::vector<TrackHitData> TrackHitDataContainer;
 typedef std::deque<TrackHitObj*> TrackHitObjPointerContainer;
 
@@ -98,7 +98,7 @@ public:
   std::vector<TrackHitData>* _getBuffer() { return m_data;};
 
      template<size_t arraysize>  
-  const std::array<BareHit,arraysize> Core() const;
+  const std::array<fcc::BareHit,arraysize> Core() const;
 
 
 private:
@@ -120,8 +120,8 @@ TrackHit  TrackHitCollection::create(Args&&... args){
 }
 
 template<size_t arraysize>
-const std::array<class BareHit,arraysize> TrackHitCollection::Core() const {
-  std::array<class BareHit,arraysize> tmp;
+const std::array<class fcc::BareHit,arraysize> TrackHitCollection::Core() const {
+  std::array<class fcc::BareHit,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
     tmp[i] = m_entries[i]->data.Core;
@@ -129,5 +129,5 @@ const std::array<class BareHit,arraysize> TrackHitCollection::Core() const {
  return tmp;
 }
 
-
+} // namespace fcc
 #endif

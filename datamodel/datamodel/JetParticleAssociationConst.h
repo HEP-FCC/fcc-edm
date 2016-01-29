@@ -9,15 +9,17 @@
 // author: C. Bernet, B. Hegner
 
 //forward declarations
+namespace fcc {
 class Jet;
 class ConstJet;
 class Particle;
 class ConstParticle;
+}
 
 
 #include "JetParticleAssociationObj.h"
 
-
+namespace fcc {
 
 class JetParticleAssociationObj;
 class JetParticleAssociation;
@@ -49,8 +51,8 @@ public:
 
 public:
 
-  const ConstJet Jet() const;
-  const ConstParticle Particle() const;
+  const fcc::ConstJet Jet() const;
+  const fcc::ConstParticle Particle() const;
 
 
   /// check whether the object is actually available
@@ -74,6 +76,6 @@ private:
   JetParticleAssociationObj* m_obj;
 
 };
-
+} // namespace fcc
 
 #endif

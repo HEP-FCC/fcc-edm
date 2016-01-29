@@ -14,7 +14,7 @@
 
 #include "VertexObj.h"
 
-
+namespace fcc {
 
 class VertexObj;
 class Vertex;
@@ -31,7 +31,7 @@ public:
 
   /// default constructor
   ConstVertex();
-  ConstVertex(float Chi2,unsigned Ndf,Point Position,unsigned Bits);
+  ConstVertex(float Chi2,unsigned Ndf,fcc::Point Position,unsigned Bits);
 
   /// constructor from existing VertexObj
   ConstVertex(VertexObj* obj);
@@ -49,7 +49,7 @@ public:
 
   const float& Chi2() const;
   const unsigned& Ndf() const;
-  const Point& Position() const;
+  const fcc::Point& Position() const;
   const unsigned& Bits() const;
 
 
@@ -74,6 +74,6 @@ private:
   VertexObj* m_obj;
 
 };
-
+} // namespace fcc
 
 #endif

@@ -7,7 +7,7 @@
 #include <iostream>
 
 
-
+namespace fcc {
 
 ConstEventInfo::ConstEventInfo() : m_obj(new EventInfoObj()){
  m_obj->acquire();
@@ -71,4 +71,4 @@ bool ConstEventInfo::operator==(const EventInfo& other) const {
 //  }
 //}
 
-
+} // namespace fcc

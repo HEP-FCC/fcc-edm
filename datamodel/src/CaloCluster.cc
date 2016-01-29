@@ -7,13 +7,13 @@
 #include <iostream>
 
 
-
+namespace fcc {
 
 CaloCluster::CaloCluster() : m_obj(new CaloClusterObj()){
  m_obj->acquire();
 }
 
-CaloCluster::CaloCluster(BareCluster Core) : m_obj(new CaloClusterObj()){
+CaloCluster::CaloCluster(fcc::BareCluster Core) : m_obj(new CaloClusterObj()){
  m_obj->acquire();
    m_obj->data.Core = Core;
 }
@@ -44,10 +44,10 @@ CaloCluster::~CaloCluster(){
 
 CaloCluster::operator ConstCaloCluster() const {return ConstCaloCluster(m_obj);}
 
-  const BareCluster& CaloCluster::Core() const { return m_obj->data.Core; }
+  const fcc::BareCluster& CaloCluster::Core() const { return m_obj->data.Core; }
 
-  BareCluster& CaloCluster::Core() { return m_obj->data.Core; }
-void CaloCluster::Core(class BareCluster value){ m_obj->data.Core = value;}
+  fcc::BareCluster& CaloCluster::Core() { return m_obj->data.Core; }
+void CaloCluster::Core(class fcc::BareCluster value){ m_obj->data.Core = value;}
 
 
 bool  CaloCluster::isAvailable() const {
@@ -77,4 +77,4 @@ bool CaloCluster::operator==(const ConstCaloCluster& other) const {
 //  }
 //}
 
-
+} // namespace fcc

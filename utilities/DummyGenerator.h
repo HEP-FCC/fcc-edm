@@ -7,10 +7,12 @@ namespace podio {
   class EventStore;
 }
 
+namespace fcc {
 class Particle;
 class ParticleCollection;
 class JetCollection;
 class JetParticleAssociationCollection;
+}
 class TLorentzVector;
 class TVector3;
 
@@ -33,7 +35,7 @@ private:
   void generate_jet(float energy, const TVector3& direction);
 
   /// generate a particle
-  std::pair<bool, Particle> generate_particle(const TLorentzVector* lv = nullptr, int type=-1);
+  std::pair<bool, fcc::Particle> generate_particle(const TLorentzVector* lv = nullptr, int type=-1);
 
   /// number of jets
   unsigned m_njets;
@@ -64,9 +66,9 @@ private:
   unsigned m_nprint;
   unsigned m_ievt;
 
-  ParticleCollection& m_particles;
-  JetCollection& m_jets;
-  JetParticleAssociationCollection& m_jetParticleAssociations;
+  fcc::ParticleCollection& m_particles;
+  fcc::JetCollection& m_jets;
+  fcc::JetParticleAssociationCollection& m_jetParticleAssociations;
 };
 
 #endif

@@ -4,7 +4,7 @@
 
 #include "ParticleCollection.h"
 
-
+namespace fcc {
 
 ParticleCollection::ParticleCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new ParticleDataContainer() ) {
   
@@ -101,4 +101,4 @@ const ParticleCollectionIterator& ParticleCollectionIterator::operator++() const
  return *this;
 }
 
-
+} // namespace fcc

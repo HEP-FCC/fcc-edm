@@ -14,7 +14,7 @@
 
 #include "TrackClusterObj.h"
 
-
+namespace fcc {
 
 class TrackClusterObj;
 class TrackCluster;
@@ -31,7 +31,7 @@ public:
 
   /// default constructor
   ConstTrackCluster();
-  ConstTrackCluster(BareCluster Core);
+  ConstTrackCluster(fcc::BareCluster Core);
 
   /// constructor from existing TrackClusterObj
   ConstTrackCluster(TrackClusterObj* obj);
@@ -47,7 +47,7 @@ public:
 
 public:
 
-  const BareCluster& Core() const;
+  const fcc::BareCluster& Core() const;
 
 
   /// check whether the object is actually available
@@ -71,6 +71,6 @@ private:
   TrackClusterObj* m_obj;
 
 };
-
+} // namespace fcc
 
 #endif

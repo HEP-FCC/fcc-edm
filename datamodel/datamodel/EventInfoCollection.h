@@ -18,7 +18,7 @@
 #include "EventInfo.h"
 #include "EventInfoObj.h"
 
-
+namespace fcc {
 typedef std::vector<EventInfoData> EventInfoDataContainer;
 typedef std::deque<EventInfoObj*> EventInfoObjPointerContainer;
 
@@ -129,5 +129,5 @@ const std::array<int,arraysize> EventInfoCollection::Number() const {
  return tmp;
 }
 
-
+} // namespace fcc
 #endif

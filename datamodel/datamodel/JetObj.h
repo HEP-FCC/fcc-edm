@@ -16,7 +16,7 @@ class Jet;
 class ConstJet;
 
 
-
+namespace fcc {
 class JetObj : public podio::ObjBase {
 public:
   /// constructor
@@ -33,7 +33,7 @@ public:
 
 
 };
-
+} // namespace fcc
 
 
 #endif

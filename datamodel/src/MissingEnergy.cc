@@ -7,7 +7,7 @@
 #include <iostream>
 
 
-
+namespace fcc {
 
 MissingEnergy::MissingEnergy() : m_obj(new MissingEnergyObj()){
  m_obj->acquire();
@@ -78,4 +78,4 @@ bool MissingEnergy::operator==(const ConstMissingEnergy& other) const {
 //  }
 //}
 
-
+} // namespace fcc

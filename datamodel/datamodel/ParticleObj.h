@@ -16,7 +16,7 @@ class Particle;
 class ConstParticle;
 
 
-
+namespace fcc {
 class ParticleObj : public podio::ObjBase {
 public:
   /// constructor
@@ -33,7 +33,7 @@ public:
 
 
 };
-
+} // namespace fcc
 
 
 #endif

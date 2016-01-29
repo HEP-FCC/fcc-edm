@@ -9,7 +9,7 @@
 #include "TrackHit.h"
 
 
-
+namespace fcc {
 
 TrackClusterHitsAssociation::TrackClusterHitsAssociation() : m_obj(new TrackClusterHitsAssociationObj()){
  m_obj->acquire();
@@ -42,15 +42,15 @@ TrackClusterHitsAssociation::~TrackClusterHitsAssociation(){
 
 TrackClusterHitsAssociation::operator ConstTrackClusterHitsAssociation() const {return ConstTrackClusterHitsAssociation(m_obj);}
 
-  const ConstTrackCluster TrackClusterHitsAssociation::Cluster() const { if (m_obj->m_Cluster == nullptr) {
- return ConstTrackCluster(nullptr);}
- return ConstTrackCluster(*(m_obj->m_Cluster));}
-  const ConstTrackHit TrackClusterHitsAssociation::Hit() const { if (m_obj->m_Hit == nullptr) {
- return ConstTrackHit(nullptr);}
- return ConstTrackHit(*(m_obj->m_Hit));}
+  const fcc::ConstTrackCluster TrackClusterHitsAssociation::Cluster() const { if (m_obj->m_Cluster == nullptr) {
+ return fcc::ConstTrackCluster(nullptr);}
+ return fcc::ConstTrackCluster(*(m_obj->m_Cluster));}
+  const fcc::ConstTrackHit TrackClusterHitsAssociation::Hit() const { if (m_obj->m_Hit == nullptr) {
+ return fcc::ConstTrackHit(nullptr);}
+ return fcc::ConstTrackHit(*(m_obj->m_Hit));}
 
-void TrackClusterHitsAssociation::Cluster(ConstTrackCluster value) { if (m_obj->m_Cluster != nullptr) delete m_obj->m_Cluster; m_obj->m_Cluster = new ConstTrackCluster(value); }
-void TrackClusterHitsAssociation::Hit(ConstTrackHit value) { if (m_obj->m_Hit != nullptr) delete m_obj->m_Hit; m_obj->m_Hit = new ConstTrackHit(value); }
+void TrackClusterHitsAssociation::Cluster(fcc::ConstTrackCluster value) { if (m_obj->m_Cluster != nullptr) delete m_obj->m_Cluster; m_obj->m_Cluster = new ConstTrackCluster(value); }
+void TrackClusterHitsAssociation::Hit(fcc::ConstTrackHit value) { if (m_obj->m_Hit != nullptr) delete m_obj->m_Hit; m_obj->m_Hit = new ConstTrackHit(value); }
 
 
 bool  TrackClusterHitsAssociation::isAvailable() const {
@@ -80,4 +80,4 @@ bool TrackClusterHitsAssociation::operator==(const ConstTrackClusterHitsAssociat
 //  }
 //}
 
-
+} // namespace fcc

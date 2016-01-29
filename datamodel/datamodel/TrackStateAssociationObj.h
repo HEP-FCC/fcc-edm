@@ -14,11 +14,12 @@
 // forward declarations
 class TrackStateAssociation;
 class ConstTrackStateAssociation;
-class ConstTrack;
+namespace fcc {class ConstTrack;
 class ConstTrackState;
+}
 
 
-
+namespace fcc {
 class TrackStateAssociationObj : public podio::ObjBase {
 public:
   /// constructor
@@ -32,12 +33,12 @@ public:
 
 public:
   TrackStateAssociationData data;
-  ConstTrack* m_Track;
-  ConstTrackState* m_State;
+  ::fcc::ConstTrack* m_Track;
+  ::fcc::ConstTrackState* m_State;
 
 
 };
-
+} // namespace fcc
 
 
 #endif

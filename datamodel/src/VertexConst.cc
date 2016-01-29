@@ -7,13 +7,13 @@
 #include <iostream>
 
 
-
+namespace fcc {
 
 ConstVertex::ConstVertex() : m_obj(new VertexObj()){
  m_obj->acquire();
 }
 
-ConstVertex::ConstVertex(float Chi2,unsigned Ndf,Point Position,unsigned Bits) : m_obj(new VertexObj()){
+ConstVertex::ConstVertex(float Chi2,unsigned Ndf,fcc::Point Position,unsigned Bits) : m_obj(new VertexObj()){
  m_obj->acquire();
    m_obj->data.Chi2 = Chi2;  m_obj->data.Ndf = Ndf;  m_obj->data.Position = Position;  m_obj->data.Bits = Bits;
 }
@@ -44,7 +44,7 @@ ConstVertex::~ConstVertex(){
 
   const float& ConstVertex::Chi2() const { return m_obj->data.Chi2; }
   const unsigned& ConstVertex::Ndf() const { return m_obj->data.Ndf; }
-  const Point& ConstVertex::Position() const { return m_obj->data.Position; }
+  const fcc::Point& ConstVertex::Position() const { return m_obj->data.Position; }
   const unsigned& ConstVertex::Bits() const { return m_obj->data.Bits; }
 
 
@@ -74,4 +74,4 @@ bool ConstVertex::operator==(const Vertex& other) const {
 //  }
 //}
 
-
+} // namespace fcc

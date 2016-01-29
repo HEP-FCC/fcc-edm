@@ -9,7 +9,7 @@
 #include "MCParticle.h"
 
 
-
+namespace fcc {
 
 MCParticleAssociation::MCParticleAssociation() : m_obj(new MCParticleAssociationObj()){
  m_obj->acquire();
@@ -42,15 +42,15 @@ MCParticleAssociation::~MCParticleAssociation(){
 
 MCParticleAssociation::operator ConstMCParticleAssociation() const {return ConstMCParticleAssociation(m_obj);}
 
-  const ConstMCParticle MCParticleAssociation::Mother() const { if (m_obj->m_Mother == nullptr) {
- return ConstMCParticle(nullptr);}
- return ConstMCParticle(*(m_obj->m_Mother));}
-  const ConstMCParticle MCParticleAssociation::Daughter() const { if (m_obj->m_Daughter == nullptr) {
- return ConstMCParticle(nullptr);}
- return ConstMCParticle(*(m_obj->m_Daughter));}
+  const fcc::ConstMCParticle MCParticleAssociation::Mother() const { if (m_obj->m_Mother == nullptr) {
+ return fcc::ConstMCParticle(nullptr);}
+ return fcc::ConstMCParticle(*(m_obj->m_Mother));}
+  const fcc::ConstMCParticle MCParticleAssociation::Daughter() const { if (m_obj->m_Daughter == nullptr) {
+ return fcc::ConstMCParticle(nullptr);}
+ return fcc::ConstMCParticle(*(m_obj->m_Daughter));}
 
-void MCParticleAssociation::Mother(ConstMCParticle value) { if (m_obj->m_Mother != nullptr) delete m_obj->m_Mother; m_obj->m_Mother = new ConstMCParticle(value); }
-void MCParticleAssociation::Daughter(ConstMCParticle value) { if (m_obj->m_Daughter != nullptr) delete m_obj->m_Daughter; m_obj->m_Daughter = new ConstMCParticle(value); }
+void MCParticleAssociation::Mother(fcc::ConstMCParticle value) { if (m_obj->m_Mother != nullptr) delete m_obj->m_Mother; m_obj->m_Mother = new ConstMCParticle(value); }
+void MCParticleAssociation::Daughter(fcc::ConstMCParticle value) { if (m_obj->m_Daughter != nullptr) delete m_obj->m_Daughter; m_obj->m_Daughter = new ConstMCParticle(value); }
 
 
 bool  MCParticleAssociation::isAvailable() const {
@@ -80,4 +80,4 @@ bool MCParticleAssociation::operator==(const ConstMCParticleAssociation& other) 
 //  }
 //}
 
-
+} // namespace fcc

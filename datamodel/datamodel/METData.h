@@ -6,13 +6,13 @@
 
 
 
-
+namespace fcc {
 class METData {
 public:
   float Pt; /// . 
   float Phi; /// . 
 
 };
-
+} // namespace fcc
 
 #endif

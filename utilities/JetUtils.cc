@@ -7,10 +7,10 @@
 
 namespace utils {
 
-  std::vector<Particle> associatedParticles( const Jet& jet,
-                                             const JetParticleAssociationCollection& associations ) {
+  std::vector<fcc::Particle> associatedParticles( const fcc::Jet& jet,
+                                                  const fcc::JetParticleAssociationCollection& associations ) {
 
-    std::vector<Particle> result;
+    std::vector<fcc::Particle> result;
     if(not jet.isAvailable()) {
       std::cerr<<"Jet handle is not available"<<std::endl;
       return result;

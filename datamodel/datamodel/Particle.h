@@ -15,7 +15,7 @@
 #include "ParticleConst.h"
 #include "ParticleObj.h"
 
-
+namespace fcc {
 
 class ParticleCollection;
 class ParticleCollectionIterator;
@@ -31,7 +31,7 @@ public:
 
   /// default constructor
   Particle();
-    Particle(BareParticle Core);
+    Particle(fcc::BareParticle Core);
 
   /// constructor from existing ParticleObj
   Particle(ParticleObj* obj);
@@ -49,10 +49,10 @@ public:
 
 public:
 
-  const BareParticle& Core() const;
+  const fcc::BareParticle& Core() const;
 
-  BareParticle& Core();
-  void Core(class BareParticle value);
+  fcc::BareParticle& Core();
+  void Core(class fcc::BareParticle value);
 
 
   /// check whether the object is actually available
@@ -77,6 +77,6 @@ private:
 
 };
 
-
+} // namespace fcc
 
 #endif

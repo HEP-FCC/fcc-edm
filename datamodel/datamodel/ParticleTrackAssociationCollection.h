@@ -18,7 +18,7 @@
 #include "ParticleTrackAssociation.h"
 #include "ParticleTrackAssociationObj.h"
 
-
+namespace fcc {
 typedef std::vector<ParticleTrackAssociationData> ParticleTrackAssociationDataContainer;
 typedef std::deque<ParticleTrackAssociationObj*> ParticleTrackAssociationObjPointerContainer;
 
@@ -103,8 +103,8 @@ private:
   int m_collectionID;
   ParticleTrackAssociationObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  std::vector<ConstParticle>* m_rel_Particle; //relation buffer for r/w
-  std::vector<ConstTrack>* m_rel_Track; //relation buffer for r/w
+  std::vector<::fcc::ConstParticle>* m_rel_Particle; //relation buffer for r/w
+  std::vector<::fcc::ConstTrack>* m_rel_Track; //relation buffer for r/w
 
   // members to handle streaming
   podio::CollRefCollection* m_refCollections;
@@ -120,5 +120,5 @@ ParticleTrackAssociation  ParticleTrackAssociationCollection::create(Args&&... a
 }
 
 
-
+} // namespace fcc
 #endif

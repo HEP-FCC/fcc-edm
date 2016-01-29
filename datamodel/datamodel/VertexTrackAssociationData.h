@@ -6,12 +6,12 @@
 
 
 
-
+namespace fcc {
 class VertexTrackAssociationData {
 public:
   float Weight; /// Weight of the track in the vertex. 
 
 };
-
+} // namespace fcc
 
 #endif

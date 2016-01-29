@@ -1,7 +1,7 @@
 #include "SimCaloClusterObj.h"
 
 
-
+namespace fcc {
 SimCaloClusterObj::SimCaloClusterObj() :
     ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}
     ,data()
@@ -24,4 +24,4 @@ SimCaloClusterObj::~SimCaloClusterObj() {
 
   }
 }
-
+} // namespace fcc

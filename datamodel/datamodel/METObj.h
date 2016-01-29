@@ -16,7 +16,7 @@ class MET;
 class ConstMET;
 
 
-
+namespace fcc {
 class METObj : public podio::ObjBase {
 public:
   /// constructor
@@ -33,7 +33,7 @@ public:
 
 
 };
-
+} // namespace fcc
 
 
 #endif

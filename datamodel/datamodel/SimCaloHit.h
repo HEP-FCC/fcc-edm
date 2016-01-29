@@ -15,7 +15,7 @@
 #include "SimCaloHitConst.h"
 #include "SimCaloHitObj.h"
 
-
+namespace fcc {
 
 class SimCaloHitCollection;
 class SimCaloHitCollectionIterator;
@@ -31,7 +31,7 @@ public:
 
   /// default constructor
   SimCaloHit();
-    SimCaloHit(BareHit Core);
+    SimCaloHit(fcc::BareHit Core);
 
   /// constructor from existing SimCaloHitObj
   SimCaloHit(SimCaloHitObj* obj);
@@ -49,10 +49,10 @@ public:
 
 public:
 
-  const BareHit& Core() const;
+  const fcc::BareHit& Core() const;
 
-  BareHit& Core();
-  void Core(class BareHit value);
+  fcc::BareHit& Core();
+  void Core(class fcc::BareHit value);
 
 
   /// check whether the object is actually available
@@ -77,6 +77,6 @@ private:
 
 };
 
-
+} // namespace fcc
 
 #endif

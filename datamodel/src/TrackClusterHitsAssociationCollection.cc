@@ -6,9 +6,9 @@
 
 #include "TrackClusterHitsAssociationCollection.h"
 
+namespace fcc {
 
-
-TrackClusterHitsAssociationCollection::TrackClusterHitsAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Cluster(new std::vector<ConstTrackCluster>()),m_rel_Hit(new std::vector<ConstTrackHit>()),m_refCollections(nullptr), m_data(new TrackClusterHitsAssociationDataContainer() ) {
+TrackClusterHitsAssociationCollection::TrackClusterHitsAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Cluster(new std::vector<::fcc::ConstTrackCluster>()),m_rel_Hit(new std::vector<::fcc::ConstTrackHit>()),m_refCollections(nullptr), m_data(new TrackClusterHitsAssociationDataContainer() ) {
     m_refCollections = new podio::CollRefCollection();
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
@@ -85,7 +85,7 @@ bool TrackClusterHitsAssociationCollection::setReferences(const podio::ICollecti
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      TrackClusterCollection* tmp_coll = static_cast<TrackClusterCollection*>(coll);
+      fcc::TrackClusterCollection* tmp_coll = static_cast<fcc::TrackClusterCollection*>(coll);
       m_entries[i]->m_Cluster = new ConstTrackCluster((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Cluster = nullptr;
@@ -96,7 +96,7 @@ bool TrackClusterHitsAssociationCollection::setReferences(const podio::ICollecti
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      TrackHitCollection* tmp_coll = static_cast<TrackHitCollection*>(coll);
+      fcc::TrackHitCollection* tmp_coll = static_cast<fcc::TrackHitCollection*>(coll);
       m_entries[i]->m_Hit = new ConstTrackHit((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Hit = nullptr;
@@ -139,4 +139,4 @@ const TrackClusterHitsAssociationCollectionIterator& TrackClusterHitsAssociation
  return *this;
 }
 
-
+} // namespace fcc

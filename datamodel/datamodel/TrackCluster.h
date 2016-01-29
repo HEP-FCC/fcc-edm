@@ -15,7 +15,7 @@
 #include "TrackClusterConst.h"
 #include "TrackClusterObj.h"
 
-
+namespace fcc {
 
 class TrackClusterCollection;
 class TrackClusterCollectionIterator;
@@ -31,7 +31,7 @@ public:
 
   /// default constructor
   TrackCluster();
-    TrackCluster(BareCluster Core);
+    TrackCluster(fcc::BareCluster Core);
 
   /// constructor from existing TrackClusterObj
   TrackCluster(TrackClusterObj* obj);
@@ -49,10 +49,10 @@ public:
 
 public:
 
-  const BareCluster& Core() const;
+  const fcc::BareCluster& Core() const;
 
-  BareCluster& Core();
-  void Core(class BareCluster value);
+  fcc::BareCluster& Core();
+  void Core(class fcc::BareCluster value);
 
 
   /// check whether the object is actually available
@@ -77,6 +77,6 @@ private:
 
 };
 
-
+} // namespace fcc
 
 #endif

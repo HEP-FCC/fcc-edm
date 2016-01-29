@@ -18,7 +18,7 @@
 #include "Particle.h"
 #include "ParticleObj.h"
 
-
+namespace fcc {
 typedef std::vector<ParticleData> ParticleDataContainer;
 typedef std::deque<ParticleObj*> ParticleObjPointerContainer;
 
@@ -98,7 +98,7 @@ public:
   std::vector<ParticleData>* _getBuffer() { return m_data;};
 
      template<size_t arraysize>  
-  const std::array<BareParticle,arraysize> Core() const;
+  const std::array<fcc::BareParticle,arraysize> Core() const;
 
 
 private:
@@ -120,8 +120,8 @@ Particle  ParticleCollection::create(Args&&... args){
 }
 
 template<size_t arraysize>
-const std::array<class BareParticle,arraysize> ParticleCollection::Core() const {
-  std::array<class BareParticle,arraysize> tmp;
+const std::array<class fcc::BareParticle,arraysize> ParticleCollection::Core() const {
+  std::array<class fcc::BareParticle,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
     tmp[i] = m_entries[i]->data.Core;
@@ -129,5 +129,5 @@ const std::array<class BareParticle,arraysize> ParticleCollection::Core() const 
  return tmp;
 }
 
-
+} // namespace fcc
 #endif

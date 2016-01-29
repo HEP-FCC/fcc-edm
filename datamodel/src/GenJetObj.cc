@@ -1,7 +1,7 @@
 #include "GenJetObj.h"
 
 
-
+namespace fcc {
 GenJetObj::GenJetObj() :
     ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}
     ,data()
@@ -24,4 +24,4 @@ GenJetObj::~GenJetObj() {
 
   }
 }
-
+} // namespace fcc

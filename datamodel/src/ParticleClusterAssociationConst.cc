@@ -9,7 +9,7 @@
 #include "CaloCluster.h"
 
 
-
+namespace fcc {
 
 ConstParticleClusterAssociation::ConstParticleClusterAssociation() : m_obj(new ParticleClusterAssociationObj()){
  m_obj->acquire();
@@ -40,12 +40,12 @@ ConstParticleClusterAssociation::~ConstParticleClusterAssociation(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const ConstParticle ConstParticleClusterAssociation::Particle() const { if (m_obj->m_Particle == nullptr) {
- return ConstParticle(nullptr);}
- return ConstParticle(*(m_obj->m_Particle));}
-  const ConstCaloCluster ConstParticleClusterAssociation::Cluster() const { if (m_obj->m_Cluster == nullptr) {
- return ConstCaloCluster(nullptr);}
- return ConstCaloCluster(*(m_obj->m_Cluster));}
+  const fcc::ConstParticle ConstParticleClusterAssociation::Particle() const { if (m_obj->m_Particle == nullptr) {
+ return fcc::ConstParticle(nullptr);}
+ return fcc::ConstParticle(*(m_obj->m_Particle));}
+  const fcc::ConstCaloCluster ConstParticleClusterAssociation::Cluster() const { if (m_obj->m_Cluster == nullptr) {
+ return fcc::ConstCaloCluster(nullptr);}
+ return fcc::ConstCaloCluster(*(m_obj->m_Cluster));}
 
 
 bool  ConstParticleClusterAssociation::isAvailable() const {
@@ -74,4 +74,4 @@ bool ConstParticleClusterAssociation::operator==(const ParticleClusterAssociatio
 //  }
 //}
 
-
+} // namespace fcc

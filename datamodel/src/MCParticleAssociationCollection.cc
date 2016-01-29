@@ -6,9 +6,9 @@
 
 #include "MCParticleAssociationCollection.h"
 
+namespace fcc {
 
-
-MCParticleAssociationCollection::MCParticleAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Mother(new std::vector<ConstMCParticle>()),m_rel_Daughter(new std::vector<ConstMCParticle>()),m_refCollections(nullptr), m_data(new MCParticleAssociationDataContainer() ) {
+MCParticleAssociationCollection::MCParticleAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Mother(new std::vector<::fcc::ConstMCParticle>()),m_rel_Daughter(new std::vector<::fcc::ConstMCParticle>()),m_refCollections(nullptr), m_data(new MCParticleAssociationDataContainer() ) {
     m_refCollections = new podio::CollRefCollection();
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
@@ -85,7 +85,7 @@ bool MCParticleAssociationCollection::setReferences(const podio::ICollectionProv
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      MCParticleCollection* tmp_coll = static_cast<MCParticleCollection*>(coll);
+      fcc::MCParticleCollection* tmp_coll = static_cast<fcc::MCParticleCollection*>(coll);
       m_entries[i]->m_Mother = new ConstMCParticle((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Mother = nullptr;
@@ -96,7 +96,7 @@ bool MCParticleAssociationCollection::setReferences(const podio::ICollectionProv
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      MCParticleCollection* tmp_coll = static_cast<MCParticleCollection*>(coll);
+      fcc::MCParticleCollection* tmp_coll = static_cast<fcc::MCParticleCollection*>(coll);
       m_entries[i]->m_Daughter = new ConstMCParticle((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Daughter = nullptr;
@@ -139,4 +139,4 @@ const MCParticleAssociationCollectionIterator& MCParticleAssociationCollectionIt
  return *this;
 }
 
-
+} // namespace fcc

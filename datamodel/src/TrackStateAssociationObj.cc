@@ -3,7 +3,7 @@
 #include "TrackStateConst.h"
 
 
-
+namespace fcc {
 TrackStateAssociationObj::TrackStateAssociationObj() :
     ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}
     ,data()
@@ -30,4 +30,4 @@ delete m_State;
 
   }
 }
-
+} // namespace fcc

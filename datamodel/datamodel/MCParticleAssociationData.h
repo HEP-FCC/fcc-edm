@@ -6,11 +6,11 @@
 
 
 
-
+namespace fcc {
 class MCParticleAssociationData {
 public:
 
 };
-
+} // namespace fcc
 
 #endif

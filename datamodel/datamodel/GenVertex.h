@@ -15,7 +15,7 @@
 #include "GenVertexConst.h"
 #include "GenVertexObj.h"
 
-
+namespace fcc {
 
 class GenVertexCollection;
 class GenVertexCollectionIterator;
@@ -31,7 +31,7 @@ public:
 
   /// default constructor
   GenVertex();
-    GenVertex(Point Position,float Ctau);
+    GenVertex(fcc::Point Position,float Ctau);
 
   /// constructor from existing GenVertexObj
   GenVertex(GenVertexObj* obj);
@@ -49,11 +49,11 @@ public:
 
 public:
 
-  const Point& Position() const;
+  const fcc::Point& Position() const;
   const float& Ctau() const;
 
-  Point& Position();
-  void Position(class Point value);
+  fcc::Point& Position();
+  void Position(class fcc::Point value);
   void Ctau(float value);
 
 
@@ -79,6 +79,6 @@ private:
 
 };
 
-
+} // namespace fcc
 
 #endif

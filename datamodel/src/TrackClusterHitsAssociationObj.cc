@@ -3,7 +3,7 @@
 #include "TrackHitConst.h"
 
 
-
+namespace fcc {
 TrackClusterHitsAssociationObj::TrackClusterHitsAssociationObj() :
     ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}
     ,data()
@@ -30,4 +30,4 @@ delete m_Hit;
 
   }
 }
-
+} // namespace fcc

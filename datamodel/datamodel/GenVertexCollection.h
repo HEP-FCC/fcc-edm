@@ -18,7 +18,7 @@
 #include "GenVertex.h"
 #include "GenVertexObj.h"
 
-
+namespace fcc {
 typedef std::vector<GenVertexData> GenVertexDataContainer;
 typedef std::deque<GenVertexObj*> GenVertexObjPointerContainer;
 
@@ -98,7 +98,7 @@ public:
   std::vector<GenVertexData>* _getBuffer() { return m_data;};
 
      template<size_t arraysize>  
-  const std::array<Point,arraysize> Position() const;
+  const std::array<fcc::Point,arraysize> Position() const;
   template<size_t arraysize>  
   const std::array<float,arraysize> Ctau() const;
 
@@ -122,8 +122,8 @@ GenVertex  GenVertexCollection::create(Args&&... args){
 }
 
 template<size_t arraysize>
-const std::array<class Point,arraysize> GenVertexCollection::Position() const {
-  std::array<class Point,arraysize> tmp;
+const std::array<class fcc::Point,arraysize> GenVertexCollection::Position() const {
+  std::array<class fcc::Point,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
     tmp[i] = m_entries[i]->data.Position;
@@ -140,5 +140,5 @@ const std::array<float,arraysize> GenVertexCollection::Ctau() const {
  return tmp;
 }
 
-
+} // namespace fcc
 #endif

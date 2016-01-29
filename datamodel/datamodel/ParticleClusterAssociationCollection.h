@@ -18,7 +18,7 @@
 #include "ParticleClusterAssociation.h"
 #include "ParticleClusterAssociationObj.h"
 
-
+namespace fcc {
 typedef std::vector<ParticleClusterAssociationData> ParticleClusterAssociationDataContainer;
 typedef std::deque<ParticleClusterAssociationObj*> ParticleClusterAssociationObjPointerContainer;
 
@@ -103,8 +103,8 @@ private:
   int m_collectionID;
   ParticleClusterAssociationObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  std::vector<ConstParticle>* m_rel_Particle; //relation buffer for r/w
-  std::vector<ConstCaloCluster>* m_rel_Cluster; //relation buffer for r/w
+  std::vector<::fcc::ConstParticle>* m_rel_Particle; //relation buffer for r/w
+  std::vector<::fcc::ConstCaloCluster>* m_rel_Cluster; //relation buffer for r/w
 
   // members to handle streaming
   podio::CollRefCollection* m_refCollections;
@@ -120,5 +120,5 @@ ParticleClusterAssociation  ParticleClusterAssociationCollection::create(Args&&.
 }
 
 
-
+} // namespace fcc
 #endif

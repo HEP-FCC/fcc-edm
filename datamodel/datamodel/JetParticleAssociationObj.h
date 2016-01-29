@@ -14,11 +14,12 @@
 // forward declarations
 class JetParticleAssociation;
 class ConstJetParticleAssociation;
-class ConstJet;
+namespace fcc {class ConstJet;
 class ConstParticle;
+}
 
 
-
+namespace fcc {
 class JetParticleAssociationObj : public podio::ObjBase {
 public:
   /// constructor
@@ -32,12 +33,12 @@ public:
 
 public:
   JetParticleAssociationData data;
-  ConstJet* m_Jet;
-  ConstParticle* m_Particle;
+  ::fcc::ConstJet* m_Jet;
+  ::fcc::ConstParticle* m_Particle;
 
 
 };
-
+} // namespace fcc
 
 
 #endif

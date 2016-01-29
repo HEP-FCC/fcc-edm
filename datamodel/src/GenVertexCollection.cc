@@ -4,7 +4,7 @@
 
 #include "GenVertexCollection.h"
 
-
+namespace fcc {
 
 GenVertexCollection::GenVertexCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new GenVertexDataContainer() ) {
   
@@ -101,4 +101,4 @@ const GenVertexCollectionIterator& GenVertexCollectionIterator::operator++() con
  return *this;
 }
 
-
+} // namespace fcc

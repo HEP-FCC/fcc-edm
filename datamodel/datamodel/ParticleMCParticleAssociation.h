@@ -9,16 +9,18 @@
 // author: C. Bernet, B. Hegner
 
 //forward declarations
+namespace fcc {
 class Particle;
 class ConstParticle;
 class MCParticle;
 class ConstMCParticle;
+}
 
 
 #include "ParticleMCParticleAssociationConst.h"
 #include "ParticleMCParticleAssociationObj.h"
 
-
+namespace fcc {
 
 class ParticleMCParticleAssociationCollection;
 class ParticleMCParticleAssociationCollectionIterator;
@@ -34,7 +36,7 @@ public:
 
   /// default constructor
   ParticleMCParticleAssociation();
-
+  
   /// constructor from existing ParticleMCParticleAssociationObj
   ParticleMCParticleAssociation(ParticleMCParticleAssociationObj* obj);
   /// copy constructor
@@ -51,11 +53,11 @@ public:
 
 public:
 
-  const ConstParticle Rec() const;
-  const ConstMCParticle Sim() const;
+  const fcc::ConstParticle Rec() const;
+  const fcc::ConstMCParticle Sim() const;
 
-  void Rec(ConstParticle value);
-  void Sim(ConstMCParticle value);
+  void Rec(fcc::ConstParticle value);
+  void Sim(fcc::ConstMCParticle value);
 
 
   /// check whether the object is actually available
@@ -80,6 +82,6 @@ private:
 
 };
 
-
+} // namespace fcc
 
 #endif

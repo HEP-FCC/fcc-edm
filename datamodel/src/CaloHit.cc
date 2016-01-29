@@ -7,13 +7,13 @@
 #include <iostream>
 
 
-
+namespace fcc {
 
 CaloHit::CaloHit() : m_obj(new CaloHitObj()){
  m_obj->acquire();
 }
 
-CaloHit::CaloHit(BareHit Core) : m_obj(new CaloHitObj()){
+CaloHit::CaloHit(fcc::BareHit Core) : m_obj(new CaloHitObj()){
  m_obj->acquire();
    m_obj->data.Core = Core;
 }
@@ -44,10 +44,10 @@ CaloHit::~CaloHit(){
 
 CaloHit::operator ConstCaloHit() const {return ConstCaloHit(m_obj);}
 
-  const BareHit& CaloHit::Core() const { return m_obj->data.Core; }
+  const fcc::BareHit& CaloHit::Core() const { return m_obj->data.Core; }
 
-  BareHit& CaloHit::Core() { return m_obj->data.Core; }
-void CaloHit::Core(class BareHit value){ m_obj->data.Core = value;}
+  fcc::BareHit& CaloHit::Core() { return m_obj->data.Core; }
+void CaloHit::Core(class fcc::BareHit value){ m_obj->data.Core = value;}
 
 
 bool  CaloHit::isAvailable() const {
@@ -77,4 +77,4 @@ bool CaloHit::operator==(const ConstCaloHit& other) const {
 //  }
 //}
 
-
+} // namespace fcc

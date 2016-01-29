@@ -18,7 +18,7 @@
 #include "GenJet.h"
 #include "GenJetObj.h"
 
-
+namespace fcc {
 typedef std::vector<GenJetData> GenJetDataContainer;
 typedef std::deque<GenJetObj*> GenJetObjPointerContainer;
 
@@ -98,7 +98,7 @@ public:
   std::vector<GenJetData>* _getBuffer() { return m_data;};
 
      template<size_t arraysize>  
-  const std::array<BareJet,arraysize> Core() const;
+  const std::array<fcc::BareJet,arraysize> Core() const;
 
 
 private:
@@ -120,8 +120,8 @@ GenJet  GenJetCollection::create(Args&&... args){
 }
 
 template<size_t arraysize>
-const std::array<class BareJet,arraysize> GenJetCollection::Core() const {
-  std::array<class BareJet,arraysize> tmp;
+const std::array<class fcc::BareJet,arraysize> GenJetCollection::Core() const {
+  std::array<class fcc::BareJet,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
     tmp[i] = m_entries[i]->data.Core;
@@ -129,5 +129,5 @@ const std::array<class BareJet,arraysize> GenJetCollection::Core() const {
  return tmp;
 }
 
-
+} // namespace fcc
 #endif

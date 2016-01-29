@@ -6,9 +6,9 @@
 
 #include "MCParticleCollection.h"
 
+namespace fcc {
 
-
-MCParticleCollection::MCParticleCollection() : m_collectionID(0), m_entries() ,m_rel_StartVertex(new std::vector<ConstGenVertex>()),m_rel_EndVertex(new std::vector<ConstGenVertex>()),m_refCollections(nullptr), m_data(new MCParticleDataContainer() ) {
+MCParticleCollection::MCParticleCollection() : m_collectionID(0), m_entries() ,m_rel_StartVertex(new std::vector<::fcc::ConstGenVertex>()),m_rel_EndVertex(new std::vector<::fcc::ConstGenVertex>()),m_refCollections(nullptr), m_data(new MCParticleDataContainer() ) {
     m_refCollections = new podio::CollRefCollection();
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
@@ -85,7 +85,7 @@ bool MCParticleCollection::setReferences(const podio::ICollectionProvider* colle
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      GenVertexCollection* tmp_coll = static_cast<GenVertexCollection*>(coll);
+      fcc::GenVertexCollection* tmp_coll = static_cast<fcc::GenVertexCollection*>(coll);
       m_entries[i]->m_StartVertex = new ConstGenVertex((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_StartVertex = nullptr;
@@ -96,7 +96,7 @@ bool MCParticleCollection::setReferences(const podio::ICollectionProvider* colle
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      GenVertexCollection* tmp_coll = static_cast<GenVertexCollection*>(coll);
+      fcc::GenVertexCollection* tmp_coll = static_cast<fcc::GenVertexCollection*>(coll);
       m_entries[i]->m_EndVertex = new ConstGenVertex((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_EndVertex = nullptr;
@@ -139,4 +139,4 @@ const MCParticleCollectionIterator& MCParticleCollectionIterator::operator++() c
  return *this;
 }
 
-
+} // namespace fcc

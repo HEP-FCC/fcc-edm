@@ -6,9 +6,9 @@
 
 #include "ParticleMCParticleAssociationCollection.h"
 
+namespace fcc {
 
-
-ParticleMCParticleAssociationCollection::ParticleMCParticleAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Rec(new std::vector<ConstParticle>()),m_rel_Sim(new std::vector<ConstMCParticle>()),m_refCollections(nullptr), m_data(new ParticleMCParticleAssociationDataContainer() ) {
+ParticleMCParticleAssociationCollection::ParticleMCParticleAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Rec(new std::vector<::fcc::ConstParticle>()),m_rel_Sim(new std::vector<::fcc::ConstMCParticle>()),m_refCollections(nullptr), m_data(new ParticleMCParticleAssociationDataContainer() ) {
     m_refCollections = new podio::CollRefCollection();
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
@@ -85,7 +85,7 @@ bool ParticleMCParticleAssociationCollection::setReferences(const podio::ICollec
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      ParticleCollection* tmp_coll = static_cast<ParticleCollection*>(coll);
+      fcc::ParticleCollection* tmp_coll = static_cast<fcc::ParticleCollection*>(coll);
       m_entries[i]->m_Rec = new ConstParticle((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Rec = nullptr;
@@ -96,7 +96,7 @@ bool ParticleMCParticleAssociationCollection::setReferences(const podio::ICollec
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      MCParticleCollection* tmp_coll = static_cast<MCParticleCollection*>(coll);
+      fcc::MCParticleCollection* tmp_coll = static_cast<fcc::MCParticleCollection*>(coll);
       m_entries[i]->m_Sim = new ConstMCParticle((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Sim = nullptr;
@@ -139,4 +139,4 @@ const ParticleMCParticleAssociationCollectionIterator& ParticleMCParticleAssocia
  return *this;
 }
 
-
+} // namespace fcc

@@ -4,7 +4,7 @@
 
 #include "TrackHitCollection.h"
 
-
+namespace fcc {
 
 TrackHitCollection::TrackHitCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new TrackHitDataContainer() ) {
   
@@ -101,4 +101,4 @@ const TrackHitCollectionIterator& TrackHitCollectionIterator::operator++() const
  return *this;
 }
 
-
+} // namespace fcc

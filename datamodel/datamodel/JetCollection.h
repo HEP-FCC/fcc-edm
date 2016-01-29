@@ -18,7 +18,7 @@
 #include "Jet.h"
 #include "JetObj.h"
 
-
+namespace fcc {
 typedef std::vector<JetData> JetDataContainer;
 typedef std::deque<JetObj*> JetObjPointerContainer;
 
@@ -98,7 +98,7 @@ public:
   std::vector<JetData>* _getBuffer() { return m_data;};
 
      template<size_t arraysize>  
-  const std::array<BareJet,arraysize> Core() const;
+  const std::array<fcc::BareJet,arraysize> Core() const;
 
 
 private:
@@ -120,8 +120,8 @@ Jet  JetCollection::create(Args&&... args){
 }
 
 template<size_t arraysize>
-const std::array<class BareJet,arraysize> JetCollection::Core() const {
-  std::array<class BareJet,arraysize> tmp;
+const std::array<class fcc::BareJet,arraysize> JetCollection::Core() const {
+  std::array<class fcc::BareJet,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
     tmp[i] = m_entries[i]->data.Core;
@@ -129,5 +129,5 @@ const std::array<class BareJet,arraysize> JetCollection::Core() const {
  return tmp;
 }
 
-
+} // namespace fcc
 #endif

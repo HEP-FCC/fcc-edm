@@ -9,16 +9,18 @@
 // author: C. Bernet, B. Hegner
 
 //forward declarations
+namespace fcc {
 class Particle;
 class ConstParticle;
 class Track;
 class ConstTrack;
+}
 
 
 #include "ParticleTrackAssociationConst.h"
 #include "ParticleTrackAssociationObj.h"
 
-
+namespace fcc {
 
 class ParticleTrackAssociationCollection;
 class ParticleTrackAssociationCollectionIterator;
@@ -51,11 +53,11 @@ public:
 
 public:
 
-  const ConstParticle Particle() const;
-  const ConstTrack Track() const;
+  const fcc::ConstParticle Particle() const;
+  const fcc::ConstTrack Track() const;
 
-  void Particle(ConstParticle value);
-  void Track(ConstTrack value);
+  void Particle(fcc::ConstParticle value);
+  void Track(fcc::ConstTrack value);
 
 
   /// check whether the object is actually available
@@ -80,6 +82,6 @@ private:
 
 };
 
-
+} // namespace fcc
 
 #endif

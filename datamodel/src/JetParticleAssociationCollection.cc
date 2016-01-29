@@ -6,9 +6,9 @@
 
 #include "JetParticleAssociationCollection.h"
 
+namespace fcc {
 
-
-JetParticleAssociationCollection::JetParticleAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Jet(new std::vector<ConstJet>()),m_rel_Particle(new std::vector<ConstParticle>()),m_refCollections(nullptr), m_data(new JetParticleAssociationDataContainer() ) {
+JetParticleAssociationCollection::JetParticleAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Jet(new std::vector<::fcc::ConstJet>()),m_rel_Particle(new std::vector<::fcc::ConstParticle>()),m_refCollections(nullptr), m_data(new JetParticleAssociationDataContainer() ) {
     m_refCollections = new podio::CollRefCollection();
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
@@ -85,7 +85,7 @@ bool JetParticleAssociationCollection::setReferences(const podio::ICollectionPro
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      JetCollection* tmp_coll = static_cast<JetCollection*>(coll);
+      fcc::JetCollection* tmp_coll = static_cast<fcc::JetCollection*>(coll);
       m_entries[i]->m_Jet = new ConstJet((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Jet = nullptr;
@@ -96,7 +96,7 @@ bool JetParticleAssociationCollection::setReferences(const podio::ICollectionPro
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      ParticleCollection* tmp_coll = static_cast<ParticleCollection*>(coll);
+      fcc::ParticleCollection* tmp_coll = static_cast<fcc::ParticleCollection*>(coll);
       m_entries[i]->m_Particle = new ConstParticle((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Particle = nullptr;
@@ -139,4 +139,4 @@ const JetParticleAssociationCollectionIterator& JetParticleAssociationCollection
  return *this;
 }
 
-
+} // namespace fcc

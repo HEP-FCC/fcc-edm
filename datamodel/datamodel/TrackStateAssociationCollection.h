@@ -18,7 +18,7 @@
 #include "TrackStateAssociation.h"
 #include "TrackStateAssociationObj.h"
 
-
+namespace fcc {
 typedef std::vector<TrackStateAssociationData> TrackStateAssociationDataContainer;
 typedef std::deque<TrackStateAssociationObj*> TrackStateAssociationObjPointerContainer;
 
@@ -103,8 +103,8 @@ private:
   int m_collectionID;
   TrackStateAssociationObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  std::vector<ConstTrack>* m_rel_Track; //relation buffer for r/w
-  std::vector<ConstTrackState>* m_rel_State; //relation buffer for r/w
+  std::vector<::fcc::ConstTrack>* m_rel_Track; //relation buffer for r/w
+  std::vector<::fcc::ConstTrackState>* m_rel_State; //relation buffer for r/w
 
   // members to handle streaming
   podio::CollRefCollection* m_refCollections;
@@ -120,5 +120,5 @@ TrackStateAssociation  TrackStateAssociationCollection::create(Args&&... args){
 }
 
 
-
+} // namespace fcc
 #endif

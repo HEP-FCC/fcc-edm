@@ -6,9 +6,9 @@
 
 #include "TrackClusterAssociationCollection.h"
 
+namespace fcc {
 
-
-TrackClusterAssociationCollection::TrackClusterAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Track(new std::vector<ConstTrack>()),m_rel_Cluster(new std::vector<ConstTrackCluster>()),m_refCollections(nullptr), m_data(new TrackClusterAssociationDataContainer() ) {
+TrackClusterAssociationCollection::TrackClusterAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Track(new std::vector<::fcc::ConstTrack>()),m_rel_Cluster(new std::vector<::fcc::ConstTrackCluster>()),m_refCollections(nullptr), m_data(new TrackClusterAssociationDataContainer() ) {
     m_refCollections = new podio::CollRefCollection();
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
@@ -85,7 +85,7 @@ bool TrackClusterAssociationCollection::setReferences(const podio::ICollectionPr
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      TrackCollection* tmp_coll = static_cast<TrackCollection*>(coll);
+      fcc::TrackCollection* tmp_coll = static_cast<fcc::TrackCollection*>(coll);
       m_entries[i]->m_Track = new ConstTrack((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Track = nullptr;
@@ -96,7 +96,7 @@ bool TrackClusterAssociationCollection::setReferences(const podio::ICollectionPr
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      TrackClusterCollection* tmp_coll = static_cast<TrackClusterCollection*>(coll);
+      fcc::TrackClusterCollection* tmp_coll = static_cast<fcc::TrackClusterCollection*>(coll);
       m_entries[i]->m_Cluster = new ConstTrackCluster((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Cluster = nullptr;
@@ -139,4 +139,4 @@ const TrackClusterAssociationCollectionIterator& TrackClusterAssociationCollecti
  return *this;
 }
 
-
+} // namespace fcc

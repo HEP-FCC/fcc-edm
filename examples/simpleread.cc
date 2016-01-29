@@ -36,7 +36,7 @@ int main(){
     if(iev % 1000 == 0)
       std::cout << "processing event " << iev << std::endl;
 
-    const EventInfoCollection* evinfocoll(nullptr);
+    const fcc::EventInfoCollection* evinfocoll(nullptr);
     bool evinfoPresent = store.get("evtinfo", evinfocoll);
     if (evinfoPresent) {
       auto evinfo = (*evinfocoll)[0];
@@ -46,7 +46,7 @@ int main(){
     }
 
 
-    const ParticleCollection* particles;
+    const fcc::ParticleCollection* particles;
     bool particlesPresent = store.get("mcparticles", particles);
 
     if (particlesPresent) {

@@ -9,16 +9,18 @@
 // author: C. Bernet, B. Hegner
 
 //forward declarations
+namespace fcc {
 class Track;
 class ConstTrack;
 class TrackState;
 class ConstTrackState;
+}
 
 
 #include "TrackStateAssociationConst.h"
 #include "TrackStateAssociationObj.h"
 
-
+namespace fcc {
 
 class TrackStateAssociationCollection;
 class TrackStateAssociationCollectionIterator;
@@ -51,11 +53,11 @@ public:
 
 public:
 
-  const ConstTrack Track() const;
-  const ConstTrackState State() const;
+  const fcc::ConstTrack Track() const;
+  const fcc::ConstTrackState State() const;
 
-  void Track(ConstTrack value);
-  void State(ConstTrackState value);
+  void Track(fcc::ConstTrack value);
+  void State(fcc::ConstTrackState value);
 
 
   /// check whether the object is actually available
@@ -80,6 +82,6 @@ private:
 
 };
 
-
+} // namespace fcc
 
 #endif

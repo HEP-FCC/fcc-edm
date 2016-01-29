@@ -7,13 +7,13 @@
 #include <iostream>
 
 
-
+namespace fcc {
 
 ConstParticle::ConstParticle() : m_obj(new ParticleObj()){
  m_obj->acquire();
 }
 
-ConstParticle::ConstParticle(BareParticle Core) : m_obj(new ParticleObj()){
+ConstParticle::ConstParticle(fcc::BareParticle Core) : m_obj(new ParticleObj()){
  m_obj->acquire();
    m_obj->data.Core = Core;
 }
@@ -42,7 +42,7 @@ ConstParticle::~ConstParticle(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const BareParticle& ConstParticle::Core() const { return m_obj->data.Core; }
+  const fcc::BareParticle& ConstParticle::Core() const { return m_obj->data.Core; }
 
 
 bool  ConstParticle::isAvailable() const {
@@ -71,4 +71,4 @@ bool ConstParticle::operator==(const Particle& other) const {
 //  }
 //}
 
-
+} // namespace fcc

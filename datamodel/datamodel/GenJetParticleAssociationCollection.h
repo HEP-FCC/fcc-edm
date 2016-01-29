@@ -18,7 +18,7 @@
 #include "GenJetParticleAssociation.h"
 #include "GenJetParticleAssociationObj.h"
 
-
+namespace fcc {
 typedef std::vector<GenJetParticleAssociationData> GenJetParticleAssociationDataContainer;
 typedef std::deque<GenJetParticleAssociationObj*> GenJetParticleAssociationObjPointerContainer;
 
@@ -103,8 +103,8 @@ private:
   int m_collectionID;
   GenJetParticleAssociationObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  std::vector<ConstGenJet>* m_rel_Jet; //relation buffer for r/w
-  std::vector<ConstMCParticle>* m_rel_Particle; //relation buffer for r/w
+  std::vector<::fcc::ConstGenJet>* m_rel_Jet; //relation buffer for r/w
+  std::vector<::fcc::ConstMCParticle>* m_rel_Particle; //relation buffer for r/w
 
   // members to handle streaming
   podio::CollRefCollection* m_refCollections;
@@ -120,5 +120,5 @@ GenJetParticleAssociation  GenJetParticleAssociationCollection::create(Args&&...
 }
 
 
-
+} // namespace fcc
 #endif

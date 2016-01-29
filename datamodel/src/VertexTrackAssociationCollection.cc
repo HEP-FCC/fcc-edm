@@ -6,9 +6,9 @@
 
 #include "VertexTrackAssociationCollection.h"
 
+namespace fcc {
 
-
-VertexTrackAssociationCollection::VertexTrackAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Track(new std::vector<ConstTrack>()),m_rel_Vertex(new std::vector<ConstVertex>()),m_refCollections(nullptr), m_data(new VertexTrackAssociationDataContainer() ) {
+VertexTrackAssociationCollection::VertexTrackAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Track(new std::vector<::fcc::ConstTrack>()),m_rel_Vertex(new std::vector<::fcc::ConstVertex>()),m_refCollections(nullptr), m_data(new VertexTrackAssociationDataContainer() ) {
     m_refCollections = new podio::CollRefCollection();
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
@@ -85,7 +85,7 @@ bool VertexTrackAssociationCollection::setReferences(const podio::ICollectionPro
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      TrackCollection* tmp_coll = static_cast<TrackCollection*>(coll);
+      fcc::TrackCollection* tmp_coll = static_cast<fcc::TrackCollection*>(coll);
       m_entries[i]->m_Track = new ConstTrack((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Track = nullptr;
@@ -96,7 +96,7 @@ bool VertexTrackAssociationCollection::setReferences(const podio::ICollectionPro
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      VertexCollection* tmp_coll = static_cast<VertexCollection*>(coll);
+      fcc::VertexCollection* tmp_coll = static_cast<fcc::VertexCollection*>(coll);
       m_entries[i]->m_Vertex = new ConstVertex((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Vertex = nullptr;
@@ -139,4 +139,4 @@ const VertexTrackAssociationCollectionIterator& VertexTrackAssociationCollection
  return *this;
 }
 
-
+} // namespace fcc

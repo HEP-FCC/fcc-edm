@@ -7,12 +7,12 @@
 #include "BareCluster.h"
 
 
-
+namespace fcc {
 class SimCaloClusterData {
 public:
-  BareCluster Core; /// contains basic cluster information. 
+  fcc::BareCluster Core; /// contains basic cluster information. 
 
 };
-
+} // namespace fcc
 
 #endif

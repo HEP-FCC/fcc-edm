@@ -4,16 +4,16 @@
 #include "Point.h"
 
 
-
+namespace fcc {
 class BareParticle {
 public:
   unsigned Status;
   int Charge;
   int Type;
-  LorentzVector P4;
-  Point Vertex;
+ ::fcc::LorentzVector P4;
+ ::fcc::Point Vertex;
   unsigned Bits;
 
 };
-
+} // namespace fcc
 #endif

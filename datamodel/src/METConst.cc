@@ -7,7 +7,7 @@
 #include <iostream>
 
 
-
+namespace fcc {
 
 ConstMET::ConstMET() : m_obj(new METObj()){
  m_obj->acquire();
@@ -72,4 +72,4 @@ bool ConstMET::operator==(const MET& other) const {
 //  }
 //}
 
-
+} // namespace fcc

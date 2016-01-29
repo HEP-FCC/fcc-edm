@@ -6,9 +6,9 @@
 
 #include "TrackStateAssociationCollection.h"
 
+namespace fcc {
 
-
-TrackStateAssociationCollection::TrackStateAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Track(new std::vector<ConstTrack>()),m_rel_State(new std::vector<ConstTrackState>()),m_refCollections(nullptr), m_data(new TrackStateAssociationDataContainer() ) {
+TrackStateAssociationCollection::TrackStateAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Track(new std::vector<::fcc::ConstTrack>()),m_rel_State(new std::vector<::fcc::ConstTrackState>()),m_refCollections(nullptr), m_data(new TrackStateAssociationDataContainer() ) {
     m_refCollections = new podio::CollRefCollection();
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
@@ -85,7 +85,7 @@ bool TrackStateAssociationCollection::setReferences(const podio::ICollectionProv
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      TrackCollection* tmp_coll = static_cast<TrackCollection*>(coll);
+      fcc::TrackCollection* tmp_coll = static_cast<fcc::TrackCollection*>(coll);
       m_entries[i]->m_Track = new ConstTrack((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Track = nullptr;
@@ -96,7 +96,7 @@ bool TrackStateAssociationCollection::setReferences(const podio::ICollectionProv
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      TrackStateCollection* tmp_coll = static_cast<TrackStateCollection*>(coll);
+      fcc::TrackStateCollection* tmp_coll = static_cast<fcc::TrackStateCollection*>(coll);
       m_entries[i]->m_State = new ConstTrackState((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_State = nullptr;
@@ -139,4 +139,4 @@ const TrackStateAssociationCollectionIterator& TrackStateAssociationCollectionIt
  return *this;
 }
 
-
+} // namespace fcc

@@ -4,7 +4,7 @@
 
 #include "METCollection.h"
 
-
+namespace fcc {
 
 METCollection::METCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new METDataContainer() ) {
   
@@ -101,4 +101,4 @@ const METCollectionIterator& METCollectionIterator::operator++() const {
  return *this;
 }
 
-
+} // namespace fcc

@@ -14,11 +14,12 @@
 // forward declarations
 class SimCaloHitMCParticleAssociation;
 class ConstSimCaloHitMCParticleAssociation;
-class ConstSimCaloHit;
+namespace fcc {class ConstSimCaloHit;
 class ConstMCParticle;
+}
 
 
-
+namespace fcc {
 class SimCaloHitMCParticleAssociationObj : public podio::ObjBase {
 public:
   /// constructor
@@ -32,12 +33,12 @@ public:
 
 public:
   SimCaloHitMCParticleAssociationData data;
-  ConstSimCaloHit* m_Hit;
-  ConstMCParticle* m_Particle;
+  ::fcc::ConstSimCaloHit* m_Hit;
+  ::fcc::ConstMCParticle* m_Particle;
 
 
 };
-
+} // namespace fcc
 
 
 #endif

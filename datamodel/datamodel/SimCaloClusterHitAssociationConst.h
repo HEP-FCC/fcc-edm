@@ -9,15 +9,17 @@
 // author: C. Bernet, B. Hegner
 
 //forward declarations
+namespace fcc {
 class SimCaloCluster;
 class ConstSimCaloCluster;
 class SimCaloHit;
 class ConstSimCaloHit;
+}
 
 
 #include "SimCaloClusterHitAssociationObj.h"
 
-
+namespace fcc {
 
 class SimCaloClusterHitAssociationObj;
 class SimCaloClusterHitAssociation;
@@ -49,8 +51,8 @@ public:
 
 public:
 
-  const ConstSimCaloCluster Cluster() const;
-  const ConstSimCaloHit Hit() const;
+  const fcc::ConstSimCaloCluster Cluster() const;
+  const fcc::ConstSimCaloHit Hit() const;
 
 
   /// check whether the object is actually available
@@ -74,6 +76,6 @@ private:
   SimCaloClusterHitAssociationObj* m_obj;
 
 };
-
+} // namespace fcc
 
 #endif

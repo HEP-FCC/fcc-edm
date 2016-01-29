@@ -9,7 +9,7 @@
 #include "TrackCluster.h"
 
 
-
+namespace fcc {
 
 TrackClusterAssociation::TrackClusterAssociation() : m_obj(new TrackClusterAssociationObj()){
  m_obj->acquire();
@@ -42,15 +42,15 @@ TrackClusterAssociation::~TrackClusterAssociation(){
 
 TrackClusterAssociation::operator ConstTrackClusterAssociation() const {return ConstTrackClusterAssociation(m_obj);}
 
-  const ConstTrack TrackClusterAssociation::Track() const { if (m_obj->m_Track == nullptr) {
- return ConstTrack(nullptr);}
- return ConstTrack(*(m_obj->m_Track));}
-  const ConstTrackCluster TrackClusterAssociation::Cluster() const { if (m_obj->m_Cluster == nullptr) {
- return ConstTrackCluster(nullptr);}
- return ConstTrackCluster(*(m_obj->m_Cluster));}
+  const fcc::ConstTrack TrackClusterAssociation::Track() const { if (m_obj->m_Track == nullptr) {
+ return fcc::ConstTrack(nullptr);}
+ return fcc::ConstTrack(*(m_obj->m_Track));}
+  const fcc::ConstTrackCluster TrackClusterAssociation::Cluster() const { if (m_obj->m_Cluster == nullptr) {
+ return fcc::ConstTrackCluster(nullptr);}
+ return fcc::ConstTrackCluster(*(m_obj->m_Cluster));}
 
-void TrackClusterAssociation::Track(ConstTrack value) { if (m_obj->m_Track != nullptr) delete m_obj->m_Track; m_obj->m_Track = new ConstTrack(value); }
-void TrackClusterAssociation::Cluster(ConstTrackCluster value) { if (m_obj->m_Cluster != nullptr) delete m_obj->m_Cluster; m_obj->m_Cluster = new ConstTrackCluster(value); }
+void TrackClusterAssociation::Track(fcc::ConstTrack value) { if (m_obj->m_Track != nullptr) delete m_obj->m_Track; m_obj->m_Track = new ConstTrack(value); }
+void TrackClusterAssociation::Cluster(fcc::ConstTrackCluster value) { if (m_obj->m_Cluster != nullptr) delete m_obj->m_Cluster; m_obj->m_Cluster = new ConstTrackCluster(value); }
 
 
 bool  TrackClusterAssociation::isAvailable() const {
@@ -80,4 +80,4 @@ bool TrackClusterAssociation::operator==(const ConstTrackClusterAssociation& oth
 //  }
 //}
 
-
+} // namespace fcc

@@ -9,16 +9,18 @@
 // author: C. Bernet, B. Hegner
 
 //forward declarations
+namespace fcc {
 class Particle;
 class ConstParticle;
 class CaloCluster;
 class ConstCaloCluster;
+}
 
 
 #include "ParticleClusterAssociationConst.h"
 #include "ParticleClusterAssociationObj.h"
 
-
+namespace fcc {
 
 class ParticleClusterAssociationCollection;
 class ParticleClusterAssociationCollectionIterator;
@@ -51,11 +53,11 @@ public:
 
 public:
 
-  const ConstParticle Particle() const;
-  const ConstCaloCluster Cluster() const;
+  const fcc::ConstParticle Particle() const;
+  const fcc::ConstCaloCluster Cluster() const;
 
-  void Particle(ConstParticle value);
-  void Cluster(ConstCaloCluster value);
+  void Particle(fcc::ConstParticle value);
+  void Cluster(fcc::ConstCaloCluster value);
 
 
   /// check whether the object is actually available
@@ -80,6 +82,6 @@ private:
 
 };
 
-
+} // namespace fcc
 
 #endif

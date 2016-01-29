@@ -9,7 +9,7 @@
 #include "SimCaloHit.h"
 
 
-
+namespace fcc {
 
 ConstSimCaloClusterHitAssociation::ConstSimCaloClusterHitAssociation() : m_obj(new SimCaloClusterHitAssociationObj()){
  m_obj->acquire();
@@ -40,12 +40,12 @@ ConstSimCaloClusterHitAssociation::~ConstSimCaloClusterHitAssociation(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const ConstSimCaloCluster ConstSimCaloClusterHitAssociation::Cluster() const { if (m_obj->m_Cluster == nullptr) {
- return ConstSimCaloCluster(nullptr);}
- return ConstSimCaloCluster(*(m_obj->m_Cluster));}
-  const ConstSimCaloHit ConstSimCaloClusterHitAssociation::Hit() const { if (m_obj->m_Hit == nullptr) {
- return ConstSimCaloHit(nullptr);}
- return ConstSimCaloHit(*(m_obj->m_Hit));}
+  const fcc::ConstSimCaloCluster ConstSimCaloClusterHitAssociation::Cluster() const { if (m_obj->m_Cluster == nullptr) {
+ return fcc::ConstSimCaloCluster(nullptr);}
+ return fcc::ConstSimCaloCluster(*(m_obj->m_Cluster));}
+  const fcc::ConstSimCaloHit ConstSimCaloClusterHitAssociation::Hit() const { if (m_obj->m_Hit == nullptr) {
+ return fcc::ConstSimCaloHit(nullptr);}
+ return fcc::ConstSimCaloHit(*(m_obj->m_Hit));}
 
 
 bool  ConstSimCaloClusterHitAssociation::isAvailable() const {
@@ -74,4 +74,4 @@ bool ConstSimCaloClusterHitAssociation::operator==(const SimCaloClusterHitAssoci
 //  }
 //}
 
-
+} // namespace fcc

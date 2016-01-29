@@ -9,16 +9,18 @@
 // author: C. Bernet, B. Hegner
 
 //forward declarations
+namespace fcc {
 class Track;
 class ConstTrack;
 class TrackCluster;
 class ConstTrackCluster;
+}
 
 
 #include "TrackClusterAssociationConst.h"
 #include "TrackClusterAssociationObj.h"
 
-
+namespace fcc {
 
 class TrackClusterAssociationCollection;
 class TrackClusterAssociationCollectionIterator;
@@ -51,11 +53,11 @@ public:
 
 public:
 
-  const ConstTrack Track() const;
-  const ConstTrackCluster Cluster() const;
+  const fcc::ConstTrack Track() const;
+  const fcc::ConstTrackCluster Cluster() const;
 
-  void Track(ConstTrack value);
-  void Cluster(ConstTrackCluster value);
+  void Track(fcc::ConstTrack value);
+  void Cluster(fcc::ConstTrackCluster value);
 
 
   /// check whether the object is actually available
@@ -80,6 +82,6 @@ private:
 
 };
 
-
+} // namespace fcc
 
 #endif

@@ -16,7 +16,7 @@ class GenJet;
 class ConstGenJet;
 
 
-
+namespace fcc {
 class GenJetObj : public podio::ObjBase {
 public:
   /// constructor
@@ -33,7 +33,7 @@ public:
 
 
 };
-
+} // namespace fcc
 
 
 #endif

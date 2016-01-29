@@ -13,7 +13,7 @@
 
 #include "TrackStateObj.h"
 
-
+namespace fcc {
 
 class TrackStateObj;
 class TrackState;
@@ -73,6 +73,6 @@ private:
   TrackStateObj* m_obj;
 
 };
-
+} // namespace fcc
 
 #endif

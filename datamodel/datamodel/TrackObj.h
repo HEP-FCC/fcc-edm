@@ -16,7 +16,7 @@ class Track;
 class ConstTrack;
 
 
-
+namespace fcc {
 class TrackObj : public podio::ObjBase {
 public:
   /// constructor
@@ -33,7 +33,7 @@ public:
 
 
 };
-
+} // namespace fcc
 
 
 #endif

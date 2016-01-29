@@ -16,7 +16,7 @@ class TrackCluster;
 class ConstTrackCluster;
 
 
-
+namespace fcc {
 class TrackClusterObj : public podio::ObjBase {
 public:
   /// constructor
@@ -33,7 +33,7 @@ public:
 
 
 };
-
+} // namespace fcc
 
 
 #endif

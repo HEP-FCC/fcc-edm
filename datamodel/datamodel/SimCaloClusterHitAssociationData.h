@@ -6,11 +6,11 @@
 
 
 
-
+namespace fcc {
 class SimCaloClusterHitAssociationData {
 public:
 
 };
-
+} // namespace fcc
 
 #endif

@@ -6,11 +6,11 @@
 
 
 
-
+namespace fcc {
 class TrackStateAssociationData {
 public:
 
 };
-
+} // namespace fcc
 
 #endif

@@ -4,7 +4,7 @@
 
 #include "MissingEnergyCollection.h"
 
-
+namespace fcc {
 
 MissingEnergyCollection::MissingEnergyCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new MissingEnergyDataContainer() ) {
   
@@ -101,4 +101,4 @@ const MissingEnergyCollectionIterator& MissingEnergyCollectionIterator::operator
  return *this;
 }
 
-
+} // namespace fcc

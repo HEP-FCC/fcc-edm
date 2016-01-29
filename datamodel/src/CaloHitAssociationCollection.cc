@@ -6,9 +6,9 @@
 
 #include "CaloHitAssociationCollection.h"
 
+namespace fcc {
 
-
-CaloHitAssociationCollection::CaloHitAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Rec(new std::vector<ConstCaloHit>()),m_rel_Sim(new std::vector<ConstSimCaloHit>()),m_refCollections(nullptr), m_data(new CaloHitAssociationDataContainer() ) {
+CaloHitAssociationCollection::CaloHitAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Rec(new std::vector<::fcc::ConstCaloHit>()),m_rel_Sim(new std::vector<::fcc::ConstSimCaloHit>()),m_refCollections(nullptr), m_data(new CaloHitAssociationDataContainer() ) {
     m_refCollections = new podio::CollRefCollection();
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
@@ -85,7 +85,7 @@ bool CaloHitAssociationCollection::setReferences(const podio::ICollectionProvide
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      CaloHitCollection* tmp_coll = static_cast<CaloHitCollection*>(coll);
+      fcc::CaloHitCollection* tmp_coll = static_cast<fcc::CaloHitCollection*>(coll);
       m_entries[i]->m_Rec = new ConstCaloHit((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Rec = nullptr;
@@ -96,7 +96,7 @@ bool CaloHitAssociationCollection::setReferences(const podio::ICollectionProvide
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      SimCaloHitCollection* tmp_coll = static_cast<SimCaloHitCollection*>(coll);
+      fcc::SimCaloHitCollection* tmp_coll = static_cast<fcc::SimCaloHitCollection*>(coll);
       m_entries[i]->m_Sim = new ConstSimCaloHit((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Sim = nullptr;
@@ -139,4 +139,4 @@ const CaloHitAssociationCollectionIterator& CaloHitAssociationCollectionIterator
  return *this;
 }
 
-
+} // namespace fcc

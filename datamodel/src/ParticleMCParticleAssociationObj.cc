@@ -3,7 +3,7 @@
 #include "MCParticleConst.h"
 
 
-
+namespace fcc {
 ParticleMCParticleAssociationObj::ParticleMCParticleAssociationObj() :
     ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}
     ,data()
@@ -30,4 +30,4 @@ delete m_Sim;
 
   }
 }
-
+} // namespace fcc

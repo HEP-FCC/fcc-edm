@@ -3,13 +3,13 @@
 #include "LorentzVector.h"
 
 
-
+namespace fcc {
 class BareJet {
 public:
   unsigned Bits;
-  LorentzVector P4;
+ ::fcc::LorentzVector P4;
   float Area;
 
 };
-
+} // namespace fcc
 #endif

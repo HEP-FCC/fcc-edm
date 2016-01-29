@@ -1,7 +1,7 @@
 #include "ParticleObj.h"
 
 
-
+namespace fcc {
 ParticleObj::ParticleObj() :
     ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}
     ,data()
@@ -24,4 +24,4 @@ ParticleObj::~ParticleObj() {
 
   }
 }
-
+} // namespace fcc

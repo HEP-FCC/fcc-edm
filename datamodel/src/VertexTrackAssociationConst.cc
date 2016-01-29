@@ -9,7 +9,7 @@
 #include "Vertex.h"
 
 
-
+namespace fcc {
 
 ConstVertexTrackAssociation::ConstVertexTrackAssociation() : m_obj(new VertexTrackAssociationObj()){
  m_obj->acquire();
@@ -45,12 +45,12 @@ ConstVertexTrackAssociation::~ConstVertexTrackAssociation(){
 }
 
   const float& ConstVertexTrackAssociation::Weight() const { return m_obj->data.Weight; }
-  const ConstTrack ConstVertexTrackAssociation::Track() const { if (m_obj->m_Track == nullptr) {
- return ConstTrack(nullptr);}
- return ConstTrack(*(m_obj->m_Track));}
-  const ConstVertex ConstVertexTrackAssociation::Vertex() const { if (m_obj->m_Vertex == nullptr) {
- return ConstVertex(nullptr);}
- return ConstVertex(*(m_obj->m_Vertex));}
+  const fcc::ConstTrack ConstVertexTrackAssociation::Track() const { if (m_obj->m_Track == nullptr) {
+ return fcc::ConstTrack(nullptr);}
+ return fcc::ConstTrack(*(m_obj->m_Track));}
+  const fcc::ConstVertex ConstVertexTrackAssociation::Vertex() const { if (m_obj->m_Vertex == nullptr) {
+ return fcc::ConstVertex(nullptr);}
+ return fcc::ConstVertex(*(m_obj->m_Vertex));}
 
 
 bool  ConstVertexTrackAssociation::isAvailable() const {
@@ -79,4 +79,4 @@ bool ConstVertexTrackAssociation::operator==(const VertexTrackAssociation& other
 //  }
 //}
 
-
+} // namespace fcc

@@ -18,7 +18,7 @@
 #include "TrackClusterHitsAssociation.h"
 #include "TrackClusterHitsAssociationObj.h"
 
-
+namespace fcc {
 typedef std::vector<TrackClusterHitsAssociationData> TrackClusterHitsAssociationDataContainer;
 typedef std::deque<TrackClusterHitsAssociationObj*> TrackClusterHitsAssociationObjPointerContainer;
 
@@ -103,8 +103,8 @@ private:
   int m_collectionID;
   TrackClusterHitsAssociationObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  std::vector<ConstTrackCluster>* m_rel_Cluster; //relation buffer for r/w
-  std::vector<ConstTrackHit>* m_rel_Hit; //relation buffer for r/w
+  std::vector<::fcc::ConstTrackCluster>* m_rel_Cluster; //relation buffer for r/w
+  std::vector<::fcc::ConstTrackHit>* m_rel_Hit; //relation buffer for r/w
 
   // members to handle streaming
   podio::CollRefCollection* m_refCollections;
@@ -120,5 +120,5 @@ TrackClusterHitsAssociation  TrackClusterHitsAssociationCollection::create(Args&
 }
 
 
-
+} // namespace fcc
 #endif

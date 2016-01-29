@@ -9,15 +9,17 @@
 // author: C. Bernet, B. Hegner
 
 //forward declarations
+namespace fcc {
 class MCParticle;
 class ConstMCParticle;
 class MCParticle;
 class ConstMCParticle;
+}
 
 
 #include "MCParticleAssociationObj.h"
 
-
+namespace fcc {
 
 class MCParticleAssociationObj;
 class MCParticleAssociation;
@@ -49,8 +51,8 @@ public:
 
 public:
 
-  const ConstMCParticle Mother() const;
-  const ConstMCParticle Daughter() const;
+  const fcc::ConstMCParticle Mother() const;
+  const fcc::ConstMCParticle Daughter() const;
 
 
   /// check whether the object is actually available
@@ -74,6 +76,6 @@ private:
   MCParticleAssociationObj* m_obj;
 
 };
-
+} // namespace fcc
 
 #endif

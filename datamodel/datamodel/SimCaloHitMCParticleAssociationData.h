@@ -6,12 +6,12 @@
 
 
 
-
+namespace fcc {
 class SimCaloHitMCParticleAssociationData {
 public:
   float Fraction; /// Fraction of the particle energy used in the hit. 
 
 };
-
+} // namespace fcc
 
 #endif

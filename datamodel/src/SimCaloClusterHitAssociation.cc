@@ -9,7 +9,7 @@
 #include "SimCaloHit.h"
 
 
-
+namespace fcc {
 
 SimCaloClusterHitAssociation::SimCaloClusterHitAssociation() : m_obj(new SimCaloClusterHitAssociationObj()){
  m_obj->acquire();
@@ -42,15 +42,15 @@ SimCaloClusterHitAssociation::~SimCaloClusterHitAssociation(){
 
 SimCaloClusterHitAssociation::operator ConstSimCaloClusterHitAssociation() const {return ConstSimCaloClusterHitAssociation(m_obj);}
 
-  const ConstSimCaloCluster SimCaloClusterHitAssociation::Cluster() const { if (m_obj->m_Cluster == nullptr) {
- return ConstSimCaloCluster(nullptr);}
- return ConstSimCaloCluster(*(m_obj->m_Cluster));}
-  const ConstSimCaloHit SimCaloClusterHitAssociation::Hit() const { if (m_obj->m_Hit == nullptr) {
- return ConstSimCaloHit(nullptr);}
- return ConstSimCaloHit(*(m_obj->m_Hit));}
+  const fcc::ConstSimCaloCluster SimCaloClusterHitAssociation::Cluster() const { if (m_obj->m_Cluster == nullptr) {
+ return fcc::ConstSimCaloCluster(nullptr);}
+ return fcc::ConstSimCaloCluster(*(m_obj->m_Cluster));}
+  const fcc::ConstSimCaloHit SimCaloClusterHitAssociation::Hit() const { if (m_obj->m_Hit == nullptr) {
+ return fcc::ConstSimCaloHit(nullptr);}
+ return fcc::ConstSimCaloHit(*(m_obj->m_Hit));}
 
-void SimCaloClusterHitAssociation::Cluster(ConstSimCaloCluster value) { if (m_obj->m_Cluster != nullptr) delete m_obj->m_Cluster; m_obj->m_Cluster = new ConstSimCaloCluster(value); }
-void SimCaloClusterHitAssociation::Hit(ConstSimCaloHit value) { if (m_obj->m_Hit != nullptr) delete m_obj->m_Hit; m_obj->m_Hit = new ConstSimCaloHit(value); }
+void SimCaloClusterHitAssociation::Cluster(fcc::ConstSimCaloCluster value) { if (m_obj->m_Cluster != nullptr) delete m_obj->m_Cluster; m_obj->m_Cluster = new ConstSimCaloCluster(value); }
+void SimCaloClusterHitAssociation::Hit(fcc::ConstSimCaloHit value) { if (m_obj->m_Hit != nullptr) delete m_obj->m_Hit; m_obj->m_Hit = new ConstSimCaloHit(value); }
 
 
 bool  SimCaloClusterHitAssociation::isAvailable() const {
@@ -80,4 +80,4 @@ bool SimCaloClusterHitAssociation::operator==(const ConstSimCaloClusterHitAssoci
 //  }
 //}
 
-
+} // namespace fcc

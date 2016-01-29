@@ -54,17 +54,17 @@ int main(){
 
   unsigned nevents=10000;
 
-  auto& evinfocoll = store.create<EventInfoCollection>("EventInfo");
-  writer.registerForWrite<EventInfoCollection>("EventInfo");
+  auto& evinfocoll = store.create<fcc::EventInfoCollection>("EventInfo");
+  writer.registerForWrite<fcc::EventInfoCollection>("EventInfo");
 
   // collections from the dummy generator
-  writer.registerForWrite<ParticleCollection>("GenParticle");
-  writer.registerForWrite<JetCollection>("GenJet");
-  writer.registerForWrite<JetParticleAssociationCollection>("GenJetParticle");
+  writer.registerForWrite<fcc::ParticleCollection>("GenParticle");
+  writer.registerForWrite<fcc::JetCollection>("GenJet");
+  writer.registerForWrite<fcc::JetParticleAssociationCollection>("GenJetParticle");
 
   for(unsigned i=0; i<nevents; ++i) {
   // fill event information
-    auto evinfo = EventInfo();
+    auto evinfo = fcc::EventInfo();
     evinfo.Number(i);
     evinfocoll.push_back(evinfo);
     processEvent(i, store, writer, generator);

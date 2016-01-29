@@ -6,9 +6,9 @@
 
 #include "ParticleClusterAssociationCollection.h"
 
+namespace fcc {
 
-
-ParticleClusterAssociationCollection::ParticleClusterAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Particle(new std::vector<ConstParticle>()),m_rel_Cluster(new std::vector<ConstCaloCluster>()),m_refCollections(nullptr), m_data(new ParticleClusterAssociationDataContainer() ) {
+ParticleClusterAssociationCollection::ParticleClusterAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Particle(new std::vector<::fcc::ConstParticle>()),m_rel_Cluster(new std::vector<::fcc::ConstCaloCluster>()),m_refCollections(nullptr), m_data(new ParticleClusterAssociationDataContainer() ) {
     m_refCollections = new podio::CollRefCollection();
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
@@ -85,7 +85,7 @@ bool ParticleClusterAssociationCollection::setReferences(const podio::ICollectio
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      ParticleCollection* tmp_coll = static_cast<ParticleCollection*>(coll);
+      fcc::ParticleCollection* tmp_coll = static_cast<fcc::ParticleCollection*>(coll);
       m_entries[i]->m_Particle = new ConstParticle((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Particle = nullptr;
@@ -96,7 +96,7 @@ bool ParticleClusterAssociationCollection::setReferences(const podio::ICollectio
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      CaloClusterCollection* tmp_coll = static_cast<CaloClusterCollection*>(coll);
+      fcc::CaloClusterCollection* tmp_coll = static_cast<fcc::CaloClusterCollection*>(coll);
       m_entries[i]->m_Cluster = new ConstCaloCluster((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Cluster = nullptr;
@@ -139,4 +139,4 @@ const ParticleClusterAssociationCollectionIterator& ParticleClusterAssociationCo
  return *this;
 }
 
-
+} // namespace fcc

@@ -13,7 +13,7 @@
 
 #include "EventInfoObj.h"
 
-
+namespace fcc {
 
 class EventInfoObj;
 class EventInfo;
@@ -70,6 +70,6 @@ private:
   EventInfoObj* m_obj;
 
 };
-
+} // namespace fcc
 
 #endif

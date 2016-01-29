@@ -7,12 +7,12 @@
 #include "BareParticle.h"
 
 
-
+namespace fcc {
 class ParticleData {
 public:
-  BareParticle Core; /// Contains basic particle information. 
+  fcc::BareParticle Core; /// Contains basic particle information. 
 
 };
-
+} // namespace fcc
 
 #endif

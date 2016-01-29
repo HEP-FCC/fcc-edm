@@ -1,14 +1,19 @@
-#include "utilities/ParticleUtils.h"
+// local
+#include "ParticleUtils.h"
+#include "VectorUtils.h"
 
+// podio
 #include "podio/ObjectID.h"
 
+// datamodel
 #include "datamodel/Particle.h"
 #include "datamodel/ParticleCollection.h"
 #include "datamodel/LorentzVector.h"
 
-#include "VectorUtils.h"
-
+// ROOT
 #include "TLorentzVector.h"
+
+// STL
 #include <set>
 #include <functional>
 #include <iterator>
@@ -17,7 +22,7 @@
 namespace utils {
 
 
-  bool compareParticles(const Particle& lhs, const Particle& rhs) {
+  bool compareParticles(const fcc::Particle& lhs, const fcc::Particle& rhs) {
     const podio::ObjectID lhsId = lhs.getObjectID();
     const podio::ObjectID rhsId = rhs.getObjectID();
     if (lhsId.collectionID == rhsId.collectionID) {
@@ -26,10 +31,10 @@ namespace utils {
     return lhsId.collectionID < rhsId.collectionID;
   }
 
-  std::vector<Particle> unused(const ParticleCollection& p1s,
-                               const std::vector<Particle>& p2s) {
-    std::vector<Particle> results;
-    std::set<Particle, std::function<bool(const Particle&, const Particle&)>> p2set(compareParticles);
+  std::vector<fcc::Particle> unused(const fcc::ParticleCollection& p1s,
+                                    const std::vector<fcc::Particle>& p2s) {
+    std::vector<fcc::Particle> results;
+    std::set<fcc::Particle, std::function<bool(const fcc::Particle&, const fcc::Particle&)>> p2set(compareParticles);
     std::copy( p2s.begin(), p2s.end(),
                std::inserter( p2set, p2set.end() ) );
     // std::cout<<"set"<<std::endl;
@@ -48,13 +53,13 @@ namespace utils {
   }
 
 
-  std::vector<Particle> inCone( const LorentzVector& lv,
-                                const ParticleCollection& ps,
-                                float deltaRMax,
-                                float exclusion ) {
+  std::vector<fcc::Particle> inCone( const fcc::LorentzVector& lv,
+                                     const fcc::ParticleCollection& ps,
+                                     float deltaRMax,
+                                     float exclusion ) {
     float dR2Max = deltaRMax*deltaRMax;
     float exc2 = exclusion*exclusion;
-    std::vector<Particle> results;
+    std::vector<fcc::Particle> results;
     for(const auto& particle : ps) {
       float dR2 = deltaR2(lv, particle.Core().P4);
       if( dR2>exc2 && dR2 <= dR2Max ) {
@@ -65,17 +70,17 @@ namespace utils {
   }
 
 
-  float sumPt(const std::vector<Particle>& ps) {
+  float sumPt(const std::vector<fcc::Particle>& ps) {
     return sumP4(ps).Vect().Pt();
   }
 
 
-  float sumP(const std::vector<Particle>& ps) {
+  float sumP(const std::vector<fcc::Particle>& ps) {
     return sumP4(ps).Vect().Mag();
   }
 
 
-  TLorentzVector sumP4(const std::vector<Particle>& ps) {
+  TLorentzVector sumP4(const std::vector<fcc::Particle>& ps) {
     TLorentzVector sum;
     for(const auto& particle : ps) {
       TLorentzVector lv = lvFromPOD( particle.Core().P4 );
@@ -87,9 +92,9 @@ namespace utils {
 
 } // namespace
 
-std::ostream& operator<<(std::ostream& out, const Particle& ptc) {
+std::ostream& operator<<(std::ostream& out, const fcc::Particle& ptc) {
   if(not out) return out;
-  const BareParticle& pcore = ptc.Core();
+  const fcc::BareParticle& pcore = ptc.Core();
   TLorentzVector p4 = utils::lvFromPOD(pcore.P4);
   out<< "particle ID " << pcore.Type
      << " e " << p4.E()

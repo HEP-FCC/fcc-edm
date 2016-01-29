@@ -14,11 +14,12 @@
 // forward declarations
 class MCParticle;
 class ConstMCParticle;
+namespace fcc {class ConstGenVertex;
 class ConstGenVertex;
-class ConstGenVertex;
+}
 
 
-
+namespace fcc {
 class MCParticleObj : public podio::ObjBase {
 public:
   /// constructor
@@ -32,12 +33,12 @@ public:
 
 public:
   MCParticleData data;
-  ConstGenVertex* m_StartVertex;
-  ConstGenVertex* m_EndVertex;
+  ::fcc::ConstGenVertex* m_StartVertex;
+  ::fcc::ConstGenVertex* m_EndVertex;
 
 
 };
-
+} // namespace fcc
 
 
 #endif

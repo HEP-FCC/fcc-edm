@@ -7,12 +7,12 @@
 #include "BareJet.h"
 
 
-
+namespace fcc {
 class JetData {
 public:
-  BareJet Core; /// Basic jet information. 
+  fcc::BareJet Core; /// Basic jet information. 
 
 };
-
+} // namespace fcc
 
 #endif

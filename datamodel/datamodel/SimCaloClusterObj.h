@@ -16,7 +16,7 @@ class SimCaloCluster;
 class ConstSimCaloCluster;
 
 
-
+namespace fcc {
 class SimCaloClusterObj : public podio::ObjBase {
 public:
   /// constructor
@@ -33,7 +33,7 @@ public:
 
 
 };
-
+} // namespace fcc
 
 
 #endif

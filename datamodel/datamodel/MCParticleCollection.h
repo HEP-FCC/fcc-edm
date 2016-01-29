@@ -18,7 +18,7 @@
 #include "MCParticle.h"
 #include "MCParticleObj.h"
 
-
+namespace fcc {
 typedef std::vector<MCParticleData> MCParticleDataContainer;
 typedef std::deque<MCParticleObj*> MCParticleObjPointerContainer;
 
@@ -98,15 +98,15 @@ public:
   std::vector<MCParticleData>* _getBuffer() { return m_data;};
 
      template<size_t arraysize>  
-  const std::array<BareParticle,arraysize> Core() const;
+  const std::array<fcc::BareParticle,arraysize> Core() const;
 
 
 private:
   int m_collectionID;
   MCParticleObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  std::vector<ConstGenVertex>* m_rel_StartVertex; //relation buffer for r/w
-  std::vector<ConstGenVertex>* m_rel_EndVertex; //relation buffer for r/w
+  std::vector<::fcc::ConstGenVertex>* m_rel_StartVertex; //relation buffer for r/w
+  std::vector<::fcc::ConstGenVertex>* m_rel_EndVertex; //relation buffer for r/w
 
   // members to handle streaming
   podio::CollRefCollection* m_refCollections;
@@ -122,8 +122,8 @@ MCParticle  MCParticleCollection::create(Args&&... args){
 }
 
 template<size_t arraysize>
-const std::array<class BareParticle,arraysize> MCParticleCollection::Core() const {
-  std::array<class BareParticle,arraysize> tmp;
+const std::array<class fcc::BareParticle,arraysize> MCParticleCollection::Core() const {
+  std::array<class fcc::BareParticle,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
     tmp[i] = m_entries[i]->data.Core;
@@ -131,5 +131,5 @@ const std::array<class BareParticle,arraysize> MCParticleCollection::Core() cons
  return tmp;
 }
 
-
+} // namespace fcc
 #endif

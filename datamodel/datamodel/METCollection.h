@@ -18,7 +18,7 @@
 #include "MET.h"
 #include "METObj.h"
 
-
+namespace fcc {
 typedef std::vector<METData> METDataContainer;
 typedef std::deque<METObj*> METObjPointerContainer;
 
@@ -140,5 +140,5 @@ const std::array<float,arraysize> METCollection::Phi() const {
  return tmp;
 }
 
-
+} // namespace fcc
 #endif

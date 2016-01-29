@@ -1,7 +1,7 @@
 #include "TrackHitObj.h"
 
 
-
+namespace fcc {
 TrackHitObj::TrackHitObj() :
     ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}
     ,data()
@@ -24,4 +24,4 @@ TrackHitObj::~TrackHitObj() {
 
   }
 }
-
+} // namespace fcc

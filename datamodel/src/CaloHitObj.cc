@@ -1,7 +1,7 @@
 #include "CaloHitObj.h"
 
 
-
+namespace fcc {
 CaloHitObj::CaloHitObj() :
     ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}
     ,data()
@@ -24,4 +24,4 @@ CaloHitObj::~CaloHitObj() {
 
   }
 }
-
+} // namespace fcc

@@ -18,7 +18,7 @@
 #include "CaloHit.h"
 #include "CaloHitObj.h"
 
-
+namespace fcc {
 typedef std::vector<CaloHitData> CaloHitDataContainer;
 typedef std::deque<CaloHitObj*> CaloHitObjPointerContainer;
 
@@ -98,7 +98,7 @@ public:
   std::vector<CaloHitData>* _getBuffer() { return m_data;};
 
      template<size_t arraysize>  
-  const std::array<BareHit,arraysize> Core() const;
+  const std::array<fcc::BareHit,arraysize> Core() const;
 
 
 private:
@@ -120,8 +120,8 @@ CaloHit  CaloHitCollection::create(Args&&... args){
 }
 
 template<size_t arraysize>
-const std::array<class BareHit,arraysize> CaloHitCollection::Core() const {
-  std::array<class BareHit,arraysize> tmp;
+const std::array<class fcc::BareHit,arraysize> CaloHitCollection::Core() const {
+  std::array<class fcc::BareHit,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
     tmp[i] = m_entries[i]->data.Core;
@@ -129,5 +129,5 @@ const std::array<class BareHit,arraysize> CaloHitCollection::Core() const {
  return tmp;
 }
 
-
+} // namespace fcc
 #endif

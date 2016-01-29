@@ -9,16 +9,18 @@
 // author: C. Bernet, B. Hegner
 
 //forward declarations
+namespace fcc {
 class Track;
 class ConstTrack;
 class Vertex;
 class ConstVertex;
+}
 
 
 #include "VertexTrackAssociationConst.h"
 #include "VertexTrackAssociationObj.h"
 
-
+namespace fcc {
 
 class VertexTrackAssociationCollection;
 class VertexTrackAssociationCollectionIterator;
@@ -53,12 +55,12 @@ public:
 public:
 
   const float& Weight() const;
-  const ConstTrack Track() const;
-  const ConstVertex Vertex() const;
+  const fcc::ConstTrack Track() const;
+  const fcc::ConstVertex Vertex() const;
 
   void Weight(float value);
-  void Track(ConstTrack value);
-  void Vertex(ConstVertex value);
+  void Track(fcc::ConstTrack value);
+  void Vertex(fcc::ConstVertex value);
 
 
   /// check whether the object is actually available
@@ -83,6 +85,6 @@ private:
 
 };
 
-
+} // namespace fcc
 
 #endif

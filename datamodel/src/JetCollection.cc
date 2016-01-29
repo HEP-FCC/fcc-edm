@@ -4,7 +4,7 @@
 
 #include "JetCollection.h"
 
-
+namespace fcc {
 
 JetCollection::JetCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new JetDataContainer() ) {
   
@@ -101,4 +101,4 @@ const JetCollectionIterator& JetCollectionIterator::operator++() const {
  return *this;
 }
 
-
+} // namespace fcc

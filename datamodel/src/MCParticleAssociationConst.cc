@@ -9,7 +9,7 @@
 #include "MCParticle.h"
 
 
-
+namespace fcc {
 
 ConstMCParticleAssociation::ConstMCParticleAssociation() : m_obj(new MCParticleAssociationObj()){
  m_obj->acquire();
@@ -40,12 +40,12 @@ ConstMCParticleAssociation::~ConstMCParticleAssociation(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const ConstMCParticle ConstMCParticleAssociation::Mother() const { if (m_obj->m_Mother == nullptr) {
- return ConstMCParticle(nullptr);}
- return ConstMCParticle(*(m_obj->m_Mother));}
-  const ConstMCParticle ConstMCParticleAssociation::Daughter() const { if (m_obj->m_Daughter == nullptr) {
- return ConstMCParticle(nullptr);}
- return ConstMCParticle(*(m_obj->m_Daughter));}
+  const fcc::ConstMCParticle ConstMCParticleAssociation::Mother() const { if (m_obj->m_Mother == nullptr) {
+ return fcc::ConstMCParticle(nullptr);}
+ return fcc::ConstMCParticle(*(m_obj->m_Mother));}
+  const fcc::ConstMCParticle ConstMCParticleAssociation::Daughter() const { if (m_obj->m_Daughter == nullptr) {
+ return fcc::ConstMCParticle(nullptr);}
+ return fcc::ConstMCParticle(*(m_obj->m_Daughter));}
 
 
 bool  ConstMCParticleAssociation::isAvailable() const {
@@ -74,4 +74,4 @@ bool ConstMCParticleAssociation::operator==(const MCParticleAssociation& other) 
 //  }
 //}
 
-
+} // namespace fcc

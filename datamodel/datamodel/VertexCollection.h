@@ -18,7 +18,7 @@
 #include "Vertex.h"
 #include "VertexObj.h"
 
-
+namespace fcc {
 typedef std::vector<VertexData> VertexDataContainer;
 typedef std::deque<VertexObj*> VertexObjPointerContainer;
 
@@ -102,7 +102,7 @@ public:
   template<size_t arraysize>  
   const std::array<unsigned,arraysize> Ndf() const;
   template<size_t arraysize>  
-  const std::array<Point,arraysize> Position() const;
+  const std::array<fcc::Point,arraysize> Position() const;
   template<size_t arraysize>  
   const std::array<unsigned,arraysize> Bits() const;
 
@@ -144,8 +144,8 @@ const std::array<unsigned,arraysize> VertexCollection::Ndf() const {
  return tmp;
 }
 template<size_t arraysize>
-const std::array<class Point,arraysize> VertexCollection::Position() const {
-  std::array<class Point,arraysize> tmp;
+const std::array<class fcc::Point,arraysize> VertexCollection::Position() const {
+  std::array<class fcc::Point,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
     tmp[i] = m_entries[i]->data.Position;
@@ -162,5 +162,5 @@ const std::array<unsigned,arraysize> VertexCollection::Bits() const {
  return tmp;
 }
 
-
+} // namespace fcc
 #endif

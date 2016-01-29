@@ -1,7 +1,7 @@
 #include "CaloClusterObj.h"
 
 
-
+namespace fcc {
 CaloClusterObj::CaloClusterObj() :
     ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}
     ,data()
@@ -24,4 +24,4 @@ CaloClusterObj::~CaloClusterObj() {
 
   }
 }
-
+} // namespace fcc

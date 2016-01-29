@@ -14,7 +14,7 @@
 
 #include "CaloClusterObj.h"
 
-
+namespace fcc {
 
 class CaloClusterObj;
 class CaloCluster;
@@ -31,7 +31,7 @@ public:
 
   /// default constructor
   ConstCaloCluster();
-  ConstCaloCluster(BareCluster Core);
+  ConstCaloCluster(fcc::BareCluster Core);
 
   /// constructor from existing CaloClusterObj
   ConstCaloCluster(CaloClusterObj* obj);
@@ -47,7 +47,7 @@ public:
 
 public:
 
-  const BareCluster& Core() const;
+  const fcc::BareCluster& Core() const;
 
 
   /// check whether the object is actually available
@@ -71,6 +71,6 @@ private:
   CaloClusterObj* m_obj;
 
 };
-
+} // namespace fcc
 
 #endif

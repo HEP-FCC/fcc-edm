@@ -18,7 +18,7 @@
 #include "MissingEnergy.h"
 #include "MissingEnergyObj.h"
 
-
+namespace fcc {
 typedef std::vector<MissingEnergyData> MissingEnergyDataContainer;
 typedef std::deque<MissingEnergyObj*> MissingEnergyObjPointerContainer;
 
@@ -140,5 +140,5 @@ const std::array<float,arraysize> MissingEnergyCollection::Phi() const {
  return tmp;
 }
 
-
+} // namespace fcc
 #endif

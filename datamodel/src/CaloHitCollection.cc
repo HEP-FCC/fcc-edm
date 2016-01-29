@@ -4,7 +4,7 @@
 
 #include "CaloHitCollection.h"
 
-
+namespace fcc {
 
 CaloHitCollection::CaloHitCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new CaloHitDataContainer() ) {
   
@@ -101,4 +101,4 @@ const CaloHitCollectionIterator& CaloHitCollectionIterator::operator++() const {
  return *this;
 }
 
-
+} // namespace fcc

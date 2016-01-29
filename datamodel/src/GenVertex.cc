@@ -7,13 +7,13 @@
 #include <iostream>
 
 
-
+namespace fcc {
 
 GenVertex::GenVertex() : m_obj(new GenVertexObj()){
  m_obj->acquire();
 }
 
-GenVertex::GenVertex(Point Position,float Ctau) : m_obj(new GenVertexObj()){
+GenVertex::GenVertex(fcc::Point Position,float Ctau) : m_obj(new GenVertexObj()){
  m_obj->acquire();
    m_obj->data.Position = Position;  m_obj->data.Ctau = Ctau;
 }
@@ -44,11 +44,11 @@ GenVertex::~GenVertex(){
 
 GenVertex::operator ConstGenVertex() const {return ConstGenVertex(m_obj);}
 
-  const Point& GenVertex::Position() const { return m_obj->data.Position; }
+  const fcc::Point& GenVertex::Position() const { return m_obj->data.Position; }
   const float& GenVertex::Ctau() const { return m_obj->data.Ctau; }
 
-  Point& GenVertex::Position() { return m_obj->data.Position; }
-void GenVertex::Position(class Point value){ m_obj->data.Position = value;}
+  fcc::Point& GenVertex::Position() { return m_obj->data.Position; }
+void GenVertex::Position(class fcc::Point value){ m_obj->data.Position = value;}
 void GenVertex::Ctau(float value){ m_obj->data.Ctau = value;}
 
 
@@ -79,4 +79,4 @@ bool GenVertex::operator==(const ConstGenVertex& other) const {
 //  }
 //}
 
-
+} // namespace fcc

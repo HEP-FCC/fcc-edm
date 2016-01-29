@@ -6,9 +6,9 @@
 
 #include "ParticleTrackAssociationCollection.h"
 
+namespace fcc {
 
-
-ParticleTrackAssociationCollection::ParticleTrackAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Particle(new std::vector<ConstParticle>()),m_rel_Track(new std::vector<ConstTrack>()),m_refCollections(nullptr), m_data(new ParticleTrackAssociationDataContainer() ) {
+ParticleTrackAssociationCollection::ParticleTrackAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Particle(new std::vector<::fcc::ConstParticle>()),m_rel_Track(new std::vector<::fcc::ConstTrack>()),m_refCollections(nullptr), m_data(new ParticleTrackAssociationDataContainer() ) {
     m_refCollections = new podio::CollRefCollection();
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
@@ -85,7 +85,7 @@ bool ParticleTrackAssociationCollection::setReferences(const podio::ICollectionP
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      ParticleCollection* tmp_coll = static_cast<ParticleCollection*>(coll);
+      fcc::ParticleCollection* tmp_coll = static_cast<fcc::ParticleCollection*>(coll);
       m_entries[i]->m_Particle = new ConstParticle((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Particle = nullptr;
@@ -96,7 +96,7 @@ bool ParticleTrackAssociationCollection::setReferences(const podio::ICollectionP
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      TrackCollection* tmp_coll = static_cast<TrackCollection*>(coll);
+      fcc::TrackCollection* tmp_coll = static_cast<fcc::TrackCollection*>(coll);
       m_entries[i]->m_Track = new ConstTrack((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Track = nullptr;
@@ -139,4 +139,4 @@ const ParticleTrackAssociationCollectionIterator& ParticleTrackAssociationCollec
  return *this;
 }
 
-
+} // namespace fcc

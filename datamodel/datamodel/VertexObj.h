@@ -16,7 +16,7 @@ class Vertex;
 class ConstVertex;
 
 
-
+namespace fcc {
 class VertexObj : public podio::ObjBase {
 public:
   /// constructor
@@ -33,7 +33,7 @@ public:
 
 
 };
-
+} // namespace fcc
 
 
 #endif

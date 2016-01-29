@@ -14,7 +14,7 @@
 #include "TrackConst.h"
 #include "TrackObj.h"
 
-
+namespace fcc {
 
 class TrackCollection;
 class TrackCollectionIterator;
@@ -79,6 +79,6 @@ private:
 
 };
 
-
+} // namespace fcc
 
 #endif

@@ -18,7 +18,7 @@
 #include "CaloCluster.h"
 #include "CaloClusterObj.h"
 
-
+namespace fcc {
 typedef std::vector<CaloClusterData> CaloClusterDataContainer;
 typedef std::deque<CaloClusterObj*> CaloClusterObjPointerContainer;
 
@@ -98,7 +98,7 @@ public:
   std::vector<CaloClusterData>* _getBuffer() { return m_data;};
 
      template<size_t arraysize>  
-  const std::array<BareCluster,arraysize> Core() const;
+  const std::array<fcc::BareCluster,arraysize> Core() const;
 
 
 private:
@@ -120,8 +120,8 @@ CaloCluster  CaloClusterCollection::create(Args&&... args){
 }
 
 template<size_t arraysize>
-const std::array<class BareCluster,arraysize> CaloClusterCollection::Core() const {
-  std::array<class BareCluster,arraysize> tmp;
+const std::array<class fcc::BareCluster,arraysize> CaloClusterCollection::Core() const {
+  std::array<class fcc::BareCluster,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
     tmp[i] = m_entries[i]->data.Core;
@@ -129,5 +129,5 @@ const std::array<class BareCluster,arraysize> CaloClusterCollection::Core() cons
  return tmp;
 }
 
-
+} // namespace fcc
 #endif

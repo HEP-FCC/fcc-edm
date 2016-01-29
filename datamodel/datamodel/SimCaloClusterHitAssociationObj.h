@@ -14,11 +14,12 @@
 // forward declarations
 class SimCaloClusterHitAssociation;
 class ConstSimCaloClusterHitAssociation;
-class ConstSimCaloCluster;
+namespace fcc {class ConstSimCaloCluster;
 class ConstSimCaloHit;
+}
 
 
-
+namespace fcc {
 class SimCaloClusterHitAssociationObj : public podio::ObjBase {
 public:
   /// constructor
@@ -32,12 +33,12 @@ public:
 
 public:
   SimCaloClusterHitAssociationData data;
-  ConstSimCaloCluster* m_Cluster;
-  ConstSimCaloHit* m_Hit;
+  ::fcc::ConstSimCaloCluster* m_Cluster;
+  ::fcc::ConstSimCaloHit* m_Hit;
 
 
 };
-
+} // namespace fcc
 
 
 #endif

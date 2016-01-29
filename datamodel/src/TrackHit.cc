@@ -7,13 +7,13 @@
 #include <iostream>
 
 
-
+namespace fcc {
 
 TrackHit::TrackHit() : m_obj(new TrackHitObj()){
  m_obj->acquire();
 }
 
-TrackHit::TrackHit(BareHit Core) : m_obj(new TrackHitObj()){
+TrackHit::TrackHit(fcc::BareHit Core) : m_obj(new TrackHitObj()){
  m_obj->acquire();
    m_obj->data.Core = Core;
 }
@@ -44,10 +44,10 @@ TrackHit::~TrackHit(){
 
 TrackHit::operator ConstTrackHit() const {return ConstTrackHit(m_obj);}
 
-  const BareHit& TrackHit::Core() const { return m_obj->data.Core; }
+  const fcc::BareHit& TrackHit::Core() const { return m_obj->data.Core; }
 
-  BareHit& TrackHit::Core() { return m_obj->data.Core; }
-void TrackHit::Core(class BareHit value){ m_obj->data.Core = value;}
+  fcc::BareHit& TrackHit::Core() { return m_obj->data.Core; }
+void TrackHit::Core(class fcc::BareHit value){ m_obj->data.Core = value;}
 
 
 bool  TrackHit::isAvailable() const {
@@ -77,4 +77,4 @@ bool TrackHit::operator==(const ConstTrackHit& other) const {
 //  }
 //}
 
-
+} // namespace fcc

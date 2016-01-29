@@ -1,7 +1,7 @@
 #include "VertexObj.h"
 
 
-
+namespace fcc {
 VertexObj::VertexObj() :
     ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}
     ,data()
@@ -24,4 +24,4 @@ VertexObj::~VertexObj() {
 
   }
 }
-
+} // namespace fcc

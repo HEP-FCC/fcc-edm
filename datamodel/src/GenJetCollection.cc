@@ -4,7 +4,7 @@
 
 #include "GenJetCollection.h"
 
-
+namespace fcc {
 
 GenJetCollection::GenJetCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new GenJetDataContainer() ) {
   
@@ -101,4 +101,4 @@ const GenJetCollectionIterator& GenJetCollectionIterator::operator++() const {
  return *this;
 }
 
-
+} // namespace fcc

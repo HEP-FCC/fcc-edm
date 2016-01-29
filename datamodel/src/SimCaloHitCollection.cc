@@ -4,7 +4,7 @@
 
 #include "SimCaloHitCollection.h"
 
-
+namespace fcc {
 
 SimCaloHitCollection::SimCaloHitCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new SimCaloHitDataContainer() ) {
   
@@ -101,4 +101,4 @@ const SimCaloHitCollectionIterator& SimCaloHitCollectionIterator::operator++() c
  return *this;
 }
 
-
+} // namespace fcc

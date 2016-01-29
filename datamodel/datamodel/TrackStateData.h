@@ -6,7 +6,7 @@
 
 
 
-
+namespace fcc {
 class TrackStateData {
 public:
   float Location; /// Location on the track. (Radius?) 
@@ -15,6 +15,6 @@ public:
   float Z0; /// Longitudinal impact parameter 
 
 };
-
+} // namespace fcc
 
 #endif

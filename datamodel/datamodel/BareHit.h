@@ -2,7 +2,7 @@
 #define BareHit_H
 
 
-
+namespace fcc {
 class BareHit {
 public:
   float Energy;
@@ -11,5 +11,5 @@ public:
   float Time;
 
 };
-
+} // namespace fcc
 #endif

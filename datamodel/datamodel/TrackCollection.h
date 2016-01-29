@@ -18,7 +18,7 @@
 #include "Track.h"
 #include "TrackObj.h"
 
-
+namespace fcc {
 typedef std::vector<TrackData> TrackDataContainer;
 typedef std::deque<TrackObj*> TrackObjPointerContainer;
 
@@ -151,5 +151,5 @@ const std::array<unsigned,arraysize> TrackCollection::Bits() const {
  return tmp;
 }
 
-
+} // namespace fcc
 #endif

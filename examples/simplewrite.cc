@@ -35,21 +35,21 @@ int main(){
 
   unsigned nevents=10000;
 
-  auto& evinfocoll = store.create<EventInfoCollection>("evtinfo");
-  auto& pcoll = store.create<ParticleCollection>("mcparticles");
+  auto& evinfocoll = store.create<fcc::EventInfoCollection>("evtinfo");
+  auto& pcoll = store.create<fcc::ParticleCollection>("mcparticles");
 
-  writer.registerForWrite<EventInfoCollection>("evtinfo");
-  writer.registerForWrite<ParticleCollection>("mcparticles");
+  writer.registerForWrite<fcc::EventInfoCollection>("evtinfo");
+  writer.registerForWrite<fcc::ParticleCollection>("mcparticles");
 
   for(unsigned iev=0; iev<nevents; ++iev) {
     if(iev % 1000 == 0)
       std::cout<<"processing event "<<iev<<std::endl;
     // fill event information
-    auto evinfo = EventInfo(); // evinfocoll.create();
+    auto evinfo = fcc::EventInfo(); // evinfocoll.create();
     evinfo.Number(iev);
     evinfocoll.push_back(evinfo);
 
-    auto ptc = Particle();
+    auto ptc = fcc::Particle();
     ptc.Core().Type = 25;
     auto& p4 = ptc.Core().P4;
     p4.Px = static_cast<float>(iev);

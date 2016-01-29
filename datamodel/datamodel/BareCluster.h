@@ -3,14 +3,14 @@
 #include "Point.h"
 
 
-
+namespace fcc {
 class BareCluster {
 public:
-  Point position;
+ ::fcc::Point position;
   float Energy;
   unsigned Bits;
   float Time;
 
 };
-
+} // namespace fcc
 #endif

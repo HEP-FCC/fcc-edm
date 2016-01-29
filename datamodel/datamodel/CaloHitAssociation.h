@@ -9,16 +9,18 @@
 // author: C. Bernet, B. Hegner
 
 //forward declarations
+namespace fcc {
 class CaloHit;
 class ConstCaloHit;
 class SimCaloHit;
 class ConstSimCaloHit;
+}
 
 
 #include "CaloHitAssociationConst.h"
 #include "CaloHitAssociationObj.h"
 
-
+namespace fcc {
 
 class CaloHitAssociationCollection;
 class CaloHitAssociationCollectionIterator;
@@ -51,11 +53,11 @@ public:
 
 public:
 
-  const ConstCaloHit Rec() const;
-  const ConstSimCaloHit Sim() const;
+  const fcc::ConstCaloHit Rec() const;
+  const fcc::ConstSimCaloHit Sim() const;
 
-  void Rec(ConstCaloHit value);
-  void Sim(ConstSimCaloHit value);
+  void Rec(fcc::ConstCaloHit value);
+  void Sim(fcc::ConstSimCaloHit value);
 
 
   /// check whether the object is actually available
@@ -80,6 +82,6 @@ private:
 
 };
 
-
+} // namespace fcc
 
 #endif

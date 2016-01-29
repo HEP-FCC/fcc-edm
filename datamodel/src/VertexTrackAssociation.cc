@@ -9,7 +9,7 @@
 #include "Vertex.h"
 
 
-
+namespace fcc {
 
 VertexTrackAssociation::VertexTrackAssociation() : m_obj(new VertexTrackAssociationObj()){
  m_obj->acquire();
@@ -47,16 +47,16 @@ VertexTrackAssociation::~VertexTrackAssociation(){
 VertexTrackAssociation::operator ConstVertexTrackAssociation() const {return ConstVertexTrackAssociation(m_obj);}
 
   const float& VertexTrackAssociation::Weight() const { return m_obj->data.Weight; }
-  const ConstTrack VertexTrackAssociation::Track() const { if (m_obj->m_Track == nullptr) {
- return ConstTrack(nullptr);}
- return ConstTrack(*(m_obj->m_Track));}
-  const ConstVertex VertexTrackAssociation::Vertex() const { if (m_obj->m_Vertex == nullptr) {
- return ConstVertex(nullptr);}
- return ConstVertex(*(m_obj->m_Vertex));}
+  const fcc::ConstTrack VertexTrackAssociation::Track() const { if (m_obj->m_Track == nullptr) {
+ return fcc::ConstTrack(nullptr);}
+ return fcc::ConstTrack(*(m_obj->m_Track));}
+  const fcc::ConstVertex VertexTrackAssociation::Vertex() const { if (m_obj->m_Vertex == nullptr) {
+ return fcc::ConstVertex(nullptr);}
+ return fcc::ConstVertex(*(m_obj->m_Vertex));}
 
 void VertexTrackAssociation::Weight(float value){ m_obj->data.Weight = value;}
-void VertexTrackAssociation::Track(ConstTrack value) { if (m_obj->m_Track != nullptr) delete m_obj->m_Track; m_obj->m_Track = new ConstTrack(value); }
-void VertexTrackAssociation::Vertex(ConstVertex value) { if (m_obj->m_Vertex != nullptr) delete m_obj->m_Vertex; m_obj->m_Vertex = new ConstVertex(value); }
+void VertexTrackAssociation::Track(fcc::ConstTrack value) { if (m_obj->m_Track != nullptr) delete m_obj->m_Track; m_obj->m_Track = new ConstTrack(value); }
+void VertexTrackAssociation::Vertex(fcc::ConstVertex value) { if (m_obj->m_Vertex != nullptr) delete m_obj->m_Vertex; m_obj->m_Vertex = new ConstVertex(value); }
 
 
 bool  VertexTrackAssociation::isAvailable() const {
@@ -86,4 +86,4 @@ bool VertexTrackAssociation::operator==(const ConstVertexTrackAssociation& other
 //  }
 //}
 
-
+} // namespace fcc

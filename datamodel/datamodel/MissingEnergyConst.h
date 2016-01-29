@@ -13,7 +13,7 @@
 
 #include "MissingEnergyObj.h"
 
-
+namespace fcc {
 
 class MissingEnergyObj;
 class MissingEnergy;
@@ -71,6 +71,6 @@ private:
   MissingEnergyObj* m_obj;
 
 };
-
+} // namespace fcc
 
 #endif

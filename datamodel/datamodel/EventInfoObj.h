@@ -16,7 +16,7 @@ class EventInfo;
 class ConstEventInfo;
 
 
-
+namespace fcc {
 class EventInfoObj : public podio::ObjBase {
 public:
   /// constructor
@@ -33,7 +33,7 @@ public:
 
 
 };
-
+} // namespace fcc
 
 
 #endif

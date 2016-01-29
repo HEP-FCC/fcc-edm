@@ -3,7 +3,7 @@
 #include "SimCaloHitConst.h"
 
 
-
+namespace fcc {
 CaloHitAssociationObj::CaloHitAssociationObj() :
     ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}
     ,data()
@@ -30,4 +30,4 @@ delete m_Sim;
 
   }
 }
-
+} // namespace fcc

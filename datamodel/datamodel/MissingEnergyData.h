@@ -6,13 +6,13 @@
 
 
 
-
+namespace fcc {
 class MissingEnergyData {
 public:
   float Energy; /// . 
   float Phi; /// . 
 
 };
-
+} // namespace fcc
 
 #endif

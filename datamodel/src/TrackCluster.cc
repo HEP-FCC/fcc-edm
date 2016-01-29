@@ -7,13 +7,13 @@
 #include <iostream>
 
 
-
+namespace fcc {
 
 TrackCluster::TrackCluster() : m_obj(new TrackClusterObj()){
  m_obj->acquire();
 }
 
-TrackCluster::TrackCluster(BareCluster Core) : m_obj(new TrackClusterObj()){
+TrackCluster::TrackCluster(fcc::BareCluster Core) : m_obj(new TrackClusterObj()){
  m_obj->acquire();
    m_obj->data.Core = Core;
 }
@@ -44,10 +44,10 @@ TrackCluster::~TrackCluster(){
 
 TrackCluster::operator ConstTrackCluster() const {return ConstTrackCluster(m_obj);}
 
-  const BareCluster& TrackCluster::Core() const { return m_obj->data.Core; }
+  const fcc::BareCluster& TrackCluster::Core() const { return m_obj->data.Core; }
 
-  BareCluster& TrackCluster::Core() { return m_obj->data.Core; }
-void TrackCluster::Core(class BareCluster value){ m_obj->data.Core = value;}
+  fcc::BareCluster& TrackCluster::Core() { return m_obj->data.Core; }
+void TrackCluster::Core(class fcc::BareCluster value){ m_obj->data.Core = value;}
 
 
 bool  TrackCluster::isAvailable() const {
@@ -77,4 +77,4 @@ bool TrackCluster::operator==(const ConstTrackCluster& other) const {
 //  }
 //}
 
-
+} // namespace fcc

@@ -9,7 +9,7 @@
 #include "TrackState.h"
 
 
-
+namespace fcc {
 
 ConstTrackStateAssociation::ConstTrackStateAssociation() : m_obj(new TrackStateAssociationObj()){
  m_obj->acquire();
@@ -40,12 +40,12 @@ ConstTrackStateAssociation::~ConstTrackStateAssociation(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const ConstTrack ConstTrackStateAssociation::Track() const { if (m_obj->m_Track == nullptr) {
- return ConstTrack(nullptr);}
- return ConstTrack(*(m_obj->m_Track));}
-  const ConstTrackState ConstTrackStateAssociation::State() const { if (m_obj->m_State == nullptr) {
- return ConstTrackState(nullptr);}
- return ConstTrackState(*(m_obj->m_State));}
+  const fcc::ConstTrack ConstTrackStateAssociation::Track() const { if (m_obj->m_Track == nullptr) {
+ return fcc::ConstTrack(nullptr);}
+ return fcc::ConstTrack(*(m_obj->m_Track));}
+  const fcc::ConstTrackState ConstTrackStateAssociation::State() const { if (m_obj->m_State == nullptr) {
+ return fcc::ConstTrackState(nullptr);}
+ return fcc::ConstTrackState(*(m_obj->m_State));}
 
 
 bool  ConstTrackStateAssociation::isAvailable() const {
@@ -74,4 +74,4 @@ bool ConstTrackStateAssociation::operator==(const TrackStateAssociation& other) 
 //  }
 //}
 
-
+} // namespace fcc

@@ -3,7 +3,7 @@
 #include "TrackConst.h"
 
 
-
+namespace fcc {
 ParticleTrackAssociationObj::ParticleTrackAssociationObj() :
     ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}
     ,data()
@@ -30,4 +30,4 @@ delete m_Track;
 
   }
 }
-
+} // namespace fcc

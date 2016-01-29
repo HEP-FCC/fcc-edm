@@ -14,7 +14,7 @@
 
 #include "SimCaloHitObj.h"
 
-
+namespace fcc {
 
 class SimCaloHitObj;
 class SimCaloHit;
@@ -31,7 +31,7 @@ public:
 
   /// default constructor
   ConstSimCaloHit();
-  ConstSimCaloHit(BareHit Core);
+  ConstSimCaloHit(fcc::BareHit Core);
 
   /// constructor from existing SimCaloHitObj
   ConstSimCaloHit(SimCaloHitObj* obj);
@@ -47,7 +47,7 @@ public:
 
 public:
 
-  const BareHit& Core() const;
+  const fcc::BareHit& Core() const;
 
 
   /// check whether the object is actually available
@@ -71,6 +71,6 @@ private:
   SimCaloHitObj* m_obj;
 
 };
-
+} // namespace fcc
 
 #endif

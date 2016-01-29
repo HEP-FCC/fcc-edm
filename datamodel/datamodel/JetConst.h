@@ -14,7 +14,7 @@
 
 #include "JetObj.h"
 
-
+namespace fcc {
 
 class JetObj;
 class Jet;
@@ -31,7 +31,7 @@ public:
 
   /// default constructor
   ConstJet();
-  ConstJet(BareJet Core);
+  ConstJet(fcc::BareJet Core);
 
   /// constructor from existing JetObj
   ConstJet(JetObj* obj);
@@ -47,7 +47,7 @@ public:
 
 public:
 
-  const BareJet& Core() const;
+  const fcc::BareJet& Core() const;
 
 
   /// check whether the object is actually available
@@ -71,6 +71,6 @@ private:
   JetObj* m_obj;
 
 };
-
+} // namespace fcc
 
 #endif

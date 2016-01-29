@@ -1,7 +1,7 @@
 #include "JetObj.h"
 
 
-
+namespace fcc {
 JetObj::JetObj() :
     ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}
     ,data()
@@ -24,4 +24,4 @@ JetObj::~JetObj() {
 
   }
 }
-
+} // namespace fcc

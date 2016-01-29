@@ -7,7 +7,7 @@
 #include <iostream>
 
 
-
+namespace fcc {
 
 TrackState::TrackState() : m_obj(new TrackStateObj()){
  m_obj->acquire();
@@ -82,4 +82,4 @@ bool TrackState::operator==(const ConstTrackState& other) const {
 //  }
 //}
 
-
+} // namespace fcc

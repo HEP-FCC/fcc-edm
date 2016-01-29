@@ -6,9 +6,9 @@
 
 #include "SimCaloHitMCParticleAssociationCollection.h"
 
+namespace fcc {
 
-
-SimCaloHitMCParticleAssociationCollection::SimCaloHitMCParticleAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Hit(new std::vector<ConstSimCaloHit>()),m_rel_Particle(new std::vector<ConstMCParticle>()),m_refCollections(nullptr), m_data(new SimCaloHitMCParticleAssociationDataContainer() ) {
+SimCaloHitMCParticleAssociationCollection::SimCaloHitMCParticleAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Hit(new std::vector<::fcc::ConstSimCaloHit>()),m_rel_Particle(new std::vector<::fcc::ConstMCParticle>()),m_refCollections(nullptr), m_data(new SimCaloHitMCParticleAssociationDataContainer() ) {
     m_refCollections = new podio::CollRefCollection();
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
@@ -85,7 +85,7 @@ bool SimCaloHitMCParticleAssociationCollection::setReferences(const podio::IColl
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      SimCaloHitCollection* tmp_coll = static_cast<SimCaloHitCollection*>(coll);
+      fcc::SimCaloHitCollection* tmp_coll = static_cast<fcc::SimCaloHitCollection*>(coll);
       m_entries[i]->m_Hit = new ConstSimCaloHit((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Hit = nullptr;
@@ -96,7 +96,7 @@ bool SimCaloHitMCParticleAssociationCollection::setReferences(const podio::IColl
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      MCParticleCollection* tmp_coll = static_cast<MCParticleCollection*>(coll);
+      fcc::MCParticleCollection* tmp_coll = static_cast<fcc::MCParticleCollection*>(coll);
       m_entries[i]->m_Particle = new ConstMCParticle((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Particle = nullptr;
@@ -139,4 +139,4 @@ const SimCaloHitMCParticleAssociationCollectionIterator& SimCaloHitMCParticleAss
  return *this;
 }
 
-
+} // namespace fcc

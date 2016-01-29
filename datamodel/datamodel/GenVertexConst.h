@@ -14,7 +14,7 @@
 
 #include "GenVertexObj.h"
 
-
+namespace fcc {
 
 class GenVertexObj;
 class GenVertex;
@@ -31,7 +31,7 @@ public:
 
   /// default constructor
   ConstGenVertex();
-  ConstGenVertex(Point Position,float Ctau);
+  ConstGenVertex(fcc::Point Position,float Ctau);
 
   /// constructor from existing GenVertexObj
   ConstGenVertex(GenVertexObj* obj);
@@ -47,7 +47,7 @@ public:
 
 public:
 
-  const Point& Position() const;
+  const fcc::Point& Position() const;
   const float& Ctau() const;
 
 
@@ -72,6 +72,6 @@ private:
   GenVertexObj* m_obj;
 
 };
-
+} // namespace fcc
 
 #endif

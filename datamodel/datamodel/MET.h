@@ -14,7 +14,7 @@
 #include "METConst.h"
 #include "METObj.h"
 
-
+namespace fcc {
 
 class METCollection;
 class METCollectionIterator;
@@ -77,6 +77,6 @@ private:
 
 };
 
-
+} // namespace fcc
 
 #endif

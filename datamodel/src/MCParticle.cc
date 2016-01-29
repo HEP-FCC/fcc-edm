@@ -9,13 +9,13 @@
 #include "GenVertex.h"
 
 
-
+namespace fcc {
 
 MCParticle::MCParticle() : m_obj(new MCParticleObj()){
  m_obj->acquire();
 }
 
-MCParticle::MCParticle(BareParticle Core) : m_obj(new MCParticleObj()){
+MCParticle::MCParticle(fcc::BareParticle Core) : m_obj(new MCParticleObj()){
  m_obj->acquire();
    m_obj->data.Core = Core;
 }
@@ -46,18 +46,18 @@ MCParticle::~MCParticle(){
 
 MCParticle::operator ConstMCParticle() const {return ConstMCParticle(m_obj);}
 
-  const BareParticle& MCParticle::Core() const { return m_obj->data.Core; }
-  const ConstGenVertex MCParticle::StartVertex() const { if (m_obj->m_StartVertex == nullptr) {
- return ConstGenVertex(nullptr);}
- return ConstGenVertex(*(m_obj->m_StartVertex));}
-  const ConstGenVertex MCParticle::EndVertex() const { if (m_obj->m_EndVertex == nullptr) {
- return ConstGenVertex(nullptr);}
- return ConstGenVertex(*(m_obj->m_EndVertex));}
+  const fcc::BareParticle& MCParticle::Core() const { return m_obj->data.Core; }
+  const fcc::ConstGenVertex MCParticle::StartVertex() const { if (m_obj->m_StartVertex == nullptr) {
+ return fcc::ConstGenVertex(nullptr);}
+ return fcc::ConstGenVertex(*(m_obj->m_StartVertex));}
+  const fcc::ConstGenVertex MCParticle::EndVertex() const { if (m_obj->m_EndVertex == nullptr) {
+ return fcc::ConstGenVertex(nullptr);}
+ return fcc::ConstGenVertex(*(m_obj->m_EndVertex));}
 
-  BareParticle& MCParticle::Core() { return m_obj->data.Core; }
-void MCParticle::Core(class BareParticle value){ m_obj->data.Core = value;}
-void MCParticle::StartVertex(ConstGenVertex value) { if (m_obj->m_StartVertex != nullptr) delete m_obj->m_StartVertex; m_obj->m_StartVertex = new ConstGenVertex(value); }
-void MCParticle::EndVertex(ConstGenVertex value) { if (m_obj->m_EndVertex != nullptr) delete m_obj->m_EndVertex; m_obj->m_EndVertex = new ConstGenVertex(value); }
+  fcc::BareParticle& MCParticle::Core() { return m_obj->data.Core; }
+void MCParticle::Core(class fcc::BareParticle value){ m_obj->data.Core = value;}
+void MCParticle::StartVertex(fcc::ConstGenVertex value) { if (m_obj->m_StartVertex != nullptr) delete m_obj->m_StartVertex; m_obj->m_StartVertex = new ConstGenVertex(value); }
+void MCParticle::EndVertex(fcc::ConstGenVertex value) { if (m_obj->m_EndVertex != nullptr) delete m_obj->m_EndVertex; m_obj->m_EndVertex = new ConstGenVertex(value); }
 
 
 bool  MCParticle::isAvailable() const {
@@ -87,4 +87,4 @@ bool MCParticle::operator==(const ConstMCParticle& other) const {
 //  }
 //}
 
-
+} // namespace fcc

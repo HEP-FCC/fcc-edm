@@ -6,11 +6,11 @@
 
 
 
-
+namespace fcc {
 class CaloHitAssociationData {
 public:
 
 };
-
+} // namespace fcc
 
 #endif

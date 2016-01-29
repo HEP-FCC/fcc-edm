@@ -10,15 +10,17 @@
 // author: C. Bernet, B. Hegner
 
 //forward declarations
+namespace fcc {
 class GenVertex;
 class ConstGenVertex;
 class GenVertex;
 class ConstGenVertex;
+}
 
 
 #include "MCParticleObj.h"
 
-
+namespace fcc {
 
 class MCParticleObj;
 class MCParticle;
@@ -35,7 +37,7 @@ public:
 
   /// default constructor
   ConstMCParticle();
-  ConstMCParticle(BareParticle Core);
+  ConstMCParticle(fcc::BareParticle Core);
 
   /// constructor from existing MCParticleObj
   ConstMCParticle(MCParticleObj* obj);
@@ -51,9 +53,9 @@ public:
 
 public:
 
-  const BareParticle& Core() const;
-  const ConstGenVertex StartVertex() const;
-  const ConstGenVertex EndVertex() const;
+  const fcc::BareParticle& Core() const;
+  const fcc::ConstGenVertex StartVertex() const;
+  const fcc::ConstGenVertex EndVertex() const;
 
 
   /// check whether the object is actually available
@@ -77,6 +79,6 @@ private:
   MCParticleObj* m_obj;
 
 };
-
+} // namespace fcc
 
 #endif

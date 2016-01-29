@@ -14,11 +14,12 @@
 // forward declarations
 class CaloHitAssociation;
 class ConstCaloHitAssociation;
-class ConstCaloHit;
+namespace fcc {class ConstCaloHit;
 class ConstSimCaloHit;
+}
 
 
-
+namespace fcc {
 class CaloHitAssociationObj : public podio::ObjBase {
 public:
   /// constructor
@@ -32,12 +33,12 @@ public:
 
 public:
   CaloHitAssociationData data;
-  ConstCaloHit* m_Rec;
-  ConstSimCaloHit* m_Sim;
+  ::fcc::ConstCaloHit* m_Rec;
+  ::fcc::ConstSimCaloHit* m_Sim;
 
 
 };
-
+} // namespace fcc
 
 
 #endif

@@ -18,7 +18,7 @@
 #include "ParticleMCParticleAssociation.h"
 #include "ParticleMCParticleAssociationObj.h"
 
-
+namespace fcc {
 typedef std::vector<ParticleMCParticleAssociationData> ParticleMCParticleAssociationDataContainer;
 typedef std::deque<ParticleMCParticleAssociationObj*> ParticleMCParticleAssociationObjPointerContainer;
 
@@ -103,8 +103,8 @@ private:
   int m_collectionID;
   ParticleMCParticleAssociationObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  std::vector<ConstParticle>* m_rel_Rec; //relation buffer for r/w
-  std::vector<ConstMCParticle>* m_rel_Sim; //relation buffer for r/w
+  std::vector<::fcc::ConstParticle>* m_rel_Rec; //relation buffer for r/w
+  std::vector<::fcc::ConstMCParticle>* m_rel_Sim; //relation buffer for r/w
 
   // members to handle streaming
   podio::CollRefCollection* m_refCollections;
@@ -120,5 +120,5 @@ ParticleMCParticleAssociation  ParticleMCParticleAssociationCollection::create(A
 }
 
 
-
+} // namespace fcc
 #endif

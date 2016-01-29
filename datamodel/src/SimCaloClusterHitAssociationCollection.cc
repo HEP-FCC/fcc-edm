@@ -6,9 +6,9 @@
 
 #include "SimCaloClusterHitAssociationCollection.h"
 
+namespace fcc {
 
-
-SimCaloClusterHitAssociationCollection::SimCaloClusterHitAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Cluster(new std::vector<ConstSimCaloCluster>()),m_rel_Hit(new std::vector<ConstSimCaloHit>()),m_refCollections(nullptr), m_data(new SimCaloClusterHitAssociationDataContainer() ) {
+SimCaloClusterHitAssociationCollection::SimCaloClusterHitAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Cluster(new std::vector<::fcc::ConstSimCaloCluster>()),m_rel_Hit(new std::vector<::fcc::ConstSimCaloHit>()),m_refCollections(nullptr), m_data(new SimCaloClusterHitAssociationDataContainer() ) {
     m_refCollections = new podio::CollRefCollection();
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
   m_refCollections->push_back(new std::vector<podio::ObjectID>());
@@ -85,7 +85,7 @@ bool SimCaloClusterHitAssociationCollection::setReferences(const podio::ICollect
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      SimCaloClusterCollection* tmp_coll = static_cast<SimCaloClusterCollection*>(coll);
+      fcc::SimCaloClusterCollection* tmp_coll = static_cast<fcc::SimCaloClusterCollection*>(coll);
       m_entries[i]->m_Cluster = new ConstSimCaloCluster((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Cluster = nullptr;
@@ -96,7 +96,7 @@ bool SimCaloClusterHitAssociationCollection::setReferences(const podio::ICollect
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      SimCaloHitCollection* tmp_coll = static_cast<SimCaloHitCollection*>(coll);
+      fcc::SimCaloHitCollection* tmp_coll = static_cast<fcc::SimCaloHitCollection*>(coll);
       m_entries[i]->m_Hit = new ConstSimCaloHit((*tmp_coll)[id.index]);
     } else {
       m_entries[i]->m_Hit = nullptr;
@@ -139,4 +139,4 @@ const SimCaloClusterHitAssociationCollectionIterator& SimCaloClusterHitAssociati
  return *this;
 }
 
-
+} // namespace fcc
