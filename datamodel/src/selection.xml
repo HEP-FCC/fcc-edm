@@ -97,37 +97,6 @@
             <field name="m_registry" transient="true"/>
             <field name="m_container" transient="true"/>
           </class>
-          <class name="std::vector<fcc::MissingEnergyData>" />
-          <class name="std::vector<SimCaloClusterData>" />
-
-          <class name="fcc::MissingEnergyData">
-            <field name="m_registry" transient="true"/>
-            <field name="m_container" transient="true"/>
-          </class>
-          <class name="std::vector<fcc::MissingEnergy>" />
-
-          <class name="fcc::MissingEnergy">
-            <field name="m_registry" transient="true"/>
-            <field name="m_container" transient="true"/>
-          </class>
-          <class name="std::vector<fcc::ConstMissingEnergy>" />
-
-          <class name="fcc::ConstMissingEnergy">
-            <field name="m_registry" transient="true"/>
-            <field name="m_container" transient="true"/>
-          </class>
-          <class name="std::vector<fcc::MissingEnergyCollection>" />
-
-          <class name="fcc::MissingEnergyCollection">
-            <field name="m_registry" transient="true"/>
-            <field name="m_container" transient="true"/>
-          </class>
-          <class name="std::vector<fcc::MissingEnergyObj>" />
-
-          <class name="fcc::MissingEnergyObj">
-            <field name="m_registry" transient="true"/>
-            <field name="m_container" transient="true"/>
-          </class>
           <class name="std::vector<fcc::TrackStateAssociationData>" />
 
           <class name="fcc::TrackStateAssociationData">
