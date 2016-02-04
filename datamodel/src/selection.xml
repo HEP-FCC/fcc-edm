@@ -98,6 +98,7 @@
             <field name="m_container" transient="true"/>
           </class>
           <class name="std::vector<fcc::MissingEnergyData>" />
+          <class name="std::vector<SimCaloClusterData>" />
 
           <class name="fcc::MissingEnergyData">
             <field name="m_registry" transient="true"/>

@@ -122,15 +122,9 @@ datatypes :
     Description : "Naive MET type"
     Author : "C. Bernet, B. Hegner"
     Members :
-     - float Pt // .
-     - float Phi // .
-
-  MissingEnergy:
-    Description : "Naive missing energy type"
-    Author : "C. Bernet, B. Hegner"
-    Members :
-     - float Energy // .
-     - float Phi // .
+     - float Magnitude // Magnitude (could be the pT or the ET of the MET vector)
+     - float Phi // Azimuthal angle
+     - float ScalarSum // Corresponding sum pT or sum ET
 
   TrackHit:
     Description : "A tracker hit"

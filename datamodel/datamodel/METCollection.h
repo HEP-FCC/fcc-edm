@@ -98,9 +98,11 @@ public:
   std::vector<METData>* _getBuffer() { return m_data;};
 
      template<size_t arraysize>  
-  const std::array<float,arraysize> Pt() const;
+  const std::array<float,arraysize> Magnitude() const;
   template<size_t arraysize>  
   const std::array<float,arraysize> Phi() const;
+  template<size_t arraysize>  
+  const std::array<float,arraysize> ScalarSum() const;
 
 
 private:
@@ -122,11 +124,11 @@ MET  METCollection::create(Args&&... args){
 }
 
 template<size_t arraysize>
-const std::array<float,arraysize> METCollection::Pt() const {
+const std::array<float,arraysize> METCollection::Magnitude() const {
   std::array<float,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
-    tmp[i] = m_entries[i]->data.Pt;
+    tmp[i] = m_entries[i]->data.Magnitude;
  }
  return tmp;
 }
@@ -136,6 +138,15 @@ const std::array<float,arraysize> METCollection::Phi() const {
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
     tmp[i] = m_entries[i]->data.Phi;
+ }
+ return tmp;
+}
+template<size_t arraysize>
+const std::array<float,arraysize> METCollection::ScalarSum() const {
+  std::array<float,arraysize> tmp;
+  auto valid_size = std::min(arraysize,m_entries.size());
+  for (unsigned i = 0; i<valid_size; ++i){
+    tmp[i] = m_entries[i]->data.ScalarSum;
  }
  return tmp;
 }

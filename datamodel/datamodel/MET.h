@@ -5,7 +5,7 @@
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  .
+//  Corresponding sum pT or sum ET
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -30,7 +30,7 @@ public:
 
   /// default constructor
   MET();
-    MET(float Pt,float Phi);
+    MET(float Magnitude,float Phi,float ScalarSum);
 
   /// constructor from existing METObj
   MET(METObj* obj);
@@ -48,11 +48,13 @@ public:
 
 public:
 
-  const float& Pt() const;
+  const float& Magnitude() const;
   const float& Phi() const;
+  const float& ScalarSum() const;
 
-  void Pt(float value);
+  void Magnitude(float value);
   void Phi(float value);
+  void ScalarSum(float value);
 
 
   /// check whether the object is actually available
