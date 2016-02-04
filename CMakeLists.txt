@@ -17,6 +17,11 @@ set(INSTALL_INCLUDE_DIR include CACHE PATH
 #else()
 #  set(DEF_INSTALL_CMAKE_DIR lib/CMake/fccedm)
 #endif()
+
+if(APPLE)
+  set(CMAKE_SHARED_LIBRARY_SUFFIX ".so")
+endif(APPLE)
+
 set(DEF_INSTALL_CMAKE_DIR cmake)
 set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH
   "Installation directory for CMake files")
@@ -43,7 +48,7 @@ find_package(podio REQUIRED HINTS $ENV{PODIO})
 message(STATUS "Found podio: ${podio_DIR}")
 # Make sure the library is found.
 # Not the case if LD_LIBRARY_PATH is wrong
-find_library(PODIOLIB podio)
+find_library(PODIOLIB podio PATHS $ENV{PODIO}/lib)
 if (NOT PODIOLIB)
     message(FATAL_ERROR "libpodio.so(dylib) cannot be found dynamically. Make sure you have sourced PODIO init*.sh file to set up your environment to use PODIO")
 endif()
@@ -51,8 +56,10 @@ link_directories(${podio_LIBRARY_DIR})
 
 #--- Declare ROOT dependency ---------------------------------------------------
 list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS})
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 find_package(ROOT REQUIRED COMPONENTS RIO Tree Physics)
-include(${ROOT_USE_FILE})
+include_directories(${ROOT_INCLUDE_DIR})
+# include(${ROOT_USE_FILE})
 
 link_directories(${ROOT_LIBRARY_DIR})
 #add_definitions(-Wpadded)
