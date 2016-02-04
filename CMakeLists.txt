@@ -72,7 +72,7 @@ add_definitions(-Wno-unused-variable -Wno-unused-parameter)
 include_directories(
   "${PROJECT_SOURCE_DIR}"
   "${PROJECT_BINARY_DIR}"
-  "${ROOT_INCLUDE_DIRS}"
+  "${ROOT_INCLUDE_DIR}"
   "${podio_INCLUDE_DIRS}"
   )
 
