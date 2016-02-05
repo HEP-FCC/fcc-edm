@@ -18,20 +18,12 @@ datatypes :
     description : "Event Info Data"
     author : "C. Bernet, B. Hegner"
     members :
-     - name : Number
-       type : int
-       description: "Event number"
+     - int Number // Event number
 
   Particle :
     description : "Naive Particle Type, used for reconstructed and generated particles"
     author : "C. Bernet, B. Hegner"
     members :
-     - name : P4
-       type : LorentzVector
-       description : "Four momentum."
-     - name : ID
-       type : int
-       description : "Particle type identification code"
-     - name : Status
-       type : int
-       description : "Status code"
+     - LorentzVector P4 // Four momentum.
+     - int ID // Particle type identification code
+     - int Status // Status code

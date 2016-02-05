@@ -1,68 +1,104 @@
-#include "datamodel/METCollection.h"
+// standard includes
+#include <stdexcept>
 
-METCollection::METCollection() : m_collectionID(0), m_data(new METVector() ){
+
+#include "METCollection.h"
+
+namespace fcc {
+
+METCollection::METCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new METDataContainer() ) {
+  
 }
 
-const METHandle& METCollection::get(int index) const{
-  return m_handles[index];
+const MET METCollection::operator[](unsigned int index) const {
+  return MET(m_entries[index]);
 }
 
-METHandle METCollection::create() {
-  m_data->emplace_back(MET());
-  int index = m_data->size()-1;
-  // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
-  m_handles.emplace_back(METHandle(index,m_collectionID, m_data));
-
-  return m_handles.back();
+const MET METCollection::at(unsigned int index) const {
+  return MET(m_entries.at(index));
 }
 
-METHandle METCollection::insert(const METHandle& origin) {
-  m_data->emplace_back(origin.read());
-  int index = m_data->size()-1;
-  m_handles.emplace_back(METHandle(index,m_collectionID, m_data));
+int  METCollection::size() const {
+  return m_entries.size();
+}
 
-  return m_handles.back();
-}  
+MET METCollection::create(){
+  auto obj = new METObj();
+  m_entries.emplace_back(obj);
+
+  obj->id = {int(m_entries.size()-1),m_collectionID};
+  return MET(obj);
+}
 
 void METCollection::clear(){
   m_data->clear();
-  m_handles.clear();
 
+  for (auto& obj : m_entries) { delete obj; }
+  m_entries.clear();
 }
 
-void METCollection::prepareForWrite(const albers::Registry* registry){
-
-}
-
-void METCollection::prepareAfterRead(albers::Registry* registry){
-  m_handles.clear();
+void METCollection::prepareForWrite(){
   int index = 0;
-  // fix. otherwise, m_collectionID == 0..
-  m_collectionID = registry->getIDFromPODAddress( _getBuffer() );
+  auto size = m_entries.size();
+  m_data->reserve(size);
+  for (auto& obj : m_entries) {m_data->push_back(obj->data); }
+  if (m_refCollections != nullptr) {
+    for (auto& pointer : (*m_refCollections)) {pointer->clear(); }
+  }
+  
+  for(int i=0, size = m_data->size(); i != size; ++i){
+  
+  }
+  
+}
+
+void METCollection::prepareAfterRead(){
+  int index = 0;
   for (auto& data : *m_data){
+    auto obj = new METObj({index,m_collectionID}, data);
     
-    m_handles.emplace_back(METHandle(index,m_collectionID, m_data));
+    m_entries.emplace_back(obj);
     ++index;
   }
 }
 
+bool METCollection::setReferences(const podio::ICollectionProvider* collectionProvider){
 
-void METCollection::setPODsAddress(const void* address){
-  m_data = (METVector*)address;
+
+  return true; //TODO: check success
+}
+
+void METCollection::push_back(ConstMET object){
+    int size = m_entries.size();
+    auto obj = object.m_obj;
+    if (obj->id.index == podio::ObjectID::untracked) {
+        obj->id = {size,m_collectionID};
+        m_entries.push_back(obj);
+        
+    } else {
+      throw std::invalid_argument( "Object already in a collection. Cannot add it to a second collection " );
+
+    }
+}
+
+void METCollection::setBuffer(void* address){
+  m_data = static_cast<METDataContainer*>(address);
 }
 
 
-const METHandle METCollectionIterator::operator* () const {
-  return m_collection->get(m_index);
+const MET METCollectionIterator::operator* () const {
+  m_object.m_obj = (*m_collection)[m_index];
+  return m_object;
 }
 
-//std::vector<std::pair<std::string,albers::CollectionBase*>>& referenceCollections() {
-//}
-
-
-void METCollection::print() const {
-  std::cout<<"collection "<<m_collectionID
-           <<", buf "<<m_data
-           <<", nhandles "<<m_handles.size()<<std::endl;
+const MET* METCollectionIterator::operator-> () const {
+    m_object.m_obj = (*m_collection)[m_index];
+    return &m_object;
 }
 
+const METCollectionIterator& METCollectionIterator::operator++() const {
+  ++m_index;
+ return *this;
+}
+
+} // namespace fcc

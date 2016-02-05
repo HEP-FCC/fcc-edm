@@ -1,68 +1,104 @@
-#include "datamodel/GenVertexCollection.h"
+// standard includes
+#include <stdexcept>
 
-GenVertexCollection::GenVertexCollection() : m_collectionID(0), m_data(new GenVertexVector() ){
+
+#include "GenVertexCollection.h"
+
+namespace fcc {
+
+GenVertexCollection::GenVertexCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new GenVertexDataContainer() ) {
+  
 }
 
-const GenVertexHandle& GenVertexCollection::get(int index) const{
-  return m_handles[index];
+const GenVertex GenVertexCollection::operator[](unsigned int index) const {
+  return GenVertex(m_entries[index]);
 }
 
-GenVertexHandle GenVertexCollection::create() {
-  m_data->emplace_back(GenVertex());
-  int index = m_data->size()-1;
-  // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
-  m_handles.emplace_back(GenVertexHandle(index,m_collectionID, m_data));
-
-  return m_handles.back();
+const GenVertex GenVertexCollection::at(unsigned int index) const {
+  return GenVertex(m_entries.at(index));
 }
 
-GenVertexHandle GenVertexCollection::insert(const GenVertexHandle& origin) {
-  m_data->emplace_back(origin.read());
-  int index = m_data->size()-1;
-  m_handles.emplace_back(GenVertexHandle(index,m_collectionID, m_data));
+int  GenVertexCollection::size() const {
+  return m_entries.size();
+}
 
-  return m_handles.back();
-}  
+GenVertex GenVertexCollection::create(){
+  auto obj = new GenVertexObj();
+  m_entries.emplace_back(obj);
+
+  obj->id = {int(m_entries.size()-1),m_collectionID};
+  return GenVertex(obj);
+}
 
 void GenVertexCollection::clear(){
   m_data->clear();
-  m_handles.clear();
 
+  for (auto& obj : m_entries) { delete obj; }
+  m_entries.clear();
 }
 
-void GenVertexCollection::prepareForWrite(const albers::Registry* registry){
-
-}
-
-void GenVertexCollection::prepareAfterRead(albers::Registry* registry){
-  m_handles.clear();
+void GenVertexCollection::prepareForWrite(){
   int index = 0;
-  // fix. otherwise, m_collectionID == 0..
-  m_collectionID = registry->getIDFromPODAddress( _getBuffer() );
+  auto size = m_entries.size();
+  m_data->reserve(size);
+  for (auto& obj : m_entries) {m_data->push_back(obj->data); }
+  if (m_refCollections != nullptr) {
+    for (auto& pointer : (*m_refCollections)) {pointer->clear(); }
+  }
+  
+  for(int i=0, size = m_data->size(); i != size; ++i){
+  
+  }
+  
+}
+
+void GenVertexCollection::prepareAfterRead(){
+  int index = 0;
   for (auto& data : *m_data){
+    auto obj = new GenVertexObj({index,m_collectionID}, data);
     
-    m_handles.emplace_back(GenVertexHandle(index,m_collectionID, m_data));
+    m_entries.emplace_back(obj);
     ++index;
   }
 }
 
+bool GenVertexCollection::setReferences(const podio::ICollectionProvider* collectionProvider){
 
-void GenVertexCollection::setPODsAddress(const void* address){
-  m_data = (GenVertexVector*)address;
+
+  return true; //TODO: check success
+}
+
+void GenVertexCollection::push_back(ConstGenVertex object){
+    int size = m_entries.size();
+    auto obj = object.m_obj;
+    if (obj->id.index == podio::ObjectID::untracked) {
+        obj->id = {size,m_collectionID};
+        m_entries.push_back(obj);
+        
+    } else {
+      throw std::invalid_argument( "Object already in a collection. Cannot add it to a second collection " );
+
+    }
+}
+
+void GenVertexCollection::setBuffer(void* address){
+  m_data = static_cast<GenVertexDataContainer*>(address);
 }
 
 
-const GenVertexHandle GenVertexCollectionIterator::operator* () const {
-  return m_collection->get(m_index);
+const GenVertex GenVertexCollectionIterator::operator* () const {
+  m_object.m_obj = (*m_collection)[m_index];
+  return m_object;
 }
 
-//std::vector<std::pair<std::string,albers::CollectionBase*>>& referenceCollections() {
-//}
-
-
-void GenVertexCollection::print() const {
-  std::cout<<"collection "<<m_collectionID
-           <<", buf "<<m_data
-           <<", nhandles "<<m_handles.size()<<std::endl;
+const GenVertex* GenVertexCollectionIterator::operator-> () const {
+    m_object.m_obj = (*m_collection)[m_index];
+    return &m_object;
 }
 
+const GenVertexCollectionIterator& GenVertexCollectionIterator::operator++() const {
+  ++m_index;
+ return *this;
+}
+
+} // namespace fcc

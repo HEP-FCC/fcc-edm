@@ -1,16 +1,82 @@
-#ifndef Particle_H 
+#ifndef Particle_H
 #define Particle_H
+#include "ParticleData.h"
+#include "BareParticle.h"
 
-// Contains basic particle information.
+#include <vector>
+#include "podio/ObjectID.h"
+
+//  Contains basic particle information.
 // author: C. Bernet, B. Hegner
 
-#include "datamodel/BareParticle.h"
+//forward declarations
 
+
+#include "ParticleConst.h"
+#include "ParticleObj.h"
+
+namespace fcc {
+
+class ParticleCollection;
+class ParticleCollectionIterator;
+class ConstParticle;
 
 class Particle {
+
+  friend ParticleCollection;
+  friend ParticleCollectionIterator;
+  friend ConstParticle;
+
 public:
-  BareParticle Core; //Contains basic particle information. 
+
+  /// default constructor
+  Particle();
+    Particle(fcc::BareParticle Core);
+
+  /// constructor from existing ParticleObj
+  Particle(ParticleObj* obj);
+  /// copy constructor
+  Particle(const Particle& other);
+  /// copy-assignment operator
+  Particle& operator=(const Particle& other);
+  /// support cloning (deep-copy)
+  Particle clone() const;
+  /// destructor
+  ~Particle();
+
+  /// conversion to const object
+  operator ConstParticle () const;
+
+public:
+
+  const fcc::BareParticle& Core() const;
+
+  fcc::BareParticle& Core();
+  void Core(class fcc::BareParticle value);
+
+
+  /// check whether the object is actually available
+  bool isAvailable() const;
+  /// disconnect from ParticleObj instance
+  void unlink(){m_obj = nullptr;}
+
+  bool operator==(const Particle& other) const {
+       return (m_obj==other.m_obj);
+  }
+
+  bool operator==(const ConstParticle& other) const;
+
+// less comparison operator, so that objects can be e.g. stored in sets.
+//  friend bool operator< (const Particle& p1,
+//       const Particle& p2 );
+
+  const podio::ObjectID getObjectID() const;
+
+private:
+  ParticleObj* m_obj;
 
 };
+
+} // namespace fcc
 
 #endif

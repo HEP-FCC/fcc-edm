@@ -17,6 +17,11 @@ set(INSTALL_INCLUDE_DIR include CACHE PATH
 #else()
 #  set(DEF_INSTALL_CMAKE_DIR lib/CMake/fccedm)
 #endif()
+
+if(APPLE)
+  set(CMAKE_SHARED_LIBRARY_SUFFIX ".so")
+endif(APPLE)
+
 set(DEF_INSTALL_CMAKE_DIR cmake)
 set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH
   "Installation directory for CMake files")
@@ -39,26 +44,40 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -DDROP_CGAL ${CPP11FLAGS} -Wall -W
 
 # Make sure we find the Find*.cmake functions distributed with this package
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-set(CMAKE_PREFIX_PATH $ENV{ALBERS})
-find_package(alberscore COMPONENTS albers REQUIRED)
-message(STATUS "Found albers-core: ${alberscore_DIR}")
+find_package(podio REQUIRED HINTS $ENV{PODIO})
+message(STATUS "Found podio: ${podio_DIR}")
 # Make sure the library is found.
 # Not the case if LD_LIBRARY_PATH is wrong
-find_library(ALBERSLIB albers)
-if (NOT ALBERSLIB)
-    message(FATAL_ERROR "libalbers.so(dylib) cannot be found dynamically. Make sure you have sourced albers-core init*.sh file to set up your environment to use albers")
+find_library(PODIOLIB podio PATHS $ENV{PODIO}/lib)
+if (NOT PODIOLIB)
+    message(FATAL_ERROR "libpodio.so(dylib) cannot be found dynamically. Make sure you have sourced PODIO init*.sh file to set up your environment to use PODIO")
 endif()
-find_package(ROOT)
+link_directories(${podio_LIBRARY_DIR})
 
+#--- Declare ROOT dependency ---------------------------------------------------
+list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS})
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+find_package(ROOT REQUIRED COMPONENTS RIO Tree Physics)
+include_directories(${ROOT_INCLUDE_DIR})
+# include(${ROOT_USE_FILE})
 
+link_directories(${ROOT_LIBRARY_DIR})
+#add_definitions(-Wpadded)
+#--temporary fix of inconsistency in ROOT CMake macros
+set(ROOT_genreflex_cmd ${ROOT_genreflex_CMD})
+
+add_definitions(-Wno-unused-variable -Wno-unused-parameter)
 
 # set up include-directories
 include_directories(
-  "${PROJECT_SOURCE_DIR}"   
+  "${PROJECT_SOURCE_DIR}"
   "${PROJECT_BINARY_DIR}"
   "${ROOT_INCLUDE_DIR}"
-  "${ALBERSCORE_INCLUDE_DIRS}"
-  )  
+  "${podio_INCLUDE_DIRS}"
+  )
+
+# adding testing capabilities
+include(CTest)
 
 # Add sub-directories
 add_subdirectory(datamodel)

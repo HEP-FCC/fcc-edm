@@ -6,100 +6,150 @@
 #include <string>
 #include <vector>
 #include <deque>
+#include <array>
 
-// albers specific includes
-#include "albers/Registry.h"
-#include "albers/CollectionBase.h"
+// podio specific includes
+#include "podio/ICollectionProvider.h"
+#include "podio/CollectionBase.h"
+#include "podio/CollectionIDTable.h"
 
 // datamodel specific includes
-#include "datamodel/Track.h"
-#include "datamodel/TrackHandle.h"
+#include "TrackData.h"
+#include "Track.h"
+#include "TrackObj.h"
 
-typedef std::vector<Track> TrackVector;
-typedef std::vector<TrackHandle> TrackHandleContainer;
+namespace fcc {
+typedef std::vector<TrackData> TrackDataContainer;
+typedef std::deque<TrackObj*> TrackObjPointerContainer;
 
 class TrackCollectionIterator {
 
   public:
-    TrackCollectionIterator(int index, const TrackCollection* collection) : m_index(index), m_collection(collection) {}
+    TrackCollectionIterator(int index, const TrackObjPointerContainer* collection) : m_index(index), m_object(nullptr), m_collection(collection) {}
 
     bool operator!=(const TrackCollectionIterator& x) const {
       return m_index != x.m_index; //TODO: may not be complete
     }
 
-    const TrackHandle operator*() const;
-
-    const TrackCollectionIterator& operator++() const {
-      ++m_index;
-      return *this;
-    }
+    const Track operator*() const;
+    const Track* operator->() const;
+    const TrackCollectionIterator& operator++() const;
 
   private:
     mutable int m_index;
-    const TrackCollection* m_collection;
+    mutable Track m_object;
+    const TrackObjPointerContainer* m_collection;
 };
 
 /**
 A Collection is identified by an ID.
 */
 
-class TrackCollection : public albers::CollectionBase {
+class TrackCollection : public podio::CollectionBase {
 
 public:
   typedef const TrackCollectionIterator const_iterator;
 
   TrackCollection();
+//  TrackCollection(const TrackCollection& ) = delete; // deletion doesn't work w/ ROOT IO ! :-(
 //  TrackCollection(TrackVector* data, int collectionID);
   ~TrackCollection(){};
 
   void clear();
+  /// Append a new object to the collection, and return this object.
+  Track create();
 
-  /// Append a new object to the collection, and return a Handle to this object.
-  TrackHandle create();
+  /// Append a new object to the collection, and return this object.
+  /// Initialized with the parameters given
+  template<typename... Args>
+  Track create(Args&&... args);
+  int size() const;
 
-  /// Insert an existing handle into the collection. 
-  /// In this operation, the data pointed by the handle is copied.
-  TrackHandle insert(const TrackHandle& origin);  
-  
-  /// Returns a Handle to the object at position index in the collection
-  const TrackHandle& get(int index) const;
+  /// Returns the object of given index
+  const Track operator[](unsigned int index) const;
+  /// Returns the object of given index
+  const Track at(unsigned int index) const;
 
-  /// Currently does nothing
-  void prepareForWrite(const albers::Registry* registry);
-  void prepareAfterRead(albers::Registry* registry);
-  void setPODsAddress(const void* address);
+
+  /// Append object to the collection
+  void push_back(ConstTrack object);
+
+  void prepareForWrite();
+  void prepareAfterRead();
+  void setBuffer(void* address);
+  bool setReferences(const podio::ICollectionProvider* collectionProvider);
+
+  podio::CollRefCollection* referenceCollections() { return m_refCollections;};
 
   void setID(unsigned ID){m_collectionID = ID;};
 
   // support for the iterator protocol
   const const_iterator begin() const {
-    return const_iterator(0, this);
+    return const_iterator(0, &m_entries);
   }
   const	const_iterator end() const {
-    return const_iterator(m_handles.size(), this);
+    return const_iterator(m_entries.size(), &m_entries);
   }
 
-//  std::vector<std::pair<std::string,albers::CollectionBase*>>& referenceCollections();
-
   /// returns the address of the pointer to the data buffer
-  void* _getRawBuffer() { return (void*)&m_data;};
+  void* getBufferAddress() { return (void*)&m_data;};
 
   /// returns the pointer to the data buffer
-  std::vector<Track>* _getBuffer() { return m_data;};
+  std::vector<TrackData>* _getBuffer() { return m_data;};
 
-  /// returns the collection of Handles
-  const TrackHandleContainer& getHandles() { return m_handles; }
-
-  /// print some information
-  void print() const;
+     template<size_t arraysize>  
+  const std::array<float,arraysize> Chi2() const;
+  template<size_t arraysize>  
+  const std::array<unsigned,arraysize> Ndf() const;
+  template<size_t arraysize>  
+  const std::array<unsigned,arraysize> Bits() const;
 
 
 private:
-  unsigned m_collectionID;
-  TrackVector* m_data;
-  TrackHandleContainer m_handles;
+  int m_collectionID;
+  TrackObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  
+
+  // members to handle streaming
+  podio::CollRefCollection* m_refCollections;
+  TrackDataContainer* m_data;
 };
 
+template<typename... Args>
+Track  TrackCollection::create(Args&&... args){
+  int size = m_entries.size();
+  auto obj = new TrackObj({size,m_collectionID},{args...});
+  m_entries.push_back(obj);
+  return Track(obj);
+}
+
+template<size_t arraysize>
+const std::array<float,arraysize> TrackCollection::Chi2() const {
+  std::array<float,arraysize> tmp;
+  auto valid_size = std::min(arraysize,m_entries.size());
+  for (unsigned i = 0; i<valid_size; ++i){
+    tmp[i] = m_entries[i]->data.Chi2;
+ }
+ return tmp;
+}
+template<size_t arraysize>
+const std::array<unsigned,arraysize> TrackCollection::Ndf() const {
+  std::array<unsigned,arraysize> tmp;
+  auto valid_size = std::min(arraysize,m_entries.size());
+  for (unsigned i = 0; i<valid_size; ++i){
+    tmp[i] = m_entries[i]->data.Ndf;
+ }
+ return tmp;
+}
+template<size_t arraysize>
+const std::array<unsigned,arraysize> TrackCollection::Bits() const {
+  std::array<unsigned,arraysize> tmp;
+  auto valid_size = std::min(arraysize,m_entries.size());
+  for (unsigned i = 0; i<valid_size; ++i){
+    tmp[i] = m_entries[i]->data.Bits;
+ }
+ return tmp;
+}
+
+} // namespace fcc
 #endif

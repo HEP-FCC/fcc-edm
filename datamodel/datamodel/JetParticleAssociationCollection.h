@@ -6,100 +6,119 @@
 #include <string>
 #include <vector>
 #include <deque>
+#include <array>
 
-// albers specific includes
-#include "albers/Registry.h"
-#include "albers/CollectionBase.h"
+// podio specific includes
+#include "podio/ICollectionProvider.h"
+#include "podio/CollectionBase.h"
+#include "podio/CollectionIDTable.h"
 
 // datamodel specific includes
-#include "datamodel/JetParticleAssociation.h"
-#include "datamodel/JetParticleAssociationHandle.h"
+#include "JetParticleAssociationData.h"
+#include "JetParticleAssociation.h"
+#include "JetParticleAssociationObj.h"
 
-typedef std::vector<JetParticleAssociation> JetParticleAssociationVector;
-typedef std::vector<JetParticleAssociationHandle> JetParticleAssociationHandleContainer;
+namespace fcc {
+typedef std::vector<JetParticleAssociationData> JetParticleAssociationDataContainer;
+typedef std::deque<JetParticleAssociationObj*> JetParticleAssociationObjPointerContainer;
 
 class JetParticleAssociationCollectionIterator {
 
   public:
-    JetParticleAssociationCollectionIterator(int index, const JetParticleAssociationCollection* collection) : m_index(index), m_collection(collection) {}
+    JetParticleAssociationCollectionIterator(int index, const JetParticleAssociationObjPointerContainer* collection) : m_index(index), m_object(nullptr), m_collection(collection) {}
 
     bool operator!=(const JetParticleAssociationCollectionIterator& x) const {
       return m_index != x.m_index; //TODO: may not be complete
     }
 
-    const JetParticleAssociationHandle operator*() const;
-
-    const JetParticleAssociationCollectionIterator& operator++() const {
-      ++m_index;
-      return *this;
-    }
+    const JetParticleAssociation operator*() const;
+    const JetParticleAssociation* operator->() const;
+    const JetParticleAssociationCollectionIterator& operator++() const;
 
   private:
     mutable int m_index;
-    const JetParticleAssociationCollection* m_collection;
+    mutable JetParticleAssociation m_object;
+    const JetParticleAssociationObjPointerContainer* m_collection;
 };
 
 /**
 A Collection is identified by an ID.
 */
 
-class JetParticleAssociationCollection : public albers::CollectionBase {
+class JetParticleAssociationCollection : public podio::CollectionBase {
 
 public:
   typedef const JetParticleAssociationCollectionIterator const_iterator;
 
   JetParticleAssociationCollection();
+//  JetParticleAssociationCollection(const JetParticleAssociationCollection& ) = delete; // deletion doesn't work w/ ROOT IO ! :-(
 //  JetParticleAssociationCollection(JetParticleAssociationVector* data, int collectionID);
   ~JetParticleAssociationCollection(){};
 
   void clear();
+  /// Append a new object to the collection, and return this object.
+  JetParticleAssociation create();
 
-  /// Append a new object to the collection, and return a Handle to this object.
-  JetParticleAssociationHandle create();
+  /// Append a new object to the collection, and return this object.
+  /// Initialized with the parameters given
+  template<typename... Args>
+  JetParticleAssociation create(Args&&... args);
+  int size() const;
 
-  /// Insert an existing handle into the collection. 
-  /// In this operation, the data pointed by the handle is copied.
-  JetParticleAssociationHandle insert(const JetParticleAssociationHandle& origin);  
-  
-  /// Returns a Handle to the object at position index in the collection
-  const JetParticleAssociationHandle& get(int index) const;
+  /// Returns the object of given index
+  const JetParticleAssociation operator[](unsigned int index) const;
+  /// Returns the object of given index
+  const JetParticleAssociation at(unsigned int index) const;
 
-  /// Currently does nothing
-  void prepareForWrite(const albers::Registry* registry);
-  void prepareAfterRead(albers::Registry* registry);
-  void setPODsAddress(const void* address);
+
+  /// Append object to the collection
+  void push_back(ConstJetParticleAssociation object);
+
+  void prepareForWrite();
+  void prepareAfterRead();
+  void setBuffer(void* address);
+  bool setReferences(const podio::ICollectionProvider* collectionProvider);
+
+  podio::CollRefCollection* referenceCollections() { return m_refCollections;};
 
   void setID(unsigned ID){m_collectionID = ID;};
 
   // support for the iterator protocol
   const const_iterator begin() const {
-    return const_iterator(0, this);
+    return const_iterator(0, &m_entries);
   }
   const	const_iterator end() const {
-    return const_iterator(m_handles.size(), this);
+    return const_iterator(m_entries.size(), &m_entries);
   }
 
-//  std::vector<std::pair<std::string,albers::CollectionBase*>>& referenceCollections();
-
   /// returns the address of the pointer to the data buffer
-  void* _getRawBuffer() { return (void*)&m_data;};
+  void* getBufferAddress() { return (void*)&m_data;};
 
   /// returns the pointer to the data buffer
-  std::vector<JetParticleAssociation>* _getBuffer() { return m_data;};
+  std::vector<JetParticleAssociationData>* _getBuffer() { return m_data;};
 
-  /// returns the collection of Handles
-  const JetParticleAssociationHandleContainer& getHandles() { return m_handles; }
-
-  /// print some information
-  void print() const;
-
+   
 
 private:
-  unsigned m_collectionID;
-  JetParticleAssociationVector* m_data;
-  JetParticleAssociationHandleContainer m_handles;
+  int m_collectionID;
+  JetParticleAssociationObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  
+  std::vector<::fcc::ConstJet>* m_rel_Jet; //relation buffer for r/w
+  std::vector<::fcc::ConstParticle>* m_rel_Particle; //relation buffer for r/w
+
+  // members to handle streaming
+  podio::CollRefCollection* m_refCollections;
+  JetParticleAssociationDataContainer* m_data;
 };
 
+template<typename... Args>
+JetParticleAssociation  JetParticleAssociationCollection::create(Args&&... args){
+  int size = m_entries.size();
+  auto obj = new JetParticleAssociationObj({size,m_collectionID},{args...});
+  m_entries.push_back(obj);
+  return JetParticleAssociation(obj);
+}
+
+
+} // namespace fcc
 #endif

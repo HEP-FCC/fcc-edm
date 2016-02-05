@@ -3,14 +3,16 @@
 
 #include <vector>
 
-class ParticleHandle;
-class JetHandle;
+namespace fcc {
+class Particle;
+class Jet;
 class JetParticleAssociationCollection;
+}
 
 namespace utils {
 
-  std::vector<ParticleHandle> associatedParticles( const JetHandle& jet,
-						   const JetParticleAssociationCollection& associations );
+  std::vector<fcc::Particle> associatedParticles( const fcc::Jet& jet,
+                                             	  const fcc::JetParticleAssociationCollection& associations );
 }
 
 #endif

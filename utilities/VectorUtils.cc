@@ -7,14 +7,14 @@
 
 namespace utils {
 
-  TLorentzVector lvFromPOD(const LorentzVector& lv) {
+  TLorentzVector lvFromPOD(const fcc::LorentzVector& lv) {
     TLorentzVector tlv; // COLIN need to fill it
     tlv.SetXYZM( lv.Px, lv.Py, lv.Pz, lv.Mass);
     return tlv;
   }
 
-  LorentzVector lvToPOD(const TLorentzVector& tlv) {
-    LorentzVector lv; // COLIN need to fill it
+  fcc::LorentzVector lvToPOD(const TLorentzVector& tlv) {
+    fcc::LorentzVector lv; // COLIN need to fill it
     lv.Px = tlv.Px();
     lv.Py = tlv.Py();
     lv.Pz = tlv.Pz();
@@ -22,13 +22,13 @@ namespace utils {
     return lv;
   }
 
-  float deltaEta(const LorentzVector& lv1, const LorentzVector& lv2) {
+  float deltaEta(const fcc::LorentzVector& lv1, const fcc::LorentzVector& lv2) {
     TLorentzVector tlv1 = lvFromPOD(lv1);
     TLorentzVector tlv2 = lvFromPOD(lv2);
     return tlv1.Eta() - tlv2.Eta();
   }
 
-  float deltaPhi(const LorentzVector& lv1, const LorentzVector& lv2) {
+  float deltaPhi(const fcc::LorentzVector& lv1, const fcc::LorentzVector& lv2) {
     TLorentzVector tlv1 = lvFromPOD(lv1);
     TLorentzVector tlv2 = lvFromPOD(lv2);
     double result = tlv1.Phi() - tlv2.Phi();
@@ -37,13 +37,13 @@ namespace utils {
     return result;
   }
 
-  float deltaR2(const LorentzVector& lv1, const LorentzVector& lv2) {
+  float deltaR2(const fcc::LorentzVector& lv1, const fcc::LorentzVector& lv2) {
     float dphi = deltaPhi(lv1, lv2);
     float deta = deltaEta(lv1, lv2);
     return dphi*dphi + deta*deta;
   }
 
-  float deltaR(const LorentzVector& lv1, const LorentzVector& lv2) {
+  float deltaR(const fcc::LorentzVector& lv1, const fcc::LorentzVector& lv2) {
     return sqrt( deltaR2(lv1, lv2) );
   }
 

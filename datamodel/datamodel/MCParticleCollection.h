@@ -6,100 +6,130 @@
 #include <string>
 #include <vector>
 #include <deque>
+#include <array>
 
-// albers specific includes
-#include "albers/Registry.h"
-#include "albers/CollectionBase.h"
+// podio specific includes
+#include "podio/ICollectionProvider.h"
+#include "podio/CollectionBase.h"
+#include "podio/CollectionIDTable.h"
 
 // datamodel specific includes
-#include "datamodel/MCParticle.h"
-#include "datamodel/MCParticleHandle.h"
+#include "MCParticleData.h"
+#include "MCParticle.h"
+#include "MCParticleObj.h"
 
-typedef std::vector<MCParticle> MCParticleVector;
-typedef std::vector<MCParticleHandle> MCParticleHandleContainer;
+namespace fcc {
+typedef std::vector<MCParticleData> MCParticleDataContainer;
+typedef std::deque<MCParticleObj*> MCParticleObjPointerContainer;
 
 class MCParticleCollectionIterator {
 
   public:
-    MCParticleCollectionIterator(int index, const MCParticleCollection* collection) : m_index(index), m_collection(collection) {}
+    MCParticleCollectionIterator(int index, const MCParticleObjPointerContainer* collection) : m_index(index), m_object(nullptr), m_collection(collection) {}
 
     bool operator!=(const MCParticleCollectionIterator& x) const {
       return m_index != x.m_index; //TODO: may not be complete
     }
 
-    const MCParticleHandle operator*() const;
-
-    const MCParticleCollectionIterator& operator++() const {
-      ++m_index;
-      return *this;
-    }
+    const MCParticle operator*() const;
+    const MCParticle* operator->() const;
+    const MCParticleCollectionIterator& operator++() const;
 
   private:
     mutable int m_index;
-    const MCParticleCollection* m_collection;
+    mutable MCParticle m_object;
+    const MCParticleObjPointerContainer* m_collection;
 };
 
 /**
 A Collection is identified by an ID.
 */
 
-class MCParticleCollection : public albers::CollectionBase {
+class MCParticleCollection : public podio::CollectionBase {
 
 public:
   typedef const MCParticleCollectionIterator const_iterator;
 
   MCParticleCollection();
+//  MCParticleCollection(const MCParticleCollection& ) = delete; // deletion doesn't work w/ ROOT IO ! :-(
 //  MCParticleCollection(MCParticleVector* data, int collectionID);
   ~MCParticleCollection(){};
 
   void clear();
+  /// Append a new object to the collection, and return this object.
+  MCParticle create();
 
-  /// Append a new object to the collection, and return a Handle to this object.
-  MCParticleHandle create();
+  /// Append a new object to the collection, and return this object.
+  /// Initialized with the parameters given
+  template<typename... Args>
+  MCParticle create(Args&&... args);
+  int size() const;
 
-  /// Insert an existing handle into the collection. 
-  /// In this operation, the data pointed by the handle is copied.
-  MCParticleHandle insert(const MCParticleHandle& origin);  
-  
-  /// Returns a Handle to the object at position index in the collection
-  const MCParticleHandle& get(int index) const;
+  /// Returns the object of given index
+  const MCParticle operator[](unsigned int index) const;
+  /// Returns the object of given index
+  const MCParticle at(unsigned int index) const;
 
-  /// Currently does nothing
-  void prepareForWrite(const albers::Registry* registry);
-  void prepareAfterRead(albers::Registry* registry);
-  void setPODsAddress(const void* address);
+
+  /// Append object to the collection
+  void push_back(ConstMCParticle object);
+
+  void prepareForWrite();
+  void prepareAfterRead();
+  void setBuffer(void* address);
+  bool setReferences(const podio::ICollectionProvider* collectionProvider);
+
+  podio::CollRefCollection* referenceCollections() { return m_refCollections;};
 
   void setID(unsigned ID){m_collectionID = ID;};
 
   // support for the iterator protocol
   const const_iterator begin() const {
-    return const_iterator(0, this);
+    return const_iterator(0, &m_entries);
   }
   const	const_iterator end() const {
-    return const_iterator(m_handles.size(), this);
+    return const_iterator(m_entries.size(), &m_entries);
   }
 
-//  std::vector<std::pair<std::string,albers::CollectionBase*>>& referenceCollections();
-
   /// returns the address of the pointer to the data buffer
-  void* _getRawBuffer() { return (void*)&m_data;};
+  void* getBufferAddress() { return (void*)&m_data;};
 
   /// returns the pointer to the data buffer
-  std::vector<MCParticle>* _getBuffer() { return m_data;};
+  std::vector<MCParticleData>* _getBuffer() { return m_data;};
 
-  /// returns the collection of Handles
-  const MCParticleHandleContainer& getHandles() { return m_handles; }
-
-  /// print some information
-  void print() const;
+     template<size_t arraysize>  
+  const std::array<fcc::BareParticle,arraysize> Core() const;
 
 
 private:
-  unsigned m_collectionID;
-  MCParticleVector* m_data;
-  MCParticleHandleContainer m_handles;
+  int m_collectionID;
+  MCParticleObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  
+  std::vector<::fcc::ConstGenVertex>* m_rel_StartVertex; //relation buffer for r/w
+  std::vector<::fcc::ConstGenVertex>* m_rel_EndVertex; //relation buffer for r/w
+
+  // members to handle streaming
+  podio::CollRefCollection* m_refCollections;
+  MCParticleDataContainer* m_data;
 };
 
+template<typename... Args>
+MCParticle  MCParticleCollection::create(Args&&... args){
+  int size = m_entries.size();
+  auto obj = new MCParticleObj({size,m_collectionID},{args...});
+  m_entries.push_back(obj);
+  return MCParticle(obj);
+}
+
+template<size_t arraysize>
+const std::array<class fcc::BareParticle,arraysize> MCParticleCollection::Core() const {
+  std::array<class fcc::BareParticle,arraysize> tmp;
+  auto valid_size = std::min(arraysize,m_entries.size());
+  for (unsigned i = 0; i<valid_size; ++i){
+    tmp[i] = m_entries[i]->data.Core;
+ }
+ return tmp;
+}
+
+} // namespace fcc
 #endif

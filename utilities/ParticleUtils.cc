@@ -1,25 +1,43 @@
-#include "utilities/ParticleUtils.h"
-
-#include "datamodel/ParticleHandle.h"
-#include "datamodel/LorentzVector.h"
-
+// local
+#include "ParticleUtils.h"
 #include "VectorUtils.h"
 
+// podio
+#include "podio/ObjectID.h"
+
+// datamodel
+#include "datamodel/Particle.h"
+#include "datamodel/ParticleCollection.h"
+#include "datamodel/LorentzVector.h"
+
+// ROOT
 #include "TLorentzVector.h"
+
+// STL
 #include <set>
+#include <functional>
 #include <iterator>
 #include <iostream>
 
 namespace utils {
 
 
-  std::vector<ParticleHandle> unused(const std::vector<ParticleHandle>& p1s,
-				     const std::vector<ParticleHandle>& p2s) {
-    std::vector<ParticleHandle> results;
-    std::set<ParticleHandle> p2set;
+  bool compareParticles(const fcc::Particle& lhs, const fcc::Particle& rhs) {
+    const podio::ObjectID lhsId = lhs.getObjectID();
+    const podio::ObjectID rhsId = rhs.getObjectID();
+    if (lhsId.collectionID == rhsId.collectionID) {
+      return lhsId.index < rhsId.index;
+    }
+    return lhsId.collectionID < rhsId.collectionID;
+  }
+
+  std::vector<fcc::Particle> unused(const fcc::ParticleCollection& p1s,
+                                    const std::vector<fcc::Particle>& p2s) {
+    std::vector<fcc::Particle> results;
+    std::set<fcc::Particle, std::function<bool(const fcc::Particle&, const fcc::Particle&)>> p2set(compareParticles);
     std::copy( p2s.begin(), p2s.end(),
-	       std::inserter( p2set, p2set.end() ) );
-    //    std::cout<<"set"<<std::endl;
+               std::inserter( p2set, p2set.end() ) );
+    // std::cout<<"set"<<std::endl;
     // for(const auto& particle : p2set) {
     //  std::cout<<particle.containerID()<<" "<<particle.index()<<std::endl;
     // }
@@ -27,61 +45,61 @@ namespace utils {
     for(const auto& particle : p1s) {
       // std::cout<<particle.containerID()<<" "<<particle.index()<<std::endl;
       if( p2set.find(particle) == p2set.end() ) {
-	// std::cout<<"not found"<<std::endl;
-	results.push_back(particle);
+        // std::cout<<"not found"<<std::endl;
+        results.push_back(particle);
       }
     }
     return results;
   }
 
 
-  std::vector<ParticleHandle> inCone(const LorentzVector& lv,
-				     const std::vector<ParticleHandle>& ps,
-				     float deltaRMax,
-				     float exclusion ) {
+  std::vector<fcc::Particle> inCone( const fcc::LorentzVector& lv,
+                                     const fcc::ParticleCollection& ps,
+                                     float deltaRMax,
+                                     float exclusion ) {
     float dR2Max = deltaRMax*deltaRMax;
     float exc2 = exclusion*exclusion;
-    std::vector<ParticleHandle> results;
+    std::vector<fcc::Particle> results;
     for(const auto& particle : ps) {
-      float dR2 = deltaR2(lv, particle.read().Core.P4);
+      float dR2 = deltaR2(lv, particle.Core().P4);
       if( dR2>exc2 && dR2 <= dR2Max ) {
-	results.emplace_back(particle);
+        results.emplace_back(particle);
       }
     }
     return results;
   }
 
 
-  float sumPt(const std::vector<ParticleHandle>& ps) {
+  float sumPt(const std::vector<fcc::Particle>& ps) {
     return sumP4(ps).Vect().Pt();
   }
 
 
-  float sumP(const std::vector<ParticleHandle>& ps) {
+  float sumP(const std::vector<fcc::Particle>& ps) {
     return sumP4(ps).Vect().Mag();
   }
 
 
-  TLorentzVector sumP4(const std::vector<ParticleHandle>& ps) {
-    TLorentzVector sum; 
+  TLorentzVector sumP4(const std::vector<fcc::Particle>& ps) {
+    TLorentzVector sum;
     for(const auto& particle : ps) {
-      TLorentzVector lv = lvFromPOD( particle.read().Core.P4 );
+      TLorentzVector lv = lvFromPOD( particle.Core().P4 );
       sum += lv;
-    }    
+    }
     return sum;
   }
 
 
 } // namespace
 
-std::ostream& operator<<(std::ostream& out, const ParticleHandle& ptc) {
+std::ostream& operator<<(std::ostream& out, const fcc::Particle& ptc) {
   if(not out) return out;
-  const BareParticle& pcore = ptc.read().Core; 
+  const fcc::BareParticle& pcore = ptc.Core();
   TLorentzVector p4 = utils::lvFromPOD(pcore.P4);
-  out<<"particle ID "<<pcore.Type
-     <<" e "<<p4.E()
-     <<" pt "<<p4.Pt()
-     <<" eta "<<p4.Eta()
-     <<" phi "<<p4.Phi();
+  out<< "particle ID " << pcore.Type
+     << " e " << p4.E()
+     << " pt " << p4.Pt()
+     << " eta " << p4.Eta()
+     << " phi " << p4.Phi();
   return out;
 }

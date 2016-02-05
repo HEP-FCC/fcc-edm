@@ -1,68 +1,104 @@
-#include "datamodel/ParticleCollection.h"
+// standard includes
+#include <stdexcept>
 
-ParticleCollection::ParticleCollection() : m_collectionID(0), m_data(new ParticleVector() ){
+
+#include "ParticleCollection.h"
+
+namespace fcc {
+
+ParticleCollection::ParticleCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new ParticleDataContainer() ) {
+  
 }
 
-const ParticleHandle& ParticleCollection::get(int index) const{
-  return m_handles[index];
+const Particle ParticleCollection::operator[](unsigned int index) const {
+  return Particle(m_entries[index]);
 }
 
-ParticleHandle ParticleCollection::create() {
-  m_data->emplace_back(Particle());
-  int index = m_data->size()-1;
-  // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
-  m_handles.emplace_back(ParticleHandle(index,m_collectionID, m_data));
-
-  return m_handles.back();
+const Particle ParticleCollection::at(unsigned int index) const {
+  return Particle(m_entries.at(index));
 }
 
-ParticleHandle ParticleCollection::insert(const ParticleHandle& origin) {
-  m_data->emplace_back(origin.read());
-  int index = m_data->size()-1;
-  m_handles.emplace_back(ParticleHandle(index,m_collectionID, m_data));
+int  ParticleCollection::size() const {
+  return m_entries.size();
+}
 
-  return m_handles.back();
-}  
+Particle ParticleCollection::create(){
+  auto obj = new ParticleObj();
+  m_entries.emplace_back(obj);
+
+  obj->id = {int(m_entries.size()-1),m_collectionID};
+  return Particle(obj);
+}
 
 void ParticleCollection::clear(){
   m_data->clear();
-  m_handles.clear();
 
+  for (auto& obj : m_entries) { delete obj; }
+  m_entries.clear();
 }
 
-void ParticleCollection::prepareForWrite(const albers::Registry* registry){
-
-}
-
-void ParticleCollection::prepareAfterRead(albers::Registry* registry){
-  m_handles.clear();
+void ParticleCollection::prepareForWrite(){
   int index = 0;
-  // fix. otherwise, m_collectionID == 0..
-  m_collectionID = registry->getIDFromPODAddress( _getBuffer() );
+  auto size = m_entries.size();
+  m_data->reserve(size);
+  for (auto& obj : m_entries) {m_data->push_back(obj->data); }
+  if (m_refCollections != nullptr) {
+    for (auto& pointer : (*m_refCollections)) {pointer->clear(); }
+  }
+  
+  for(int i=0, size = m_data->size(); i != size; ++i){
+  
+  }
+  
+}
+
+void ParticleCollection::prepareAfterRead(){
+  int index = 0;
   for (auto& data : *m_data){
+    auto obj = new ParticleObj({index,m_collectionID}, data);
     
-    m_handles.emplace_back(ParticleHandle(index,m_collectionID, m_data));
+    m_entries.emplace_back(obj);
     ++index;
   }
 }
 
+bool ParticleCollection::setReferences(const podio::ICollectionProvider* collectionProvider){
 
-void ParticleCollection::setPODsAddress(const void* address){
-  m_data = (ParticleVector*)address;
+
+  return true; //TODO: check success
+}
+
+void ParticleCollection::push_back(ConstParticle object){
+    int size = m_entries.size();
+    auto obj = object.m_obj;
+    if (obj->id.index == podio::ObjectID::untracked) {
+        obj->id = {size,m_collectionID};
+        m_entries.push_back(obj);
+        
+    } else {
+      throw std::invalid_argument( "Object already in a collection. Cannot add it to a second collection " );
+
+    }
+}
+
+void ParticleCollection::setBuffer(void* address){
+  m_data = static_cast<ParticleDataContainer*>(address);
 }
 
 
-const ParticleHandle ParticleCollectionIterator::operator* () const {
-  return m_collection->get(m_index);
+const Particle ParticleCollectionIterator::operator* () const {
+  m_object.m_obj = (*m_collection)[m_index];
+  return m_object;
 }
 
-//std::vector<std::pair<std::string,albers::CollectionBase*>>& referenceCollections() {
-//}
-
-
-void ParticleCollection::print() const {
-  std::cout<<"collection "<<m_collectionID
-           <<", buf "<<m_data
-           <<", nhandles "<<m_handles.size()<<std::endl;
+const Particle* ParticleCollectionIterator::operator-> () const {
+    m_object.m_obj = (*m_collection)[m_index];
+    return &m_object;
 }
 
+const ParticleCollectionIterator& ParticleCollectionIterator::operator++() const {
+  ++m_index;
+ return *this;
+}
+
+} // namespace fcc
