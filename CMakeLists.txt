@@ -76,6 +76,9 @@ include_directories(
   "${podio_INCLUDE_DIRS}"
   )
 
+# adding testing capabilities
+include(CTest)
+
 # Add sub-directories
 add_subdirectory(datamodel)
 add_subdirectory(utilities)
