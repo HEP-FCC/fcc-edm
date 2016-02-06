@@ -7,16 +7,15 @@ set(FCCEDM_PATCH_VERSION 0)
 set(FCCEDM_VERSION
   ${FCCEDM_MAJOR_VERSION}.${FCCEDM_MINOR_VERSION}.${FCCEDM_PATCH_VERSION})
 
+#--- Declare options -----------------------------------------------------------
+option(fccedm_documentation "Whether or not to create doxygen doc target.")
+
 # Offer the user the choice of overriding the installation directories
 set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for libraries")
 set(INSTALL_BIN_DIR bin CACHE PATH "Installation directory for executables")
 set(INSTALL_INCLUDE_DIR include CACHE PATH
   "Installation directory for header files")
-#if(WIN32 AND NOT CYGWIN)
-#  set(DEF_INSTALL_CMAKE_DIR CMake)
-#else()
-#  set(DEF_INSTALL_CMAKE_DIR lib/CMake/fccedm)
-#endif()
+
 
 if(APPLE)
   set(CMAKE_SHARED_LIBRARY_SUFFIX ".so")
@@ -78,6 +77,11 @@ include_directories(
 
 # adding testing capabilities
 include(CTest)
+
+#--- target for Doxygen documentation ------------------------------------------
+if(fccedm_documentation)
+	include(cmake/fccedmDoxygen.cmake)
+endif()
 
 # Add sub-directories
 add_subdirectory(datamodel)
