@@ -1,34 +1,41 @@
 fcc-edm
 =======
 
-FCC Event Data Model, version 1.
+The FCC Event Data Model.
 
-Prerequisite: before doing anything, compile albers-core and source its init script to set your environment for the use of this package.
+The Data Model uses [PODIO](https://github.com/HEP-FCC/podio). On lxplus the FCC PODIO installation is picked up by the `init.sh` script. If you are unable to use this central installation you'll have to compile, install and setup the environment for PODIO.
 
+Setting up
+--
+### lxplus
 Before compiling or using on lxplus:
 
     source ./init.sh
 
-Before compiling or using on mac os: 
+### MacOs
+Before compiling or using on MacOS make sure PODIO is installed the environment setup, then do:
 
     source ./init_macos.sh
 
-On Linux (tested on Ubuntu), do:
+### Linux
+On Linux (tested on Ubuntu) make sure PODIOis installed the environment setup, then do:
 
-    source ./init_linux.sh 
+    source ./init_linux.sh
 
 
-Compilation:
-
+Compilation
+--
     mkdir build
     cd build
     cmake -DCMAKE_INSTALL_PREFIX=../install ..
     make -j 4 install
     cd ..
 
-Test:
+Test
+--
+Rudimentary tests that do write and read can be run with
 
-    ./install/bin/fccedm-write
-    ./install/bin/fccedm-read
-    
+    make test
+
+
 
