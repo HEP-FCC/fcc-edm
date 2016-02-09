@@ -11,6 +11,7 @@ target_link_libraries(datamodel podio)
 
 REFLEX_GENERATE_DICTIONARY(datamodel ${headers} SELECTION src/selection.xml )
 add_library(datamodelDict SHARED datamodel.cxx)
+add_dependencies(datamodelDict datamodel-dictgen)
 target_link_libraries(datamodelDict datamodel podio ${ROOT_LIBRARIES})
 
 set_target_properties(datamodel PROPERTIES
