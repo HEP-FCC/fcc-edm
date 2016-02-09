@@ -49,18 +49,13 @@ int main(){
   podio::EventStore store;
   podio::ROOTWriter writer("example.root", &store);
 
-  DummyGenerator generator(10, store);
+  DummyGenerator generator(10, store, writer);
   generator.setNPrint(10);
 
   unsigned nevents=10000;
 
   auto& evinfocoll = store.create<fcc::EventInfoCollection>("EventInfo");
   writer.registerForWrite<fcc::EventInfoCollection>("EventInfo");
-
-  // collections from the dummy generator
-  writer.registerForWrite<fcc::ParticleCollection>("GenParticle");
-  writer.registerForWrite<fcc::JetCollection>("GenJet");
-  writer.registerForWrite<fcc::JetParticleAssociationCollection>("GenJetParticle");
 
   for(unsigned i=0; i<nevents; ++i) {
   // fill event information

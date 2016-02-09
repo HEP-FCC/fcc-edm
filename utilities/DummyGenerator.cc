@@ -1,6 +1,7 @@
 #include "utilities/DummyGenerator.h"
 
 #include "podio/EventStore.h"
+#include "podio/ROOTWriter.h"
 
 #include <iostream>
 #include <cmath>
@@ -16,7 +17,8 @@
 #include "VectorUtils.h"
 
 DummyGenerator::DummyGenerator(int npart,
-                               podio::EventStore& store) :
+                               podio::EventStore& store,
+                               podio::ROOTWriter& writer) :
   m_njets(2), // not used
   m_engine(0xdeadbeef),
   m_pstar(0., 0.3),
@@ -25,14 +27,15 @@ DummyGenerator::DummyGenerator(int npart,
   m_npart(npart),
   m_uniform(0.,1.),
   m_ptypeprob{0., 0.65, 0.85, 1.},
-  m_store(store),
   m_nprint(-1),
   m_ievt(0),
-  m_particles(m_store.create<fcc::ParticleCollection>("GenParticle")),
-  m_jets(m_store.create<fcc::JetCollection>("GenJet")),
-  m_jetParticleAssociations(m_store.create<fcc::JetParticleAssociationCollection>("GenJetParticle"))
+  m_particles(store.create<fcc::ParticleCollection>("GenParticle")),
+  m_jets(store.create<fcc::JetCollection>("GenJet")),
+  m_jetParticleAssociations(store.create<fcc::JetParticleAssociationCollection>("GenJetParticle"))
   {
-
+  writer.registerForWrite<fcc::ParticleCollection>("GenParticle");
+  writer.registerForWrite<fcc::JetCollection>("GenJet");
+  writer.registerForWrite<fcc::JetParticleAssociationCollection>("GenJetParticle");
 }
 
 
@@ -109,21 +112,11 @@ void DummyGenerator::generate_jet(float energy, const TVector3& direction) {
   for(fcc::Particle& ptc : particles) {
     TLorentzVector lv = utils::lvFromPOD( ptc.Core().P4 );
     lv.Boost( boost );
-    // BareParticle core = ptc.Core();
     ptc.Core().P4 = utils::lvToPOD(lv);
-    // ptc.setCore(core);
     jetlv += lv;
   }
-  // BareJet core = jet.Core();
   jet.Core().P4 = utils::lvToPOD(jetlv);
-  // std::cout<<"jet "
-  //       <<jet.Core().P4.Eta<<" "
-  //       <<jet.Core().P4.Phi<<" "
-  //       <<jet.Core().P4.Pt<<" "
-  //       <<jet.Core().P4.Mass
-  //       <<std::endl;
 
-  // jet.setCore( core );
   m_jets.push_back(jet);
 }
 
@@ -158,20 +151,8 @@ std::pair<bool, fcc::Particle> DummyGenerator::generate_particle(const TLorentzV
     float sintheta = sin(thetastar);
     float cosphi = cos(phistar);
     float sinphi = sin(phistar);
-    // float etastar = -log ( tan(thetastar/2.) );
-    // if(fabs(etastar)>5.)
-    //  return std::pair<bool, fcc::Particle>(false, fcc::Particle());
-    // float ptstar = -1;
-    // while(ptstar<0.1 || ptstar>1) { // truncated gaussian to avoid numerical issues
-    // ptstar = m_pstar(m_engine);
-    // }
-
     float pstar = m_pstar(m_engine);
 
-    // lvpod.Phi  = phi;
-    // lvpod.Eta  = eta;
-    // lvpod.Mass = mass;
-    // lvpod.Pt   = pt;
     lvpod.Mass = mass;
     lvpod.Px = pstar * sintheta * cosphi;
     lvpod.Py = pstar * sintheta * sinphi;
@@ -185,11 +166,9 @@ std::pair<bool, fcc::Particle> DummyGenerator::generate_particle(const TLorentzV
   }
   int id = itype;
 
-  fcc::Particle ptc = m_particles.create();
-  // BareParticle core = ptc.Core();
+  auto ptc = m_particles.create();
   ptc.Core().Type = id;
   ptc.Core().P4 = lvpod;
-  // ptc.setCore(core);
 
   if(m_ievt<m_nprint) {
     TLorentzVector lv = utils::lvFromPOD(ptc.Core().P4);

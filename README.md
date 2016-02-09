@@ -10,9 +10,9 @@ Prerequisites
 
 If you are on lxplus, all the necessary software is preinstalled.
 
-On Mac OS or Ubuntu, you need to install the following software. 
+On Mac OS or Ubuntu, you need to install the following software.
 
-### podio 
+### podio
 
 https://github.com/HEP-FCC/podio
 
@@ -46,4 +46,6 @@ Rudimentary tests that do write and read can be run with
     make test
 
 
-
+Running
+--
+Make sure that the ROOT dictionaries are in the LD_LIBRARY_PATH. This is automatically done when you install, otherwise you may need to update the path accordingly.
