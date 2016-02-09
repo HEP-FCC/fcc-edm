@@ -112,21 +112,11 @@ void DummyGenerator::generate_jet(float energy, const TVector3& direction) {
   for(fcc::Particle& ptc : particles) {
     TLorentzVector lv = utils::lvFromPOD( ptc.Core().P4 );
     lv.Boost( boost );
-    // BareParticle core = ptc.Core();
     ptc.Core().P4 = utils::lvToPOD(lv);
-    // ptc.setCore(core);
     jetlv += lv;
   }
-  // BareJet core = jet.Core();
   jet.Core().P4 = utils::lvToPOD(jetlv);
-  // std::cout<<"jet "
-  //       <<jet.Core().P4.Eta<<" "
-  //       <<jet.Core().P4.Phi<<" "
-  //       <<jet.Core().P4.Pt<<" "
-  //       <<jet.Core().P4.Mass
-  //       <<std::endl;
 
-  // jet.setCore( core );
   m_jets.push_back(jet);
 }
 
@@ -161,20 +151,8 @@ std::pair<bool, fcc::Particle> DummyGenerator::generate_particle(const TLorentzV
     float sintheta = sin(thetastar);
     float cosphi = cos(phistar);
     float sinphi = sin(phistar);
-    // float etastar = -log ( tan(thetastar/2.) );
-    // if(fabs(etastar)>5.)
-    //  return std::pair<bool, fcc::Particle>(false, fcc::Particle());
-    // float ptstar = -1;
-    // while(ptstar<0.1 || ptstar>1) { // truncated gaussian to avoid numerical issues
-    // ptstar = m_pstar(m_engine);
-    // }
-
     float pstar = m_pstar(m_engine);
 
-    // lvpod.Phi  = phi;
-    // lvpod.Eta  = eta;
-    // lvpod.Mass = mass;
-    // lvpod.Pt   = pt;
     lvpod.Mass = mass;
     lvpod.Px = pstar * sintheta * cosphi;
     lvpod.Py = pstar * sintheta * sinphi;
@@ -189,10 +167,8 @@ std::pair<bool, fcc::Particle> DummyGenerator::generate_particle(const TLorentzV
   int id = itype;
 
   auto ptc = m_particles.create();
-  // BareParticle core = ptc.Core();
   ptc.Core().Type = id;
   ptc.Core().P4 = lvpod;
-  // ptc.setCore(core);
 
   if(m_ievt<m_nprint) {
     TLorentzVector lv = utils::lvFromPOD(ptc.Core().P4);
