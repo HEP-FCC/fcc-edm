@@ -17,7 +17,7 @@ target_link_libraries(datamodelDict datamodel podio ${ROOT_LIBRARIES})
 set_target_properties(datamodel PROPERTIES
   PUBLIC_HEADER "${headers}")
 
-install(TARGETS datamodel
+install(TARGETS datamodel datamodelDict
   # IMPORTANT: Add the datamodel library to the "export-set"
   EXPORT fccedmTargets
   RUNTIME DESTINATION "${INSTALL_BIN_DIR}" COMPONENT bin
