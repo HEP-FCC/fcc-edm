@@ -65,8 +65,11 @@ private:
   unsigned m_nprint;
   unsigned m_ievt;
 
+  /// particle collection filled by the generator
   fcc::ParticleCollection& m_particles;
+  /// jet collection filled by the generator
   fcc::JetCollection& m_jets;
+  /// association collection filled by the generator that connects particles and jets
   fcc::JetParticleAssociationCollection& m_jetParticleAssociations;
 };
 
