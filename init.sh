@@ -19,7 +19,7 @@ if [[ "$unamestr" == 'Linux' ]]; then
     export LD_LIBRARY_PATH=$FCCEDM/lib:$PODIO/lib:$LD_LIBRARY_PATH
 elif [[ "$unamestr" == 'Darwin' ]]; then
     platform='Darwin'
-    export DYLD_LIBRARY_PATH=$FCCEDM/lib:$DYLD_LIBRARY_PATH
+    export DYLD_LIBRARY_PATH=$FCCEDM/lib:$DYLD_LIBRARY_PATH:$PODIO/lib
 fi
 echo platform detected: $platform
 
