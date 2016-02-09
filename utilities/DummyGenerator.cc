@@ -1,6 +1,7 @@
 #include "utilities/DummyGenerator.h"
 
 #include "podio/EventStore.h"
+#include "podio/ROOTWriter.h"
 
 #include <iostream>
 #include <cmath>
@@ -16,7 +17,8 @@
 #include "VectorUtils.h"
 
 DummyGenerator::DummyGenerator(int npart,
-                               podio::EventStore& store) :
+                               podio::EventStore& store,
+                               podio::ROOTWriter& writer) :
   m_njets(2), // not used
   m_engine(0xdeadbeef),
   m_pstar(0., 0.3),
@@ -25,14 +27,15 @@ DummyGenerator::DummyGenerator(int npart,
   m_npart(npart),
   m_uniform(0.,1.),
   m_ptypeprob{0., 0.65, 0.85, 1.},
-  m_store(store),
   m_nprint(-1),
   m_ievt(0),
-  m_particles(m_store.create<fcc::ParticleCollection>("GenParticle")),
-  m_jets(m_store.create<fcc::JetCollection>("GenJet")),
-  m_jetParticleAssociations(m_store.create<fcc::JetParticleAssociationCollection>("GenJetParticle"))
+  m_particles(store.create<fcc::ParticleCollection>("GenParticle")),
+  m_jets(store.create<fcc::JetCollection>("GenJet")),
+  m_jetParticleAssociations(store.create<fcc::JetParticleAssociationCollection>("GenJetParticle"))
   {
-
+  writer.registerForWrite<fcc::ParticleCollection>("GenParticle");
+  writer.registerForWrite<fcc::JetCollection>("GenJet");
+  writer.registerForWrite<fcc::JetParticleAssociationCollection>("GenJetParticle");
 }
 
 
@@ -185,7 +188,7 @@ std::pair<bool, fcc::Particle> DummyGenerator::generate_particle(const TLorentzV
   }
   int id = itype;
 
-  fcc::Particle ptc = m_particles.create();
+  auto ptc = m_particles.create();
   // BareParticle core = ptc.Core();
   ptc.Core().Type = id;
   ptc.Core().P4 = lvpod;

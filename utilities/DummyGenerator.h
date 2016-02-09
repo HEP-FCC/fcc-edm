@@ -4,7 +4,8 @@
 #include <random>
 
 namespace podio {
-  class EventStore;
+class EventStore;
+class ROOTWriter;
 }
 
 namespace fcc {
@@ -21,7 +22,7 @@ class DummyGenerator {
 
 public:
   /// npart : number of particles per jet
-  DummyGenerator(int npart, podio::EventStore& store);
+  DummyGenerator(int npart, podio::EventStore& store, podio::ROOTWriter& writer);
 
   /// generate an event. the products are stored in the event store
   void generate();
@@ -60,8 +61,6 @@ private:
 
   /// sharing between particle types
   std::vector<float> m_ptypeprob;
-
-  podio::EventStore& m_store;
 
   unsigned m_nprint;
   unsigned m_ievt;
