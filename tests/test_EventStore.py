@@ -1,63 +1,61 @@
 import unittest
 from EventStore import EventStore
 import os
+from datetime import datetime
 
 class EventStoreTestCase(unittest.TestCase):
-
+    '''Test the python event store interface.'''
+    
     def setUp(self):
         self.filename = 'example.root'
         self.assertTrue( os.path.isfile(self.filename) )
         self.store = EventStore(self.filename)
         
     def test_eventloop(self):
+        '''Test that 
+        - the store contains events, 
+        - the length of the store is the number of entries, 
+        - one can loop on the events.
+        '''
         self.assertTrue( self.store.getEntries() >= 0 )
         self.assertEqual( self.store.getEntries(), len(self.store) )
         for iev, event in enumerate(self.store):
             self.assertTrue( True )
 
     def test_read_particles(self):
+        '''Test that
+        - the GenParticle objects can be used 
+        - the processing is faster than 100 Hz. 
+        '''
+        start = datetime.now()
         for iev, event in enumerate(self.store):
-            print iev
             genptcs = event.get('GenParticle')
             self.assertTrue(len(genptcs)>0.)
             for ptc in genptcs:
                 self.assertTrue(ptc.Core().P4.Pz!=0.)
-            
+        stop = datetime.now()
+        time_per_event = float( (stop - start).seconds )/ len(self.store) 
+        self.assertLess(time_per_event, 1e-2) # 3e-4 on Colin's mac  
+                
     def test_direct_navigation(self):
+        '''Test that 
+        - one can move to a given event
+        '''
         event0 = self.store[0]
         # event is of the store class
         self.assertEqual( event0.__class__, self.store.__class__)
 
     def test_collections(self):
         '''test that an existing collection can be read, 
-        and that a non existing collection gives None.'''
+        and that a non existing collection gives None.
+        '''
         evinfo = self.store.get("EventInfo")
         self.assertTrue( len(evinfo)>0 )
         particles = self.store.get("CollectionNotThere")
         self.assertFalse(particles is None)
 
-
-    # def test_handles(self):
-    #     assocs = self.store.get("GenJetParticle")
-    #     particles = self.store.get("GenParticle")
-    #     jets = self.store.get("GenJet")
-    #     self.assertTrue( len(assocs)>0 )
-    #     jet = assocs[0].Jet()
-    #     ptc = assocs[0].Particle()
-    #     self.assertIsNotNone( jet )
-    #     self.assertIsNotNone( ptc )
-    #     self.assertTrue( jet in jets )
-    #     self.assertTrue( ptc in particles )
-    #     self.assertFalse( jet in particles )
-    #     self.assertFalse( ptc in jets )
-    #     ptcsInJet0 = []
-    #     for assoc in assocs:
-    #         jet = assoc.Jet()
-    #         if jet == jets[0]:
-    #             ptcsInJet0.append( assoc.Particle() )
-    #     self.assertTrue( len(ptcsInJet0) > 0)
-                
-            
+    # COLIN should add more tests of the event data model,
+    # like associations, etc
 
 if __name__ == "__main__":
     from ROOT import gSystem
