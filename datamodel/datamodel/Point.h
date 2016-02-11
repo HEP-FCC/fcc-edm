@@ -1,8 +1,8 @@
-#ifndef Point_H 
+#ifndef Point_H
 #define Point_H
 
 
-
+namespace fcc {
 class Point {
 public:
   float Y;
@@ -10,5 +10,5 @@ public:
   float Z;
 
 };
-
+} // namespace fcc
 #endif

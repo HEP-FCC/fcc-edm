@@ -1,18 +1,87 @@
-#ifndef CaloHitAssociation_H 
+#ifndef CaloHitAssociation_H
 #define CaloHitAssociation_H
+#include "CaloHitAssociationData.h"
 
-// The simulated hit.
+#include <vector>
+#include "podio/ObjectID.h"
+
+// Association between a CaloHit and the corresponding SimCaloHit
 // author: C. Bernet, B. Hegner
 
-#include "datamodel/CaloHitHandle.h"
-#include "datamodel/SimCaloHitHandle.h"
+//forward declarations
+namespace fcc {
+class CaloHit;
+class ConstCaloHit;
+class SimCaloHit;
+class ConstSimCaloHit;
+}
 
+
+#include "CaloHitAssociationConst.h"
+#include "CaloHitAssociationObj.h"
+
+namespace fcc {
+
+class CaloHitAssociationCollection;
+class CaloHitAssociationCollectionIterator;
+class ConstCaloHitAssociation;
 
 class CaloHitAssociation {
+
+  friend CaloHitAssociationCollection;
+  friend CaloHitAssociationCollectionIterator;
+  friend ConstCaloHitAssociation;
+
 public:
-  CaloHitHandle Rec; //The reconstruted hit. 
-  SimCaloHitHandle Sim; //The simulated hit. 
+
+  /// default constructor
+  CaloHitAssociation();
+  
+  /// constructor from existing CaloHitAssociationObj
+  CaloHitAssociation(CaloHitAssociationObj* obj);
+  /// copy constructor
+  CaloHitAssociation(const CaloHitAssociation& other);
+  /// copy-assignment operator
+  CaloHitAssociation& operator=(const CaloHitAssociation& other);
+  /// support cloning (deep-copy)
+  CaloHitAssociation clone() const;
+  /// destructor
+  ~CaloHitAssociation();
+
+  /// conversion to const object
+  operator ConstCaloHitAssociation () const;
+
+public:
+
+  const fcc::ConstCaloHit Rec() const;
+  const fcc::ConstSimCaloHit Sim() const;
+
+  void Rec(fcc::ConstCaloHit value);
+  void Sim(fcc::ConstSimCaloHit value);
+
+
+  /// check whether the object is actually available
+  bool isAvailable() const;
+  /// disconnect from CaloHitAssociationObj instance
+  void unlink(){m_obj = nullptr;}
+
+  bool operator==(const CaloHitAssociation& other) const {
+       return (m_obj==other.m_obj);
+  }
+
+  bool operator==(const ConstCaloHitAssociation& other) const;
+
+// less comparison operator, so that objects can be e.g. stored in sets.
+//  friend bool operator< (const CaloHitAssociation& p1,
+//       const CaloHitAssociation& p2 );
+
+  const podio::ObjectID getObjectID() const;
+
+private:
+  CaloHitAssociationObj* m_obj;
 
 };
+
+} // namespace fcc
 
 #endif

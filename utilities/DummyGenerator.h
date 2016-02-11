@@ -3,12 +3,17 @@
 
 #include <random>
 
-namespace albers {
-  class EventStore;
-  class Writer;
+namespace podio {
+class EventStore;
+class ROOTWriter;
 }
 
-class ParticleHandle;
+namespace fcc {
+class Particle;
+class ParticleCollection;
+class JetCollection;
+class JetParticleAssociationCollection;
+}
 class TLorentzVector;
 class TVector3;
 
@@ -17,7 +22,7 @@ class DummyGenerator {
 
 public:
   /// npart : number of particles per jet
-  DummyGenerator(int npart, albers::EventStore& store);
+  DummyGenerator(int npart, podio::EventStore& store, podio::ROOTWriter& writer);
 
   /// generate an event. the products are stored in the event store
   void generate();
@@ -31,7 +36,7 @@ private:
   void generate_jet(float energy, const TVector3& direction);
 
   /// generate a particle
-  std::pair<bool, ParticleHandle> generate_particle(const TLorentzVector* lv = nullptr, int type=-1);
+  std::pair<bool, fcc::Particle> generate_particle(const TLorentzVector* lv = nullptr, int type=-1);
 
   /// number of jets
   unsigned m_njets;
@@ -57,10 +62,15 @@ private:
   /// sharing between particle types
   std::vector<float> m_ptypeprob;
 
-  albers::EventStore& m_store;
-
   unsigned m_nprint;
   unsigned m_ievt;
+
+  /// particle collection filled by the generator
+  fcc::ParticleCollection& m_particles;
+  /// jet collection filled by the generator
+  fcc::JetCollection& m_jets;
+  /// association collection filled by the generator that connects particles and jets
+  fcc::JetParticleAssociationCollection& m_jetParticleAssociations;
 };
 
 #endif

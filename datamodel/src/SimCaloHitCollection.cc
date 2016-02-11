@@ -1,68 +1,104 @@
-#include "datamodel/SimCaloHitCollection.h"
+// standard includes
+#include <stdexcept>
 
-SimCaloHitCollection::SimCaloHitCollection() : m_collectionID(0), m_data(new SimCaloHitVector() ){
+
+#include "SimCaloHitCollection.h"
+
+namespace fcc {
+
+SimCaloHitCollection::SimCaloHitCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new SimCaloHitDataContainer() ) {
+  
 }
 
-const SimCaloHitHandle& SimCaloHitCollection::get(int index) const{
-  return m_handles[index];
+const SimCaloHit SimCaloHitCollection::operator[](unsigned int index) const {
+  return SimCaloHit(m_entries[index]);
 }
 
-SimCaloHitHandle SimCaloHitCollection::create() {
-  m_data->emplace_back(SimCaloHit());
-  int index = m_data->size()-1;
-  // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
-  m_handles.emplace_back(SimCaloHitHandle(index,m_collectionID, m_data));
-
-  return m_handles.back();
+const SimCaloHit SimCaloHitCollection::at(unsigned int index) const {
+  return SimCaloHit(m_entries.at(index));
 }
 
-SimCaloHitHandle SimCaloHitCollection::insert(const SimCaloHitHandle& origin) {
-  m_data->emplace_back(origin.read());
-  int index = m_data->size()-1;
-  m_handles.emplace_back(SimCaloHitHandle(index,m_collectionID, m_data));
+int  SimCaloHitCollection::size() const {
+  return m_entries.size();
+}
 
-  return m_handles.back();
-}  
+SimCaloHit SimCaloHitCollection::create(){
+  auto obj = new SimCaloHitObj();
+  m_entries.emplace_back(obj);
+
+  obj->id = {int(m_entries.size()-1),m_collectionID};
+  return SimCaloHit(obj);
+}
 
 void SimCaloHitCollection::clear(){
   m_data->clear();
-  m_handles.clear();
 
+  for (auto& obj : m_entries) { delete obj; }
+  m_entries.clear();
 }
 
-void SimCaloHitCollection::prepareForWrite(const albers::Registry* registry){
-
-}
-
-void SimCaloHitCollection::prepareAfterRead(albers::Registry* registry){
-  m_handles.clear();
+void SimCaloHitCollection::prepareForWrite(){
   int index = 0;
-  // fix. otherwise, m_collectionID == 0..
-  m_collectionID = registry->getIDFromPODAddress( _getBuffer() );
+  auto size = m_entries.size();
+  m_data->reserve(size);
+  for (auto& obj : m_entries) {m_data->push_back(obj->data); }
+  if (m_refCollections != nullptr) {
+    for (auto& pointer : (*m_refCollections)) {pointer->clear(); }
+  }
+  
+  for(int i=0, size = m_data->size(); i != size; ++i){
+  
+  }
+  
+}
+
+void SimCaloHitCollection::prepareAfterRead(){
+  int index = 0;
   for (auto& data : *m_data){
+    auto obj = new SimCaloHitObj({index,m_collectionID}, data);
     
-    m_handles.emplace_back(SimCaloHitHandle(index,m_collectionID, m_data));
+    m_entries.emplace_back(obj);
     ++index;
   }
 }
 
+bool SimCaloHitCollection::setReferences(const podio::ICollectionProvider* collectionProvider){
 
-void SimCaloHitCollection::setPODsAddress(const void* address){
-  m_data = (SimCaloHitVector*)address;
+
+  return true; //TODO: check success
+}
+
+void SimCaloHitCollection::push_back(ConstSimCaloHit object){
+    int size = m_entries.size();
+    auto obj = object.m_obj;
+    if (obj->id.index == podio::ObjectID::untracked) {
+        obj->id = {size,m_collectionID};
+        m_entries.push_back(obj);
+        
+    } else {
+      throw std::invalid_argument( "Object already in a collection. Cannot add it to a second collection " );
+
+    }
+}
+
+void SimCaloHitCollection::setBuffer(void* address){
+  m_data = static_cast<SimCaloHitDataContainer*>(address);
 }
 
 
-const SimCaloHitHandle SimCaloHitCollectionIterator::operator* () const {
-  return m_collection->get(m_index);
+const SimCaloHit SimCaloHitCollectionIterator::operator* () const {
+  m_object.m_obj = (*m_collection)[m_index];
+  return m_object;
 }
 
-//std::vector<std::pair<std::string,albers::CollectionBase*>>& referenceCollections() {
-//}
-
-
-void SimCaloHitCollection::print() const {
-  std::cout<<"collection "<<m_collectionID
-           <<", buf "<<m_data
-           <<", nhandles "<<m_handles.size()<<std::endl;
+const SimCaloHit* SimCaloHitCollectionIterator::operator-> () const {
+    m_object.m_obj = (*m_collection)[m_index];
+    return &m_object;
 }
 
+const SimCaloHitCollectionIterator& SimCaloHitCollectionIterator::operator++() const {
+  ++m_index;
+ return *this;
+}
+
+} // namespace fcc

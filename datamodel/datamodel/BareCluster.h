@@ -1,16 +1,16 @@
-#ifndef BareCluster_H 
+#ifndef BareCluster_H
 #define BareCluster_H
+#include "Point.h"
 
-#include "datamodel/Point.h"
 
-
+namespace fcc {
 class BareCluster {
 public:
-  Point position;
+ ::fcc::Point position;
   float Energy;
   unsigned Bits;
   float Time;
 
 };
-
+} // namespace fcc
 #endif

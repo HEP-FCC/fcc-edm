@@ -1,68 +1,104 @@
-#include "datamodel/JetCollection.h"
+// standard includes
+#include <stdexcept>
 
-JetCollection::JetCollection() : m_collectionID(0), m_data(new JetVector() ){
+
+#include "JetCollection.h"
+
+namespace fcc {
+
+JetCollection::JetCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new JetDataContainer() ) {
+  
 }
 
-const JetHandle& JetCollection::get(int index) const{
-  return m_handles[index];
+const Jet JetCollection::operator[](unsigned int index) const {
+  return Jet(m_entries[index]);
 }
 
-JetHandle JetCollection::create() {
-  m_data->emplace_back(Jet());
-  int index = m_data->size()-1;
-  // std::cout<<"creating handle: "<<index<<"/"<<m_collectionID<<std::endl;
-  m_handles.emplace_back(JetHandle(index,m_collectionID, m_data));
-
-  return m_handles.back();
+const Jet JetCollection::at(unsigned int index) const {
+  return Jet(m_entries.at(index));
 }
 
-JetHandle JetCollection::insert(const JetHandle& origin) {
-  m_data->emplace_back(origin.read());
-  int index = m_data->size()-1;
-  m_handles.emplace_back(JetHandle(index,m_collectionID, m_data));
+int  JetCollection::size() const {
+  return m_entries.size();
+}
 
-  return m_handles.back();
-}  
+Jet JetCollection::create(){
+  auto obj = new JetObj();
+  m_entries.emplace_back(obj);
+
+  obj->id = {int(m_entries.size()-1),m_collectionID};
+  return Jet(obj);
+}
 
 void JetCollection::clear(){
   m_data->clear();
-  m_handles.clear();
 
+  for (auto& obj : m_entries) { delete obj; }
+  m_entries.clear();
 }
 
-void JetCollection::prepareForWrite(const albers::Registry* registry){
-
-}
-
-void JetCollection::prepareAfterRead(albers::Registry* registry){
-  m_handles.clear();
+void JetCollection::prepareForWrite(){
   int index = 0;
-  // fix. otherwise, m_collectionID == 0..
-  m_collectionID = registry->getIDFromPODAddress( _getBuffer() );
+  auto size = m_entries.size();
+  m_data->reserve(size);
+  for (auto& obj : m_entries) {m_data->push_back(obj->data); }
+  if (m_refCollections != nullptr) {
+    for (auto& pointer : (*m_refCollections)) {pointer->clear(); }
+  }
+  
+  for(int i=0, size = m_data->size(); i != size; ++i){
+  
+  }
+  
+}
+
+void JetCollection::prepareAfterRead(){
+  int index = 0;
   for (auto& data : *m_data){
+    auto obj = new JetObj({index,m_collectionID}, data);
     
-    m_handles.emplace_back(JetHandle(index,m_collectionID, m_data));
+    m_entries.emplace_back(obj);
     ++index;
   }
 }
 
+bool JetCollection::setReferences(const podio::ICollectionProvider* collectionProvider){
 
-void JetCollection::setPODsAddress(const void* address){
-  m_data = (JetVector*)address;
+
+  return true; //TODO: check success
+}
+
+void JetCollection::push_back(ConstJet object){
+    int size = m_entries.size();
+    auto obj = object.m_obj;
+    if (obj->id.index == podio::ObjectID::untracked) {
+        obj->id = {size,m_collectionID};
+        m_entries.push_back(obj);
+        
+    } else {
+      throw std::invalid_argument( "Object already in a collection. Cannot add it to a second collection " );
+
+    }
+}
+
+void JetCollection::setBuffer(void* address){
+  m_data = static_cast<JetDataContainer*>(address);
 }
 
 
-const JetHandle JetCollectionIterator::operator* () const {
-  return m_collection->get(m_index);
+const Jet JetCollectionIterator::operator* () const {
+  m_object.m_obj = (*m_collection)[m_index];
+  return m_object;
 }
 
-//std::vector<std::pair<std::string,albers::CollectionBase*>>& referenceCollections() {
-//}
-
-
-void JetCollection::print() const {
-  std::cout<<"collection "<<m_collectionID
-           <<", buf "<<m_data
-           <<", nhandles "<<m_handles.size()<<std::endl;
+const Jet* JetCollectionIterator::operator-> () const {
+    m_object.m_obj = (*m_collection)[m_index];
+    return &m_object;
 }
 
+const JetCollectionIterator& JetCollectionIterator::operator++() const {
+  ++m_index;
+ return *this;
+}
+
+} // namespace fcc

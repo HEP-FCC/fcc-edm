@@ -20,37 +20,25 @@
 #include <iostream>
 #include <vector>
 
-// albers specific includes
-#include "albers/EventStore.h"
-#include "albers/Registry.h"
-#include "albers/Writer.h"
+// podio specific includes
+#include "podio/EventStore.h"
+#include "podio/ROOTWriter.h"
 
 // testing tools
 #include "utilities/DummyGenerator.h"
 
 
-void processEvent(unsigned iEvent, albers::EventStore& store, albers::Writer& writer, DummyGenerator& generator) {
+void processEvent(unsigned iEvent, podio::EventStore& store, podio::ROOTWriter& writer, DummyGenerator& generator) {
   if(iEvent % 1000 == 0)
     std::cout<<"processing event "<<iEvent<<std::endl;
 
   generator.generate();
 
-  // fill event information
-  EventInfoCollection* evinfocoll = nullptr;
-  store.get("EventInfo", evinfocoll);
-  if(evinfocoll==nullptr) {
-    std::cerr<<"collection EventInfo does not exist!"<<std::endl;
-    return;
-  }
-  EventInfoHandle evinfo = evinfocoll->create();
-  evinfo.mod().Number = iEvent;
-
   // and now for the writing
   // TODO: do that at a different time w/o coll pointer
   // COLIN: calling writeEvent should not be left up to the user.
   writer.writeEvent();
-  store.next();
-
+  store.clearCollections();
   return;
 }
 
@@ -58,25 +46,22 @@ void processEvent(unsigned iEvent, albers::EventStore& store, albers::Writer& wr
 int main(){
   std::cout<<"start processing"<<std::endl;
 
-  albers::Registry   registry;
-  albers::EventStore store(&registry);
-  albers::Writer     writer("example.root", &registry);
+  podio::EventStore store;
+  podio::ROOTWriter writer("example.root", &store);
 
-  DummyGenerator generator(10, store);
+  DummyGenerator generator(10, store, writer);
   generator.setNPrint(10);
 
   unsigned nevents=10000;
 
-  EventInfoCollection& evinfocoll = store.create<EventInfoCollection>("EventInfo");
-
-  writer.registerForWrite<EventInfoCollection>("EventInfo");
-
-  // collections from the dummy generator
-  writer.registerForWrite<ParticleCollection>("GenParticle");
-  writer.registerForWrite<JetCollection>("GenJet");
-  writer.registerForWrite<JetParticleAssociationCollection>("GenJetParticle");
+  auto& evinfocoll = store.create<fcc::EventInfoCollection>("EventInfo");
+  writer.registerForWrite<fcc::EventInfoCollection>("EventInfo");
 
   for(unsigned i=0; i<nevents; ++i) {
+  // fill event information
+    auto evinfo = fcc::EventInfo();
+    evinfo.Number(i);
+    evinfocoll.push_back(evinfo);
     processEvent(i, store, writer, generator);
   }
 

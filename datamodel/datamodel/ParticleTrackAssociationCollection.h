@@ -6,100 +6,119 @@
 #include <string>
 #include <vector>
 #include <deque>
+#include <array>
 
-// albers specific includes
-#include "albers/Registry.h"
-#include "albers/CollectionBase.h"
+// podio specific includes
+#include "podio/ICollectionProvider.h"
+#include "podio/CollectionBase.h"
+#include "podio/CollectionIDTable.h"
 
 // datamodel specific includes
-#include "datamodel/ParticleTrackAssociation.h"
-#include "datamodel/ParticleTrackAssociationHandle.h"
+#include "ParticleTrackAssociationData.h"
+#include "ParticleTrackAssociation.h"
+#include "ParticleTrackAssociationObj.h"
 
-typedef std::vector<ParticleTrackAssociation> ParticleTrackAssociationVector;
-typedef std::vector<ParticleTrackAssociationHandle> ParticleTrackAssociationHandleContainer;
+namespace fcc {
+typedef std::vector<ParticleTrackAssociationData> ParticleTrackAssociationDataContainer;
+typedef std::deque<ParticleTrackAssociationObj*> ParticleTrackAssociationObjPointerContainer;
 
 class ParticleTrackAssociationCollectionIterator {
 
   public:
-    ParticleTrackAssociationCollectionIterator(int index, const ParticleTrackAssociationCollection* collection) : m_index(index), m_collection(collection) {}
+    ParticleTrackAssociationCollectionIterator(int index, const ParticleTrackAssociationObjPointerContainer* collection) : m_index(index), m_object(nullptr), m_collection(collection) {}
 
     bool operator!=(const ParticleTrackAssociationCollectionIterator& x) const {
       return m_index != x.m_index; //TODO: may not be complete
     }
 
-    const ParticleTrackAssociationHandle operator*() const;
-
-    const ParticleTrackAssociationCollectionIterator& operator++() const {
-      ++m_index;
-      return *this;
-    }
+    const ParticleTrackAssociation operator*() const;
+    const ParticleTrackAssociation* operator->() const;
+    const ParticleTrackAssociationCollectionIterator& operator++() const;
 
   private:
     mutable int m_index;
-    const ParticleTrackAssociationCollection* m_collection;
+    mutable ParticleTrackAssociation m_object;
+    const ParticleTrackAssociationObjPointerContainer* m_collection;
 };
 
 /**
 A Collection is identified by an ID.
 */
 
-class ParticleTrackAssociationCollection : public albers::CollectionBase {
+class ParticleTrackAssociationCollection : public podio::CollectionBase {
 
 public:
   typedef const ParticleTrackAssociationCollectionIterator const_iterator;
 
   ParticleTrackAssociationCollection();
+//  ParticleTrackAssociationCollection(const ParticleTrackAssociationCollection& ) = delete; // deletion doesn't work w/ ROOT IO ! :-(
 //  ParticleTrackAssociationCollection(ParticleTrackAssociationVector* data, int collectionID);
   ~ParticleTrackAssociationCollection(){};
 
   void clear();
+  /// Append a new object to the collection, and return this object.
+  ParticleTrackAssociation create();
 
-  /// Append a new object to the collection, and return a Handle to this object.
-  ParticleTrackAssociationHandle create();
+  /// Append a new object to the collection, and return this object.
+  /// Initialized with the parameters given
+  template<typename... Args>
+  ParticleTrackAssociation create(Args&&... args);
+  int size() const;
 
-  /// Insert an existing handle into the collection. 
-  /// In this operation, the data pointed by the handle is copied.
-  ParticleTrackAssociationHandle insert(const ParticleTrackAssociationHandle& origin);  
-  
-  /// Returns a Handle to the object at position index in the collection
-  const ParticleTrackAssociationHandle& get(int index) const;
+  /// Returns the object of given index
+  const ParticleTrackAssociation operator[](unsigned int index) const;
+  /// Returns the object of given index
+  const ParticleTrackAssociation at(unsigned int index) const;
 
-  /// Currently does nothing
-  void prepareForWrite(const albers::Registry* registry);
-  void prepareAfterRead(albers::Registry* registry);
-  void setPODsAddress(const void* address);
+
+  /// Append object to the collection
+  void push_back(ConstParticleTrackAssociation object);
+
+  void prepareForWrite();
+  void prepareAfterRead();
+  void setBuffer(void* address);
+  bool setReferences(const podio::ICollectionProvider* collectionProvider);
+
+  podio::CollRefCollection* referenceCollections() { return m_refCollections;};
 
   void setID(unsigned ID){m_collectionID = ID;};
 
   // support for the iterator protocol
   const const_iterator begin() const {
-    return const_iterator(0, this);
+    return const_iterator(0, &m_entries);
   }
   const	const_iterator end() const {
-    return const_iterator(m_handles.size(), this);
+    return const_iterator(m_entries.size(), &m_entries);
   }
 
-//  std::vector<std::pair<std::string,albers::CollectionBase*>>& referenceCollections();
-
   /// returns the address of the pointer to the data buffer
-  void* _getRawBuffer() { return (void*)&m_data;};
+  void* getBufferAddress() { return (void*)&m_data;};
 
   /// returns the pointer to the data buffer
-  std::vector<ParticleTrackAssociation>* _getBuffer() { return m_data;};
+  std::vector<ParticleTrackAssociationData>* _getBuffer() { return m_data;};
 
-  /// returns the collection of Handles
-  const ParticleTrackAssociationHandleContainer& getHandles() { return m_handles; }
-
-  /// print some information
-  void print() const;
-
+   
 
 private:
-  unsigned m_collectionID;
-  ParticleTrackAssociationVector* m_data;
-  ParticleTrackAssociationHandleContainer m_handles;
+  int m_collectionID;
+  ParticleTrackAssociationObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  
+  std::vector<::fcc::ConstParticle>* m_rel_Particle; //relation buffer for r/w
+  std::vector<::fcc::ConstTrack>* m_rel_Track; //relation buffer for r/w
+
+  // members to handle streaming
+  podio::CollRefCollection* m_refCollections;
+  ParticleTrackAssociationDataContainer* m_data;
 };
 
+template<typename... Args>
+ParticleTrackAssociation  ParticleTrackAssociationCollection::create(Args&&... args){
+  int size = m_entries.size();
+  auto obj = new ParticleTrackAssociationObj({size,m_collectionID},{args...});
+  m_entries.push_back(obj);
+  return ParticleTrackAssociation(obj);
+}
+
+
+} // namespace fcc
 #endif
