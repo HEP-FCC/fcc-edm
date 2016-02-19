@@ -13,7 +13,7 @@ if [[ "$unamestr" == 'Linux' ]]; then
 	export PATH=/afs/cern.ch/sw/lcg/contrib/CMake/2.8.9/Linux-i386/bin:${PATH}
 	source /afs/cern.ch/sw/lcg/contrib/gcc/4.9.3/x86_64-slc6/setup.sh
 	source /afs/cern.ch/exp/fcc/sw/0.6/LCG_80/ROOT/6.04.06/x86_64-slc6-gcc49-opt/bin/thisroot.sh
-	export PODIO=/afs/cern.ch/exp/fcc/sw/0.6/podio/0.1/x86_64-slc6-gcc49-opt/
+	export PODIO=/afs/cern.ch/exp/fcc/sw/0.6/podio/0.2/x86_64-slc6-gcc49-opt/
 	echo software taken from /afs/cern.ch/sw/lcg
     fi
     export LD_LIBRARY_PATH=$FCCEDM/lib:$PODIO/lib:$LD_LIBRARY_PATH
