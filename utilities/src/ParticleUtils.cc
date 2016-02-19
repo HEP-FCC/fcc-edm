@@ -1,6 +1,6 @@
 // local
-#include "ParticleUtils.h"
-#include "VectorUtils.h"
+#include "utilities/ParticleUtils.h"
+#include "utilities/VectorUtils.h"
 
 // podio
 #include "podio/ObjectID.h"

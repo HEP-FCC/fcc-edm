@@ -1,9 +1,10 @@
 include_directories(
         ${CMAKE_SOURCE_DIR}/datamodel
+        ${CMAKE_SOURCE_DIR}/utilities
 )
 
-file(GLOB sources *.cc)
-file(GLOB headers *.h)
+file(GLOB sources src/*.cc)
+file(GLOB headers utilities/*.h)
 
 add_library(utilities SHARED ${sources} ${headers} )
 target_link_libraries(utilities datamodel podio ${ROOT_LIBRARIES} ${ROOT_COMPONENT_LIBRARIES})

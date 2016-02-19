@@ -14,7 +14,7 @@
 #include "datamodel/JetCollection.h"
 #include "datamodel/JetParticleAssociationCollection.h"
 
-#include "VectorUtils.h"
+#include "utilities/VectorUtils.h"
 
 DummyGenerator::DummyGenerator(int npart,
                                podio::EventStore& store,
