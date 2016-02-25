@@ -69,6 +69,13 @@ datatypes :
      - fcc::Particle Particle // The particle
      - fcc::CaloCluster Cluster // The cluster
 
+  fcc::ParticleTagAssociation :
+    Description : "Association between a Particle and Tag information using a preferred algorithm"
+    Author : "C. Helsens"
+    OneToOneRelations :
+     - fcc::Particle Particle // Reference to the Particle
+     - fcc::Tag Tag // Reference to the tag info
+
   fcc::MCParticle:
     Description: "Monte-Carlo Particle, either generated or simulated."
     Author : "C. Bernet, B. Hegner"
