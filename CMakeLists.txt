@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(fccedm CXX)
+project(fccedm)
 set(fccedm_MAJOR_VERSION 1)
 set(fccedm_MINOR_VERSION 0)
 set(fccedm_PATCH_VERSION 0)
@@ -49,9 +49,6 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fccedmVersion.h
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/fccedmVersion.h
         DESTINATION ${CMAKE_INSTALL_PREFIX}/include/fccedm )
 
-#--- add cmake infrastructure --------------------------------------------------
-include(cmake/fccedmCreateConfig.cmake)
-
 #--- Declare PODIO dependency --------------------------------------------------
 find_package(podio REQUIRED HINTS $ENV{PODIO})
 message(STATUS "Found podio: ${podio_DIR}")
@@ -69,4 +66,5 @@ add_subdirectory(datamodel)
 add_subdirectory(utilities)
 add_subdirectory(examples)
 
-
+#--- add cmake infrastructure for finding this package -------------------------
+include(cmake/fccedmCreateConfig.cmake)

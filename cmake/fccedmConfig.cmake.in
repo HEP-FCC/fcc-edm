@@ -6,11 +6,9 @@
 
 # Compute paths
 get_filename_component(FCCEDM_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
-set(FCCEDM_INCLUDE_DIRS "@CONF_INCLUDE_DIRS@")
 
-# Our library dependencies (contains definitions for IMPORTED targets)
-include("${FCCEDM_CMAKE_DIR}/fccedmTargets.cmake")
+get_filename_component(FCCEDM_INCLUDE_DIRS "${FCCEDM_CMAKE_DIR}/../@INSTALL_INCLUDE_DIR@" ABSOLUTE)
+get_filename_component(FCCEDM_BINARY_DIR "${FCCEDM_CMAKE_DIR}/../@INSTALL_BIN_DIR@" ABSOLUTE)
+get_filename_component(FCCEDM_LIBRARY_DIR "${FCCEDM_CMAKE_DIR}/../@INSTALL_LIB_DIR@" ABSOLUTE)
 
-# These are IMPORTED targets created by fccedmTargets.cmake
-set(FCCEDM_LIBRARIES foo)
-set(FCCEDM_EXECUTABLE bar)
+include(${FCCEDM_CMAKE_DIR}/../lib/cmake/fccedmTargets.cmake)
