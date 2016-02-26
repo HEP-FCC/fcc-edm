@@ -427,6 +427,36 @@
             <field name="m_registry" transient="true"/>
             <field name="m_container" transient="true"/>
           </class>
+          <class name="std::vector<fcc::TrackClusterData>" />
+
+          <class name="fcc::TrackClusterData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<fcc::TrackCluster>" />
+
+          <class name="fcc::TrackCluster">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<fcc::ConstTrackCluster>" />
+
+          <class name="fcc::ConstTrackCluster">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<fcc::TrackClusterCollection>" />
+
+          <class name="fcc::TrackClusterCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<fcc::TrackClusterObj>" />
+
+          <class name="fcc::TrackClusterObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
           <class name="std::vector<fcc::ParticleClusterAssociationData>" />
 
           <class name="fcc::ParticleClusterAssociationData">
@@ -667,33 +697,33 @@
             <field name="m_registry" transient="true"/>
             <field name="m_container" transient="true"/>
           </class>
-          <class name="std::vector<fcc::TrackClusterData>" />
+          <class name="std::vector<fcc::ParticleTagAssociationData>" />
 
-          <class name="fcc::TrackClusterData">
+          <class name="fcc::ParticleTagAssociationData">
             <field name="m_registry" transient="true"/>
             <field name="m_container" transient="true"/>
           </class>
-          <class name="std::vector<fcc::TrackCluster>" />
+          <class name="std::vector<fcc::ParticleTagAssociation>" />
 
-          <class name="fcc::TrackCluster">
+          <class name="fcc::ParticleTagAssociation">
             <field name="m_registry" transient="true"/>
             <field name="m_container" transient="true"/>
           </class>
-          <class name="std::vector<fcc::ConstTrackCluster>" />
+          <class name="std::vector<fcc::ConstParticleTagAssociation>" />
 
-          <class name="fcc::ConstTrackCluster">
+          <class name="fcc::ConstParticleTagAssociation">
             <field name="m_registry" transient="true"/>
             <field name="m_container" transient="true"/>
           </class>
-          <class name="std::vector<fcc::TrackClusterCollection>" />
+          <class name="std::vector<fcc::ParticleTagAssociationCollection>" />
 
-          <class name="fcc::TrackClusterCollection">
+          <class name="fcc::ParticleTagAssociationCollection">
             <field name="m_registry" transient="true"/>
             <field name="m_container" transient="true"/>
           </class>
-          <class name="std::vector<fcc::TrackClusterObj>" />
+          <class name="std::vector<fcc::ParticleTagAssociationObj>" />
 
-          <class name="fcc::TrackClusterObj">
+          <class name="fcc::ParticleTagAssociationObj">
             <field name="m_registry" transient="true"/>
             <field name="m_container" transient="true"/>
           </class>
