@@ -427,6 +427,36 @@
             <field name="m_registry" transient="true"/>
             <field name="m_container" transient="true"/>
           </class>
+          <class name="std::vector<fcc::JetIntTagAssociationData>" />
+
+          <class name="fcc::JetIntTagAssociationData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<fcc::JetIntTagAssociation>" />
+
+          <class name="fcc::JetIntTagAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<fcc::ConstJetIntTagAssociation>" />
+
+          <class name="fcc::ConstJetIntTagAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<fcc::JetIntTagAssociationCollection>" />
+
+          <class name="fcc::JetIntTagAssociationCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<fcc::JetIntTagAssociationObj>" />
+
+          <class name="fcc::JetIntTagAssociationObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
           <class name="std::vector<fcc::TrackClusterData>" />
 
           <class name="fcc::TrackClusterData">
@@ -994,6 +1024,36 @@
           <class name="std::vector<fcc::VertexObj>" />
 
           <class name="fcc::VertexObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<fcc::IntTagData>" />
+
+          <class name="fcc::IntTagData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<fcc::IntTag>" />
+
+          <class name="fcc::IntTag">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<fcc::ConstIntTag>" />
+
+          <class name="fcc::ConstIntTag">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<fcc::IntTagCollection>" />
+
+          <class name="fcc::IntTagCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<fcc::IntTagObj>" />
+
+          <class name="fcc::IntTagObj">
             <field name="m_registry" transient="true"/>
             <field name="m_container" transient="true"/>
           </class>

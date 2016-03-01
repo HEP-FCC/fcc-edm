@@ -105,6 +105,12 @@ datatypes :
     Members :
       - float Value // Tag info
 
+  fcc::IntTag :
+    Description : "Tag information - <-1;1> for studied type"
+    Author : "C. Bernet, Z. Drasal, C. Helsens"
+    Members :
+      - int Value // Tag info
+
   fcc::Jet :
     Description : "Reconstructed jet."
     Author : "C. Bernet, B. Hegner"
@@ -124,6 +130,13 @@ datatypes :
     OneToOneRelations :
      - fcc::Jet Jet // Reference to the jet
      - fcc::Tag Tag // Reference to the tag info
+
+  fcc::JetIntTagAssociation :
+    Description : "Association between a Jet and Tag information using a preferred algorithm"
+    Author : "C. Bernet, Z. Drasal"
+    OneToOneRelations :
+     - fcc::Jet Jet // Reference to the jet
+     - fcc::IntTag Tag // Reference to the integer tag info
 
   fcc::GenJet :
     Description : "Generated jet."
