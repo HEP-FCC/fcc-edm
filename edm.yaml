@@ -100,13 +100,13 @@ datatypes :
       - fcc::MCParticle Sim // Reference to the Monte-Carlo particle
 
   fcc::Tag :
-    Description : "Tag information - <-1;1> for studied type"
+    Description : "Float tag information for studied type"
     Author : "C. Bernet, Z. Drasal"
     Members :
       - float Value // Tag info
 
   fcc::IntTag :
-    Description : "Tag information - <-1;1> for studied type"
+    Description : "Integer tag information for studied type"
     Author : "C. Bernet, Z. Drasal, C. Helsens"
     Members :
       - int Value // Tag info
@@ -132,7 +132,7 @@ datatypes :
      - fcc::Tag Tag // Reference to the tag info
 
   fcc::JetIntTagAssociation :
-    Description : "Association between a Jet and Tag information using a preferred algorithm"
+    Description : "Association between a Jet and IntTag information using a preferred algorithm"
     Author : "C. Bernet, Z. Drasal"
     OneToOneRelations :
      - fcc::Jet Jet // Reference to the jet
@@ -157,6 +157,13 @@ datatypes :
     OneToOneRelations :
      - fcc::GenJet Jet // Reference to the gen jet
      - fcc::Tag Tag // Reference to the tag info
+
+  fcc::GenJetIntTagAssociation :
+    Description : "Association between a GenJet and IntTag information using a preferred algorithm"
+    Author : "C. Bernet, Z. Drasal"
+    OneToOneRelations :
+     - fcc::GenJet Jet // Reference to the gen jet
+     - fcc::IntTag Tag // Reference to the integer tag info
 
   fcc::MET:
     Description : "Naive MET type"

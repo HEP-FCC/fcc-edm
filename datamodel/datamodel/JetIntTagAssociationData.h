@@ -1,7 +1,7 @@
 #ifndef JetIntTagAssociationDATA_H
 #define JetIntTagAssociationDATA_H
 
-// Association between a Jet and Tag information using a preferred algorithm
+// Association between a Jet and IntTag information using a preferred algorithm
 // author: C. Bernet, Z. Drasal
 
 
