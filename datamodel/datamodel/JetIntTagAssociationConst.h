@@ -5,7 +5,7 @@
 #include <vector>
 #include "podio/ObjectID.h"
 
-// Association between a Jet and Tag information using a preferred algorithm
+// Association between a Jet and IntTag information using a preferred algorithm
 // author: C. Bernet, Z. Drasal
 
 //forward declarations

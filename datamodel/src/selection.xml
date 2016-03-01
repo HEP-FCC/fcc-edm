@@ -307,6 +307,36 @@
             <field name="m_registry" transient="true"/>
             <field name="m_container" transient="true"/>
           </class>
+          <class name="std::vector<fcc::GenJetIntTagAssociationData>" />
+
+          <class name="fcc::GenJetIntTagAssociationData">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<fcc::GenJetIntTagAssociation>" />
+
+          <class name="fcc::GenJetIntTagAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<fcc::ConstGenJetIntTagAssociation>" />
+
+          <class name="fcc::ConstGenJetIntTagAssociation">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<fcc::GenJetIntTagAssociationCollection>" />
+
+          <class name="fcc::GenJetIntTagAssociationCollection">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<fcc::GenJetIntTagAssociationObj>" />
+
+          <class name="fcc::GenJetIntTagAssociationObj">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
           <class name="std::vector<fcc::MCParticleData>" />
 
           <class name="fcc::MCParticleData">
