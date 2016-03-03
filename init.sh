@@ -12,7 +12,7 @@ if [[ "$unamestr" == 'Linux' ]]; then
 	sw_afs=1
         source /afs/cern.ch/sw/lcg/views/LCG_83/x86_64-slc6-gcc49-opt/setup.sh
         if [ -z "$PODIO" ]; then
-            export PODIO=/afs/cern.ch/exp/fcc/sw/0.7/podio/snapshot/x86_64-slc6-gcc49-opt/
+            export PODIO=/afs/cern.ch/exp/fcc/sw/0.7/podio/0.3/x86_64-slc6-gcc49-opt/
         fi
         echo software taken from /afs/cern.ch/sw/lcg
     fi
