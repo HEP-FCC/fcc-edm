@@ -1,11 +1,10 @@
 #ifndef SimCaloHitMCParticleAssociation_H
 #define SimCaloHitMCParticleAssociation_H
 #include "SimCaloHitMCParticleAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Fraction of the particle energy used in the hit.
+// Association between a SimCaloHit and a particle that contributed to the hit.
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -36,7 +35,7 @@ public:
 
   /// default constructor
   SimCaloHitMCParticleAssociation();
-    SimCaloHitMCParticleAssociation(float Fraction);
+  SimCaloHitMCParticleAssociation(float Fraction);
 
   /// constructor from existing SimCaloHitMCParticleAssociationObj
   SimCaloHitMCParticleAssociation(SimCaloHitMCParticleAssociationObj* obj);
@@ -59,8 +58,10 @@ public:
   const fcc::ConstMCParticle Particle() const;
 
   void Fraction(float value);
+
   void Hit(fcc::ConstSimCaloHit value);
   void Particle(fcc::ConstMCParticle value);
+
 
 
   /// check whether the object is actually available
@@ -69,7 +70,7 @@ public:
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const SimCaloHitMCParticleAssociation& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstSimCaloHitMCParticleAssociation& other) const;

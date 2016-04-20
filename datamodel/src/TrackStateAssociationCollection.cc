@@ -1,19 +1,27 @@
 // standard includes
 #include <stdexcept>
-#include "TrackCollection.h" 
-#include "TrackStateCollection.h" 
+#include "TrackCollection.h"
+#include "TrackStateCollection.h"
 
 
 #include "TrackStateAssociationCollection.h"
 
 namespace fcc {
 
-TrackStateAssociationCollection::TrackStateAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Track(new std::vector<::fcc::ConstTrack>()),m_rel_State(new std::vector<::fcc::ConstTrackState>()),m_refCollections(nullptr), m_data(new TrackStateAssociationDataContainer() ) {
-    m_refCollections = new podio::CollRefCollection();
-  m_refCollections->push_back(new std::vector<podio::ObjectID>());
-  m_refCollections->push_back(new std::vector<podio::ObjectID>());
+TrackStateAssociationCollection::TrackStateAssociationCollection() : m_isValid(false), m_collectionID(0), m_entries() , m_rel_Track(new std::vector<fcc::ConstTrack>()), m_rel_State(new std::vector<fcc::ConstTrackState>()),m_data(new TrackStateAssociationDataContainer() ) {
+    m_refCollections.push_back(new std::vector<podio::ObjectID>());
+  m_refCollections.push_back(new std::vector<podio::ObjectID>());
 
 }
+
+TrackStateAssociationCollection::~TrackStateAssociationCollection() {
+  clear();
+  if (m_data != nullptr) delete m_data;
+    for (auto& pointer : m_refCollections) { if (pointer != nullptr) delete pointer; }
+  if (m_rel_Track != nullptr) { delete m_rel_Track; }
+  if (m_rel_State != nullptr) { delete m_rel_State; }
+
+};
 
 const TrackStateAssociation TrackStateAssociationCollection::operator[](unsigned int index) const {
   return TrackStateAssociation(m_entries[index]);
@@ -37,10 +45,10 @@ TrackStateAssociation TrackStateAssociationCollection::create(){
 
 void TrackStateAssociationCollection::clear(){
   m_data->clear();
-  for (auto& pointer : (*m_refCollections)) {pointer->clear(); }
-  for (auto& item : (*m_rel_Track)) {item.unlink(); }
+  for (auto& pointer : m_refCollections) { pointer->clear(); }
+  for (auto& item : (*m_rel_Track)) { item.unlink(); }
   m_rel_Track->clear();
-  for (auto& item : (*m_rel_State)) {item.unlink(); }
+  for (auto& item : (*m_rel_State)) { item.unlink(); }
   m_rel_State->clear();
 
   for (auto& obj : m_entries) { delete obj; }
@@ -48,23 +56,28 @@ void TrackStateAssociationCollection::clear(){
 }
 
 void TrackStateAssociationCollection::prepareForWrite(){
-  int index = 0;
   auto size = m_entries.size();
   m_data->reserve(size);
   for (auto& obj : m_entries) {m_data->push_back(obj->data); }
-  if (m_refCollections != nullptr) {
-    for (auto& pointer : (*m_refCollections)) {pointer->clear(); }
-  }
-  
+  for (auto& pointer : m_refCollections) {pointer->clear(); } 
+
   for(int i=0, size = m_data->size(); i != size; ++i){
-  
+
   }
-    for (auto& obj : m_entries) {
-if (obj->m_Track != nullptr){
-(*m_refCollections)[0]->emplace_back(obj->m_Track->getObjectID());} else {(*m_refCollections)[0]->push_back({-2,-2}); } }
   for (auto& obj : m_entries) {
-if (obj->m_State != nullptr){
-(*m_refCollections)[1]->emplace_back(obj->m_State->getObjectID());} else {(*m_refCollections)[1]->push_back({-2,-2}); } }
+    if (obj->m_Track != nullptr) {
+      m_refCollections[0]->emplace_back(obj->m_Track->getObjectID());
+    } else {
+      m_refCollections[0]->push_back({-2,-2});
+    }
+  }
+  for (auto& obj : m_entries) {
+    if (obj->m_State != nullptr) {
+      m_refCollections[1]->emplace_back(obj->m_State->getObjectID());
+    } else {
+      m_refCollections[1]->push_back({-2,-2});
+    }
+  }
 
 }
 
@@ -76,12 +89,13 @@ void TrackStateAssociationCollection::prepareAfterRead(){
     m_entries.emplace_back(obj);
     ++index;
   }
+  m_isValid = true;  
 }
 
 bool TrackStateAssociationCollection::setReferences(const podio::ICollectionProvider* collectionProvider){
 
-  for(unsigned int i=0, size=m_entries.size();i!=size;++i ) {
-    auto id = (*(*m_refCollections)[0])[i];
+  for(unsigned int i = 0, size = m_entries.size(); i != size; ++i) {
+    auto id = (*m_refCollections[0])[i];
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
@@ -91,8 +105,8 @@ bool TrackStateAssociationCollection::setReferences(const podio::ICollectionProv
       m_entries[i]->m_Track = nullptr;
     }
   }
-  for(unsigned int i=0, size=m_entries.size();i!=size;++i ) {
-    auto id = (*(*m_refCollections)[1])[i];
+  for(unsigned int i = 0, size = m_entries.size(); i != size; ++i) {
+    auto id = (*m_refCollections[1])[i];
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
@@ -107,19 +121,19 @@ bool TrackStateAssociationCollection::setReferences(const podio::ICollectionProv
 }
 
 void TrackStateAssociationCollection::push_back(ConstTrackStateAssociation object){
-    int size = m_entries.size();
-    auto obj = object.m_obj;
-    if (obj->id.index == podio::ObjectID::untracked) {
-        obj->id = {size,m_collectionID};
-        m_entries.push_back(obj);
-        
-    } else {
-      throw std::invalid_argument( "Object already in a collection. Cannot add it to a second collection " );
-
-    }
+  int size = m_entries.size();
+  auto obj = object.m_obj;
+  if (obj->id.index == podio::ObjectID::untracked) {
+      obj->id = {size,m_collectionID};
+      m_entries.push_back(obj);
+      
+  } else {
+    throw std::invalid_argument( "Object already in a collection. Cannot add it to a second collection " );
+  }
 }
 
 void TrackStateAssociationCollection::setBuffer(void* address){
+  if (m_data != nullptr) delete m_data;
   m_data = static_cast<TrackStateAssociationDataContainer*>(address);
 }
 
@@ -130,13 +144,13 @@ const TrackStateAssociation TrackStateAssociationCollectionIterator::operator* (
 }
 
 const TrackStateAssociation* TrackStateAssociationCollectionIterator::operator-> () const {
-    m_object.m_obj = (*m_collection)[m_index];
-    return &m_object;
+  m_object.m_obj = (*m_collection)[m_index];
+  return &m_object;
 }
 
 const TrackStateAssociationCollectionIterator& TrackStateAssociationCollectionIterator::operator++() const {
   ++m_index;
- return *this;
+  return *this;
 }
 
 } // namespace fcc

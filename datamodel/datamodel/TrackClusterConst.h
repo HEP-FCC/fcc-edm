@@ -1,12 +1,11 @@
 #ifndef ConstTrackCluster_H
 #define ConstTrackCluster_H
-#include "TrackClusterData.h"
 #include "BareCluster.h"
-
+#include "TrackClusterData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  contains basic cluster information
+// A track cluster, made of TrackHits
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -48,6 +47,7 @@ public:
 public:
 
   const fcc::BareCluster& Core() const;
+
 
 
   /// check whether the object is actually available

@@ -1,11 +1,10 @@
 #ifndef ConstMET_H
 #define ConstMET_H
 #include "METData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Corresponding sum pT or sum ET
+// Naive MET type
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -49,6 +48,7 @@ public:
   const float& Magnitude() const;
   const float& Phi() const;
   const float& ScalarSum() const;
+
 
 
   /// check whether the object is actually available

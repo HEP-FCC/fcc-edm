@@ -6,9 +6,15 @@
 
 namespace fcc {
 
-TagCollection::TagCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new TagDataContainer() ) {
+TagCollection::TagCollection() : m_isValid(false), m_collectionID(0), m_entries() ,m_data(new TagDataContainer() ) {
   
 }
+
+TagCollection::~TagCollection() {
+  clear();
+  if (m_data != nullptr) delete m_data;
+  
+};
 
 const Tag TagCollection::operator[](unsigned int index) const {
   return Tag(m_entries[index]);
@@ -38,18 +44,15 @@ void TagCollection::clear(){
 }
 
 void TagCollection::prepareForWrite(){
-  int index = 0;
   auto size = m_entries.size();
   m_data->reserve(size);
   for (auto& obj : m_entries) {m_data->push_back(obj->data); }
-  if (m_refCollections != nullptr) {
-    for (auto& pointer : (*m_refCollections)) {pointer->clear(); }
-  }
-  
+  for (auto& pointer : m_refCollections) {pointer->clear(); } 
+
   for(int i=0, size = m_data->size(); i != size; ++i){
-  
+
   }
-  
+
 }
 
 void TagCollection::prepareAfterRead(){
@@ -60,6 +63,7 @@ void TagCollection::prepareAfterRead(){
     m_entries.emplace_back(obj);
     ++index;
   }
+  m_isValid = true;  
 }
 
 bool TagCollection::setReferences(const podio::ICollectionProvider* collectionProvider){
@@ -69,19 +73,19 @@ bool TagCollection::setReferences(const podio::ICollectionProvider* collectionPr
 }
 
 void TagCollection::push_back(ConstTag object){
-    int size = m_entries.size();
-    auto obj = object.m_obj;
-    if (obj->id.index == podio::ObjectID::untracked) {
-        obj->id = {size,m_collectionID};
-        m_entries.push_back(obj);
-        
-    } else {
-      throw std::invalid_argument( "Object already in a collection. Cannot add it to a second collection " );
-
-    }
+  int size = m_entries.size();
+  auto obj = object.m_obj;
+  if (obj->id.index == podio::ObjectID::untracked) {
+      obj->id = {size,m_collectionID};
+      m_entries.push_back(obj);
+      
+  } else {
+    throw std::invalid_argument( "Object already in a collection. Cannot add it to a second collection " );
+  }
 }
 
 void TagCollection::setBuffer(void* address){
+  if (m_data != nullptr) delete m_data;
   m_data = static_cast<TagDataContainer*>(address);
 }
 
@@ -92,13 +96,13 @@ const Tag TagCollectionIterator::operator* () const {
 }
 
 const Tag* TagCollectionIterator::operator-> () const {
-    m_object.m_obj = (*m_collection)[m_index];
-    return &m_object;
+  m_object.m_obj = (*m_collection)[m_index];
+  return &m_object;
 }
 
 const TagCollectionIterator& TagCollectionIterator::operator++() const {
   ++m_index;
- return *this;
+  return *this;
 }
 
 } // namespace fcc

@@ -1,12 +1,11 @@
 #ifndef GenVertex_H
 #define GenVertex_H
-#include "GenVertexData.h"
 #include "Point.h"
-
+#include "GenVertexData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Time coordinate in cm
+// Generated vertex. MCParticles refer to their start and end vertex.
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -31,7 +30,7 @@ public:
 
   /// default constructor
   GenVertex();
-    GenVertex(fcc::Point Position,float Ctau);
+  GenVertex(fcc::Point Position,float Ctau);
 
   /// constructor from existing GenVertexObj
   GenVertex(GenVertexObj* obj);
@@ -57,13 +56,15 @@ public:
   void Ctau(float value);
 
 
+
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from GenVertexObj instance
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const GenVertex& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstGenVertex& other) const;

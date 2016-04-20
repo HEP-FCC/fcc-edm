@@ -42,15 +42,26 @@ MCParticleAssociation::~MCParticleAssociation(){
 
 MCParticleAssociation::operator ConstMCParticleAssociation() const {return ConstMCParticleAssociation(m_obj);}
 
-  const fcc::ConstMCParticle MCParticleAssociation::Mother() const { if (m_obj->m_Mother == nullptr) {
- return fcc::ConstMCParticle(nullptr);}
- return fcc::ConstMCParticle(*(m_obj->m_Mother));}
-  const fcc::ConstMCParticle MCParticleAssociation::Daughter() const { if (m_obj->m_Daughter == nullptr) {
- return fcc::ConstMCParticle(nullptr);}
- return fcc::ConstMCParticle(*(m_obj->m_Daughter));}
+  const fcc::ConstMCParticle MCParticleAssociation::Mother() const {
+    if (m_obj->m_Mother == nullptr) {
+      return fcc::ConstMCParticle(nullptr);
+    }
+    return fcc::ConstMCParticle(*(m_obj->m_Mother));
+  } const fcc::ConstMCParticle MCParticleAssociation::Daughter() const {
+    if (m_obj->m_Daughter == nullptr) {
+      return fcc::ConstMCParticle(nullptr);
+    }
+    return fcc::ConstMCParticle(*(m_obj->m_Daughter));
+  }
+void MCParticleAssociation::Mother(fcc::ConstMCParticle value) {
+  if (m_obj->m_Mother != nullptr) delete m_obj->m_Mother;
+  m_obj->m_Mother = new ConstMCParticle(value);
+}
+void MCParticleAssociation::Daughter(fcc::ConstMCParticle value) {
+  if (m_obj->m_Daughter != nullptr) delete m_obj->m_Daughter;
+  m_obj->m_Daughter = new ConstMCParticle(value);
+}
 
-void MCParticleAssociation::Mother(fcc::ConstMCParticle value) { if (m_obj->m_Mother != nullptr) delete m_obj->m_Mother; m_obj->m_Mother = new ConstMCParticle(value); }
-void MCParticleAssociation::Daughter(fcc::ConstMCParticle value) { if (m_obj->m_Daughter != nullptr) delete m_obj->m_Daughter; m_obj->m_Daughter = new ConstMCParticle(value); }
 
 
 bool  MCParticleAssociation::isAvailable() const {
@@ -68,7 +79,7 @@ const podio::ObjectID MCParticleAssociation::getObjectID() const {
 }
 
 bool MCParticleAssociation::operator==(const ConstMCParticleAssociation& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

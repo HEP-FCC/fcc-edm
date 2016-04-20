@@ -13,9 +13,9 @@ GenVertex::GenVertex() : m_obj(new GenVertexObj()){
  m_obj->acquire();
 }
 
-GenVertex::GenVertex(fcc::Point Position,float Ctau) : m_obj(new GenVertexObj()){
- m_obj->acquire();
-   m_obj->data.Position = Position;  m_obj->data.Ctau = Ctau;
+GenVertex::GenVertex(fcc::Point Position,float Ctau) : m_obj(new GenVertexObj()) {
+  m_obj->acquire();
+    m_obj->data.Position = Position;  m_obj->data.Ctau = Ctau;
 }
 
 
@@ -48,8 +48,9 @@ GenVertex::operator ConstGenVertex() const {return ConstGenVertex(m_obj);}
   const float& GenVertex::Ctau() const { return m_obj->data.Ctau; }
 
   fcc::Point& GenVertex::Position() { return m_obj->data.Position; }
-void GenVertex::Position(class fcc::Point value){ m_obj->data.Position = value;}
-void GenVertex::Ctau(float value){ m_obj->data.Ctau = value;}
+void GenVertex::Position(class fcc::Point value) { m_obj->data.Position = value; }
+void GenVertex::Ctau(float value){ m_obj->data.Ctau = value; }
+
 
 
 bool  GenVertex::isAvailable() const {
@@ -67,7 +68,7 @@ const podio::ObjectID GenVertex::getObjectID() const {
 }
 
 bool GenVertex::operator==(const ConstGenVertex& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

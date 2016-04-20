@@ -13,9 +13,9 @@ IntTag::IntTag() : m_obj(new IntTagObj()){
  m_obj->acquire();
 }
 
-IntTag::IntTag(int Value) : m_obj(new IntTagObj()){
- m_obj->acquire();
-   m_obj->data.Value = Value;
+IntTag::IntTag(int Value) : m_obj(new IntTagObj()) {
+  m_obj->acquire();
+    m_obj->data.Value = Value;
 }
 
 
@@ -46,7 +46,8 @@ IntTag::operator ConstIntTag() const {return ConstIntTag(m_obj);}
 
   const int& IntTag::Value() const { return m_obj->data.Value; }
 
-void IntTag::Value(int value){ m_obj->data.Value = value;}
+void IntTag::Value(int value){ m_obj->data.Value = value; }
+
 
 
 bool  IntTag::isAvailable() const {
@@ -64,7 +65,7 @@ const podio::ObjectID IntTag::getObjectID() const {
 }
 
 bool IntTag::operator==(const ConstIntTag& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

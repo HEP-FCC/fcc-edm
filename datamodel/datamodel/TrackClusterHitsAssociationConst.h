@@ -1,7 +1,6 @@
 #ifndef ConstTrackClusterHitsAssociation_H
 #define ConstTrackClusterHitsAssociation_H
 #include "TrackClusterHitsAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -53,6 +52,7 @@ public:
 
   const fcc::ConstTrackCluster Cluster() const;
   const fcc::ConstTrackHit Hit() const;
+
 
 
   /// check whether the object is actually available

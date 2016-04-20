@@ -1,12 +1,11 @@
 #ifndef ConstSimCaloHit_H
 #define ConstSimCaloHit_H
-#include "SimCaloHitData.h"
 #include "BareHit.h"
-
+#include "SimCaloHitData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  contains basic hit information
+// A simulated calorimeter hit
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -48,6 +47,7 @@ public:
 public:
 
   const fcc::BareHit& Core() const;
+
 
 
   /// check whether the object is actually available

@@ -1,12 +1,11 @@
 #ifndef ConstCaloCluster_H
 #define ConstCaloCluster_H
-#include "CaloClusterData.h"
 #include "BareCluster.h"
-
+#include "CaloClusterData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  contains basic cluster information
+// A calo cluster, made of CaloHits
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -48,6 +47,7 @@ public:
 public:
 
   const fcc::BareCluster& Core() const;
+
 
 
   /// check whether the object is actually available

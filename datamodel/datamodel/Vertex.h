@@ -1,12 +1,11 @@
 #ifndef Vertex_H
 #define Vertex_H
-#include "VertexData.h"
 #include "Point.h"
-
+#include "VertexData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Stored flags
+// Vertex reconstructed from tracks
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -31,7 +30,7 @@ public:
 
   /// default constructor
   Vertex();
-    Vertex(float Chi2,unsigned Ndf,fcc::Point Position,unsigned Bits);
+  Vertex(float Chi2,unsigned Ndf,fcc::Point Position,unsigned Bits);
 
   /// constructor from existing VertexObj
   Vertex(VertexObj* obj);
@@ -55,10 +54,14 @@ public:
   const unsigned& Bits() const;
 
   void Chi2(float value);
+
   void Ndf(unsigned value);
+
   fcc::Point& Position();
   void Position(class fcc::Point value);
   void Bits(unsigned value);
+
+
 
 
   /// check whether the object is actually available
@@ -67,7 +70,7 @@ public:
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const Vertex& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstVertex& other) const;

@@ -1,12 +1,11 @@
 #ifndef ConstSimCaloCluster_H
 #define ConstSimCaloCluster_H
-#include "SimCaloClusterData.h"
 #include "BareCluster.h"
-
+#include "SimCaloClusterData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  contains basic cluster information.
+// A simulated calo cluster, made of SimCaloHits
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -48,6 +47,7 @@ public:
 public:
 
   const fcc::BareCluster& Core() const;
+
 
 
   /// check whether the object is actually available

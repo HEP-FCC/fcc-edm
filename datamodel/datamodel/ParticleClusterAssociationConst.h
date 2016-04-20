@@ -1,7 +1,6 @@
 #ifndef ConstParticleClusterAssociation_H
 #define ConstParticleClusterAssociation_H
 #include "ParticleClusterAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -53,6 +52,7 @@ public:
 
   const fcc::ConstParticle Particle() const;
   const fcc::ConstCaloCluster Cluster() const;
+
 
 
   /// check whether the object is actually available

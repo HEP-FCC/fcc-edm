@@ -9,7 +9,7 @@
 
 namespace fcc {
 
-ConstJet::ConstJet() : m_obj(new JetObj()){
+ConstJet::ConstJet() : m_obj(new JetObj()) {
  m_obj->acquire();
 }
 
@@ -29,7 +29,7 @@ ConstJet& ConstJet::operator=(const ConstJet& other) {
   return *this;
 }
 
-ConstJet::ConstJet(JetObj* obj) : m_obj(obj){
+ConstJet::ConstJet(JetObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -43,6 +43,7 @@ ConstJet::~ConstJet(){
 }
 
   const fcc::BareJet& ConstJet::Core() const { return m_obj->data.Core; }
+
 
 
 bool  ConstJet::isAvailable() const {

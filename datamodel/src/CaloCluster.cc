@@ -13,9 +13,9 @@ CaloCluster::CaloCluster() : m_obj(new CaloClusterObj()){
  m_obj->acquire();
 }
 
-CaloCluster::CaloCluster(fcc::BareCluster Core) : m_obj(new CaloClusterObj()){
- m_obj->acquire();
-   m_obj->data.Core = Core;
+CaloCluster::CaloCluster(fcc::BareCluster Core) : m_obj(new CaloClusterObj()) {
+  m_obj->acquire();
+    m_obj->data.Core = Core;
 }
 
 
@@ -47,7 +47,8 @@ CaloCluster::operator ConstCaloCluster() const {return ConstCaloCluster(m_obj);}
   const fcc::BareCluster& CaloCluster::Core() const { return m_obj->data.Core; }
 
   fcc::BareCluster& CaloCluster::Core() { return m_obj->data.Core; }
-void CaloCluster::Core(class fcc::BareCluster value){ m_obj->data.Core = value;}
+void CaloCluster::Core(class fcc::BareCluster value) { m_obj->data.Core = value; }
+
 
 
 bool  CaloCluster::isAvailable() const {
@@ -65,7 +66,7 @@ const podio::ObjectID CaloCluster::getObjectID() const {
 }
 
 bool CaloCluster::operator==(const ConstCaloCluster& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

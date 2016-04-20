@@ -11,7 +11,7 @@
 
 namespace fcc {
 
-ConstTrackClusterHitsAssociation::ConstTrackClusterHitsAssociation() : m_obj(new TrackClusterHitsAssociationObj()){
+ConstTrackClusterHitsAssociation::ConstTrackClusterHitsAssociation() : m_obj(new TrackClusterHitsAssociationObj()) {
  m_obj->acquire();
 }
 
@@ -27,7 +27,7 @@ ConstTrackClusterHitsAssociation& ConstTrackClusterHitsAssociation::operator=(co
   return *this;
 }
 
-ConstTrackClusterHitsAssociation::ConstTrackClusterHitsAssociation(TrackClusterHitsAssociationObj* obj) : m_obj(obj){
+ConstTrackClusterHitsAssociation::ConstTrackClusterHitsAssociation(TrackClusterHitsAssociationObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -40,12 +40,15 @@ ConstTrackClusterHitsAssociation::~ConstTrackClusterHitsAssociation(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const fcc::ConstTrackCluster ConstTrackClusterHitsAssociation::Cluster() const { if (m_obj->m_Cluster == nullptr) {
- return fcc::ConstTrackCluster(nullptr);}
- return fcc::ConstTrackCluster(*(m_obj->m_Cluster));}
-  const fcc::ConstTrackHit ConstTrackClusterHitsAssociation::Hit() const { if (m_obj->m_Hit == nullptr) {
- return fcc::ConstTrackHit(nullptr);}
- return fcc::ConstTrackHit(*(m_obj->m_Hit));}
+  const fcc::ConstTrackCluster ConstTrackClusterHitsAssociation::Cluster() const {
+    if (m_obj->m_Cluster == nullptr) {
+      return fcc::ConstTrackCluster(nullptr);
+    }
+    return fcc::ConstTrackCluster(*(m_obj->m_Cluster));}  const fcc::ConstTrackHit ConstTrackClusterHitsAssociation::Hit() const {
+    if (m_obj->m_Hit == nullptr) {
+      return fcc::ConstTrackHit(nullptr);
+    }
+    return fcc::ConstTrackHit(*(m_obj->m_Hit));}
 
 
 bool  ConstTrackClusterHitsAssociation::isAvailable() const {

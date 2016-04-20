@@ -13,9 +13,9 @@ GenJet::GenJet() : m_obj(new GenJetObj()){
  m_obj->acquire();
 }
 
-GenJet::GenJet(fcc::BareJet Core) : m_obj(new GenJetObj()){
- m_obj->acquire();
-   m_obj->data.Core = Core;
+GenJet::GenJet(fcc::BareJet Core) : m_obj(new GenJetObj()) {
+  m_obj->acquire();
+    m_obj->data.Core = Core;
 }
 
 
@@ -47,7 +47,8 @@ GenJet::operator ConstGenJet() const {return ConstGenJet(m_obj);}
   const fcc::BareJet& GenJet::Core() const { return m_obj->data.Core; }
 
   fcc::BareJet& GenJet::Core() { return m_obj->data.Core; }
-void GenJet::Core(class fcc::BareJet value){ m_obj->data.Core = value;}
+void GenJet::Core(class fcc::BareJet value) { m_obj->data.Core = value; }
+
 
 
 bool  GenJet::isAvailable() const {
@@ -65,7 +66,7 @@ const podio::ObjectID GenJet::getObjectID() const {
 }
 
 bool GenJet::operator==(const ConstGenJet& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

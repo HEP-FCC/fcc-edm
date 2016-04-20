@@ -9,7 +9,7 @@
 
 namespace fcc {
 
-ConstParticle::ConstParticle() : m_obj(new ParticleObj()){
+ConstParticle::ConstParticle() : m_obj(new ParticleObj()) {
  m_obj->acquire();
 }
 
@@ -29,7 +29,7 @@ ConstParticle& ConstParticle::operator=(const ConstParticle& other) {
   return *this;
 }
 
-ConstParticle::ConstParticle(ParticleObj* obj) : m_obj(obj){
+ConstParticle::ConstParticle(ParticleObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -43,6 +43,7 @@ ConstParticle::~ConstParticle(){
 }
 
   const fcc::BareParticle& ConstParticle::Core() const { return m_obj->data.Core; }
+
 
 
 bool  ConstParticle::isAvailable() const {

@@ -1,7 +1,6 @@
 #ifndef JetTagAssociation_H
 #define JetTagAssociation_H
 #include "JetTagAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -36,7 +35,7 @@ public:
 
   /// default constructor
   JetTagAssociation();
-  
+
   /// constructor from existing JetTagAssociationObj
   JetTagAssociation(JetTagAssociationObj* obj);
   /// copy constructor
@@ -60,13 +59,14 @@ public:
   void Tag(fcc::ConstTag value);
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from JetTagAssociationObj instance
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const JetTagAssociation& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstJetTagAssociation& other) const;

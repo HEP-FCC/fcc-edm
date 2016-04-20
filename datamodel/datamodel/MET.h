@@ -1,11 +1,10 @@
 #ifndef MET_H
 #define MET_H
 #include "METData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Corresponding sum pT or sum ET
+// Naive MET type
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -30,7 +29,7 @@ public:
 
   /// default constructor
   MET();
-    MET(float Magnitude,float Phi,float ScalarSum);
+  MET(float Magnitude,float Phi,float ScalarSum);
 
   /// constructor from existing METObj
   MET(METObj* obj);
@@ -53,8 +52,12 @@ public:
   const float& ScalarSum() const;
 
   void Magnitude(float value);
+
   void Phi(float value);
+
   void ScalarSum(float value);
+
+
 
 
   /// check whether the object is actually available
@@ -63,7 +66,7 @@ public:
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const MET& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstMET& other) const;

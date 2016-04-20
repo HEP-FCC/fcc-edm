@@ -1,7 +1,6 @@
 #ifndef ConstParticleTagAssociation_H
 #define ConstParticleTagAssociation_H
 #include "ParticleTagAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -53,6 +52,7 @@ public:
 
   const fcc::ConstParticle Particle() const;
   const fcc::ConstTag Tag() const;
+
 
 
   /// check whether the object is actually available

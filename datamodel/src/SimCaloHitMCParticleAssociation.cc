@@ -15,9 +15,9 @@ SimCaloHitMCParticleAssociation::SimCaloHitMCParticleAssociation() : m_obj(new S
  m_obj->acquire();
 }
 
-SimCaloHitMCParticleAssociation::SimCaloHitMCParticleAssociation(float Fraction) : m_obj(new SimCaloHitMCParticleAssociationObj()){
- m_obj->acquire();
-   m_obj->data.Fraction = Fraction;
+SimCaloHitMCParticleAssociation::SimCaloHitMCParticleAssociation(float Fraction) : m_obj(new SimCaloHitMCParticleAssociationObj()) {
+  m_obj->acquire();
+    m_obj->data.Fraction = Fraction;
 }
 
 
@@ -47,16 +47,27 @@ SimCaloHitMCParticleAssociation::~SimCaloHitMCParticleAssociation(){
 SimCaloHitMCParticleAssociation::operator ConstSimCaloHitMCParticleAssociation() const {return ConstSimCaloHitMCParticleAssociation(m_obj);}
 
   const float& SimCaloHitMCParticleAssociation::Fraction() const { return m_obj->data.Fraction; }
-  const fcc::ConstSimCaloHit SimCaloHitMCParticleAssociation::Hit() const { if (m_obj->m_Hit == nullptr) {
- return fcc::ConstSimCaloHit(nullptr);}
- return fcc::ConstSimCaloHit(*(m_obj->m_Hit));}
-  const fcc::ConstMCParticle SimCaloHitMCParticleAssociation::Particle() const { if (m_obj->m_Particle == nullptr) {
- return fcc::ConstMCParticle(nullptr);}
- return fcc::ConstMCParticle(*(m_obj->m_Particle));}
+  const fcc::ConstSimCaloHit SimCaloHitMCParticleAssociation::Hit() const {
+    if (m_obj->m_Hit == nullptr) {
+      return fcc::ConstSimCaloHit(nullptr);
+    }
+    return fcc::ConstSimCaloHit(*(m_obj->m_Hit));
+  } const fcc::ConstMCParticle SimCaloHitMCParticleAssociation::Particle() const {
+    if (m_obj->m_Particle == nullptr) {
+      return fcc::ConstMCParticle(nullptr);
+    }
+    return fcc::ConstMCParticle(*(m_obj->m_Particle));
+  }
+void SimCaloHitMCParticleAssociation::Fraction(float value){ m_obj->data.Fraction = value; }
+void SimCaloHitMCParticleAssociation::Hit(fcc::ConstSimCaloHit value) {
+  if (m_obj->m_Hit != nullptr) delete m_obj->m_Hit;
+  m_obj->m_Hit = new ConstSimCaloHit(value);
+}
+void SimCaloHitMCParticleAssociation::Particle(fcc::ConstMCParticle value) {
+  if (m_obj->m_Particle != nullptr) delete m_obj->m_Particle;
+  m_obj->m_Particle = new ConstMCParticle(value);
+}
 
-void SimCaloHitMCParticleAssociation::Fraction(float value){ m_obj->data.Fraction = value;}
-void SimCaloHitMCParticleAssociation::Hit(fcc::ConstSimCaloHit value) { if (m_obj->m_Hit != nullptr) delete m_obj->m_Hit; m_obj->m_Hit = new ConstSimCaloHit(value); }
-void SimCaloHitMCParticleAssociation::Particle(fcc::ConstMCParticle value) { if (m_obj->m_Particle != nullptr) delete m_obj->m_Particle; m_obj->m_Particle = new ConstMCParticle(value); }
 
 
 bool  SimCaloHitMCParticleAssociation::isAvailable() const {
@@ -74,7 +85,7 @@ const podio::ObjectID SimCaloHitMCParticleAssociation::getObjectID() const {
 }
 
 bool SimCaloHitMCParticleAssociation::operator==(const ConstSimCaloHitMCParticleAssociation& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

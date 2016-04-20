@@ -1,12 +1,11 @@
 #ifndef GenJet_H
 #define GenJet_H
-#include "GenJetData.h"
 #include "BareJet.h"
-
+#include "GenJetData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Basic jet information.
+// Generated jet.
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -31,7 +30,7 @@ public:
 
   /// default constructor
   GenJet();
-    GenJet(fcc::BareJet Core);
+  GenJet(fcc::BareJet Core);
 
   /// constructor from existing GenJetObj
   GenJet(GenJetObj* obj);
@@ -55,13 +54,14 @@ public:
   void Core(class fcc::BareJet value);
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from GenJetObj instance
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const GenJet& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstGenJet& other) const;

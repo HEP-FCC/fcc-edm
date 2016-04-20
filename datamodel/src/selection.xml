@@ -19,12 +19,6 @@
             <field name="m_registry" transient="true"/>
             <field name="m_container" transient="true"/>
           </class>
-          <class name="std::vector<fcc::LorentzVector>" />
-
-          <class name="fcc::LorentzVector">
-            <field name="m_registry" transient="true"/>
-            <field name="m_container" transient="true"/>
-          </class>
           <class name="std::vector<fcc::Point>" />
 
           <class name="fcc::Point">
@@ -34,6 +28,12 @@
           <class name="std::vector<fcc::BareHit>" />
 
           <class name="fcc::BareHit">
+            <field name="m_registry" transient="true"/>
+            <field name="m_container" transient="true"/>
+          </class>
+          <class name="std::vector<fcc::LorentzVector>" />
+
+          <class name="fcc::LorentzVector">
             <field name="m_registry" transient="true"/>
             <field name="m_container" transient="true"/>
           </class>

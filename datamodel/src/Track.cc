@@ -13,9 +13,9 @@ Track::Track() : m_obj(new TrackObj()){
  m_obj->acquire();
 }
 
-Track::Track(float Chi2,unsigned Ndf,unsigned Bits) : m_obj(new TrackObj()){
- m_obj->acquire();
-   m_obj->data.Chi2 = Chi2;  m_obj->data.Ndf = Ndf;  m_obj->data.Bits = Bits;
+Track::Track(float Chi2,unsigned Ndf,unsigned Bits) : m_obj(new TrackObj()) {
+  m_obj->acquire();
+    m_obj->data.Chi2 = Chi2;  m_obj->data.Ndf = Ndf;  m_obj->data.Bits = Bits;
 }
 
 
@@ -48,9 +48,10 @@ Track::operator ConstTrack() const {return ConstTrack(m_obj);}
   const unsigned& Track::Ndf() const { return m_obj->data.Ndf; }
   const unsigned& Track::Bits() const { return m_obj->data.Bits; }
 
-void Track::Chi2(float value){ m_obj->data.Chi2 = value;}
-void Track::Ndf(unsigned value){ m_obj->data.Ndf = value;}
-void Track::Bits(unsigned value){ m_obj->data.Bits = value;}
+void Track::Chi2(float value){ m_obj->data.Chi2 = value; }
+void Track::Ndf(unsigned value){ m_obj->data.Ndf = value; }
+void Track::Bits(unsigned value){ m_obj->data.Bits = value; }
+
 
 
 bool  Track::isAvailable() const {
@@ -68,7 +69,7 @@ const podio::ObjectID Track::getObjectID() const {
 }
 
 bool Track::operator==(const ConstTrack& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

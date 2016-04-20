@@ -1,12 +1,11 @@
 #ifndef SimCaloCluster_H
 #define SimCaloCluster_H
-#include "SimCaloClusterData.h"
 #include "BareCluster.h"
-
+#include "SimCaloClusterData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  contains basic cluster information.
+// A simulated calo cluster, made of SimCaloHits
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -31,7 +30,7 @@ public:
 
   /// default constructor
   SimCaloCluster();
-    SimCaloCluster(fcc::BareCluster Core);
+  SimCaloCluster(fcc::BareCluster Core);
 
   /// constructor from existing SimCaloClusterObj
   SimCaloCluster(SimCaloClusterObj* obj);
@@ -55,13 +54,14 @@ public:
   void Core(class fcc::BareCluster value);
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from SimCaloClusterObj instance
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const SimCaloCluster& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstSimCaloCluster& other) const;

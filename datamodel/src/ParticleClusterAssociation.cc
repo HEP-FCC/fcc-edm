@@ -42,15 +42,26 @@ ParticleClusterAssociation::~ParticleClusterAssociation(){
 
 ParticleClusterAssociation::operator ConstParticleClusterAssociation() const {return ConstParticleClusterAssociation(m_obj);}
 
-  const fcc::ConstParticle ParticleClusterAssociation::Particle() const { if (m_obj->m_Particle == nullptr) {
- return fcc::ConstParticle(nullptr);}
- return fcc::ConstParticle(*(m_obj->m_Particle));}
-  const fcc::ConstCaloCluster ParticleClusterAssociation::Cluster() const { if (m_obj->m_Cluster == nullptr) {
- return fcc::ConstCaloCluster(nullptr);}
- return fcc::ConstCaloCluster(*(m_obj->m_Cluster));}
+  const fcc::ConstParticle ParticleClusterAssociation::Particle() const {
+    if (m_obj->m_Particle == nullptr) {
+      return fcc::ConstParticle(nullptr);
+    }
+    return fcc::ConstParticle(*(m_obj->m_Particle));
+  } const fcc::ConstCaloCluster ParticleClusterAssociation::Cluster() const {
+    if (m_obj->m_Cluster == nullptr) {
+      return fcc::ConstCaloCluster(nullptr);
+    }
+    return fcc::ConstCaloCluster(*(m_obj->m_Cluster));
+  }
+void ParticleClusterAssociation::Particle(fcc::ConstParticle value) {
+  if (m_obj->m_Particle != nullptr) delete m_obj->m_Particle;
+  m_obj->m_Particle = new ConstParticle(value);
+}
+void ParticleClusterAssociation::Cluster(fcc::ConstCaloCluster value) {
+  if (m_obj->m_Cluster != nullptr) delete m_obj->m_Cluster;
+  m_obj->m_Cluster = new ConstCaloCluster(value);
+}
 
-void ParticleClusterAssociation::Particle(fcc::ConstParticle value) { if (m_obj->m_Particle != nullptr) delete m_obj->m_Particle; m_obj->m_Particle = new ConstParticle(value); }
-void ParticleClusterAssociation::Cluster(fcc::ConstCaloCluster value) { if (m_obj->m_Cluster != nullptr) delete m_obj->m_Cluster; m_obj->m_Cluster = new ConstCaloCluster(value); }
 
 
 bool  ParticleClusterAssociation::isAvailable() const {
@@ -68,7 +79,7 @@ const podio::ObjectID ParticleClusterAssociation::getObjectID() const {
 }
 
 bool ParticleClusterAssociation::operator==(const ConstParticleClusterAssociation& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

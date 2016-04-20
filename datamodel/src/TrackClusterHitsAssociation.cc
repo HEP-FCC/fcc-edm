@@ -42,15 +42,26 @@ TrackClusterHitsAssociation::~TrackClusterHitsAssociation(){
 
 TrackClusterHitsAssociation::operator ConstTrackClusterHitsAssociation() const {return ConstTrackClusterHitsAssociation(m_obj);}
 
-  const fcc::ConstTrackCluster TrackClusterHitsAssociation::Cluster() const { if (m_obj->m_Cluster == nullptr) {
- return fcc::ConstTrackCluster(nullptr);}
- return fcc::ConstTrackCluster(*(m_obj->m_Cluster));}
-  const fcc::ConstTrackHit TrackClusterHitsAssociation::Hit() const { if (m_obj->m_Hit == nullptr) {
- return fcc::ConstTrackHit(nullptr);}
- return fcc::ConstTrackHit(*(m_obj->m_Hit));}
+  const fcc::ConstTrackCluster TrackClusterHitsAssociation::Cluster() const {
+    if (m_obj->m_Cluster == nullptr) {
+      return fcc::ConstTrackCluster(nullptr);
+    }
+    return fcc::ConstTrackCluster(*(m_obj->m_Cluster));
+  } const fcc::ConstTrackHit TrackClusterHitsAssociation::Hit() const {
+    if (m_obj->m_Hit == nullptr) {
+      return fcc::ConstTrackHit(nullptr);
+    }
+    return fcc::ConstTrackHit(*(m_obj->m_Hit));
+  }
+void TrackClusterHitsAssociation::Cluster(fcc::ConstTrackCluster value) {
+  if (m_obj->m_Cluster != nullptr) delete m_obj->m_Cluster;
+  m_obj->m_Cluster = new ConstTrackCluster(value);
+}
+void TrackClusterHitsAssociation::Hit(fcc::ConstTrackHit value) {
+  if (m_obj->m_Hit != nullptr) delete m_obj->m_Hit;
+  m_obj->m_Hit = new ConstTrackHit(value);
+}
 
-void TrackClusterHitsAssociation::Cluster(fcc::ConstTrackCluster value) { if (m_obj->m_Cluster != nullptr) delete m_obj->m_Cluster; m_obj->m_Cluster = new ConstTrackCluster(value); }
-void TrackClusterHitsAssociation::Hit(fcc::ConstTrackHit value) { if (m_obj->m_Hit != nullptr) delete m_obj->m_Hit; m_obj->m_Hit = new ConstTrackHit(value); }
 
 
 bool  TrackClusterHitsAssociation::isAvailable() const {
@@ -68,7 +79,7 @@ const podio::ObjectID TrackClusterHitsAssociation::getObjectID() const {
 }
 
 bool TrackClusterHitsAssociation::operator==(const ConstTrackClusterHitsAssociation& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

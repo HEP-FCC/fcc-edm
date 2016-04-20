@@ -1,7 +1,6 @@
 #ifndef ParticleClusterAssociation_H
 #define ParticleClusterAssociation_H
 #include "ParticleClusterAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -36,7 +35,7 @@ public:
 
   /// default constructor
   ParticleClusterAssociation();
-  
+
   /// constructor from existing ParticleClusterAssociationObj
   ParticleClusterAssociation(ParticleClusterAssociationObj* obj);
   /// copy constructor
@@ -60,13 +59,14 @@ public:
   void Cluster(fcc::ConstCaloCluster value);
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from ParticleClusterAssociationObj instance
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const ParticleClusterAssociation& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstParticleClusterAssociation& other) const;

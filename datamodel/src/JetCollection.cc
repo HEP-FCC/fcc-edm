@@ -6,9 +6,15 @@
 
 namespace fcc {
 
-JetCollection::JetCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new JetDataContainer() ) {
+JetCollection::JetCollection() : m_isValid(false), m_collectionID(0), m_entries() ,m_data(new JetDataContainer() ) {
   
 }
+
+JetCollection::~JetCollection() {
+  clear();
+  if (m_data != nullptr) delete m_data;
+  
+};
 
 const Jet JetCollection::operator[](unsigned int index) const {
   return Jet(m_entries[index]);
@@ -38,18 +44,15 @@ void JetCollection::clear(){
 }
 
 void JetCollection::prepareForWrite(){
-  int index = 0;
   auto size = m_entries.size();
   m_data->reserve(size);
   for (auto& obj : m_entries) {m_data->push_back(obj->data); }
-  if (m_refCollections != nullptr) {
-    for (auto& pointer : (*m_refCollections)) {pointer->clear(); }
-  }
-  
+  for (auto& pointer : m_refCollections) {pointer->clear(); } 
+
   for(int i=0, size = m_data->size(); i != size; ++i){
-  
+
   }
-  
+
 }
 
 void JetCollection::prepareAfterRead(){
@@ -60,6 +63,7 @@ void JetCollection::prepareAfterRead(){
     m_entries.emplace_back(obj);
     ++index;
   }
+  m_isValid = true;  
 }
 
 bool JetCollection::setReferences(const podio::ICollectionProvider* collectionProvider){
@@ -69,19 +73,19 @@ bool JetCollection::setReferences(const podio::ICollectionProvider* collectionPr
 }
 
 void JetCollection::push_back(ConstJet object){
-    int size = m_entries.size();
-    auto obj = object.m_obj;
-    if (obj->id.index == podio::ObjectID::untracked) {
-        obj->id = {size,m_collectionID};
-        m_entries.push_back(obj);
-        
-    } else {
-      throw std::invalid_argument( "Object already in a collection. Cannot add it to a second collection " );
-
-    }
+  int size = m_entries.size();
+  auto obj = object.m_obj;
+  if (obj->id.index == podio::ObjectID::untracked) {
+      obj->id = {size,m_collectionID};
+      m_entries.push_back(obj);
+      
+  } else {
+    throw std::invalid_argument( "Object already in a collection. Cannot add it to a second collection " );
+  }
 }
 
 void JetCollection::setBuffer(void* address){
+  if (m_data != nullptr) delete m_data;
   m_data = static_cast<JetDataContainer*>(address);
 }
 
@@ -92,13 +96,13 @@ const Jet JetCollectionIterator::operator* () const {
 }
 
 const Jet* JetCollectionIterator::operator-> () const {
-    m_object.m_obj = (*m_collection)[m_index];
-    return &m_object;
+  m_object.m_obj = (*m_collection)[m_index];
+  return &m_object;
 }
 
 const JetCollectionIterator& JetCollectionIterator::operator++() const {
   ++m_index;
- return *this;
+  return *this;
 }
 
 } // namespace fcc

@@ -9,7 +9,7 @@
 
 namespace fcc {
 
-ConstTrackCluster::ConstTrackCluster() : m_obj(new TrackClusterObj()){
+ConstTrackCluster::ConstTrackCluster() : m_obj(new TrackClusterObj()) {
  m_obj->acquire();
 }
 
@@ -29,7 +29,7 @@ ConstTrackCluster& ConstTrackCluster::operator=(const ConstTrackCluster& other) 
   return *this;
 }
 
-ConstTrackCluster::ConstTrackCluster(TrackClusterObj* obj) : m_obj(obj){
+ConstTrackCluster::ConstTrackCluster(TrackClusterObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -43,6 +43,7 @@ ConstTrackCluster::~ConstTrackCluster(){
 }
 
   const fcc::BareCluster& ConstTrackCluster::Core() const { return m_obj->data.Core; }
+
 
 
 bool  ConstTrackCluster::isAvailable() const {

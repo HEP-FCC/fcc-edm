@@ -11,7 +11,7 @@
 
 namespace fcc {
 
-ConstParticleTrackAssociation::ConstParticleTrackAssociation() : m_obj(new ParticleTrackAssociationObj()){
+ConstParticleTrackAssociation::ConstParticleTrackAssociation() : m_obj(new ParticleTrackAssociationObj()) {
  m_obj->acquire();
 }
 
@@ -27,7 +27,7 @@ ConstParticleTrackAssociation& ConstParticleTrackAssociation::operator=(const Co
   return *this;
 }
 
-ConstParticleTrackAssociation::ConstParticleTrackAssociation(ParticleTrackAssociationObj* obj) : m_obj(obj){
+ConstParticleTrackAssociation::ConstParticleTrackAssociation(ParticleTrackAssociationObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -40,12 +40,15 @@ ConstParticleTrackAssociation::~ConstParticleTrackAssociation(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const fcc::ConstParticle ConstParticleTrackAssociation::Particle() const { if (m_obj->m_Particle == nullptr) {
- return fcc::ConstParticle(nullptr);}
- return fcc::ConstParticle(*(m_obj->m_Particle));}
-  const fcc::ConstTrack ConstParticleTrackAssociation::Track() const { if (m_obj->m_Track == nullptr) {
- return fcc::ConstTrack(nullptr);}
- return fcc::ConstTrack(*(m_obj->m_Track));}
+  const fcc::ConstParticle ConstParticleTrackAssociation::Particle() const {
+    if (m_obj->m_Particle == nullptr) {
+      return fcc::ConstParticle(nullptr);
+    }
+    return fcc::ConstParticle(*(m_obj->m_Particle));} const fcc::ConstTrack ConstParticleTrackAssociation::Track() const {
+    if (m_obj->m_Track == nullptr) {
+      return fcc::ConstTrack(nullptr);
+    }
+    return fcc::ConstTrack(*(m_obj->m_Track));}
 
 
 bool  ConstParticleTrackAssociation::isAvailable() const {

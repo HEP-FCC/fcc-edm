@@ -1,7 +1,6 @@
 #ifndef GenJetParticleAssociation_H
 #define GenJetParticleAssociation_H
 #include "GenJetParticleAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -36,7 +35,7 @@ public:
 
   /// default constructor
   GenJetParticleAssociation();
-  
+
   /// constructor from existing GenJetParticleAssociationObj
   GenJetParticleAssociation(GenJetParticleAssociationObj* obj);
   /// copy constructor
@@ -60,13 +59,14 @@ public:
   void Particle(fcc::ConstMCParticle value);
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from GenJetParticleAssociationObj instance
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const GenJetParticleAssociation& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstGenJetParticleAssociation& other) const;

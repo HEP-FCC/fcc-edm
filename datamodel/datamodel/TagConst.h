@@ -1,11 +1,10 @@
 #ifndef ConstTag_H
 #define ConstTag_H
 #include "TagData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Tag info
+// Float tag information for studied type
 // author: C. Bernet, Z. Drasal
 
 //forward declarations
@@ -47,6 +46,7 @@ public:
 public:
 
   const float& Value() const;
+
 
 
   /// check whether the object is actually available

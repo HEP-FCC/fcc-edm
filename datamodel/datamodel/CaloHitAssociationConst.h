@@ -1,7 +1,6 @@
 #ifndef ConstCaloHitAssociation_H
 #define ConstCaloHitAssociation_H
 #include "CaloHitAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -53,6 +52,7 @@ public:
 
   const fcc::ConstCaloHit Rec() const;
   const fcc::ConstSimCaloHit Sim() const;
+
 
 
   /// check whether the object is actually available

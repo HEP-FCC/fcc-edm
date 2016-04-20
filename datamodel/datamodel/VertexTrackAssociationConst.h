@@ -1,11 +1,10 @@
 #ifndef ConstVertexTrackAssociation_H
 #define ConstVertexTrackAssociation_H
 #include "VertexTrackAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Weight of the track in the vertex.
+// Association between a track and a vertex, with a weight
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -55,6 +54,7 @@ public:
   const float& Weight() const;
   const fcc::ConstTrack Track() const;
   const fcc::ConstVertex Vertex() const;
+
 
 
   /// check whether the object is actually available

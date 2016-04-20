@@ -9,7 +9,7 @@
 
 namespace fcc {
 
-ConstGenJet::ConstGenJet() : m_obj(new GenJetObj()){
+ConstGenJet::ConstGenJet() : m_obj(new GenJetObj()) {
  m_obj->acquire();
 }
 
@@ -29,7 +29,7 @@ ConstGenJet& ConstGenJet::operator=(const ConstGenJet& other) {
   return *this;
 }
 
-ConstGenJet::ConstGenJet(GenJetObj* obj) : m_obj(obj){
+ConstGenJet::ConstGenJet(GenJetObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -43,6 +43,7 @@ ConstGenJet::~ConstGenJet(){
 }
 
   const fcc::BareJet& ConstGenJet::Core() const { return m_obj->data.Core; }
+
 
 
 bool  ConstGenJet::isAvailable() const {

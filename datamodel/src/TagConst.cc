@@ -9,7 +9,7 @@
 
 namespace fcc {
 
-ConstTag::ConstTag() : m_obj(new TagObj()){
+ConstTag::ConstTag() : m_obj(new TagObj()) {
  m_obj->acquire();
 }
 
@@ -29,7 +29,7 @@ ConstTag& ConstTag::operator=(const ConstTag& other) {
   return *this;
 }
 
-ConstTag::ConstTag(TagObj* obj) : m_obj(obj){
+ConstTag::ConstTag(TagObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -43,6 +43,7 @@ ConstTag::~ConstTag(){
 }
 
   const float& ConstTag::Value() const { return m_obj->data.Value; }
+
 
 
 bool  ConstTag::isAvailable() const {

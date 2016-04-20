@@ -9,7 +9,7 @@
 
 namespace fcc {
 
-ConstVertex::ConstVertex() : m_obj(new VertexObj()){
+ConstVertex::ConstVertex() : m_obj(new VertexObj()) {
  m_obj->acquire();
 }
 
@@ -29,7 +29,7 @@ ConstVertex& ConstVertex::operator=(const ConstVertex& other) {
   return *this;
 }
 
-ConstVertex::ConstVertex(VertexObj* obj) : m_obj(obj){
+ConstVertex::ConstVertex(VertexObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -46,6 +46,7 @@ ConstVertex::~ConstVertex(){
   const unsigned& ConstVertex::Ndf() const { return m_obj->data.Ndf; }
   const fcc::Point& ConstVertex::Position() const { return m_obj->data.Position; }
   const unsigned& ConstVertex::Bits() const { return m_obj->data.Bits; }
+
 
 
 bool  ConstVertex::isAvailable() const {

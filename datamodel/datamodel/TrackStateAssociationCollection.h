@@ -54,7 +54,7 @@ public:
   TrackStateAssociationCollection();
 //  TrackStateAssociationCollection(const TrackStateAssociationCollection& ) = delete; // deletion doesn't work w/ ROOT IO ! :-(
 //  TrackStateAssociationCollection(TrackStateAssociationVector* data, int collectionID);
-  ~TrackStateAssociationCollection(){};
+  ~TrackStateAssociationCollection();
 
   void clear();
   /// Append a new object to the collection, and return this object.
@@ -80,7 +80,7 @@ public:
   void setBuffer(void* address);
   bool setReferences(const podio::ICollectionProvider* collectionProvider);
 
-  podio::CollRefCollection* referenceCollections() { return m_refCollections;};
+  podio::CollRefCollection* referenceCollections() { return &m_refCollections;};
 
   void setID(unsigned ID){
     m_collectionID = ID;
@@ -89,11 +89,15 @@ public:
     );
   };
 
+  bool isValid() const {
+    return m_isValid;
+  }
+
   // support for the iterator protocol
   const const_iterator begin() const {
     return const_iterator(0, &m_entries);
   }
-  const	const_iterator end() const {
+  const const_iterator end() const {
     return const_iterator(m_entries.size(), &m_entries);
   }
 
@@ -106,14 +110,15 @@ public:
    
 
 private:
+  bool m_isValid;
   int m_collectionID;
   TrackStateAssociationObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  std::vector<::fcc::ConstTrack>* m_rel_Track; //relation buffer for r/w
-  std::vector<::fcc::ConstTrackState>* m_rel_State; //relation buffer for r/w
+  std::vector<fcc::ConstTrack>* m_rel_Track; ///< Relation buffer for read / write
+  std::vector<fcc::ConstTrackState>* m_rel_State; ///< Relation buffer for read / write
 
   // members to handle streaming
-  podio::CollRefCollection* m_refCollections;
+  podio::CollRefCollection m_refCollections;
   TrackStateAssociationDataContainer* m_data;
 };
 

@@ -1,12 +1,11 @@
 #ifndef ConstTrackHit_H
 #define ConstTrackHit_H
-#include "TrackHitData.h"
 #include "BareHit.h"
-
+#include "TrackHitData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  contains basic hit information
+// A tracker hit
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -48,6 +47,7 @@ public:
 public:
 
   const fcc::BareHit& Core() const;
+
 
 
   /// check whether the object is actually available

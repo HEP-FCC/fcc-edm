@@ -1,7 +1,6 @@
 #ifndef ConstGenJetParticleAssociation_H
 #define ConstGenJetParticleAssociation_H
 #include "GenJetParticleAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -53,6 +52,7 @@ public:
 
   const fcc::ConstGenJet Jet() const;
   const fcc::ConstMCParticle Particle() const;
+
 
 
   /// check whether the object is actually available

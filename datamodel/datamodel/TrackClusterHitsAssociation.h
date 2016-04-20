@@ -1,7 +1,6 @@
 #ifndef TrackClusterHitsAssociation_H
 #define TrackClusterHitsAssociation_H
 #include "TrackClusterHitsAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -36,7 +35,7 @@ public:
 
   /// default constructor
   TrackClusterHitsAssociation();
-  
+
   /// constructor from existing TrackClusterHitsAssociationObj
   TrackClusterHitsAssociation(TrackClusterHitsAssociationObj* obj);
   /// copy constructor
@@ -60,13 +59,14 @@ public:
   void Hit(fcc::ConstTrackHit value);
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from TrackClusterHitsAssociationObj instance
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const TrackClusterHitsAssociation& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstTrackClusterHitsAssociation& other) const;

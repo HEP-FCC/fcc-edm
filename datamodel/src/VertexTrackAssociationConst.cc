@@ -11,7 +11,7 @@
 
 namespace fcc {
 
-ConstVertexTrackAssociation::ConstVertexTrackAssociation() : m_obj(new VertexTrackAssociationObj()){
+ConstVertexTrackAssociation::ConstVertexTrackAssociation() : m_obj(new VertexTrackAssociationObj()) {
  m_obj->acquire();
 }
 
@@ -31,7 +31,7 @@ ConstVertexTrackAssociation& ConstVertexTrackAssociation::operator=(const ConstV
   return *this;
 }
 
-ConstVertexTrackAssociation::ConstVertexTrackAssociation(VertexTrackAssociationObj* obj) : m_obj(obj){
+ConstVertexTrackAssociation::ConstVertexTrackAssociation(VertexTrackAssociationObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -45,12 +45,15 @@ ConstVertexTrackAssociation::~ConstVertexTrackAssociation(){
 }
 
   const float& ConstVertexTrackAssociation::Weight() const { return m_obj->data.Weight; }
-  const fcc::ConstTrack ConstVertexTrackAssociation::Track() const { if (m_obj->m_Track == nullptr) {
- return fcc::ConstTrack(nullptr);}
- return fcc::ConstTrack(*(m_obj->m_Track));}
-  const fcc::ConstVertex ConstVertexTrackAssociation::Vertex() const { if (m_obj->m_Vertex == nullptr) {
- return fcc::ConstVertex(nullptr);}
- return fcc::ConstVertex(*(m_obj->m_Vertex));}
+  const fcc::ConstTrack ConstVertexTrackAssociation::Track() const {
+    if (m_obj->m_Track == nullptr) {
+      return fcc::ConstTrack(nullptr);
+    }
+    return fcc::ConstTrack(*(m_obj->m_Track));} const fcc::ConstVertex ConstVertexTrackAssociation::Vertex() const {
+    if (m_obj->m_Vertex == nullptr) {
+      return fcc::ConstVertex(nullptr);
+    }
+    return fcc::ConstVertex(*(m_obj->m_Vertex));}
 
 
 bool  ConstVertexTrackAssociation::isAvailable() const {

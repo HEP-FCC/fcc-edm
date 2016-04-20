@@ -42,15 +42,26 @@ JetIntTagAssociation::~JetIntTagAssociation(){
 
 JetIntTagAssociation::operator ConstJetIntTagAssociation() const {return ConstJetIntTagAssociation(m_obj);}
 
-  const fcc::ConstJet JetIntTagAssociation::Jet() const { if (m_obj->m_Jet == nullptr) {
- return fcc::ConstJet(nullptr);}
- return fcc::ConstJet(*(m_obj->m_Jet));}
-  const fcc::ConstIntTag JetIntTagAssociation::Tag() const { if (m_obj->m_Tag == nullptr) {
- return fcc::ConstIntTag(nullptr);}
- return fcc::ConstIntTag(*(m_obj->m_Tag));}
+  const fcc::ConstJet JetIntTagAssociation::Jet() const {
+    if (m_obj->m_Jet == nullptr) {
+      return fcc::ConstJet(nullptr);
+    }
+    return fcc::ConstJet(*(m_obj->m_Jet));
+  } const fcc::ConstIntTag JetIntTagAssociation::Tag() const {
+    if (m_obj->m_Tag == nullptr) {
+      return fcc::ConstIntTag(nullptr);
+    }
+    return fcc::ConstIntTag(*(m_obj->m_Tag));
+  }
+void JetIntTagAssociation::Jet(fcc::ConstJet value) {
+  if (m_obj->m_Jet != nullptr) delete m_obj->m_Jet;
+  m_obj->m_Jet = new ConstJet(value);
+}
+void JetIntTagAssociation::Tag(fcc::ConstIntTag value) {
+  if (m_obj->m_Tag != nullptr) delete m_obj->m_Tag;
+  m_obj->m_Tag = new ConstIntTag(value);
+}
 
-void JetIntTagAssociation::Jet(fcc::ConstJet value) { if (m_obj->m_Jet != nullptr) delete m_obj->m_Jet; m_obj->m_Jet = new ConstJet(value); }
-void JetIntTagAssociation::Tag(fcc::ConstIntTag value) { if (m_obj->m_Tag != nullptr) delete m_obj->m_Tag; m_obj->m_Tag = new ConstIntTag(value); }
 
 
 bool  JetIntTagAssociation::isAvailable() const {
@@ -68,7 +79,7 @@ const podio::ObjectID JetIntTagAssociation::getObjectID() const {
 }
 
 bool JetIntTagAssociation::operator==(const ConstJetIntTagAssociation& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

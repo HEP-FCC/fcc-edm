@@ -1,7 +1,6 @@
 #ifndef ParticleMCParticleAssociation_H
 #define ParticleMCParticleAssociation_H
 #include "ParticleMCParticleAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -36,7 +35,7 @@ public:
 
   /// default constructor
   ParticleMCParticleAssociation();
-  
+
   /// constructor from existing ParticleMCParticleAssociationObj
   ParticleMCParticleAssociation(ParticleMCParticleAssociationObj* obj);
   /// copy constructor
@@ -60,13 +59,14 @@ public:
   void Sim(fcc::ConstMCParticle value);
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from ParticleMCParticleAssociationObj instance
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const ParticleMCParticleAssociation& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstParticleMCParticleAssociation& other) const;

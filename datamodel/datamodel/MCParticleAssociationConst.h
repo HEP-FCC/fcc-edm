@@ -1,7 +1,6 @@
 #ifndef ConstMCParticleAssociation_H
 #define ConstMCParticleAssociation_H
 #include "MCParticleAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -53,6 +52,7 @@ public:
 
   const fcc::ConstMCParticle Mother() const;
   const fcc::ConstMCParticle Daughter() const;
+
 
 
   /// check whether the object is actually available

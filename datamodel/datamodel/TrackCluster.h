@@ -1,12 +1,11 @@
 #ifndef TrackCluster_H
 #define TrackCluster_H
-#include "TrackClusterData.h"
 #include "BareCluster.h"
-
+#include "TrackClusterData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  contains basic cluster information
+// A track cluster, made of TrackHits
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -31,7 +30,7 @@ public:
 
   /// default constructor
   TrackCluster();
-    TrackCluster(fcc::BareCluster Core);
+  TrackCluster(fcc::BareCluster Core);
 
   /// constructor from existing TrackClusterObj
   TrackCluster(TrackClusterObj* obj);
@@ -55,13 +54,14 @@ public:
   void Core(class fcc::BareCluster value);
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from TrackClusterObj instance
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const TrackCluster& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstTrackCluster& other) const;

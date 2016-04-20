@@ -1,12 +1,11 @@
 #ifndef ConstParticle_H
 #define ConstParticle_H
-#include "ParticleData.h"
 #include "BareParticle.h"
-
+#include "ParticleData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Contains basic particle information.
+// Reconstructed particle
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -48,6 +47,7 @@ public:
 public:
 
   const fcc::BareParticle& Core() const;
+
 
 
   /// check whether the object is actually available

@@ -1,7 +1,6 @@
 #ifndef ConstParticleMCParticleAssociation_H
 #define ConstParticleMCParticleAssociation_H
 #include "ParticleMCParticleAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -53,6 +52,7 @@ public:
 
   const fcc::ConstParticle Rec() const;
   const fcc::ConstMCParticle Sim() const;
+
 
 
   /// check whether the object is actually available

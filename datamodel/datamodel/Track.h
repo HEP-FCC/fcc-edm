@@ -1,11 +1,10 @@
 #ifndef Track_H
 #define Track_H
 #include "TrackData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Stores flags
+// Track reconstructed from clusters in the inner tracker
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -30,7 +29,7 @@ public:
 
   /// default constructor
   Track();
-    Track(float Chi2,unsigned Ndf,unsigned Bits);
+  Track(float Chi2,unsigned Ndf,unsigned Bits);
 
   /// constructor from existing TrackObj
   Track(TrackObj* obj);
@@ -53,8 +52,12 @@ public:
   const unsigned& Bits() const;
 
   void Chi2(float value);
+
   void Ndf(unsigned value);
+
   void Bits(unsigned value);
+
+
 
 
   /// check whether the object is actually available
@@ -63,7 +66,7 @@ public:
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const Track& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstTrack& other) const;

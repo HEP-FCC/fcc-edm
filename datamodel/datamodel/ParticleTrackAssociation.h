@@ -1,7 +1,6 @@
 #ifndef ParticleTrackAssociation_H
 #define ParticleTrackAssociation_H
 #include "ParticleTrackAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -36,7 +35,7 @@ public:
 
   /// default constructor
   ParticleTrackAssociation();
-  
+
   /// constructor from existing ParticleTrackAssociationObj
   ParticleTrackAssociation(ParticleTrackAssociationObj* obj);
   /// copy constructor
@@ -60,13 +59,14 @@ public:
   void Track(fcc::ConstTrack value);
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from ParticleTrackAssociationObj instance
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const ParticleTrackAssociation& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstParticleTrackAssociation& other) const;

@@ -1,11 +1,10 @@
 #ifndef ConstTrackState_H
 #define ConstTrackState_H
 #include "TrackStateData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Longitudinal impact parameter
+// Track state at a given point on the track.
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -50,6 +49,7 @@ public:
   const float& Omega() const;
   const float& D0() const;
   const float& Z0() const;
+
 
 
   /// check whether the object is actually available

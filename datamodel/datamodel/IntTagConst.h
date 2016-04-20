@@ -1,11 +1,10 @@
 #ifndef ConstIntTag_H
 #define ConstIntTag_H
 #include "IntTagData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Tag info
+// Integer tag information for studied type
 // author: C. Bernet, Z. Drasal, C. Helsens
 
 //forward declarations
@@ -47,6 +46,7 @@ public:
 public:
 
   const int& Value() const;
+
 
 
   /// check whether the object is actually available

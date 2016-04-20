@@ -1,7 +1,6 @@
 #ifndef ConstTrackStateAssociation_H
 #define ConstTrackStateAssociation_H
 #include "TrackStateAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -53,6 +52,7 @@ public:
 
   const fcc::ConstTrack Track() const;
   const fcc::ConstTrackState State() const;
+
 
 
   /// check whether the object is actually available

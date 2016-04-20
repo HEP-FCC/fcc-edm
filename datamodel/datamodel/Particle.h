@@ -1,12 +1,11 @@
 #ifndef Particle_H
 #define Particle_H
-#include "ParticleData.h"
 #include "BareParticle.h"
-
+#include "ParticleData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Contains basic particle information.
+// Reconstructed particle
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -31,7 +30,7 @@ public:
 
   /// default constructor
   Particle();
-    Particle(fcc::BareParticle Core);
+  Particle(fcc::BareParticle Core);
 
   /// constructor from existing ParticleObj
   Particle(ParticleObj* obj);
@@ -55,13 +54,14 @@ public:
   void Core(class fcc::BareParticle value);
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from ParticleObj instance
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const Particle& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstParticle& other) const;

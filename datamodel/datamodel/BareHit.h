@@ -5,10 +5,11 @@
 namespace fcc {
 class BareHit {
 public:
-  float Energy;
   unsigned Bits;
   unsigned Cellid;
+  float Energy;
   float Time;
+
 
 };
 } // namespace fcc

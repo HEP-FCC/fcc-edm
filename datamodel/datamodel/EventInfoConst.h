@@ -1,11 +1,10 @@
 #ifndef ConstEventInfo_H
 #define ConstEventInfo_H
 #include "EventInfoData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Event number
+// Event Info Data
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -47,6 +46,7 @@ public:
 public:
 
   const int& Number() const;
+
 
 
   /// check whether the object is actually available

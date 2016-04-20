@@ -1,7 +1,6 @@
 #ifndef ConstJetParticleAssociation_H
 #define ConstJetParticleAssociation_H
 #include "JetParticleAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -53,6 +52,7 @@ public:
 
   const fcc::ConstJet Jet() const;
   const fcc::ConstParticle Particle() const;
+
 
 
   /// check whether the object is actually available

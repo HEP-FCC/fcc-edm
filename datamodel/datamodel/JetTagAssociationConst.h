@@ -1,7 +1,6 @@
 #ifndef ConstJetTagAssociation_H
 #define ConstJetTagAssociation_H
 #include "JetTagAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -53,6 +52,7 @@ public:
 
   const fcc::ConstJet Jet() const;
   const fcc::ConstTag Tag() const;
+
 
 
   /// check whether the object is actually available

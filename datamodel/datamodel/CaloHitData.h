@@ -1,17 +1,15 @@
 #ifndef CaloHitDATA_H
 #define CaloHitDATA_H
 
-//  contains basic hit information
+// A calorimeter hit
 // author: C. Bernet, B. Hegner
 
 #include "BareHit.h"
 
-
 namespace fcc {
 class CaloHitData {
 public:
-  fcc::BareHit Core; /// contains basic hit information 
-
+  fcc::BareHit Core;  ///< contains basic hit information
 };
 } // namespace fcc
 

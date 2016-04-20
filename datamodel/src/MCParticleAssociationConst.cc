@@ -11,7 +11,7 @@
 
 namespace fcc {
 
-ConstMCParticleAssociation::ConstMCParticleAssociation() : m_obj(new MCParticleAssociationObj()){
+ConstMCParticleAssociation::ConstMCParticleAssociation() : m_obj(new MCParticleAssociationObj()) {
  m_obj->acquire();
 }
 
@@ -27,7 +27,7 @@ ConstMCParticleAssociation& ConstMCParticleAssociation::operator=(const ConstMCP
   return *this;
 }
 
-ConstMCParticleAssociation::ConstMCParticleAssociation(MCParticleAssociationObj* obj) : m_obj(obj){
+ConstMCParticleAssociation::ConstMCParticleAssociation(MCParticleAssociationObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -40,12 +40,15 @@ ConstMCParticleAssociation::~ConstMCParticleAssociation(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const fcc::ConstMCParticle ConstMCParticleAssociation::Mother() const { if (m_obj->m_Mother == nullptr) {
- return fcc::ConstMCParticle(nullptr);}
- return fcc::ConstMCParticle(*(m_obj->m_Mother));}
-  const fcc::ConstMCParticle ConstMCParticleAssociation::Daughter() const { if (m_obj->m_Daughter == nullptr) {
- return fcc::ConstMCParticle(nullptr);}
- return fcc::ConstMCParticle(*(m_obj->m_Daughter));}
+  const fcc::ConstMCParticle ConstMCParticleAssociation::Mother() const {
+    if (m_obj->m_Mother == nullptr) {
+      return fcc::ConstMCParticle(nullptr);
+    }
+    return fcc::ConstMCParticle(*(m_obj->m_Mother));} const fcc::ConstMCParticle ConstMCParticleAssociation::Daughter() const {
+    if (m_obj->m_Daughter == nullptr) {
+      return fcc::ConstMCParticle(nullptr);
+    }
+    return fcc::ConstMCParticle(*(m_obj->m_Daughter));}
 
 
 bool  ConstMCParticleAssociation::isAvailable() const {

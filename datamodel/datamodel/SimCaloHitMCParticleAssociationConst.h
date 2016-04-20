@@ -1,11 +1,10 @@
 #ifndef ConstSimCaloHitMCParticleAssociation_H
 #define ConstSimCaloHitMCParticleAssociation_H
 #include "SimCaloHitMCParticleAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Fraction of the particle energy used in the hit.
+// Association between a SimCaloHit and a particle that contributed to the hit.
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -55,6 +54,7 @@ public:
   const float& Fraction() const;
   const fcc::ConstSimCaloHit Hit() const;
   const fcc::ConstMCParticle Particle() const;
+
 
 
   /// check whether the object is actually available

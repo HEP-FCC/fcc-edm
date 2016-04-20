@@ -5,9 +5,10 @@
 namespace fcc {
 class Point {
 public:
-  float Y;
   float X;
+  float Y;
   float Z;
+
 
 };
 } // namespace fcc

@@ -1,7 +1,6 @@
 #ifndef ConstSimCaloClusterHitAssociation_H
 #define ConstSimCaloClusterHitAssociation_H
 #include "SimCaloClusterHitAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -53,6 +52,7 @@ public:
 
   const fcc::ConstSimCaloCluster Cluster() const;
   const fcc::ConstSimCaloHit Hit() const;
+
 
 
   /// check whether the object is actually available

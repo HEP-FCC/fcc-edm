@@ -1,12 +1,11 @@
 #ifndef ConstVertex_H
 #define ConstVertex_H
-#include "VertexData.h"
 #include "Point.h"
-
+#include "VertexData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Stored flags
+// Vertex reconstructed from tracks
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -51,6 +50,7 @@ public:
   const unsigned& Ndf() const;
   const fcc::Point& Position() const;
   const unsigned& Bits() const;
+
 
 
   /// check whether the object is actually available

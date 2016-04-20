@@ -1,12 +1,11 @@
 #ifndef Jet_H
 #define Jet_H
-#include "JetData.h"
 #include "BareJet.h"
-
+#include "JetData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Basic jet information.
+// Reconstructed jet.
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -31,7 +30,7 @@ public:
 
   /// default constructor
   Jet();
-    Jet(fcc::BareJet Core);
+  Jet(fcc::BareJet Core);
 
   /// constructor from existing JetObj
   Jet(JetObj* obj);
@@ -55,13 +54,14 @@ public:
   void Core(class fcc::BareJet value);
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from JetObj instance
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const Jet& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstJet& other) const;

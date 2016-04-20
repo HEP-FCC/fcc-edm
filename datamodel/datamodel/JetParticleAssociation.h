@@ -1,7 +1,6 @@
 #ifndef JetParticleAssociation_H
 #define JetParticleAssociation_H
 #include "JetParticleAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -36,7 +35,7 @@ public:
 
   /// default constructor
   JetParticleAssociation();
-  
+
   /// constructor from existing JetParticleAssociationObj
   JetParticleAssociation(JetParticleAssociationObj* obj);
   /// copy constructor
@@ -60,13 +59,14 @@ public:
   void Particle(fcc::ConstParticle value);
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from JetParticleAssociationObj instance
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const JetParticleAssociation& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstJetParticleAssociation& other) const;

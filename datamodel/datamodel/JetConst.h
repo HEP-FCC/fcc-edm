@@ -1,12 +1,11 @@
 #ifndef ConstJet_H
 #define ConstJet_H
-#include "JetData.h"
 #include "BareJet.h"
-
+#include "JetData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Basic jet information.
+// Reconstructed jet.
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -48,6 +47,7 @@ public:
 public:
 
   const fcc::BareJet& Core() const;
+
 
 
   /// check whether the object is actually available

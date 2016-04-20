@@ -42,15 +42,26 @@ ParticleTrackAssociation::~ParticleTrackAssociation(){
 
 ParticleTrackAssociation::operator ConstParticleTrackAssociation() const {return ConstParticleTrackAssociation(m_obj);}
 
-  const fcc::ConstParticle ParticleTrackAssociation::Particle() const { if (m_obj->m_Particle == nullptr) {
- return fcc::ConstParticle(nullptr);}
- return fcc::ConstParticle(*(m_obj->m_Particle));}
-  const fcc::ConstTrack ParticleTrackAssociation::Track() const { if (m_obj->m_Track == nullptr) {
- return fcc::ConstTrack(nullptr);}
- return fcc::ConstTrack(*(m_obj->m_Track));}
+  const fcc::ConstParticle ParticleTrackAssociation::Particle() const {
+    if (m_obj->m_Particle == nullptr) {
+      return fcc::ConstParticle(nullptr);
+    }
+    return fcc::ConstParticle(*(m_obj->m_Particle));
+  } const fcc::ConstTrack ParticleTrackAssociation::Track() const {
+    if (m_obj->m_Track == nullptr) {
+      return fcc::ConstTrack(nullptr);
+    }
+    return fcc::ConstTrack(*(m_obj->m_Track));
+  }
+void ParticleTrackAssociation::Particle(fcc::ConstParticle value) {
+  if (m_obj->m_Particle != nullptr) delete m_obj->m_Particle;
+  m_obj->m_Particle = new ConstParticle(value);
+}
+void ParticleTrackAssociation::Track(fcc::ConstTrack value) {
+  if (m_obj->m_Track != nullptr) delete m_obj->m_Track;
+  m_obj->m_Track = new ConstTrack(value);
+}
 
-void ParticleTrackAssociation::Particle(fcc::ConstParticle value) { if (m_obj->m_Particle != nullptr) delete m_obj->m_Particle; m_obj->m_Particle = new ConstParticle(value); }
-void ParticleTrackAssociation::Track(fcc::ConstTrack value) { if (m_obj->m_Track != nullptr) delete m_obj->m_Track; m_obj->m_Track = new ConstTrack(value); }
 
 
 bool  ParticleTrackAssociation::isAvailable() const {
@@ -68,7 +79,7 @@ const podio::ObjectID ParticleTrackAssociation::getObjectID() const {
 }
 
 bool ParticleTrackAssociation::operator==(const ConstParticleTrackAssociation& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

@@ -1,12 +1,11 @@
 #ifndef ConstMCParticle_H
 #define ConstMCParticle_H
-#include "MCParticleData.h"
 #include "BareParticle.h"
-
+#include "MCParticleData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Basic particle information.
+// Monte-Carlo Particle, either generated or simulated.
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -56,6 +55,7 @@ public:
   const fcc::BareParticle& Core() const;
   const fcc::ConstGenVertex StartVertex() const;
   const fcc::ConstGenVertex EndVertex() const;
+
 
 
   /// check whether the object is actually available

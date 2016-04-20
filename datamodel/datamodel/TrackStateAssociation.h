@@ -1,7 +1,6 @@
 #ifndef TrackStateAssociation_H
 #define TrackStateAssociation_H
 #include "TrackStateAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -36,7 +35,7 @@ public:
 
   /// default constructor
   TrackStateAssociation();
-  
+
   /// constructor from existing TrackStateAssociationObj
   TrackStateAssociation(TrackStateAssociationObj* obj);
   /// copy constructor
@@ -60,13 +59,14 @@ public:
   void State(fcc::ConstTrackState value);
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from TrackStateAssociationObj instance
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const TrackStateAssociation& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstTrackStateAssociation& other) const;
