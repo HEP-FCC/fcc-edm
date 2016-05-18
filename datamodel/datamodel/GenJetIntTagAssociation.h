@@ -74,6 +74,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const GenJetIntTagAssociation& p1,
 //       const GenJetIntTagAssociation& p2 );
+  bool operator<(const GenJetIntTagAssociation& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

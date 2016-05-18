@@ -63,6 +63,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const Tag& p1,
 //       const Tag& p2 );
+  bool operator<(const ConstTag& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 
