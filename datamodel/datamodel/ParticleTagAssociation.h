@@ -1,7 +1,6 @@
 #ifndef ParticleTagAssociation_H
 #define ParticleTagAssociation_H
 #include "ParticleTagAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -36,7 +35,7 @@ public:
 
   /// default constructor
   ParticleTagAssociation();
-  
+
   /// constructor from existing ParticleTagAssociationObj
   ParticleTagAssociation(ParticleTagAssociationObj* obj);
   /// copy constructor
@@ -60,13 +59,14 @@ public:
   void Tag(fcc::ConstTag value);
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from ParticleTagAssociationObj instance
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const ParticleTagAssociation& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstParticleTagAssociation& other) const;
@@ -74,6 +74,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const ParticleTagAssociation& p1,
 //       const ParticleTagAssociation& p2 );
+  bool operator<(const ParticleTagAssociation& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

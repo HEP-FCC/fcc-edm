@@ -13,9 +13,9 @@ MET::MET() : m_obj(new METObj()){
  m_obj->acquire();
 }
 
-MET::MET(float Magnitude,float Phi,float ScalarSum) : m_obj(new METObj()){
- m_obj->acquire();
-   m_obj->data.Magnitude = Magnitude;  m_obj->data.Phi = Phi;  m_obj->data.ScalarSum = ScalarSum;
+MET::MET(float Magnitude,float Phi,float ScalarSum) : m_obj(new METObj()) {
+  m_obj->acquire();
+    m_obj->data.Magnitude = Magnitude;  m_obj->data.Phi = Phi;  m_obj->data.ScalarSum = ScalarSum;
 }
 
 
@@ -48,9 +48,10 @@ MET::operator ConstMET() const {return ConstMET(m_obj);}
   const float& MET::Phi() const { return m_obj->data.Phi; }
   const float& MET::ScalarSum() const { return m_obj->data.ScalarSum; }
 
-void MET::Magnitude(float value){ m_obj->data.Magnitude = value;}
-void MET::Phi(float value){ m_obj->data.Phi = value;}
-void MET::ScalarSum(float value){ m_obj->data.ScalarSum = value;}
+void MET::Magnitude(float value){ m_obj->data.Magnitude = value; }
+void MET::Phi(float value){ m_obj->data.Phi = value; }
+void MET::ScalarSum(float value){ m_obj->data.ScalarSum = value; }
+
 
 
 bool  MET::isAvailable() const {
@@ -68,7 +69,7 @@ const podio::ObjectID MET::getObjectID() const {
 }
 
 bool MET::operator==(const ConstMET& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

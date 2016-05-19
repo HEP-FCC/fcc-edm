@@ -5,10 +5,11 @@
 namespace fcc {
 class LorentzVector {
 public:
-  float Pz;
+  float Mass;
   float Px;
   float Py;
-  float Mass;
+  float Pz;
+
 
 };
 } // namespace fcc

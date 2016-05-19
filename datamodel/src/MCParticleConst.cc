@@ -11,7 +11,7 @@
 
 namespace fcc {
 
-ConstMCParticle::ConstMCParticle() : m_obj(new MCParticleObj()){
+ConstMCParticle::ConstMCParticle() : m_obj(new MCParticleObj()) {
  m_obj->acquire();
 }
 
@@ -31,7 +31,7 @@ ConstMCParticle& ConstMCParticle::operator=(const ConstMCParticle& other) {
   return *this;
 }
 
-ConstMCParticle::ConstMCParticle(MCParticleObj* obj) : m_obj(obj){
+ConstMCParticle::ConstMCParticle(MCParticleObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -45,12 +45,15 @@ ConstMCParticle::~ConstMCParticle(){
 }
 
   const fcc::BareParticle& ConstMCParticle::Core() const { return m_obj->data.Core; }
-  const fcc::ConstGenVertex ConstMCParticle::StartVertex() const { if (m_obj->m_StartVertex == nullptr) {
- return fcc::ConstGenVertex(nullptr);}
- return fcc::ConstGenVertex(*(m_obj->m_StartVertex));}
-  const fcc::ConstGenVertex ConstMCParticle::EndVertex() const { if (m_obj->m_EndVertex == nullptr) {
- return fcc::ConstGenVertex(nullptr);}
- return fcc::ConstGenVertex(*(m_obj->m_EndVertex));}
+  const fcc::ConstGenVertex ConstMCParticle::StartVertex() const {
+    if (m_obj->m_StartVertex == nullptr) {
+      return fcc::ConstGenVertex(nullptr);
+    }
+    return fcc::ConstGenVertex(*(m_obj->m_StartVertex));} const fcc::ConstGenVertex ConstMCParticle::EndVertex() const {
+    if (m_obj->m_EndVertex == nullptr) {
+      return fcc::ConstGenVertex(nullptr);
+    }
+    return fcc::ConstGenVertex(*(m_obj->m_EndVertex));}
 
 
 bool  ConstMCParticle::isAvailable() const {

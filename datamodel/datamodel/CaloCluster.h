@@ -1,12 +1,11 @@
 #ifndef CaloCluster_H
 #define CaloCluster_H
-#include "CaloClusterData.h"
 #include "BareCluster.h"
-
+#include "CaloClusterData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  contains basic cluster information
+// A calo cluster, made of CaloHits
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -31,7 +30,7 @@ public:
 
   /// default constructor
   CaloCluster();
-    CaloCluster(fcc::BareCluster Core);
+  CaloCluster(fcc::BareCluster Core);
 
   /// constructor from existing CaloClusterObj
   CaloCluster(CaloClusterObj* obj);
@@ -55,13 +54,14 @@ public:
   void Core(class fcc::BareCluster value);
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from CaloClusterObj instance
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const CaloCluster& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstCaloCluster& other) const;
@@ -69,6 +69,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const CaloCluster& p1,
 //       const CaloCluster& p2 );
+  bool operator<(const CaloCluster& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

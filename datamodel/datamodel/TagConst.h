@@ -1,11 +1,10 @@
 #ifndef ConstTag_H
 #define ConstTag_H
 #include "TagData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Tag info
+// Float tag information for studied type
 // author: C. Bernet, Z. Drasal
 
 //forward declarations
@@ -49,6 +48,7 @@ public:
   const float& Value() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from TagObj instance
@@ -63,6 +63,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const Tag& p1,
 //       const Tag& p2 );
+  bool operator<(const ConstTag& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

@@ -1,7 +1,6 @@
 #ifndef ConstParticleMCParticleAssociation_H
 #define ConstParticleMCParticleAssociation_H
 #include "ParticleMCParticleAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -55,6 +54,7 @@ public:
   const fcc::ConstMCParticle Sim() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from ParticleMCParticleAssociationObj instance
@@ -69,6 +69,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const ParticleMCParticleAssociation& p1,
 //       const ParticleMCParticleAssociation& p2 );
+  bool operator<(const ConstParticleMCParticleAssociation& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

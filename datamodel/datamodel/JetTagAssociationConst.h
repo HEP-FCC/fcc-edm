@@ -1,7 +1,6 @@
 #ifndef ConstJetTagAssociation_H
 #define ConstJetTagAssociation_H
 #include "JetTagAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -55,6 +54,7 @@ public:
   const fcc::ConstTag Tag() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from JetTagAssociationObj instance
@@ -69,6 +69,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const JetTagAssociation& p1,
 //       const JetTagAssociation& p2 );
+  bool operator<(const ConstJetTagAssociation& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

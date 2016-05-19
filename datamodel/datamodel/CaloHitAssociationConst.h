@@ -1,7 +1,6 @@
 #ifndef ConstCaloHitAssociation_H
 #define ConstCaloHitAssociation_H
 #include "CaloHitAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -55,6 +54,7 @@ public:
   const fcc::ConstSimCaloHit Sim() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from CaloHitAssociationObj instance
@@ -69,6 +69,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const CaloHitAssociation& p1,
 //       const CaloHitAssociation& p2 );
+  bool operator<(const ConstCaloHitAssociation& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

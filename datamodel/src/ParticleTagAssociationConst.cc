@@ -11,7 +11,7 @@
 
 namespace fcc {
 
-ConstParticleTagAssociation::ConstParticleTagAssociation() : m_obj(new ParticleTagAssociationObj()){
+ConstParticleTagAssociation::ConstParticleTagAssociation() : m_obj(new ParticleTagAssociationObj()) {
  m_obj->acquire();
 }
 
@@ -27,7 +27,7 @@ ConstParticleTagAssociation& ConstParticleTagAssociation::operator=(const ConstP
   return *this;
 }
 
-ConstParticleTagAssociation::ConstParticleTagAssociation(ParticleTagAssociationObj* obj) : m_obj(obj){
+ConstParticleTagAssociation::ConstParticleTagAssociation(ParticleTagAssociationObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -40,12 +40,15 @@ ConstParticleTagAssociation::~ConstParticleTagAssociation(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const fcc::ConstParticle ConstParticleTagAssociation::Particle() const { if (m_obj->m_Particle == nullptr) {
- return fcc::ConstParticle(nullptr);}
- return fcc::ConstParticle(*(m_obj->m_Particle));}
-  const fcc::ConstTag ConstParticleTagAssociation::Tag() const { if (m_obj->m_Tag == nullptr) {
- return fcc::ConstTag(nullptr);}
- return fcc::ConstTag(*(m_obj->m_Tag));}
+  const fcc::ConstParticle ConstParticleTagAssociation::Particle() const {
+    if (m_obj->m_Particle == nullptr) {
+      return fcc::ConstParticle(nullptr);
+    }
+    return fcc::ConstParticle(*(m_obj->m_Particle));} const fcc::ConstTag ConstParticleTagAssociation::Tag() const {
+    if (m_obj->m_Tag == nullptr) {
+      return fcc::ConstTag(nullptr);
+    }
+    return fcc::ConstTag(*(m_obj->m_Tag));}
 
 
 bool  ConstParticleTagAssociation::isAvailable() const {

@@ -1,7 +1,6 @@
 #ifndef GenJetTagAssociation_H
 #define GenJetTagAssociation_H
 #include "GenJetTagAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -36,7 +35,7 @@ public:
 
   /// default constructor
   GenJetTagAssociation();
-  
+
   /// constructor from existing GenJetTagAssociationObj
   GenJetTagAssociation(GenJetTagAssociationObj* obj);
   /// copy constructor
@@ -60,13 +59,14 @@ public:
   void Tag(fcc::ConstTag value);
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from GenJetTagAssociationObj instance
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const GenJetTagAssociation& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstGenJetTagAssociation& other) const;
@@ -74,6 +74,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const GenJetTagAssociation& p1,
 //       const GenJetTagAssociation& p2 );
+  bool operator<(const GenJetTagAssociation& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

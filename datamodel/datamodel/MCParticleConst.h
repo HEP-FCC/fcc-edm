@@ -1,12 +1,11 @@
 #ifndef ConstMCParticle_H
 #define ConstMCParticle_H
-#include "MCParticleData.h"
 #include "BareParticle.h"
-
+#include "MCParticleData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Basic particle information.
+// Monte-Carlo Particle, either generated or simulated.
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -58,6 +57,7 @@ public:
   const fcc::ConstGenVertex EndVertex() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from MCParticleObj instance
@@ -72,6 +72,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const MCParticle& p1,
 //       const MCParticle& p2 );
+  bool operator<(const ConstMCParticle& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

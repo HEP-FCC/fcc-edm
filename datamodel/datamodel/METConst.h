@@ -1,11 +1,10 @@
 #ifndef ConstMET_H
 #define ConstMET_H
 #include "METData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Corresponding sum pT or sum ET
+// Naive MET type
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -51,6 +50,7 @@ public:
   const float& ScalarSum() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from METObj instance
@@ -65,6 +65,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const MET& p1,
 //       const MET& p2 );
+  bool operator<(const ConstMET& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

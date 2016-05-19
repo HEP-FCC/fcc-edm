@@ -1,12 +1,11 @@
 #ifndef ConstTrackCluster_H
 #define ConstTrackCluster_H
-#include "TrackClusterData.h"
 #include "BareCluster.h"
-
+#include "TrackClusterData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  contains basic cluster information
+// A track cluster, made of TrackHits
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -50,6 +49,7 @@ public:
   const fcc::BareCluster& Core() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from TrackClusterObj instance
@@ -64,6 +64,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const TrackCluster& p1,
 //       const TrackCluster& p2 );
+  bool operator<(const ConstTrackCluster& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

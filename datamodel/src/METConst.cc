@@ -9,7 +9,7 @@
 
 namespace fcc {
 
-ConstMET::ConstMET() : m_obj(new METObj()){
+ConstMET::ConstMET() : m_obj(new METObj()) {
  m_obj->acquire();
 }
 
@@ -29,7 +29,7 @@ ConstMET& ConstMET::operator=(const ConstMET& other) {
   return *this;
 }
 
-ConstMET::ConstMET(METObj* obj) : m_obj(obj){
+ConstMET::ConstMET(METObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -45,6 +45,7 @@ ConstMET::~ConstMET(){
   const float& ConstMET::Magnitude() const { return m_obj->data.Magnitude; }
   const float& ConstMET::Phi() const { return m_obj->data.Phi; }
   const float& ConstMET::ScalarSum() const { return m_obj->data.ScalarSum; }
+
 
 
 bool  ConstMET::isAvailable() const {

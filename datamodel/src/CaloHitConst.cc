@@ -9,7 +9,7 @@
 
 namespace fcc {
 
-ConstCaloHit::ConstCaloHit() : m_obj(new CaloHitObj()){
+ConstCaloHit::ConstCaloHit() : m_obj(new CaloHitObj()) {
  m_obj->acquire();
 }
 
@@ -29,7 +29,7 @@ ConstCaloHit& ConstCaloHit::operator=(const ConstCaloHit& other) {
   return *this;
 }
 
-ConstCaloHit::ConstCaloHit(CaloHitObj* obj) : m_obj(obj){
+ConstCaloHit::ConstCaloHit(CaloHitObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -43,6 +43,7 @@ ConstCaloHit::~ConstCaloHit(){
 }
 
   const fcc::BareHit& ConstCaloHit::Core() const { return m_obj->data.Core; }
+
 
 
 bool  ConstCaloHit::isAvailable() const {

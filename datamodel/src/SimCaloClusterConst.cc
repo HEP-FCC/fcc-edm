@@ -9,7 +9,7 @@
 
 namespace fcc {
 
-ConstSimCaloCluster::ConstSimCaloCluster() : m_obj(new SimCaloClusterObj()){
+ConstSimCaloCluster::ConstSimCaloCluster() : m_obj(new SimCaloClusterObj()) {
  m_obj->acquire();
 }
 
@@ -29,7 +29,7 @@ ConstSimCaloCluster& ConstSimCaloCluster::operator=(const ConstSimCaloCluster& o
   return *this;
 }
 
-ConstSimCaloCluster::ConstSimCaloCluster(SimCaloClusterObj* obj) : m_obj(obj){
+ConstSimCaloCluster::ConstSimCaloCluster(SimCaloClusterObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -43,6 +43,7 @@ ConstSimCaloCluster::~ConstSimCaloCluster(){
 }
 
   const fcc::BareCluster& ConstSimCaloCluster::Core() const { return m_obj->data.Core; }
+
 
 
 bool  ConstSimCaloCluster::isAvailable() const {

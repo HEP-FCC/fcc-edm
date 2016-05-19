@@ -1,12 +1,11 @@
 #ifndef SimCaloHit_H
 #define SimCaloHit_H
-#include "SimCaloHitData.h"
 #include "BareHit.h"
-
+#include "SimCaloHitData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  contains basic hit information
+// A simulated calorimeter hit
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -31,7 +30,7 @@ public:
 
   /// default constructor
   SimCaloHit();
-    SimCaloHit(fcc::BareHit Core);
+  SimCaloHit(fcc::BareHit Core);
 
   /// constructor from existing SimCaloHitObj
   SimCaloHit(SimCaloHitObj* obj);
@@ -55,13 +54,14 @@ public:
   void Core(class fcc::BareHit value);
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from SimCaloHitObj instance
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const SimCaloHit& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstSimCaloHit& other) const;
@@ -69,6 +69,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const SimCaloHit& p1,
 //       const SimCaloHit& p2 );
+  bool operator<(const SimCaloHit& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

@@ -11,7 +11,7 @@
 
 namespace fcc {
 
-ConstJetIntTagAssociation::ConstJetIntTagAssociation() : m_obj(new JetIntTagAssociationObj()){
+ConstJetIntTagAssociation::ConstJetIntTagAssociation() : m_obj(new JetIntTagAssociationObj()) {
  m_obj->acquire();
 }
 
@@ -27,7 +27,7 @@ ConstJetIntTagAssociation& ConstJetIntTagAssociation::operator=(const ConstJetIn
   return *this;
 }
 
-ConstJetIntTagAssociation::ConstJetIntTagAssociation(JetIntTagAssociationObj* obj) : m_obj(obj){
+ConstJetIntTagAssociation::ConstJetIntTagAssociation(JetIntTagAssociationObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -40,12 +40,15 @@ ConstJetIntTagAssociation::~ConstJetIntTagAssociation(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const fcc::ConstJet ConstJetIntTagAssociation::Jet() const { if (m_obj->m_Jet == nullptr) {
- return fcc::ConstJet(nullptr);}
- return fcc::ConstJet(*(m_obj->m_Jet));}
-  const fcc::ConstIntTag ConstJetIntTagAssociation::Tag() const { if (m_obj->m_Tag == nullptr) {
- return fcc::ConstIntTag(nullptr);}
- return fcc::ConstIntTag(*(m_obj->m_Tag));}
+  const fcc::ConstJet ConstJetIntTagAssociation::Jet() const {
+    if (m_obj->m_Jet == nullptr) {
+      return fcc::ConstJet(nullptr);
+    }
+    return fcc::ConstJet(*(m_obj->m_Jet));} const fcc::ConstIntTag ConstJetIntTagAssociation::Tag() const {
+    if (m_obj->m_Tag == nullptr) {
+      return fcc::ConstIntTag(nullptr);
+    }
+    return fcc::ConstIntTag(*(m_obj->m_Tag));}
 
 
 bool  ConstJetIntTagAssociation::isAvailable() const {

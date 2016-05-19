@@ -9,7 +9,7 @@
 
 namespace fcc {
 
-ConstEventInfo::ConstEventInfo() : m_obj(new EventInfoObj()){
+ConstEventInfo::ConstEventInfo() : m_obj(new EventInfoObj()) {
  m_obj->acquire();
 }
 
@@ -29,7 +29,7 @@ ConstEventInfo& ConstEventInfo::operator=(const ConstEventInfo& other) {
   return *this;
 }
 
-ConstEventInfo::ConstEventInfo(EventInfoObj* obj) : m_obj(obj){
+ConstEventInfo::ConstEventInfo(EventInfoObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -43,6 +43,7 @@ ConstEventInfo::~ConstEventInfo(){
 }
 
   const int& ConstEventInfo::Number() const { return m_obj->data.Number; }
+
 
 
 bool  ConstEventInfo::isAvailable() const {

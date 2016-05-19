@@ -9,7 +9,7 @@
 
 namespace fcc {
 
-ConstTrackState::ConstTrackState() : m_obj(new TrackStateObj()){
+ConstTrackState::ConstTrackState() : m_obj(new TrackStateObj()) {
  m_obj->acquire();
 }
 
@@ -29,7 +29,7 @@ ConstTrackState& ConstTrackState::operator=(const ConstTrackState& other) {
   return *this;
 }
 
-ConstTrackState::ConstTrackState(TrackStateObj* obj) : m_obj(obj){
+ConstTrackState::ConstTrackState(TrackStateObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -46,6 +46,7 @@ ConstTrackState::~ConstTrackState(){
   const float& ConstTrackState::Omega() const { return m_obj->data.Omega; }
   const float& ConstTrackState::D0() const { return m_obj->data.D0; }
   const float& ConstTrackState::Z0() const { return m_obj->data.Z0; }
+
 
 
 bool  ConstTrackState::isAvailable() const {

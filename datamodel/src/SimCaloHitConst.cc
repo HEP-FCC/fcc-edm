@@ -9,7 +9,7 @@
 
 namespace fcc {
 
-ConstSimCaloHit::ConstSimCaloHit() : m_obj(new SimCaloHitObj()){
+ConstSimCaloHit::ConstSimCaloHit() : m_obj(new SimCaloHitObj()) {
  m_obj->acquire();
 }
 
@@ -29,7 +29,7 @@ ConstSimCaloHit& ConstSimCaloHit::operator=(const ConstSimCaloHit& other) {
   return *this;
 }
 
-ConstSimCaloHit::ConstSimCaloHit(SimCaloHitObj* obj) : m_obj(obj){
+ConstSimCaloHit::ConstSimCaloHit(SimCaloHitObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -43,6 +43,7 @@ ConstSimCaloHit::~ConstSimCaloHit(){
 }
 
   const fcc::BareHit& ConstSimCaloHit::Core() const { return m_obj->data.Core; }
+
 
 
 bool  ConstSimCaloHit::isAvailable() const {

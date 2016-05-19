@@ -13,9 +13,9 @@ TrackCluster::TrackCluster() : m_obj(new TrackClusterObj()){
  m_obj->acquire();
 }
 
-TrackCluster::TrackCluster(fcc::BareCluster Core) : m_obj(new TrackClusterObj()){
- m_obj->acquire();
-   m_obj->data.Core = Core;
+TrackCluster::TrackCluster(fcc::BareCluster Core) : m_obj(new TrackClusterObj()) {
+  m_obj->acquire();
+    m_obj->data.Core = Core;
 }
 
 
@@ -47,7 +47,8 @@ TrackCluster::operator ConstTrackCluster() const {return ConstTrackCluster(m_obj
   const fcc::BareCluster& TrackCluster::Core() const { return m_obj->data.Core; }
 
   fcc::BareCluster& TrackCluster::Core() { return m_obj->data.Core; }
-void TrackCluster::Core(class fcc::BareCluster value){ m_obj->data.Core = value;}
+void TrackCluster::Core(class fcc::BareCluster value) { m_obj->data.Core = value; }
+
 
 
 bool  TrackCluster::isAvailable() const {
@@ -65,7 +66,7 @@ const podio::ObjectID TrackCluster::getObjectID() const {
 }
 
 bool TrackCluster::operator==(const ConstTrackCluster& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

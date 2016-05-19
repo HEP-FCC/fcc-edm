@@ -1,11 +1,10 @@
 #ifndef ConstVertexTrackAssociation_H
 #define ConstVertexTrackAssociation_H
 #include "VertexTrackAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Weight of the track in the vertex.
+// Association between a track and a vertex, with a weight
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -57,6 +56,7 @@ public:
   const fcc::ConstVertex Vertex() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from VertexTrackAssociationObj instance
@@ -71,6 +71,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const VertexTrackAssociation& p1,
 //       const VertexTrackAssociation& p2 );
+  bool operator<(const ConstVertexTrackAssociation& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

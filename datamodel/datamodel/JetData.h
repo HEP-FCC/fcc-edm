@@ -1,17 +1,15 @@
 #ifndef JetDATA_H
 #define JetDATA_H
 
-//  Basic jet information.
+// Reconstructed jet.
 // author: C. Bernet, B. Hegner
 
 #include "BareJet.h"
 
-
 namespace fcc {
 class JetData {
 public:
-  fcc::BareJet Core; /// Basic jet information. 
-
+  fcc::BareJet Core;  ///< Basic jet information.
 };
 } // namespace fcc
 

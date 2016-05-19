@@ -1,7 +1,6 @@
 #ifndef ConstGenJetParticleAssociation_H
 #define ConstGenJetParticleAssociation_H
 #include "GenJetParticleAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -55,6 +54,7 @@ public:
   const fcc::ConstMCParticle Particle() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from GenJetParticleAssociationObj instance
@@ -69,6 +69,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const GenJetParticleAssociation& p1,
 //       const GenJetParticleAssociation& p2 );
+  bool operator<(const ConstGenJetParticleAssociation& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

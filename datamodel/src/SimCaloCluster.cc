@@ -13,9 +13,9 @@ SimCaloCluster::SimCaloCluster() : m_obj(new SimCaloClusterObj()){
  m_obj->acquire();
 }
 
-SimCaloCluster::SimCaloCluster(fcc::BareCluster Core) : m_obj(new SimCaloClusterObj()){
- m_obj->acquire();
-   m_obj->data.Core = Core;
+SimCaloCluster::SimCaloCluster(fcc::BareCluster Core) : m_obj(new SimCaloClusterObj()) {
+  m_obj->acquire();
+    m_obj->data.Core = Core;
 }
 
 
@@ -47,7 +47,8 @@ SimCaloCluster::operator ConstSimCaloCluster() const {return ConstSimCaloCluster
   const fcc::BareCluster& SimCaloCluster::Core() const { return m_obj->data.Core; }
 
   fcc::BareCluster& SimCaloCluster::Core() { return m_obj->data.Core; }
-void SimCaloCluster::Core(class fcc::BareCluster value){ m_obj->data.Core = value;}
+void SimCaloCluster::Core(class fcc::BareCluster value) { m_obj->data.Core = value; }
+
 
 
 bool  SimCaloCluster::isAvailable() const {
@@ -65,7 +66,7 @@ const podio::ObjectID SimCaloCluster::getObjectID() const {
 }
 
 bool SimCaloCluster::operator==(const ConstSimCaloCluster& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

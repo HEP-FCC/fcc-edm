@@ -42,15 +42,26 @@ TrackStateAssociation::~TrackStateAssociation(){
 
 TrackStateAssociation::operator ConstTrackStateAssociation() const {return ConstTrackStateAssociation(m_obj);}
 
-  const fcc::ConstTrack TrackStateAssociation::Track() const { if (m_obj->m_Track == nullptr) {
- return fcc::ConstTrack(nullptr);}
- return fcc::ConstTrack(*(m_obj->m_Track));}
-  const fcc::ConstTrackState TrackStateAssociation::State() const { if (m_obj->m_State == nullptr) {
- return fcc::ConstTrackState(nullptr);}
- return fcc::ConstTrackState(*(m_obj->m_State));}
+  const fcc::ConstTrack TrackStateAssociation::Track() const {
+    if (m_obj->m_Track == nullptr) {
+      return fcc::ConstTrack(nullptr);
+    }
+    return fcc::ConstTrack(*(m_obj->m_Track));
+  } const fcc::ConstTrackState TrackStateAssociation::State() const {
+    if (m_obj->m_State == nullptr) {
+      return fcc::ConstTrackState(nullptr);
+    }
+    return fcc::ConstTrackState(*(m_obj->m_State));
+  }
+void TrackStateAssociation::Track(fcc::ConstTrack value) {
+  if (m_obj->m_Track != nullptr) delete m_obj->m_Track;
+  m_obj->m_Track = new ConstTrack(value);
+}
+void TrackStateAssociation::State(fcc::ConstTrackState value) {
+  if (m_obj->m_State != nullptr) delete m_obj->m_State;
+  m_obj->m_State = new ConstTrackState(value);
+}
 
-void TrackStateAssociation::Track(fcc::ConstTrack value) { if (m_obj->m_Track != nullptr) delete m_obj->m_Track; m_obj->m_Track = new ConstTrack(value); }
-void TrackStateAssociation::State(fcc::ConstTrackState value) { if (m_obj->m_State != nullptr) delete m_obj->m_State; m_obj->m_State = new ConstTrackState(value); }
 
 
 bool  TrackStateAssociation::isAvailable() const {
@@ -68,7 +79,7 @@ const podio::ObjectID TrackStateAssociation::getObjectID() const {
 }
 
 bool TrackStateAssociation::operator==(const ConstTrackStateAssociation& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

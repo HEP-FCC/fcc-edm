@@ -1,12 +1,11 @@
 #ifndef ConstVertex_H
 #define ConstVertex_H
-#include "VertexData.h"
 #include "Point.h"
-
+#include "VertexData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Stored flags
+// Vertex reconstructed from tracks
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -53,6 +52,7 @@ public:
   const unsigned& Bits() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from VertexObj instance
@@ -67,6 +67,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const Vertex& p1,
 //       const Vertex& p2 );
+  bool operator<(const ConstVertex& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

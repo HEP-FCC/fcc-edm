@@ -13,9 +13,9 @@ TrackState::TrackState() : m_obj(new TrackStateObj()){
  m_obj->acquire();
 }
 
-TrackState::TrackState(float Location,float Omega,float D0,float Z0) : m_obj(new TrackStateObj()){
- m_obj->acquire();
-   m_obj->data.Location = Location;  m_obj->data.Omega = Omega;  m_obj->data.D0 = D0;  m_obj->data.Z0 = Z0;
+TrackState::TrackState(float Location,float Omega,float D0,float Z0) : m_obj(new TrackStateObj()) {
+  m_obj->acquire();
+    m_obj->data.Location = Location;  m_obj->data.Omega = Omega;  m_obj->data.D0 = D0;  m_obj->data.Z0 = Z0;
 }
 
 
@@ -49,10 +49,11 @@ TrackState::operator ConstTrackState() const {return ConstTrackState(m_obj);}
   const float& TrackState::D0() const { return m_obj->data.D0; }
   const float& TrackState::Z0() const { return m_obj->data.Z0; }
 
-void TrackState::Location(float value){ m_obj->data.Location = value;}
-void TrackState::Omega(float value){ m_obj->data.Omega = value;}
-void TrackState::D0(float value){ m_obj->data.D0 = value;}
-void TrackState::Z0(float value){ m_obj->data.Z0 = value;}
+void TrackState::Location(float value){ m_obj->data.Location = value; }
+void TrackState::Omega(float value){ m_obj->data.Omega = value; }
+void TrackState::D0(float value){ m_obj->data.D0 = value; }
+void TrackState::Z0(float value){ m_obj->data.Z0 = value; }
+
 
 
 bool  TrackState::isAvailable() const {
@@ -70,7 +71,7 @@ const podio::ObjectID TrackState::getObjectID() const {
 }
 
 bool TrackState::operator==(const ConstTrackState& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

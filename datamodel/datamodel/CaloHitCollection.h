@@ -54,7 +54,7 @@ public:
   CaloHitCollection();
 //  CaloHitCollection(const CaloHitCollection& ) = delete; // deletion doesn't work w/ ROOT IO ! :-(
 //  CaloHitCollection(CaloHitVector* data, int collectionID);
-  ~CaloHitCollection(){};
+  ~CaloHitCollection();
 
   void clear();
   /// Append a new object to the collection, and return this object.
@@ -80,7 +80,7 @@ public:
   void setBuffer(void* address);
   bool setReferences(const podio::ICollectionProvider* collectionProvider);
 
-  podio::CollRefCollection* referenceCollections() { return m_refCollections;};
+  podio::CollRefCollection* referenceCollections() { return &m_refCollections;};
 
   void setID(unsigned ID){
     m_collectionID = ID;
@@ -89,11 +89,15 @@ public:
     );
   };
 
+  bool isValid() const {
+    return m_isValid;
+  }
+
   // support for the iterator protocol
   const const_iterator begin() const {
     return const_iterator(0, &m_entries);
   }
-  const	const_iterator end() const {
+  const const_iterator end() const {
     return const_iterator(m_entries.size(), &m_entries);
   }
 
@@ -103,17 +107,18 @@ public:
   /// returns the pointer to the data buffer
   std::vector<CaloHitData>* _getBuffer() { return m_data;};
 
-     template<size_t arraysize>  
+    template<size_t arraysize>
   const std::array<fcc::BareHit,arraysize> Core() const;
 
 
 private:
+  bool m_isValid;
   int m_collectionID;
   CaloHitObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
 
   // members to handle streaming
-  podio::CollRefCollection* m_refCollections;
+  podio::CollRefCollection m_refCollections;
   CaloHitDataContainer* m_data;
 };
 

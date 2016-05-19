@@ -1,11 +1,10 @@
 #ifndef ConstTrackState_H
 #define ConstTrackState_H
 #include "TrackStateData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Longitudinal impact parameter
+// Track state at a given point on the track.
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -52,6 +51,7 @@ public:
   const float& Z0() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from TrackStateObj instance
@@ -66,6 +66,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const TrackState& p1,
 //       const TrackState& p2 );
+  bool operator<(const ConstTrackState& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

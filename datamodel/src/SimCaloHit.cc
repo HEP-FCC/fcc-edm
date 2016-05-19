@@ -13,9 +13,9 @@ SimCaloHit::SimCaloHit() : m_obj(new SimCaloHitObj()){
  m_obj->acquire();
 }
 
-SimCaloHit::SimCaloHit(fcc::BareHit Core) : m_obj(new SimCaloHitObj()){
- m_obj->acquire();
-   m_obj->data.Core = Core;
+SimCaloHit::SimCaloHit(fcc::BareHit Core) : m_obj(new SimCaloHitObj()) {
+  m_obj->acquire();
+    m_obj->data.Core = Core;
 }
 
 
@@ -47,7 +47,8 @@ SimCaloHit::operator ConstSimCaloHit() const {return ConstSimCaloHit(m_obj);}
   const fcc::BareHit& SimCaloHit::Core() const { return m_obj->data.Core; }
 
   fcc::BareHit& SimCaloHit::Core() { return m_obj->data.Core; }
-void SimCaloHit::Core(class fcc::BareHit value){ m_obj->data.Core = value;}
+void SimCaloHit::Core(class fcc::BareHit value) { m_obj->data.Core = value; }
+
 
 
 bool  SimCaloHit::isAvailable() const {
@@ -65,7 +66,7 @@ const podio::ObjectID SimCaloHit::getObjectID() const {
 }
 
 bool SimCaloHit::operator==(const ConstSimCaloHit& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

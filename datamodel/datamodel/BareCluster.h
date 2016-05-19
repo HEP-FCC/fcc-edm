@@ -6,10 +6,11 @@
 namespace fcc {
 class BareCluster {
 public:
- ::fcc::Point position;
-  float Energy;
   unsigned Bits;
+  float Energy;
   float Time;
+ ::fcc::Point position;
+
 
 };
 } // namespace fcc

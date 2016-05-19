@@ -13,9 +13,9 @@ TrackHit::TrackHit() : m_obj(new TrackHitObj()){
  m_obj->acquire();
 }
 
-TrackHit::TrackHit(fcc::BareHit Core) : m_obj(new TrackHitObj()){
- m_obj->acquire();
-   m_obj->data.Core = Core;
+TrackHit::TrackHit(fcc::BareHit Core) : m_obj(new TrackHitObj()) {
+  m_obj->acquire();
+    m_obj->data.Core = Core;
 }
 
 
@@ -47,7 +47,8 @@ TrackHit::operator ConstTrackHit() const {return ConstTrackHit(m_obj);}
   const fcc::BareHit& TrackHit::Core() const { return m_obj->data.Core; }
 
   fcc::BareHit& TrackHit::Core() { return m_obj->data.Core; }
-void TrackHit::Core(class fcc::BareHit value){ m_obj->data.Core = value;}
+void TrackHit::Core(class fcc::BareHit value) { m_obj->data.Core = value; }
+
 
 
 bool  TrackHit::isAvailable() const {
@@ -65,7 +66,7 @@ const podio::ObjectID TrackHit::getObjectID() const {
 }
 
 bool TrackHit::operator==(const ConstTrackHit& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

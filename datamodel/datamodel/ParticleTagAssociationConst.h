@@ -1,7 +1,6 @@
 #ifndef ConstParticleTagAssociation_H
 #define ConstParticleTagAssociation_H
 #include "ParticleTagAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -55,6 +54,7 @@ public:
   const fcc::ConstTag Tag() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from ParticleTagAssociationObj instance
@@ -69,6 +69,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const ParticleTagAssociation& p1,
 //       const ParticleTagAssociation& p2 );
+  bool operator<(const ConstParticleTagAssociation& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

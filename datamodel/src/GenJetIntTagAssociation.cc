@@ -42,15 +42,26 @@ GenJetIntTagAssociation::~GenJetIntTagAssociation(){
 
 GenJetIntTagAssociation::operator ConstGenJetIntTagAssociation() const {return ConstGenJetIntTagAssociation(m_obj);}
 
-  const fcc::ConstGenJet GenJetIntTagAssociation::Jet() const { if (m_obj->m_Jet == nullptr) {
- return fcc::ConstGenJet(nullptr);}
- return fcc::ConstGenJet(*(m_obj->m_Jet));}
-  const fcc::ConstIntTag GenJetIntTagAssociation::Tag() const { if (m_obj->m_Tag == nullptr) {
- return fcc::ConstIntTag(nullptr);}
- return fcc::ConstIntTag(*(m_obj->m_Tag));}
+  const fcc::ConstGenJet GenJetIntTagAssociation::Jet() const {
+    if (m_obj->m_Jet == nullptr) {
+      return fcc::ConstGenJet(nullptr);
+    }
+    return fcc::ConstGenJet(*(m_obj->m_Jet));
+  } const fcc::ConstIntTag GenJetIntTagAssociation::Tag() const {
+    if (m_obj->m_Tag == nullptr) {
+      return fcc::ConstIntTag(nullptr);
+    }
+    return fcc::ConstIntTag(*(m_obj->m_Tag));
+  }
+void GenJetIntTagAssociation::Jet(fcc::ConstGenJet value) {
+  if (m_obj->m_Jet != nullptr) delete m_obj->m_Jet;
+  m_obj->m_Jet = new ConstGenJet(value);
+}
+void GenJetIntTagAssociation::Tag(fcc::ConstIntTag value) {
+  if (m_obj->m_Tag != nullptr) delete m_obj->m_Tag;
+  m_obj->m_Tag = new ConstIntTag(value);
+}
 
-void GenJetIntTagAssociation::Jet(fcc::ConstGenJet value) { if (m_obj->m_Jet != nullptr) delete m_obj->m_Jet; m_obj->m_Jet = new ConstGenJet(value); }
-void GenJetIntTagAssociation::Tag(fcc::ConstIntTag value) { if (m_obj->m_Tag != nullptr) delete m_obj->m_Tag; m_obj->m_Tag = new ConstIntTag(value); }
 
 
 bool  GenJetIntTagAssociation::isAvailable() const {
@@ -68,7 +79,7 @@ const podio::ObjectID GenJetIntTagAssociation::getObjectID() const {
 }
 
 bool GenJetIntTagAssociation::operator==(const ConstGenJetIntTagAssociation& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

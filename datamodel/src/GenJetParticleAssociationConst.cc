@@ -11,7 +11,7 @@
 
 namespace fcc {
 
-ConstGenJetParticleAssociation::ConstGenJetParticleAssociation() : m_obj(new GenJetParticleAssociationObj()){
+ConstGenJetParticleAssociation::ConstGenJetParticleAssociation() : m_obj(new GenJetParticleAssociationObj()) {
  m_obj->acquire();
 }
 
@@ -27,7 +27,7 @@ ConstGenJetParticleAssociation& ConstGenJetParticleAssociation::operator=(const 
   return *this;
 }
 
-ConstGenJetParticleAssociation::ConstGenJetParticleAssociation(GenJetParticleAssociationObj* obj) : m_obj(obj){
+ConstGenJetParticleAssociation::ConstGenJetParticleAssociation(GenJetParticleAssociationObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -40,12 +40,15 @@ ConstGenJetParticleAssociation::~ConstGenJetParticleAssociation(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const fcc::ConstGenJet ConstGenJetParticleAssociation::Jet() const { if (m_obj->m_Jet == nullptr) {
- return fcc::ConstGenJet(nullptr);}
- return fcc::ConstGenJet(*(m_obj->m_Jet));}
-  const fcc::ConstMCParticle ConstGenJetParticleAssociation::Particle() const { if (m_obj->m_Particle == nullptr) {
- return fcc::ConstMCParticle(nullptr);}
- return fcc::ConstMCParticle(*(m_obj->m_Particle));}
+  const fcc::ConstGenJet ConstGenJetParticleAssociation::Jet() const {
+    if (m_obj->m_Jet == nullptr) {
+      return fcc::ConstGenJet(nullptr);
+    }
+    return fcc::ConstGenJet(*(m_obj->m_Jet));}  const fcc::ConstMCParticle ConstGenJetParticleAssociation::Particle() const {
+    if (m_obj->m_Particle == nullptr) {
+      return fcc::ConstMCParticle(nullptr);
+    }
+    return fcc::ConstMCParticle(*(m_obj->m_Particle));}
 
 
 bool  ConstGenJetParticleAssociation::isAvailable() const {

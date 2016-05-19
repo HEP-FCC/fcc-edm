@@ -1,7 +1,6 @@
 #ifndef ConstParticleTrackAssociation_H
 #define ConstParticleTrackAssociation_H
 #include "ParticleTrackAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -55,6 +54,7 @@ public:
   const fcc::ConstTrack Track() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from ParticleTrackAssociationObj instance
@@ -69,6 +69,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const ParticleTrackAssociation& p1,
 //       const ParticleTrackAssociation& p2 );
+  bool operator<(const ConstParticleTrackAssociation& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

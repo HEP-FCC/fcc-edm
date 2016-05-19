@@ -13,9 +13,9 @@ Tag::Tag() : m_obj(new TagObj()){
  m_obj->acquire();
 }
 
-Tag::Tag(float Value) : m_obj(new TagObj()){
- m_obj->acquire();
-   m_obj->data.Value = Value;
+Tag::Tag(float Value) : m_obj(new TagObj()) {
+  m_obj->acquire();
+    m_obj->data.Value = Value;
 }
 
 
@@ -46,7 +46,8 @@ Tag::operator ConstTag() const {return ConstTag(m_obj);}
 
   const float& Tag::Value() const { return m_obj->data.Value; }
 
-void Tag::Value(float value){ m_obj->data.Value = value;}
+void Tag::Value(float value){ m_obj->data.Value = value; }
+
 
 
 bool  Tag::isAvailable() const {
@@ -64,7 +65,7 @@ const podio::ObjectID Tag::getObjectID() const {
 }
 
 bool Tag::operator==(const ConstTag& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

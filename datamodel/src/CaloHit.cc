@@ -13,9 +13,9 @@ CaloHit::CaloHit() : m_obj(new CaloHitObj()){
  m_obj->acquire();
 }
 
-CaloHit::CaloHit(fcc::BareHit Core) : m_obj(new CaloHitObj()){
- m_obj->acquire();
-   m_obj->data.Core = Core;
+CaloHit::CaloHit(fcc::BareHit Core) : m_obj(new CaloHitObj()) {
+  m_obj->acquire();
+    m_obj->data.Core = Core;
 }
 
 
@@ -47,7 +47,8 @@ CaloHit::operator ConstCaloHit() const {return ConstCaloHit(m_obj);}
   const fcc::BareHit& CaloHit::Core() const { return m_obj->data.Core; }
 
   fcc::BareHit& CaloHit::Core() { return m_obj->data.Core; }
-void CaloHit::Core(class fcc::BareHit value){ m_obj->data.Core = value;}
+void CaloHit::Core(class fcc::BareHit value) { m_obj->data.Core = value; }
+
 
 
 bool  CaloHit::isAvailable() const {
@@ -65,7 +66,7 @@ const podio::ObjectID CaloHit::getObjectID() const {
 }
 
 bool CaloHit::operator==(const ConstCaloHit& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

@@ -1,7 +1,6 @@
 #ifndef ConstTrackClusterHitsAssociation_H
 #define ConstTrackClusterHitsAssociation_H
 #include "TrackClusterHitsAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -55,6 +54,7 @@ public:
   const fcc::ConstTrackHit Hit() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from TrackClusterHitsAssociationObj instance
@@ -69,6 +69,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const TrackClusterHitsAssociation& p1,
 //       const TrackClusterHitsAssociation& p2 );
+  bool operator<(const ConstTrackClusterHitsAssociation& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

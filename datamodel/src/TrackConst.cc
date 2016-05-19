@@ -9,7 +9,7 @@
 
 namespace fcc {
 
-ConstTrack::ConstTrack() : m_obj(new TrackObj()){
+ConstTrack::ConstTrack() : m_obj(new TrackObj()) {
  m_obj->acquire();
 }
 
@@ -29,7 +29,7 @@ ConstTrack& ConstTrack::operator=(const ConstTrack& other) {
   return *this;
 }
 
-ConstTrack::ConstTrack(TrackObj* obj) : m_obj(obj){
+ConstTrack::ConstTrack(TrackObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -45,6 +45,7 @@ ConstTrack::~ConstTrack(){
   const float& ConstTrack::Chi2() const { return m_obj->data.Chi2; }
   const unsigned& ConstTrack::Ndf() const { return m_obj->data.Ndf; }
   const unsigned& ConstTrack::Bits() const { return m_obj->data.Bits; }
+
 
 
 bool  ConstTrack::isAvailable() const {

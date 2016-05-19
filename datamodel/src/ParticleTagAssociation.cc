@@ -42,15 +42,26 @@ ParticleTagAssociation::~ParticleTagAssociation(){
 
 ParticleTagAssociation::operator ConstParticleTagAssociation() const {return ConstParticleTagAssociation(m_obj);}
 
-  const fcc::ConstParticle ParticleTagAssociation::Particle() const { if (m_obj->m_Particle == nullptr) {
- return fcc::ConstParticle(nullptr);}
- return fcc::ConstParticle(*(m_obj->m_Particle));}
-  const fcc::ConstTag ParticleTagAssociation::Tag() const { if (m_obj->m_Tag == nullptr) {
- return fcc::ConstTag(nullptr);}
- return fcc::ConstTag(*(m_obj->m_Tag));}
+  const fcc::ConstParticle ParticleTagAssociation::Particle() const {
+    if (m_obj->m_Particle == nullptr) {
+      return fcc::ConstParticle(nullptr);
+    }
+    return fcc::ConstParticle(*(m_obj->m_Particle));
+  } const fcc::ConstTag ParticleTagAssociation::Tag() const {
+    if (m_obj->m_Tag == nullptr) {
+      return fcc::ConstTag(nullptr);
+    }
+    return fcc::ConstTag(*(m_obj->m_Tag));
+  }
+void ParticleTagAssociation::Particle(fcc::ConstParticle value) {
+  if (m_obj->m_Particle != nullptr) delete m_obj->m_Particle;
+  m_obj->m_Particle = new ConstParticle(value);
+}
+void ParticleTagAssociation::Tag(fcc::ConstTag value) {
+  if (m_obj->m_Tag != nullptr) delete m_obj->m_Tag;
+  m_obj->m_Tag = new ConstTag(value);
+}
 
-void ParticleTagAssociation::Particle(fcc::ConstParticle value) { if (m_obj->m_Particle != nullptr) delete m_obj->m_Particle; m_obj->m_Particle = new ConstParticle(value); }
-void ParticleTagAssociation::Tag(fcc::ConstTag value) { if (m_obj->m_Tag != nullptr) delete m_obj->m_Tag; m_obj->m_Tag = new ConstTag(value); }
 
 
 bool  ParticleTagAssociation::isAvailable() const {
@@ -68,7 +79,7 @@ const podio::ObjectID ParticleTagAssociation::getObjectID() const {
 }
 
 bool ParticleTagAssociation::operator==(const ConstParticleTagAssociation& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

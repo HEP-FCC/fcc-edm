@@ -1,12 +1,11 @@
 #ifndef ConstCaloCluster_H
 #define ConstCaloCluster_H
-#include "CaloClusterData.h"
 #include "BareCluster.h"
-
+#include "CaloClusterData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  contains basic cluster information
+// A calo cluster, made of CaloHits
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -50,6 +49,7 @@ public:
   const fcc::BareCluster& Core() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from CaloClusterObj instance
@@ -64,6 +64,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const CaloCluster& p1,
 //       const CaloCluster& p2 );
+  bool operator<(const ConstCaloCluster& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

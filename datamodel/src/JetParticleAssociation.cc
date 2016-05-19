@@ -42,15 +42,26 @@ JetParticleAssociation::~JetParticleAssociation(){
 
 JetParticleAssociation::operator ConstJetParticleAssociation() const {return ConstJetParticleAssociation(m_obj);}
 
-  const fcc::ConstJet JetParticleAssociation::Jet() const { if (m_obj->m_Jet == nullptr) {
- return fcc::ConstJet(nullptr);}
- return fcc::ConstJet(*(m_obj->m_Jet));}
-  const fcc::ConstParticle JetParticleAssociation::Particle() const { if (m_obj->m_Particle == nullptr) {
- return fcc::ConstParticle(nullptr);}
- return fcc::ConstParticle(*(m_obj->m_Particle));}
+  const fcc::ConstJet JetParticleAssociation::Jet() const {
+    if (m_obj->m_Jet == nullptr) {
+      return fcc::ConstJet(nullptr);
+    }
+    return fcc::ConstJet(*(m_obj->m_Jet));
+  } const fcc::ConstParticle JetParticleAssociation::Particle() const {
+    if (m_obj->m_Particle == nullptr) {
+      return fcc::ConstParticle(nullptr);
+    }
+    return fcc::ConstParticle(*(m_obj->m_Particle));
+  }
+void JetParticleAssociation::Jet(fcc::ConstJet value) {
+  if (m_obj->m_Jet != nullptr) delete m_obj->m_Jet;
+  m_obj->m_Jet = new ConstJet(value);
+}
+void JetParticleAssociation::Particle(fcc::ConstParticle value) {
+  if (m_obj->m_Particle != nullptr) delete m_obj->m_Particle;
+  m_obj->m_Particle = new ConstParticle(value);
+}
 
-void JetParticleAssociation::Jet(fcc::ConstJet value) { if (m_obj->m_Jet != nullptr) delete m_obj->m_Jet; m_obj->m_Jet = new ConstJet(value); }
-void JetParticleAssociation::Particle(fcc::ConstParticle value) { if (m_obj->m_Particle != nullptr) delete m_obj->m_Particle; m_obj->m_Particle = new ConstParticle(value); }
 
 
 bool  JetParticleAssociation::isAvailable() const {
@@ -68,7 +79,7 @@ const podio::ObjectID JetParticleAssociation::getObjectID() const {
 }
 
 bool JetParticleAssociation::operator==(const ConstJetParticleAssociation& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

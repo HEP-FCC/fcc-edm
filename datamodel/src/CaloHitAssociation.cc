@@ -42,15 +42,26 @@ CaloHitAssociation::~CaloHitAssociation(){
 
 CaloHitAssociation::operator ConstCaloHitAssociation() const {return ConstCaloHitAssociation(m_obj);}
 
-  const fcc::ConstCaloHit CaloHitAssociation::Rec() const { if (m_obj->m_Rec == nullptr) {
- return fcc::ConstCaloHit(nullptr);}
- return fcc::ConstCaloHit(*(m_obj->m_Rec));}
-  const fcc::ConstSimCaloHit CaloHitAssociation::Sim() const { if (m_obj->m_Sim == nullptr) {
- return fcc::ConstSimCaloHit(nullptr);}
- return fcc::ConstSimCaloHit(*(m_obj->m_Sim));}
+  const fcc::ConstCaloHit CaloHitAssociation::Rec() const {
+    if (m_obj->m_Rec == nullptr) {
+      return fcc::ConstCaloHit(nullptr);
+    }
+    return fcc::ConstCaloHit(*(m_obj->m_Rec));
+  } const fcc::ConstSimCaloHit CaloHitAssociation::Sim() const {
+    if (m_obj->m_Sim == nullptr) {
+      return fcc::ConstSimCaloHit(nullptr);
+    }
+    return fcc::ConstSimCaloHit(*(m_obj->m_Sim));
+  }
+void CaloHitAssociation::Rec(fcc::ConstCaloHit value) {
+  if (m_obj->m_Rec != nullptr) delete m_obj->m_Rec;
+  m_obj->m_Rec = new ConstCaloHit(value);
+}
+void CaloHitAssociation::Sim(fcc::ConstSimCaloHit value) {
+  if (m_obj->m_Sim != nullptr) delete m_obj->m_Sim;
+  m_obj->m_Sim = new ConstSimCaloHit(value);
+}
 
-void CaloHitAssociation::Rec(fcc::ConstCaloHit value) { if (m_obj->m_Rec != nullptr) delete m_obj->m_Rec; m_obj->m_Rec = new ConstCaloHit(value); }
-void CaloHitAssociation::Sim(fcc::ConstSimCaloHit value) { if (m_obj->m_Sim != nullptr) delete m_obj->m_Sim; m_obj->m_Sim = new ConstSimCaloHit(value); }
 
 
 bool  CaloHitAssociation::isAvailable() const {
@@ -68,7 +79,7 @@ const podio::ObjectID CaloHitAssociation::getObjectID() const {
 }
 
 bool CaloHitAssociation::operator==(const ConstCaloHitAssociation& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

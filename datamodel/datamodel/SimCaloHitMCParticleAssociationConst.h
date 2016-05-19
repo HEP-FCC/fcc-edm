@@ -1,11 +1,10 @@
 #ifndef ConstSimCaloHitMCParticleAssociation_H
 #define ConstSimCaloHitMCParticleAssociation_H
 #include "SimCaloHitMCParticleAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Fraction of the particle energy used in the hit.
+// Association between a SimCaloHit and a particle that contributed to the hit.
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -57,6 +56,7 @@ public:
   const fcc::ConstMCParticle Particle() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from SimCaloHitMCParticleAssociationObj instance
@@ -71,6 +71,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const SimCaloHitMCParticleAssociation& p1,
 //       const SimCaloHitMCParticleAssociation& p2 );
+  bool operator<(const ConstSimCaloHitMCParticleAssociation& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

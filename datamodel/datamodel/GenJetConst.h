@@ -1,12 +1,11 @@
 #ifndef ConstGenJet_H
 #define ConstGenJet_H
-#include "GenJetData.h"
 #include "BareJet.h"
-
+#include "GenJetData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Basic jet information.
+// Generated jet.
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -50,6 +49,7 @@ public:
   const fcc::BareJet& Core() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from GenJetObj instance
@@ -64,6 +64,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const GenJet& p1,
 //       const GenJet& p2 );
+  bool operator<(const ConstGenJet& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

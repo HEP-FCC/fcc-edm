@@ -6,9 +6,10 @@
 namespace fcc {
 class BareJet {
 public:
+  float Area;
   unsigned Bits;
  ::fcc::LorentzVector P4;
-  float Area;
+
 
 };
 } // namespace fcc

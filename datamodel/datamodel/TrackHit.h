@@ -1,12 +1,11 @@
 #ifndef TrackHit_H
 #define TrackHit_H
-#include "TrackHitData.h"
 #include "BareHit.h"
-
+#include "TrackHitData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  contains basic hit information
+// A tracker hit
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -31,7 +30,7 @@ public:
 
   /// default constructor
   TrackHit();
-    TrackHit(fcc::BareHit Core);
+  TrackHit(fcc::BareHit Core);
 
   /// constructor from existing TrackHitObj
   TrackHit(TrackHitObj* obj);
@@ -55,13 +54,14 @@ public:
   void Core(class fcc::BareHit value);
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from TrackHitObj instance
   void unlink(){m_obj = nullptr;}
 
   bool operator==(const TrackHit& other) const {
-       return (m_obj==other.m_obj);
+    return (m_obj==other.m_obj);
   }
 
   bool operator==(const ConstTrackHit& other) const;
@@ -69,6 +69,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const TrackHit& p1,
 //       const TrackHit& p2 );
+  bool operator<(const TrackHit& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

@@ -1,12 +1,11 @@
 #ifndef ConstParticle_H
 #define ConstParticle_H
-#include "ParticleData.h"
 #include "BareParticle.h"
-
+#include "ParticleData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Contains basic particle information.
+// Reconstructed particle
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -50,6 +49,7 @@ public:
   const fcc::BareParticle& Core() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from ParticleObj instance
@@ -64,6 +64,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const Particle& p1,
 //       const Particle& p2 );
+  bool operator<(const ConstParticle& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

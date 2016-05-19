@@ -6,9 +6,15 @@
 
 namespace fcc {
 
-METCollection::METCollection() : m_collectionID(0), m_entries() ,m_refCollections(nullptr), m_data(new METDataContainer() ) {
+METCollection::METCollection() : m_isValid(false), m_collectionID(0), m_entries() ,m_data(new METDataContainer() ) {
   
 }
+
+METCollection::~METCollection() {
+  clear();
+  if (m_data != nullptr) delete m_data;
+  
+};
 
 const MET METCollection::operator[](unsigned int index) const {
   return MET(m_entries[index]);
@@ -38,18 +44,15 @@ void METCollection::clear(){
 }
 
 void METCollection::prepareForWrite(){
-  int index = 0;
   auto size = m_entries.size();
   m_data->reserve(size);
   for (auto& obj : m_entries) {m_data->push_back(obj->data); }
-  if (m_refCollections != nullptr) {
-    for (auto& pointer : (*m_refCollections)) {pointer->clear(); }
-  }
-  
+  for (auto& pointer : m_refCollections) {pointer->clear(); } 
+
   for(int i=0, size = m_data->size(); i != size; ++i){
-  
+
   }
-  
+
 }
 
 void METCollection::prepareAfterRead(){
@@ -60,6 +63,7 @@ void METCollection::prepareAfterRead(){
     m_entries.emplace_back(obj);
     ++index;
   }
+  m_isValid = true;  
 }
 
 bool METCollection::setReferences(const podio::ICollectionProvider* collectionProvider){
@@ -69,19 +73,19 @@ bool METCollection::setReferences(const podio::ICollectionProvider* collectionPr
 }
 
 void METCollection::push_back(ConstMET object){
-    int size = m_entries.size();
-    auto obj = object.m_obj;
-    if (obj->id.index == podio::ObjectID::untracked) {
-        obj->id = {size,m_collectionID};
-        m_entries.push_back(obj);
-        
-    } else {
-      throw std::invalid_argument( "Object already in a collection. Cannot add it to a second collection " );
-
-    }
+  int size = m_entries.size();
+  auto obj = object.m_obj;
+  if (obj->id.index == podio::ObjectID::untracked) {
+      obj->id = {size,m_collectionID};
+      m_entries.push_back(obj);
+      
+  } else {
+    throw std::invalid_argument( "Object already in a collection. Cannot add it to a second collection " );
+  }
 }
 
 void METCollection::setBuffer(void* address){
+  if (m_data != nullptr) delete m_data;
   m_data = static_cast<METDataContainer*>(address);
 }
 
@@ -92,13 +96,13 @@ const MET METCollectionIterator::operator* () const {
 }
 
 const MET* METCollectionIterator::operator-> () const {
-    m_object.m_obj = (*m_collection)[m_index];
-    return &m_object;
+  m_object.m_obj = (*m_collection)[m_index];
+  return &m_object;
 }
 
 const METCollectionIterator& METCollectionIterator::operator++() const {
   ++m_index;
- return *this;
+  return *this;
 }
 
 } // namespace fcc

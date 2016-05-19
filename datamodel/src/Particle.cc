@@ -13,9 +13,9 @@ Particle::Particle() : m_obj(new ParticleObj()){
  m_obj->acquire();
 }
 
-Particle::Particle(fcc::BareParticle Core) : m_obj(new ParticleObj()){
- m_obj->acquire();
-   m_obj->data.Core = Core;
+Particle::Particle(fcc::BareParticle Core) : m_obj(new ParticleObj()) {
+  m_obj->acquire();
+    m_obj->data.Core = Core;
 }
 
 
@@ -47,7 +47,8 @@ Particle::operator ConstParticle() const {return ConstParticle(m_obj);}
   const fcc::BareParticle& Particle::Core() const { return m_obj->data.Core; }
 
   fcc::BareParticle& Particle::Core() { return m_obj->data.Core; }
-void Particle::Core(class fcc::BareParticle value){ m_obj->data.Core = value;}
+void Particle::Core(class fcc::BareParticle value) { m_obj->data.Core = value; }
+
 
 
 bool  Particle::isAvailable() const {
@@ -65,7 +66,7 @@ const podio::ObjectID Particle::getObjectID() const {
 }
 
 bool Particle::operator==(const ConstParticle& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

@@ -42,15 +42,26 @@ TrackClusterAssociation::~TrackClusterAssociation(){
 
 TrackClusterAssociation::operator ConstTrackClusterAssociation() const {return ConstTrackClusterAssociation(m_obj);}
 
-  const fcc::ConstTrack TrackClusterAssociation::Track() const { if (m_obj->m_Track == nullptr) {
- return fcc::ConstTrack(nullptr);}
- return fcc::ConstTrack(*(m_obj->m_Track));}
-  const fcc::ConstTrackCluster TrackClusterAssociation::Cluster() const { if (m_obj->m_Cluster == nullptr) {
- return fcc::ConstTrackCluster(nullptr);}
- return fcc::ConstTrackCluster(*(m_obj->m_Cluster));}
+  const fcc::ConstTrack TrackClusterAssociation::Track() const {
+    if (m_obj->m_Track == nullptr) {
+      return fcc::ConstTrack(nullptr);
+    }
+    return fcc::ConstTrack(*(m_obj->m_Track));
+  } const fcc::ConstTrackCluster TrackClusterAssociation::Cluster() const {
+    if (m_obj->m_Cluster == nullptr) {
+      return fcc::ConstTrackCluster(nullptr);
+    }
+    return fcc::ConstTrackCluster(*(m_obj->m_Cluster));
+  }
+void TrackClusterAssociation::Track(fcc::ConstTrack value) {
+  if (m_obj->m_Track != nullptr) delete m_obj->m_Track;
+  m_obj->m_Track = new ConstTrack(value);
+}
+void TrackClusterAssociation::Cluster(fcc::ConstTrackCluster value) {
+  if (m_obj->m_Cluster != nullptr) delete m_obj->m_Cluster;
+  m_obj->m_Cluster = new ConstTrackCluster(value);
+}
 
-void TrackClusterAssociation::Track(fcc::ConstTrack value) { if (m_obj->m_Track != nullptr) delete m_obj->m_Track; m_obj->m_Track = new ConstTrack(value); }
-void TrackClusterAssociation::Cluster(fcc::ConstTrackCluster value) { if (m_obj->m_Cluster != nullptr) delete m_obj->m_Cluster; m_obj->m_Cluster = new ConstTrackCluster(value); }
 
 
 bool  TrackClusterAssociation::isAvailable() const {
@@ -68,7 +79,7 @@ const podio::ObjectID TrackClusterAssociation::getObjectID() const {
 }
 
 bool TrackClusterAssociation::operator==(const ConstTrackClusterAssociation& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

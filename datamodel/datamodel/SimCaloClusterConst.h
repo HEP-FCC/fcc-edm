@@ -1,12 +1,11 @@
 #ifndef ConstSimCaloCluster_H
 #define ConstSimCaloCluster_H
-#include "SimCaloClusterData.h"
 #include "BareCluster.h"
-
+#include "SimCaloClusterData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  contains basic cluster information.
+// A simulated calo cluster, made of SimCaloHits
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -50,6 +49,7 @@ public:
   const fcc::BareCluster& Core() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from SimCaloClusterObj instance
@@ -64,6 +64,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const SimCaloCluster& p1,
 //       const SimCaloCluster& p2 );
+  bool operator<(const ConstSimCaloCluster& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

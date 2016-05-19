@@ -1,7 +1,6 @@
 #ifndef ConstTrackStateAssociation_H
 #define ConstTrackStateAssociation_H
 #include "TrackStateAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -55,6 +54,7 @@ public:
   const fcc::ConstTrackState State() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from TrackStateAssociationObj instance
@@ -69,6 +69,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const TrackStateAssociation& p1,
 //       const TrackStateAssociation& p2 );
+  bool operator<(const ConstTrackStateAssociation& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

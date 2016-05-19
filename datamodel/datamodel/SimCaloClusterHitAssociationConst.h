@@ -1,7 +1,6 @@
 #ifndef ConstSimCaloClusterHitAssociation_H
 #define ConstSimCaloClusterHitAssociation_H
 #include "SimCaloClusterHitAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -55,6 +54,7 @@ public:
   const fcc::ConstSimCaloHit Hit() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from SimCaloClusterHitAssociationObj instance
@@ -69,6 +69,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const SimCaloClusterHitAssociation& p1,
 //       const SimCaloClusterHitAssociation& p2 );
+  bool operator<(const ConstSimCaloClusterHitAssociation& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

@@ -1,11 +1,10 @@
 #ifndef ConstIntTag_H
 #define ConstIntTag_H
 #include "IntTagData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Tag info
+// Integer tag information for studied type
 // author: C. Bernet, Z. Drasal, C. Helsens
 
 //forward declarations
@@ -49,6 +48,7 @@ public:
   const int& Value() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from IntTagObj instance
@@ -63,6 +63,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const IntTag& p1,
 //       const IntTag& p2 );
+  bool operator<(const ConstIntTag& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

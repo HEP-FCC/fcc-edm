@@ -1,7 +1,6 @@
 #ifndef ConstJetParticleAssociation_H
 #define ConstJetParticleAssociation_H
 #include "JetParticleAssociationData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
@@ -55,6 +54,7 @@ public:
   const fcc::ConstParticle Particle() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from JetParticleAssociationObj instance
@@ -69,6 +69,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const JetParticleAssociation& p1,
 //       const JetParticleAssociation& p2 );
+  bool operator<(const ConstJetParticleAssociation& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

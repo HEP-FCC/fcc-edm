@@ -1,12 +1,11 @@
 #ifndef ConstCaloHit_H
 #define ConstCaloHit_H
-#include "CaloHitData.h"
 #include "BareHit.h"
-
+#include "CaloHitData.h"
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  contains basic hit information
+// A calorimeter hit
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -50,6 +49,7 @@ public:
   const fcc::BareHit& Core() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from CaloHitObj instance
@@ -64,6 +64,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const CaloHit& p1,
 //       const CaloHit& p2 );
+  bool operator<(const ConstCaloHit& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 

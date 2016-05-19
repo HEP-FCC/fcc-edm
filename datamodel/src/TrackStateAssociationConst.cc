@@ -11,7 +11,7 @@
 
 namespace fcc {
 
-ConstTrackStateAssociation::ConstTrackStateAssociation() : m_obj(new TrackStateAssociationObj()){
+ConstTrackStateAssociation::ConstTrackStateAssociation() : m_obj(new TrackStateAssociationObj()) {
  m_obj->acquire();
 }
 
@@ -27,7 +27,7 @@ ConstTrackStateAssociation& ConstTrackStateAssociation::operator=(const ConstTra
   return *this;
 }
 
-ConstTrackStateAssociation::ConstTrackStateAssociation(TrackStateAssociationObj* obj) : m_obj(obj){
+ConstTrackStateAssociation::ConstTrackStateAssociation(TrackStateAssociationObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -40,12 +40,15 @@ ConstTrackStateAssociation::~ConstTrackStateAssociation(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const fcc::ConstTrack ConstTrackStateAssociation::Track() const { if (m_obj->m_Track == nullptr) {
- return fcc::ConstTrack(nullptr);}
- return fcc::ConstTrack(*(m_obj->m_Track));}
-  const fcc::ConstTrackState ConstTrackStateAssociation::State() const { if (m_obj->m_State == nullptr) {
- return fcc::ConstTrackState(nullptr);}
- return fcc::ConstTrackState(*(m_obj->m_State));}
+  const fcc::ConstTrack ConstTrackStateAssociation::Track() const {
+    if (m_obj->m_Track == nullptr) {
+      return fcc::ConstTrack(nullptr);
+    }
+    return fcc::ConstTrack(*(m_obj->m_Track));} const fcc::ConstTrackState ConstTrackStateAssociation::State() const {
+    if (m_obj->m_State == nullptr) {
+      return fcc::ConstTrackState(nullptr);
+    }
+    return fcc::ConstTrackState(*(m_obj->m_State));}
 
 
 bool  ConstTrackStateAssociation::isAvailable() const {

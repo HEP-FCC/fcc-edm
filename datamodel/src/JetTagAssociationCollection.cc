@@ -1,19 +1,27 @@
 // standard includes
 #include <stdexcept>
-#include "JetCollection.h" 
-#include "TagCollection.h" 
+#include "JetCollection.h"
+#include "TagCollection.h"
 
 
 #include "JetTagAssociationCollection.h"
 
 namespace fcc {
 
-JetTagAssociationCollection::JetTagAssociationCollection() : m_collectionID(0), m_entries() ,m_rel_Jet(new std::vector<::fcc::ConstJet>()),m_rel_Tag(new std::vector<::fcc::ConstTag>()),m_refCollections(nullptr), m_data(new JetTagAssociationDataContainer() ) {
-    m_refCollections = new podio::CollRefCollection();
-  m_refCollections->push_back(new std::vector<podio::ObjectID>());
-  m_refCollections->push_back(new std::vector<podio::ObjectID>());
+JetTagAssociationCollection::JetTagAssociationCollection() : m_isValid(false), m_collectionID(0), m_entries() , m_rel_Jet(new std::vector<fcc::ConstJet>()), m_rel_Tag(new std::vector<fcc::ConstTag>()),m_data(new JetTagAssociationDataContainer() ) {
+    m_refCollections.push_back(new std::vector<podio::ObjectID>());
+  m_refCollections.push_back(new std::vector<podio::ObjectID>());
 
 }
+
+JetTagAssociationCollection::~JetTagAssociationCollection() {
+  clear();
+  if (m_data != nullptr) delete m_data;
+    for (auto& pointer : m_refCollections) { if (pointer != nullptr) delete pointer; }
+  if (m_rel_Jet != nullptr) { delete m_rel_Jet; }
+  if (m_rel_Tag != nullptr) { delete m_rel_Tag; }
+
+};
 
 const JetTagAssociation JetTagAssociationCollection::operator[](unsigned int index) const {
   return JetTagAssociation(m_entries[index]);
@@ -37,10 +45,10 @@ JetTagAssociation JetTagAssociationCollection::create(){
 
 void JetTagAssociationCollection::clear(){
   m_data->clear();
-  for (auto& pointer : (*m_refCollections)) {pointer->clear(); }
-  for (auto& item : (*m_rel_Jet)) {item.unlink(); }
+  for (auto& pointer : m_refCollections) { pointer->clear(); }
+  for (auto& item : (*m_rel_Jet)) { item.unlink(); }
   m_rel_Jet->clear();
-  for (auto& item : (*m_rel_Tag)) {item.unlink(); }
+  for (auto& item : (*m_rel_Tag)) { item.unlink(); }
   m_rel_Tag->clear();
 
   for (auto& obj : m_entries) { delete obj; }
@@ -48,23 +56,28 @@ void JetTagAssociationCollection::clear(){
 }
 
 void JetTagAssociationCollection::prepareForWrite(){
-  int index = 0;
   auto size = m_entries.size();
   m_data->reserve(size);
   for (auto& obj : m_entries) {m_data->push_back(obj->data); }
-  if (m_refCollections != nullptr) {
-    for (auto& pointer : (*m_refCollections)) {pointer->clear(); }
-  }
-  
+  for (auto& pointer : m_refCollections) {pointer->clear(); } 
+
   for(int i=0, size = m_data->size(); i != size; ++i){
-  
+
   }
-    for (auto& obj : m_entries) {
-if (obj->m_Jet != nullptr){
-(*m_refCollections)[0]->emplace_back(obj->m_Jet->getObjectID());} else {(*m_refCollections)[0]->push_back({-2,-2}); } }
   for (auto& obj : m_entries) {
-if (obj->m_Tag != nullptr){
-(*m_refCollections)[1]->emplace_back(obj->m_Tag->getObjectID());} else {(*m_refCollections)[1]->push_back({-2,-2}); } }
+    if (obj->m_Jet != nullptr) {
+      m_refCollections[0]->emplace_back(obj->m_Jet->getObjectID());
+    } else {
+      m_refCollections[0]->push_back({-2,-2});
+    }
+  }
+  for (auto& obj : m_entries) {
+    if (obj->m_Tag != nullptr) {
+      m_refCollections[1]->emplace_back(obj->m_Tag->getObjectID());
+    } else {
+      m_refCollections[1]->push_back({-2,-2});
+    }
+  }
 
 }
 
@@ -76,12 +89,13 @@ void JetTagAssociationCollection::prepareAfterRead(){
     m_entries.emplace_back(obj);
     ++index;
   }
+  m_isValid = true;  
 }
 
 bool JetTagAssociationCollection::setReferences(const podio::ICollectionProvider* collectionProvider){
 
-  for(unsigned int i=0, size=m_entries.size();i!=size;++i ) {
-    auto id = (*(*m_refCollections)[0])[i];
+  for(unsigned int i = 0, size = m_entries.size(); i != size; ++i) {
+    auto id = (*m_refCollections[0])[i];
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
@@ -91,8 +105,8 @@ bool JetTagAssociationCollection::setReferences(const podio::ICollectionProvider
       m_entries[i]->m_Jet = nullptr;
     }
   }
-  for(unsigned int i=0, size=m_entries.size();i!=size;++i ) {
-    auto id = (*(*m_refCollections)[1])[i];
+  for(unsigned int i = 0, size = m_entries.size(); i != size; ++i) {
+    auto id = (*m_refCollections[1])[i];
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
@@ -107,19 +121,19 @@ bool JetTagAssociationCollection::setReferences(const podio::ICollectionProvider
 }
 
 void JetTagAssociationCollection::push_back(ConstJetTagAssociation object){
-    int size = m_entries.size();
-    auto obj = object.m_obj;
-    if (obj->id.index == podio::ObjectID::untracked) {
-        obj->id = {size,m_collectionID};
-        m_entries.push_back(obj);
-        
-    } else {
-      throw std::invalid_argument( "Object already in a collection. Cannot add it to a second collection " );
-
-    }
+  int size = m_entries.size();
+  auto obj = object.m_obj;
+  if (obj->id.index == podio::ObjectID::untracked) {
+      obj->id = {size,m_collectionID};
+      m_entries.push_back(obj);
+      
+  } else {
+    throw std::invalid_argument( "Object already in a collection. Cannot add it to a second collection " );
+  }
 }
 
 void JetTagAssociationCollection::setBuffer(void* address){
+  if (m_data != nullptr) delete m_data;
   m_data = static_cast<JetTagAssociationDataContainer*>(address);
 }
 
@@ -130,13 +144,13 @@ const JetTagAssociation JetTagAssociationCollectionIterator::operator* () const 
 }
 
 const JetTagAssociation* JetTagAssociationCollectionIterator::operator-> () const {
-    m_object.m_obj = (*m_collection)[m_index];
-    return &m_object;
+  m_object.m_obj = (*m_collection)[m_index];
+  return &m_object;
 }
 
 const JetTagAssociationCollectionIterator& JetTagAssociationCollectionIterator::operator++() const {
   ++m_index;
- return *this;
+  return *this;
 }
 
 } // namespace fcc

@@ -9,7 +9,7 @@
 
 namespace fcc {
 
-ConstGenVertex::ConstGenVertex() : m_obj(new GenVertexObj()){
+ConstGenVertex::ConstGenVertex() : m_obj(new GenVertexObj()) {
  m_obj->acquire();
 }
 
@@ -29,7 +29,7 @@ ConstGenVertex& ConstGenVertex::operator=(const ConstGenVertex& other) {
   return *this;
 }
 
-ConstGenVertex::ConstGenVertex(GenVertexObj* obj) : m_obj(obj){
+ConstGenVertex::ConstGenVertex(GenVertexObj* obj) : m_obj(obj) {
   if(m_obj != nullptr)
     m_obj->acquire();
 }
@@ -44,6 +44,7 @@ ConstGenVertex::~ConstGenVertex(){
 
   const fcc::Point& ConstGenVertex::Position() const { return m_obj->data.Position; }
   const float& ConstGenVertex::Ctau() const { return m_obj->data.Ctau; }
+
 
 
 bool  ConstGenVertex::isAvailable() const {

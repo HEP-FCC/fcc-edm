@@ -13,9 +13,9 @@ Jet::Jet() : m_obj(new JetObj()){
  m_obj->acquire();
 }
 
-Jet::Jet(fcc::BareJet Core) : m_obj(new JetObj()){
- m_obj->acquire();
-   m_obj->data.Core = Core;
+Jet::Jet(fcc::BareJet Core) : m_obj(new JetObj()) {
+  m_obj->acquire();
+    m_obj->data.Core = Core;
 }
 
 
@@ -47,7 +47,8 @@ Jet::operator ConstJet() const {return ConstJet(m_obj);}
   const fcc::BareJet& Jet::Core() const { return m_obj->data.Core; }
 
   fcc::BareJet& Jet::Core() { return m_obj->data.Core; }
-void Jet::Core(class fcc::BareJet value){ m_obj->data.Core = value;}
+void Jet::Core(class fcc::BareJet value) { m_obj->data.Core = value; }
+
 
 
 bool  Jet::isAvailable() const {
@@ -65,7 +66,7 @@ const podio::ObjectID Jet::getObjectID() const {
 }
 
 bool Jet::operator==(const ConstJet& other) const {
-     return (m_obj==other.m_obj);
+  return (m_obj==other.m_obj);
 }
 
 

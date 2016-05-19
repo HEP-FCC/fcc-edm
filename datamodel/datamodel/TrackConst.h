@@ -1,11 +1,10 @@
 #ifndef ConstTrack_H
 #define ConstTrack_H
 #include "TrackData.h"
-
 #include <vector>
 #include "podio/ObjectID.h"
 
-//  Stores flags
+// Track reconstructed from clusters in the inner tracker
 // author: C. Bernet, B. Hegner
 
 //forward declarations
@@ -51,6 +50,7 @@ public:
   const unsigned& Bits() const;
 
 
+
   /// check whether the object is actually available
   bool isAvailable() const;
   /// disconnect from TrackObj instance
@@ -65,6 +65,7 @@ public:
 // less comparison operator, so that objects can be e.g. stored in sets.
 //  friend bool operator< (const Track& p1,
 //       const Track& p2 );
+  bool operator<(const ConstTrack& other) const { return m_obj < other.m_obj  ; }
 
   const podio::ObjectID getObjectID() const;
 
