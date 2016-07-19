@@ -7,20 +7,20 @@
 
 #include <map>
 
-/** @class fcc::GraphBuilder GraphBuilder.h GraphBuilder.h
+/** @class fcc::ParticleGraph ParticleGraph.h ParticleGraph.h
  *
  *  @author J. Lingemann, A. Robson
  */
 namespace fcc {
 typedef DAG::Node<podio::ObjectID> IdNode;
 
-class GraphBuilder {
+class ParticleGraph {
 public:
   /// Default constructor
-  GraphBuilder() = default;
+  ParticleGraph() = default;
 
   /// Destructor
-  virtual ~GraphBuilder();
+  virtual ~ParticleGraph();
 
   void build(const fcc::MCParticleCollection& particles);
   const IdNode& getNode(const fcc::ConstMCParticle& particle) const;

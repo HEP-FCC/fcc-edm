@@ -1,9 +1,9 @@
-#include "utilities/GraphBuilder.h"
+#include "utilities/ParticleGraph.h"
 
 #include "datamodel/GenVertex.h"
 #include <utility>
 
-void fcc::GraphBuilder::build(const fcc::MCParticleCollection& particles) {
+void fcc::ParticleGraph::build(const fcc::MCParticleCollection& particles) {
   std::vector<fcc::ConstMCParticle> daughters;
   std::vector<fcc::ConstMCParticle> mothers;
   for (const auto& mcpart : particles) {
@@ -25,7 +25,7 @@ void fcc::GraphBuilder::build(const fcc::MCParticleCollection& particles) {
   }
 }
 
-fcc::IdNode& fcc::GraphBuilder::add(const fcc::ConstMCParticle& particle) {
+fcc::IdNode& fcc::ParticleGraph::add(const fcc::ConstMCParticle& particle) {
   auto id = particle.getObjectID();
   if (id.collectionID == -2) {
     throw std::invalid_argument("Trying to add Particle that is not part of a collection.");
@@ -40,18 +40,18 @@ fcc::IdNode& fcc::GraphBuilder::add(const fcc::ConstMCParticle& particle) {
   return **result;
 }
 
-void fcc::GraphBuilder::clear() {
+void fcc::ParticleGraph::clear() {
   for (auto node : m_nodes) {
     delete node;
   }
   m_nodes.clear();
 }
 
-fcc::GraphBuilder::~GraphBuilder() {
+fcc::ParticleGraph::~ParticleGraph() {
   clear();
 }
 
-const fcc::IdNode& fcc::GraphBuilder::getNode(const fcc::ConstMCParticle& particle) const {
+const fcc::IdNode& fcc::ParticleGraph::getNode(const fcc::ConstMCParticle& particle) const {
   auto id = particle.getObjectID();
   auto result = std::find_if(begin(m_nodes), end(m_nodes),
                                [id](const IdNode* item)->bool { return id == item->value(); }
