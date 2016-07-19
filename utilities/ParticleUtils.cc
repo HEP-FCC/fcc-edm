@@ -7,6 +7,9 @@
 
 // datamodel
 #include "datamodel/Particle.h"
+#include "datamodel/MCParticle.h"
+#include "datamodel/BareParticle.h"
+#include "datamodel/GenVertex.h"
 #include "datamodel/ParticleCollection.h"
 #include "datamodel/LorentzVector.h"
 
@@ -49,7 +52,7 @@ namespace utils {
         results.push_back(particle);
       }
     }
-    return results;
+    return results; 
   }
 
 
@@ -92,14 +95,29 @@ namespace utils {
 
 } // namespace
 
-std::ostream& operator<<(std::ostream& out, const fcc::Particle& ptc) {
+std::ostream& operator<<(std::ostream& out, const fcc::BareParticle& ptc) {
   if(not out) return out;
-  const fcc::BareParticle& pcore = ptc.Core();
-  TLorentzVector p4 = utils::lvFromPOD(pcore.P4);
-  out<< "particle ID " << pcore.Type
+  TLorentzVector p4 = utils::lvFromPOD(ptc.P4);
+  out<< "particle PDG ID " << ptc.Type
      << " e " << p4.E()
      << " pt " << p4.Pt()
      << " eta " << p4.Eta()
      << " phi " << p4.Phi();
+  return out;
+}
+
+std::ostream& operator<<(std::ostream& out, const fcc::Particle& ptc) {
+  if(not out) return out;
+  operator<<(out, ptc.Core());
+  return out;
+}
+
+std::ostream& operator<<(std::ostream& out, const fcc::MCParticle& ptc) {
+  if(not out) return out;
+  operator<<(out, ptc.Core());
+  out << " startVertex ID: (" << ptc.StartVertex().getObjectID().collectionID;
+  out << ", " << ptc.StartVertex().getObjectID().index << ")";
+  out << " endVertex ID: (" << ptc.EndVertex().getObjectID().collectionID;
+  out << ", " << ptc.StartVertex().getObjectID().index << ")";
   return out;
 }

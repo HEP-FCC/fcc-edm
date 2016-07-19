@@ -10,6 +10,8 @@
 // forward declarations:
 namespace fcc {
 class Particle;
+class MCParticle;
+class BareParticle;
 class ParticleCollection;
 class LorentzVector;
 }
@@ -42,6 +44,8 @@ namespace utils {
 
 }
 
+std::ostream& operator<<(std::ostream& out, const fcc::BareParticle& ptc);
 std::ostream& operator<<(std::ostream& out, const fcc::Particle& ptc);
+std::ostream& operator<<(std::ostream& out, const fcc::MCParticle& ptc);
 
 #endif
