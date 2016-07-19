@@ -13,11 +13,11 @@ void fcc::GraphBuilder::build(const fcc::MCParticleCollection& particles) {
     IdNode& particleNode = add(mcpart);
     for (const auto& mcpart2 : particles) {
       if (mcpart2.getObjectID() == pID) continue;
-      if (mcpart2.StartVertex().getObjectID() == endID) {
+      if (endID.collectionID != -2 && mcpart2.StartVertex().getObjectID() == endID) {
         IdNode& daughter = add(mcpart2);
         particleNode.addChild(daughter);
       }
-      if (mcpart2.EndVertex().getObjectID() == startID) {
+      if (startID.collectionID != -2 && mcpart2.EndVertex().getObjectID() == startID) {
         IdNode& mother = add(mcpart2);
         mother.addChild(mother);
       }
@@ -27,24 +27,37 @@ void fcc::GraphBuilder::build(const fcc::MCParticleCollection& particles) {
 
 fcc::IdNode& fcc::GraphBuilder::add(const fcc::ConstMCParticle& particle) {
   auto id = particle.getObjectID();
+  if (id.collectionID == -2) {
+    throw std::invalid_argument("Trying to add Particle that is not part of a collection.");
+  }
   auto result = std::find_if(begin(m_nodes), end(m_nodes),
-                               [id](const IdNodePair& item)->bool { return id == item.first; }
+                               [id](const IdNode* item)->bool { return id == item->value(); }
   );
   if (result == end(m_nodes)) {
-    m_nodes.push_back(std::make_pair<podio::ObjectID, IdNode>(std::move(id), IdNode(id)));
-    return m_nodes.back().second;
+    m_nodes.emplace_back(new IdNode(id));
+    return *m_nodes.back();
   }
-  return result->second;
+  return **result;
 }
 
 void fcc::GraphBuilder::clear() {
+  for (auto node : m_nodes) {
+    delete node;
+  }
   m_nodes.clear();
+}
+
+fcc::GraphBuilder::~GraphBuilder() {
+  clear();
 }
 
 const fcc::IdNode& fcc::GraphBuilder::getNode(const fcc::ConstMCParticle& particle) const {
   auto id = particle.getObjectID();
   auto result = std::find_if(begin(m_nodes), end(m_nodes),
-                               [id](const IdNodePair& item)->bool { return id == item.first; }
+                               [id](const IdNode* item)->bool { return id == item->value(); }
   );
-  return result->second;
+  if (result == end(m_nodes)) {
+    throw std::invalid_argument("Requested particle is not registered in the graph.");
+  }
+  return **result;
 }

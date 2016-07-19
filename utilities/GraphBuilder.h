@@ -20,17 +20,17 @@ public:
   GraphBuilder() = default;
 
   /// Destructor
-  virtual ~GraphBuilder() {};
+  virtual ~GraphBuilder();
 
   void build(const fcc::MCParticleCollection& particles);
   const IdNode& getNode(const fcc::ConstMCParticle& particle) const;
   void clear();
 
 private:
-  typedef std::pair<podio::ObjectID, IdNode> IdNodePair;
   IdNode& add(const fcc::ConstMCParticle& particle);
-  std::vector<IdNodePair> m_nodes;
+  std::vector<IdNode*> m_nodes;
 };
-}
 
-#endif /* define  _GRAPHBUILDER_H */
+} // namespace
+
+#endif /* define  FCC_GRAPHBUILDER_H */
