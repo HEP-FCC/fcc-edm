@@ -4,22 +4,60 @@
 #include <utility>
 
 void fcc::ParticleGraph::build(const fcc::MCParticleCollection& particles) {
-  std::vector<fcc::ConstMCParticle> daughters;
-  std::vector<fcc::ConstMCParticle> mothers;
+  // collect all particles associated with given start and end vertex
+  fcc::ParticleGraph::VertexMap startVertexMap;
+  fcc::ParticleGraph::VertexMap endVertexMap;
+
   for (const auto& mcpart : particles) {
-    auto startID = mcpart.StartVertex().getObjectID();
-    auto endID = mcpart.EndVertex().getObjectID();
-    auto pID = mcpart.getObjectID();
-    IdNode& particleNode = add(mcpart);
-    for (const auto& mcpart2 : particles) {
-      if (mcpart2.getObjectID() == pID) continue;
-      if (endID.collectionID != -2 && mcpart2.StartVertex().getObjectID() == endID) {
-        IdNode& daughter = add(mcpart2);
-        particleNode.addChild(daughter);
+    auto& startID = mcpart.StartVertex().getObjectID();
+    auto& endID = mcpart.EndVertex().getObjectID();
+    auto siblingsIt = startVertexMap.find(startID.index);
+    auto parentsIt = endVertexMap.find(endID.index);
+
+    unsigned particleIdx = mcpart.getObjectID().index;
+    if (startID.collectionID != -2) {
+      if (siblingsIt == end(startVertexMap)) {
+        startVertexMap[startID.index] = std::vector<unsigned>{particleIdx};
+      } else {
+        siblingsIt->second.push_back(particleIdx);
       }
-      if (startID.collectionID != -2 && mcpart2.EndVertex().getObjectID() == startID) {
-        IdNode& mother = add(mcpart2);
-        mother.addChild(mother);
+    }
+    if (endID.collectionID != -2) {
+      if (parentsIt == end(endVertexMap)) {
+        endVertexMap[endID.index] = std::vector<unsigned>{particleIdx};
+      } else {
+        parentsIt->second.push_back(particleIdx);
+      }
+    }
+  }
+
+  // Now establish connections with above maps:
+  // 0 --- p1 --- 1 --- p2 --- 2
+  //              + --- p3 --- 3
+  // p1 has startVertex "0", looking in the endVertex map for "0" won't find anything
+  // p1 has endVertex "1", looking in startVertex map for "1" will find p2 and p3 which are its children
+  // p2 has startVertex "1", looking for "1" in endVertex map finds p1, which is its parent
+  for (const auto& mcpart : particles) {
+    auto& startID = mcpart.StartVertex().getObjectID();
+    auto& endID = mcpart.EndVertex().getObjectID();
+    // to find children, look for the endVertex ID in the startVertex map (see above)
+    auto childrenIt = startVertexMap.find(endID.index);
+    // to find parents, look for the startVertex ID in the endVertex map (see above)
+    auto parentsIt = endVertexMap.find(startID.index);
+    // actually establish the connections and add to the nodes
+    IdNode& particleNode = add(mcpart);
+    if (childrenIt != end(startVertexMap)) {
+      for (auto childIdx : childrenIt->second) {
+        const auto& child = particles.at(childIdx);
+        IdNode& childNode = add(child);
+        particleNode.addChild(childNode);
+      }
+    }
+    if (parentsIt != end(endVertexMap)) {
+      for (auto parentIdx : parentsIt->second) {
+        const auto& parent = particles.at(parentIdx);
+        IdNode& parentNode = add(parent);
+        parentNode.addChild(particleNode);
       }
     }
   }
