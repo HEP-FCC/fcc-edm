@@ -222,7 +222,7 @@ datatypes :
      - fcc::Point position // Vertex position in cm
      - unsigned bits // Stored flags
     OneToManyRelations:
-     - fcc::WeightedTrack tracks
+     - fcc::WeightedTrack tracks // Tracks associated with this vertex
 
   fcc::GenVertex:
     Description: "Generated vertex. MCParticles refer to their start and end vertex."
