@@ -21,7 +21,7 @@ components:
 
   # really need to expose some function f(Cellid) -> position
   fcc::BareHit:
-    cellId : ulonglong
+    cellId : unsigned long long
     energy : float
     time : float
     bits : unsigned
@@ -58,7 +58,7 @@ datatypes :
     Description : "Reconstructed particle"
     Author : "C. Bernet, B. Hegner"
     Members :
-     - fcc::BareParticle Core // Contains basic particle information.
+     - fcc::BareParticle core // Contains basic particle information.
     OneToManyRelations:
      - fcc::Track tracks // The Tracks used in reconstruction
      - fcc::CaloCluster clusters // The cluster used for reconstruction
