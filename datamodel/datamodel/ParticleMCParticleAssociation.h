@@ -4,9 +4,6 @@
 #include <vector>
 #include "podio/ObjectID.h"
 
-// Association between a Particle and a MCParticle, used to keep track of the correspondence between MC and reconstructed particles
-// author: C. Bernet, B. Hegner
-
 //forward declarations
 namespace fcc {
 class Particle;
@@ -25,6 +22,10 @@ class ParticleMCParticleAssociationCollection;
 class ParticleMCParticleAssociationCollectionIterator;
 class ConstParticleMCParticleAssociation;
 
+/** @class ParticleMCParticleAssociation
+ *  Association between a Particle and a MCParticle, used to keep track of the correspondence between MC and reconstructed particles
+ *  @author: C. Bernet, B. Hegner
+ */
 class ParticleMCParticleAssociation {
 
   friend ParticleMCParticleAssociationCollection;
@@ -52,11 +53,15 @@ public:
 
 public:
 
-  const fcc::ConstParticle Rec() const;
-  const fcc::ConstMCParticle Sim() const;
+  /// Access the  Reference to the reconstructed particle
+  const fcc::ConstParticle rec() const;
+  /// Access the  Reference to the Monte-Carlo particle
+  const fcc::ConstMCParticle sim() const;
 
-  void Rec(fcc::ConstParticle value);
-  void Sim(fcc::ConstMCParticle value);
+  /// Set the  Reference to the reconstructed particle
+  void rec(fcc::ConstParticle value);
+  /// Set the  Reference to the Monte-Carlo particle
+  void sim(fcc::ConstMCParticle value);
 
 
 

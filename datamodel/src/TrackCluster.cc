@@ -13,9 +13,9 @@ TrackCluster::TrackCluster() : m_obj(new TrackClusterObj()){
  m_obj->acquire();
 }
 
-TrackCluster::TrackCluster(fcc::BareCluster Core) : m_obj(new TrackClusterObj()) {
+TrackCluster::TrackCluster(fcc::BareCluster core) : m_obj(new TrackClusterObj()) {
   m_obj->acquire();
-    m_obj->data.Core = Core;
+    m_obj->data.core = core;
 }
 
 
@@ -44,11 +44,50 @@ TrackCluster::~TrackCluster(){
 
 TrackCluster::operator ConstTrackCluster() const {return ConstTrackCluster(m_obj);}
 
-  const fcc::BareCluster& TrackCluster::Core() const { return m_obj->data.Core; }
+  const fcc::BareCluster& TrackCluster::core() const { return m_obj->data.core; }
+const unsigned& TrackCluster::bits() const { return m_obj->data.core.bits; }
+const float& TrackCluster::energy() const { return m_obj->data.core.energy; }
+const ::fcc::Point& TrackCluster::position() const { return m_obj->data.core.position; }
+const float& TrackCluster::time() const { return m_obj->data.core.time; }
 
-  fcc::BareCluster& TrackCluster::Core() { return m_obj->data.Core; }
-void TrackCluster::Core(class fcc::BareCluster value) { m_obj->data.Core = value; }
+  fcc::BareCluster& TrackCluster::core() { return m_obj->data.core; }
+void TrackCluster::core(class fcc::BareCluster value) { m_obj->data.core = value; }
+void TrackCluster::bits(unsigned value){ m_obj->data.core.bits = value; }
+void TrackCluster::energy(float value){ m_obj->data.core.energy = value; }
+::fcc::Point& TrackCluster::position() { return m_obj->data.core.position; }
+void TrackCluster::position(class ::fcc::Point value) { m_obj->data.core.position = value; }
+void TrackCluster::time(float value){ m_obj->data.core.time = value; }
 
+std::vector<fcc::ConstTrackHit>::const_iterator TrackCluster::hits_begin() const {
+  auto ret_value = m_obj->m_hits->begin();
+  std::advance(ret_value, m_obj->data.hits_begin);
+  return ret_value;
+}
+
+std::vector<fcc::ConstTrackHit>::const_iterator TrackCluster::hits_end() const {
+  auto ret_value = m_obj->m_hits->begin();
+//fg: this code fails if m_obj->data.hits==0
+//  std::advance(ret_value, m_obj->data.hits_end-1);
+//  return ++ret_value;
+  std::advance(ret_value, m_obj->data.hits_end);
+  return ret_value;
+}
+
+void TrackCluster::addhits(fcc::ConstTrackHit component) {
+  m_obj->m_hits->push_back(component);
+  m_obj->data.hits_end++;
+}
+
+unsigned int TrackCluster::hits_size() const {
+  return (m_obj->data.hits_end-m_obj->data.hits_begin);
+}
+
+fcc::ConstTrackHit TrackCluster::hits(unsigned int index) const {
+  if (hits_size() > index) {
+    return m_obj->m_hits->at(m_obj->data.hits_begin+index);
+  }
+  else throw std::out_of_range ("index out of bounds for existing references");
+}
 
 
 bool  TrackCluster::isAvailable() const {

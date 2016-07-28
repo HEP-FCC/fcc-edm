@@ -108,9 +108,9 @@ public:
   std::vector<GenVertexData>* _getBuffer() { return m_data;};
 
     template<size_t arraysize>
-  const std::array<fcc::Point,arraysize> Position() const;
+  const std::array<fcc::Point,arraysize> position() const;
   template<size_t arraysize>
-  const std::array<float,arraysize> Ctau() const;
+  const std::array<float,arraysize> ctau() const;
 
 
 private:
@@ -133,20 +133,20 @@ GenVertex  GenVertexCollection::create(Args&&... args){
 }
 
 template<size_t arraysize>
-const std::array<class fcc::Point,arraysize> GenVertexCollection::Position() const {
+const std::array<class fcc::Point,arraysize> GenVertexCollection::position() const {
   std::array<class fcc::Point,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
-    tmp[i] = m_entries[i]->data.Position;
+    tmp[i] = m_entries[i]->data.position;
  }
  return tmp;
 }
 template<size_t arraysize>
-const std::array<float,arraysize> GenVertexCollection::Ctau() const {
+const std::array<float,arraysize> GenVertexCollection::ctau() const {
   std::array<float,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
-    tmp[i] = m_entries[i]->data.Ctau;
+    tmp[i] = m_entries[i]->data.ctau;
  }
  return tmp;
 }

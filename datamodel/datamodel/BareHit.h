@@ -2,15 +2,21 @@
 #define BareHit_H
 
 
+#include <iostream>
+
 namespace fcc {
 class BareHit {
 public:
-  unsigned Bits;
-  unsigned Cellid;
-  float Energy;
-  float Time;
+  unsigned bits;
+  ulonglong cellId;
+  float energy;
+  float time;
 
 
 };
+
+
+
 } // namespace fcc
+
 #endif

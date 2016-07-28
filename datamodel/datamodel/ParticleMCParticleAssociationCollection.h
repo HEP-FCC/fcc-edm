@@ -114,8 +114,8 @@ private:
   int m_collectionID;
   ParticleMCParticleAssociationObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
-  std::vector<fcc::ConstParticle>* m_rel_Rec; ///< Relation buffer for read / write
-  std::vector<fcc::ConstMCParticle>* m_rel_Sim; ///< Relation buffer for read / write
+  std::vector<fcc::ConstParticle>* m_rel_rec; ///< Relation buffer for read / write
+  std::vector<fcc::ConstMCParticle>* m_rel_sim; ///< Relation buffer for read / write
 
   // members to handle streaming
   podio::CollRefCollection m_refCollections;

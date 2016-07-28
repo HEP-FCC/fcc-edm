@@ -108,11 +108,11 @@ public:
   std::vector<METData>* _getBuffer() { return m_data;};
 
     template<size_t arraysize>
-  const std::array<float,arraysize> Magnitude() const;
+  const std::array<float,arraysize> magnitude() const;
   template<size_t arraysize>
-  const std::array<float,arraysize> Phi() const;
+  const std::array<float,arraysize> phi() const;
   template<size_t arraysize>
-  const std::array<float,arraysize> ScalarSum() const;
+  const std::array<float,arraysize> scalarSum() const;
 
 
 private:
@@ -135,29 +135,29 @@ MET  METCollection::create(Args&&... args){
 }
 
 template<size_t arraysize>
-const std::array<float,arraysize> METCollection::Magnitude() const {
+const std::array<float,arraysize> METCollection::magnitude() const {
   std::array<float,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
-    tmp[i] = m_entries[i]->data.Magnitude;
+    tmp[i] = m_entries[i]->data.magnitude;
  }
  return tmp;
 }
 template<size_t arraysize>
-const std::array<float,arraysize> METCollection::Phi() const {
+const std::array<float,arraysize> METCollection::phi() const {
   std::array<float,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
-    tmp[i] = m_entries[i]->data.Phi;
+    tmp[i] = m_entries[i]->data.phi;
  }
  return tmp;
 }
 template<size_t arraysize>
-const std::array<float,arraysize> METCollection::ScalarSum() const {
+const std::array<float,arraysize> METCollection::scalarSum() const {
   std::array<float,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
-    tmp[i] = m_entries[i]->data.ScalarSum;
+    tmp[i] = m_entries[i]->data.scalarSum;
  }
  return tmp;
 }

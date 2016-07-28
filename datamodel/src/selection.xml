@@ -37,36 +37,6 @@
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::GenJetParticleAssociationData>" />
-
-            <class name="fcc::GenJetParticleAssociationData">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::GenJetParticleAssociation>" />
-
-            <class name="fcc::GenJetParticleAssociation">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ConstGenJetParticleAssociation>" />
-
-            <class name="fcc::ConstGenJetParticleAssociation">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::GenJetParticleAssociationCollection>" />
-
-            <class name="fcc::GenJetParticleAssociationCollection">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::GenJetParticleAssociationObj>" />
-
-            <class name="fcc::GenJetParticleAssociationObj">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
           <class name="std::vector<fcc::TrackHitData>" />
 
             <class name="fcc::TrackHitData">
@@ -97,93 +67,63 @@
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::TrackStateAssociationData>" />
+          <class name="std::vector<fcc::WeightedTrackData>" />
 
-            <class name="fcc::TrackStateAssociationData">
+            <class name="fcc::WeightedTrackData">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::TrackStateAssociation>" />
+          <class name="std::vector<fcc::WeightedTrack>" />
 
-            <class name="fcc::TrackStateAssociation">
+            <class name="fcc::WeightedTrack">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::ConstTrackStateAssociation>" />
+          <class name="std::vector<fcc::ConstWeightedTrack>" />
 
-            <class name="fcc::ConstTrackStateAssociation">
+            <class name="fcc::ConstWeightedTrack">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::TrackStateAssociationCollection>" />
+          <class name="std::vector<fcc::WeightedTrackCollection>" />
 
-            <class name="fcc::TrackStateAssociationCollection">
+            <class name="fcc::WeightedTrackCollection">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::TrackStateAssociationObj>" />
+          <class name="std::vector<fcc::WeightedTrackObj>" />
 
-            <class name="fcc::TrackStateAssociationObj">
+            <class name="fcc::WeightedTrackObj">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::TrackClusterHitsAssociationData>" />
+          <class name="std::vector<fcc::CaloHitMCParticleAssociationData>" />
 
-            <class name="fcc::TrackClusterHitsAssociationData">
+            <class name="fcc::CaloHitMCParticleAssociationData">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::TrackClusterHitsAssociation>" />
+          <class name="std::vector<fcc::CaloHitMCParticleAssociation>" />
 
-            <class name="fcc::TrackClusterHitsAssociation">
+            <class name="fcc::CaloHitMCParticleAssociation">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::ConstTrackClusterHitsAssociation>" />
+          <class name="std::vector<fcc::ConstCaloHitMCParticleAssociation>" />
 
-            <class name="fcc::ConstTrackClusterHitsAssociation">
+            <class name="fcc::ConstCaloHitMCParticleAssociation">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::TrackClusterHitsAssociationCollection>" />
+          <class name="std::vector<fcc::CaloHitMCParticleAssociationCollection>" />
 
-            <class name="fcc::TrackClusterHitsAssociationCollection">
+            <class name="fcc::CaloHitMCParticleAssociationCollection">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::TrackClusterHitsAssociationObj>" />
+          <class name="std::vector<fcc::CaloHitMCParticleAssociationObj>" />
 
-            <class name="fcc::TrackClusterHitsAssociationObj">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::TrackData>" />
-
-            <class name="fcc::TrackData">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::Track>" />
-
-            <class name="fcc::Track">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ConstTrack>" />
-
-            <class name="fcc::ConstTrack">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::TrackCollection>" />
-
-            <class name="fcc::TrackCollection">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::TrackObj>" />
-
-            <class name="fcc::TrackObj">
+            <class name="fcc::CaloHitMCParticleAssociationObj">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
@@ -217,63 +157,33 @@
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::SimCaloClusterHitAssociationData>" />
+          <class name="std::vector<fcc::PositionedCaloHitData>" />
 
-            <class name="fcc::SimCaloClusterHitAssociationData">
+            <class name="fcc::PositionedCaloHitData">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::SimCaloClusterHitAssociation>" />
+          <class name="std::vector<fcc::PositionedCaloHit>" />
 
-            <class name="fcc::SimCaloClusterHitAssociation">
+            <class name="fcc::PositionedCaloHit">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::ConstSimCaloClusterHitAssociation>" />
+          <class name="std::vector<fcc::ConstPositionedCaloHit>" />
 
-            <class name="fcc::ConstSimCaloClusterHitAssociation">
+            <class name="fcc::ConstPositionedCaloHit">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::SimCaloClusterHitAssociationCollection>" />
+          <class name="std::vector<fcc::PositionedCaloHitCollection>" />
 
-            <class name="fcc::SimCaloClusterHitAssociationCollection">
+            <class name="fcc::PositionedCaloHitCollection">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::SimCaloClusterHitAssociationObj>" />
+          <class name="std::vector<fcc::PositionedCaloHitObj>" />
 
-            <class name="fcc::SimCaloClusterHitAssociationObj">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::JetTagAssociationData>" />
-
-            <class name="fcc::JetTagAssociationData">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::JetTagAssociation>" />
-
-            <class name="fcc::JetTagAssociation">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ConstJetTagAssociation>" />
-
-            <class name="fcc::ConstJetTagAssociation">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::JetTagAssociationCollection>" />
-
-            <class name="fcc::JetTagAssociationCollection">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::JetTagAssociationObj>" />
-
-            <class name="fcc::JetTagAssociationObj">
+            <class name="fcc::PositionedCaloHitObj">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
@@ -307,36 +217,6 @@
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::GenJetIntTagAssociationData>" />
-
-            <class name="fcc::GenJetIntTagAssociationData">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::GenJetIntTagAssociation>" />
-
-            <class name="fcc::GenJetIntTagAssociation">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ConstGenJetIntTagAssociation>" />
-
-            <class name="fcc::ConstGenJetIntTagAssociation">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::GenJetIntTagAssociationCollection>" />
-
-            <class name="fcc::GenJetIntTagAssociationCollection">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::GenJetIntTagAssociationObj>" />
-
-            <class name="fcc::GenJetIntTagAssociationObj">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
           <class name="std::vector<fcc::MCParticleData>" />
 
             <class name="fcc::MCParticleData">
@@ -367,33 +247,33 @@
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::TrackClusterAssociationData>" />
+          <class name="std::vector<fcc::TaggedGenJetData>" />
 
-            <class name="fcc::TrackClusterAssociationData">
+            <class name="fcc::TaggedGenJetData">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::TrackClusterAssociation>" />
+          <class name="std::vector<fcc::TaggedGenJet>" />
 
-            <class name="fcc::TrackClusterAssociation">
+            <class name="fcc::TaggedGenJet">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::ConstTrackClusterAssociation>" />
+          <class name="std::vector<fcc::ConstTaggedGenJet>" />
 
-            <class name="fcc::ConstTrackClusterAssociation">
+            <class name="fcc::ConstTaggedGenJet">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::TrackClusterAssociationCollection>" />
+          <class name="std::vector<fcc::TaggedGenJetCollection>" />
 
-            <class name="fcc::TrackClusterAssociationCollection">
+            <class name="fcc::TaggedGenJetCollection">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::TrackClusterAssociationObj>" />
+          <class name="std::vector<fcc::TaggedGenJetObj>" />
 
-            <class name="fcc::TrackClusterAssociationObj">
+            <class name="fcc::TaggedGenJetObj">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
@@ -457,153 +337,33 @@
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::JetIntTagAssociationData>" />
+          <class name="std::vector<fcc::PositionedTrackHitData>" />
 
-            <class name="fcc::JetIntTagAssociationData">
+            <class name="fcc::PositionedTrackHitData">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::JetIntTagAssociation>" />
+          <class name="std::vector<fcc::PositionedTrackHit>" />
 
-            <class name="fcc::JetIntTagAssociation">
+            <class name="fcc::PositionedTrackHit">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::ConstJetIntTagAssociation>" />
+          <class name="std::vector<fcc::ConstPositionedTrackHit>" />
 
-            <class name="fcc::ConstJetIntTagAssociation">
+            <class name="fcc::ConstPositionedTrackHit">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::JetIntTagAssociationCollection>" />
+          <class name="std::vector<fcc::PositionedTrackHitCollection>" />
 
-            <class name="fcc::JetIntTagAssociationCollection">
+            <class name="fcc::PositionedTrackHitCollection">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::JetIntTagAssociationObj>" />
+          <class name="std::vector<fcc::PositionedTrackHitObj>" />
 
-            <class name="fcc::JetIntTagAssociationObj">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::TrackClusterData>" />
-
-            <class name="fcc::TrackClusterData">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::TrackCluster>" />
-
-            <class name="fcc::TrackCluster">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ConstTrackCluster>" />
-
-            <class name="fcc::ConstTrackCluster">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::TrackClusterCollection>" />
-
-            <class name="fcc::TrackClusterCollection">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::TrackClusterObj>" />
-
-            <class name="fcc::TrackClusterObj">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ParticleClusterAssociationData>" />
-
-            <class name="fcc::ParticleClusterAssociationData">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ParticleClusterAssociation>" />
-
-            <class name="fcc::ParticleClusterAssociation">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ConstParticleClusterAssociation>" />
-
-            <class name="fcc::ConstParticleClusterAssociation">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ParticleClusterAssociationCollection>" />
-
-            <class name="fcc::ParticleClusterAssociationCollection">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ParticleClusterAssociationObj>" />
-
-            <class name="fcc::ParticleClusterAssociationObj">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::VertexTrackAssociationData>" />
-
-            <class name="fcc::VertexTrackAssociationData">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::VertexTrackAssociation>" />
-
-            <class name="fcc::VertexTrackAssociation">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ConstVertexTrackAssociation>" />
-
-            <class name="fcc::ConstVertexTrackAssociation">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::VertexTrackAssociationCollection>" />
-
-            <class name="fcc::VertexTrackAssociationCollection">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::VertexTrackAssociationObj>" />
-
-            <class name="fcc::VertexTrackAssociationObj">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::TagData>" />
-
-            <class name="fcc::TagData">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::Tag>" />
-
-            <class name="fcc::Tag">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ConstTag>" />
-
-            <class name="fcc::ConstTag">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::TagCollection>" />
-
-            <class name="fcc::TagCollection">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::TagObj>" />
-
-            <class name="fcc::TagObj">
+            <class name="fcc::PositionedTrackHitObj">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
@@ -667,123 +427,93 @@
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::ParticleTrackAssociationData>" />
+          <class name="std::vector<fcc::TaggedJetData>" />
 
-            <class name="fcc::ParticleTrackAssociationData">
+            <class name="fcc::TaggedJetData">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::ParticleTrackAssociation>" />
+          <class name="std::vector<fcc::TaggedJet>" />
 
-            <class name="fcc::ParticleTrackAssociation">
+            <class name="fcc::TaggedJet">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::ConstParticleTrackAssociation>" />
+          <class name="std::vector<fcc::ConstTaggedJet>" />
 
-            <class name="fcc::ConstParticleTrackAssociation">
+            <class name="fcc::ConstTaggedJet">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::ParticleTrackAssociationCollection>" />
+          <class name="std::vector<fcc::TaggedJetCollection>" />
 
-            <class name="fcc::ParticleTrackAssociationCollection">
+            <class name="fcc::TaggedJetCollection">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::ParticleTrackAssociationObj>" />
+          <class name="std::vector<fcc::TaggedJetObj>" />
 
-            <class name="fcc::ParticleTrackAssociationObj">
+            <class name="fcc::TaggedJetObj">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::SimCaloHitData>" />
+          <class name="std::vector<fcc::TrackClusterData>" />
 
-            <class name="fcc::SimCaloHitData">
+            <class name="fcc::TrackClusterData">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::SimCaloHit>" />
+          <class name="std::vector<fcc::TrackCluster>" />
 
-            <class name="fcc::SimCaloHit">
+            <class name="fcc::TrackCluster">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::ConstSimCaloHit>" />
+          <class name="std::vector<fcc::ConstTrackCluster>" />
 
-            <class name="fcc::ConstSimCaloHit">
+            <class name="fcc::ConstTrackCluster">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::SimCaloHitCollection>" />
+          <class name="std::vector<fcc::TrackClusterCollection>" />
 
-            <class name="fcc::SimCaloHitCollection">
+            <class name="fcc::TrackClusterCollection">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::SimCaloHitObj>" />
+          <class name="std::vector<fcc::TrackClusterObj>" />
 
-            <class name="fcc::SimCaloHitObj">
+            <class name="fcc::TrackClusterObj">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::JetParticleAssociationData>" />
+          <class name="std::vector<fcc::TaggedParticleData>" />
 
-            <class name="fcc::JetParticleAssociationData">
+            <class name="fcc::TaggedParticleData">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::JetParticleAssociation>" />
+          <class name="std::vector<fcc::TaggedParticle>" />
 
-            <class name="fcc::JetParticleAssociation">
+            <class name="fcc::TaggedParticle">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::ConstJetParticleAssociation>" />
+          <class name="std::vector<fcc::ConstTaggedParticle>" />
 
-            <class name="fcc::ConstJetParticleAssociation">
+            <class name="fcc::ConstTaggedParticle">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::JetParticleAssociationCollection>" />
+          <class name="std::vector<fcc::TaggedParticleCollection>" />
 
-            <class name="fcc::JetParticleAssociationCollection">
+            <class name="fcc::TaggedParticleCollection">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::JetParticleAssociationObj>" />
+          <class name="std::vector<fcc::TaggedParticleObj>" />
 
-            <class name="fcc::JetParticleAssociationObj">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ParticleTagAssociationData>" />
-
-            <class name="fcc::ParticleTagAssociationData">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ParticleTagAssociation>" />
-
-            <class name="fcc::ParticleTagAssociation">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ConstParticleTagAssociation>" />
-
-            <class name="fcc::ConstParticleTagAssociation">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ParticleTagAssociationCollection>" />
-
-            <class name="fcc::ParticleTagAssociationCollection">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ParticleTagAssociationObj>" />
-
-            <class name="fcc::ParticleTagAssociationObj">
+            <class name="fcc::TaggedParticleObj">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
@@ -814,36 +544,6 @@
           <class name="std::vector<fcc::TrackStateObj>" />
 
             <class name="fcc::TrackStateObj">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::MCParticleAssociationData>" />
-
-            <class name="fcc::MCParticleAssociationData">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::MCParticleAssociation>" />
-
-            <class name="fcc::MCParticleAssociation">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ConstMCParticleAssociation>" />
-
-            <class name="fcc::ConstMCParticleAssociation">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::MCParticleAssociationCollection>" />
-
-            <class name="fcc::MCParticleAssociationCollection">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::MCParticleAssociationObj>" />
-
-            <class name="fcc::MCParticleAssociationObj">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
@@ -907,36 +607,6 @@
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::SimCaloClusterData>" />
-
-            <class name="fcc::SimCaloClusterData">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::SimCaloCluster>" />
-
-            <class name="fcc::SimCaloCluster">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ConstSimCaloCluster>" />
-
-            <class name="fcc::ConstSimCaloCluster">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::SimCaloClusterCollection>" />
-
-            <class name="fcc::SimCaloClusterCollection">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::SimCaloClusterObj>" />
-
-            <class name="fcc::SimCaloClusterObj">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
           <class name="std::vector<fcc::CaloHitAssociationData>" />
 
             <class name="fcc::CaloHitAssociationData">
@@ -967,63 +637,33 @@
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::GenJetTagAssociationData>" />
+          <class name="std::vector<fcc::TrackData>" />
 
-            <class name="fcc::GenJetTagAssociationData">
+            <class name="fcc::TrackData">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::GenJetTagAssociation>" />
+          <class name="std::vector<fcc::Track>" />
 
-            <class name="fcc::GenJetTagAssociation">
+            <class name="fcc::Track">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::ConstGenJetTagAssociation>" />
+          <class name="std::vector<fcc::ConstTrack>" />
 
-            <class name="fcc::ConstGenJetTagAssociation">
+            <class name="fcc::ConstTrack">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::GenJetTagAssociationCollection>" />
+          <class name="std::vector<fcc::TrackCollection>" />
 
-            <class name="fcc::GenJetTagAssociationCollection">
+            <class name="fcc::TrackCollection">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
-          <class name="std::vector<fcc::GenJetTagAssociationObj>" />
+          <class name="std::vector<fcc::TrackObj>" />
 
-            <class name="fcc::GenJetTagAssociationObj">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::SimCaloHitMCParticleAssociationData>" />
-
-            <class name="fcc::SimCaloHitMCParticleAssociationData">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::SimCaloHitMCParticleAssociation>" />
-
-            <class name="fcc::SimCaloHitMCParticleAssociation">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ConstSimCaloHitMCParticleAssociation>" />
-
-            <class name="fcc::ConstSimCaloHitMCParticleAssociation">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::SimCaloHitMCParticleAssociationCollection>" />
-
-            <class name="fcc::SimCaloHitMCParticleAssociationCollection">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::SimCaloHitMCParticleAssociationObj>" />
-
-            <class name="fcc::SimCaloHitMCParticleAssociationObj">
+            <class name="fcc::TrackObj">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>
@@ -1054,36 +694,6 @@
           <class name="std::vector<fcc::VertexObj>" />
 
             <class name="fcc::VertexObj">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::IntTagData>" />
-
-            <class name="fcc::IntTagData">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::IntTag>" />
-
-            <class name="fcc::IntTag">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::ConstIntTag>" />
-
-            <class name="fcc::ConstIntTag">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::IntTagCollection>" />
-
-            <class name="fcc::IntTagCollection">
-              <field name="m_registry" transient="true"/>
-              <field name="m_container" transient="true"/>
-            </class>
-          <class name="std::vector<fcc::IntTagObj>" />
-
-            <class name="fcc::IntTagObj">
               <field name="m_registry" transient="true"/>
               <field name="m_container" transient="true"/>
             </class>

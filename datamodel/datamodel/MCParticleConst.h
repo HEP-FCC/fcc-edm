@@ -5,9 +5,6 @@
 #include <vector>
 #include "podio/ObjectID.h"
 
-// Monte-Carlo Particle, either generated or simulated.
-// author: C. Bernet, B. Hegner
-
 //forward declarations
 namespace fcc {
 class GenVertex;
@@ -26,6 +23,11 @@ class MCParticle;
 class MCParticleCollection;
 class MCParticleCollectionIterator;
 
+/** @class ConstMCParticle
+ *  Monte-Carlo Particle, either generated or simulated.
+ *  @author: C. Bernet, B. Hegner
+ */
+
 class ConstMCParticle {
 
   friend MCParticle;
@@ -36,7 +38,7 @@ public:
 
   /// default constructor
   ConstMCParticle();
-  ConstMCParticle(fcc::BareParticle Core);
+  ConstMCParticle(fcc::BareParticle core);
 
   /// constructor from existing MCParticleObj
   ConstMCParticle(MCParticleObj* obj);
@@ -52,9 +54,24 @@ public:
 
 public:
 
-  const fcc::BareParticle& Core() const;
-  const fcc::ConstGenVertex StartVertex() const;
-  const fcc::ConstGenVertex EndVertex() const;
+  /// Access the  Basic particle information.
+  const fcc::BareParticle& core() const;
+  /// Access the member of  Basic particle information.
+  const unsigned& bits() const;
+  /// Access the member of  Basic particle information.
+  const int& charge() const;
+  /// Access the member of  Basic particle information.
+  const ::fcc::LorentzVector& p4() const;
+  /// Access the member of  Basic particle information.
+  const unsigned& status() const;
+  /// Access the member of  Basic particle information.
+  const int& type() const;
+  /// Access the member of  Basic particle information.
+  const ::fcc::Point& vertex() const;
+  /// Access the  Reference to the vertex in which the particle was created.
+  const fcc::ConstGenVertex startVertex() const;
+  /// Access the  Reference to the vertex in which the particle was created.
+  const fcc::ConstGenVertex endVertex() const;
 
 
 

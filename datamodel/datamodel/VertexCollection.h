@@ -108,13 +108,13 @@ public:
   std::vector<VertexData>* _getBuffer() { return m_data;};
 
     template<size_t arraysize>
-  const std::array<float,arraysize> Chi2() const;
+  const std::array<float,arraysize> chi2() const;
   template<size_t arraysize>
-  const std::array<unsigned,arraysize> Ndf() const;
+  const std::array<unsigned,arraysize> ndf() const;
   template<size_t arraysize>
-  const std::array<fcc::Point,arraysize> Position() const;
+  const std::array<fcc::Point,arraysize> position() const;
   template<size_t arraysize>
-  const std::array<unsigned,arraysize> Bits() const;
+  const std::array<unsigned,arraysize> bits() const;
 
 
 private:
@@ -122,6 +122,8 @@ private:
   int m_collectionID;
   VertexObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
+  std::vector<fcc::ConstWeightedTrack>* m_rel_tracks; ///< Relation buffer for read / write
+  std::vector<std::vector<fcc::ConstWeightedTrack>*> m_rel_tracks_tmp; ///< Relation buffer for internal book-keeping
 
   // members to handle streaming
   podio::CollRefCollection m_refCollections;
@@ -137,38 +139,38 @@ Vertex  VertexCollection::create(Args&&... args){
 }
 
 template<size_t arraysize>
-const std::array<float,arraysize> VertexCollection::Chi2() const {
+const std::array<float,arraysize> VertexCollection::chi2() const {
   std::array<float,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
-    tmp[i] = m_entries[i]->data.Chi2;
+    tmp[i] = m_entries[i]->data.chi2;
  }
  return tmp;
 }
 template<size_t arraysize>
-const std::array<unsigned,arraysize> VertexCollection::Ndf() const {
+const std::array<unsigned,arraysize> VertexCollection::ndf() const {
   std::array<unsigned,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
-    tmp[i] = m_entries[i]->data.Ndf;
+    tmp[i] = m_entries[i]->data.ndf;
  }
  return tmp;
 }
 template<size_t arraysize>
-const std::array<class fcc::Point,arraysize> VertexCollection::Position() const {
+const std::array<class fcc::Point,arraysize> VertexCollection::position() const {
   std::array<class fcc::Point,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
-    tmp[i] = m_entries[i]->data.Position;
+    tmp[i] = m_entries[i]->data.position;
  }
  return tmp;
 }
 template<size_t arraysize>
-const std::array<unsigned,arraysize> VertexCollection::Bits() const {
+const std::array<unsigned,arraysize> VertexCollection::bits() const {
   std::array<unsigned,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
-    tmp[i] = m_entries[i]->data.Bits;
+    tmp[i] = m_entries[i]->data.bits;
  }
  return tmp;
 }

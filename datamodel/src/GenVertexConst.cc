@@ -13,9 +13,9 @@ ConstGenVertex::ConstGenVertex() : m_obj(new GenVertexObj()) {
  m_obj->acquire();
 }
 
-ConstGenVertex::ConstGenVertex(fcc::Point Position,float Ctau) : m_obj(new GenVertexObj()){
+ConstGenVertex::ConstGenVertex(fcc::Point position,float ctau) : m_obj(new GenVertexObj()){
  m_obj->acquire();
-   m_obj->data.Position = Position;  m_obj->data.Ctau = Ctau;
+   m_obj->data.position = position;  m_obj->data.ctau = ctau;
 }
 
 
@@ -42,8 +42,13 @@ ConstGenVertex::~ConstGenVertex(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const fcc::Point& ConstGenVertex::Position() const { return m_obj->data.Position; }
-  const float& ConstGenVertex::Ctau() const { return m_obj->data.Ctau; }
+  const float& ConstGenVertex::x() const { return m_obj->data.position.x; }
+  const float& ConstGenVertex::y() const { return m_obj->data.position.y; }
+  const float& ConstGenVertex::z() const { return m_obj->data.position.z; }
+  /// Access the  Vertex position in cm
+  const fcc::Point& ConstGenVertex::position() const { return m_obj->data.position; }
+  /// Access the  Time coordinate in cm
+  const float& ConstGenVertex::ctau() const { return m_obj->data.ctau; }
 
 
 

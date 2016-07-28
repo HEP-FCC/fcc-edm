@@ -5,9 +5,6 @@
 #include <vector>
 #include "podio/ObjectID.h"
 
-// Generated vertex. MCParticles refer to their start and end vertex.
-// author: C. Bernet, B. Hegner
-
 //forward declarations
 
 
@@ -20,6 +17,10 @@ class GenVertexCollection;
 class GenVertexCollectionIterator;
 class ConstGenVertex;
 
+/** @class GenVertex
+ *  Generated vertex. MCParticles refer to their start and end vertex.
+ *  @author: C. Bernet, B. Hegner
+ */
 class GenVertex {
 
   friend GenVertexCollection;
@@ -30,7 +31,7 @@ public:
 
   /// default constructor
   GenVertex();
-  GenVertex(fcc::Point Position,float Ctau);
+  GenVertex(fcc::Point position,float ctau);
 
   /// constructor from existing GenVertexObj
   GenVertex(GenVertexObj* obj);
@@ -48,12 +49,32 @@ public:
 
 public:
 
-  const fcc::Point& Position() const;
-  const float& Ctau() const;
+  /// Access the  Vertex position in cm
+  const fcc::Point& position() const;
+  /// Access the member of  Vertex position in cm
+  const float& x() const;
+  /// Access the member of  Vertex position in cm
+  const float& y() const;
+  /// Access the member of  Vertex position in cm
+  const float& z() const;
+  /// Access the  Time coordinate in cm
+  const float& ctau() const;
 
-  fcc::Point& Position();
-  void Position(class fcc::Point value);
-  void Ctau(float value);
+  /// Get reference to the  Vertex position in cm
+  fcc::Point& position();
+  /// Set the  Vertex position in cm
+  void position(class fcc::Point value);
+  /// Set the  member of  Vertex position in cm
+  void x(float value);
+
+  /// Set the  member of  Vertex position in cm
+  void y(float value);
+
+  /// Set the  member of  Vertex position in cm
+  void z(float value);
+
+  /// Set the  Time coordinate in cm
+  void ctau(float value);
 
 
 

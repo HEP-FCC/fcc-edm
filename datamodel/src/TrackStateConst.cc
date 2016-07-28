@@ -13,9 +13,9 @@ ConstTrackState::ConstTrackState() : m_obj(new TrackStateObj()) {
  m_obj->acquire();
 }
 
-ConstTrackState::ConstTrackState(float Location,float Omega,float D0,float Z0) : m_obj(new TrackStateObj()){
+ConstTrackState::ConstTrackState(float location,float omega,float d0,float z0) : m_obj(new TrackStateObj()){
  m_obj->acquire();
-   m_obj->data.Location = Location;  m_obj->data.Omega = Omega;  m_obj->data.D0 = D0;  m_obj->data.Z0 = Z0;
+   m_obj->data.location = location;  m_obj->data.omega = omega;  m_obj->data.d0 = d0;  m_obj->data.z0 = z0;
 }
 
 
@@ -42,10 +42,14 @@ ConstTrackState::~ConstTrackState(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const float& ConstTrackState::Location() const { return m_obj->data.Location; }
-  const float& ConstTrackState::Omega() const { return m_obj->data.Omega; }
-  const float& ConstTrackState::D0() const { return m_obj->data.D0; }
-  const float& ConstTrackState::Z0() const { return m_obj->data.Z0; }
+  /// Access the  Location on the track. (Radius?)
+  const float& ConstTrackState::location() const { return m_obj->data.location; }
+  /// Access the  Track curvature in cm.
+  const float& ConstTrackState::omega() const { return m_obj->data.omega; }
+  /// Access the  Transverse impact parameter
+  const float& ConstTrackState::d0() const { return m_obj->data.d0; }
+  /// Access the  Longitudinal impact parameter
+  const float& ConstTrackState::z0() const { return m_obj->data.z0; }
 
 
 

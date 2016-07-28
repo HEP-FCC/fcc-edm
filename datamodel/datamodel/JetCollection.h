@@ -108,7 +108,7 @@ public:
   std::vector<JetData>* _getBuffer() { return m_data;};
 
     template<size_t arraysize>
-  const std::array<fcc::BareJet,arraysize> Core() const;
+  const std::array<fcc::BareJet,arraysize> core() const;
 
 
 private:
@@ -116,6 +116,8 @@ private:
   int m_collectionID;
   JetObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
+  std::vector<fcc::ConstParticle>* m_rel_particles; ///< Relation buffer for read / write
+  std::vector<std::vector<fcc::ConstParticle>*> m_rel_particles_tmp; ///< Relation buffer for internal book-keeping
 
   // members to handle streaming
   podio::CollRefCollection m_refCollections;
@@ -131,11 +133,11 @@ Jet  JetCollection::create(Args&&... args){
 }
 
 template<size_t arraysize>
-const std::array<class fcc::BareJet,arraysize> JetCollection::Core() const {
+const std::array<class fcc::BareJet,arraysize> JetCollection::core() const {
   std::array<class fcc::BareJet,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
-    tmp[i] = m_entries[i]->data.Core;
+    tmp[i] = m_entries[i]->data.core;
  }
  return tmp;
 }

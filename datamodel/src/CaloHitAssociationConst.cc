@@ -6,7 +6,7 @@
 #include "CaloHitAssociationCollection.h"
 #include <iostream>
 #include "CaloHit.h"
-#include "SimCaloHit.h"
+#include "CaloHit.h"
 
 
 namespace fcc {
@@ -40,15 +40,17 @@ ConstCaloHitAssociation::~ConstCaloHitAssociation(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const fcc::ConstCaloHit ConstCaloHitAssociation::Rec() const {
-    if (m_obj->m_Rec == nullptr) {
+  /// Access the  The reconstruted hit.
+  const fcc::ConstCaloHit ConstCaloHitAssociation::rec() const {
+    if (m_obj->m_rec == nullptr) {
       return fcc::ConstCaloHit(nullptr);
     }
-    return fcc::ConstCaloHit(*(m_obj->m_Rec));} const fcc::ConstSimCaloHit ConstCaloHitAssociation::Sim() const {
-    if (m_obj->m_Sim == nullptr) {
-      return fcc::ConstSimCaloHit(nullptr);
+    return fcc::ConstCaloHit(*(m_obj->m_rec));} /// Access the  The simulated hit.
+  const fcc::ConstCaloHit ConstCaloHitAssociation::sim() const {
+    if (m_obj->m_sim == nullptr) {
+      return fcc::ConstCaloHit(nullptr);
     }
-    return fcc::ConstSimCaloHit(*(m_obj->m_Sim));}
+    return fcc::ConstCaloHit(*(m_obj->m_sim));}
 
 
 bool  ConstCaloHitAssociation::isAvailable() const {

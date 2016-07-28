@@ -4,9 +4,6 @@
 #include <vector>
 #include "podio/ObjectID.h"
 
-// Naive MET type
-// author: C. Bernet, B. Hegner
-
 //forward declarations
 
 
@@ -19,6 +16,11 @@ class MET;
 class METCollection;
 class METCollectionIterator;
 
+/** @class ConstMET
+ *  Naive MET type
+ *  @author: C. Bernet, B. Hegner
+ */
+
 class ConstMET {
 
   friend MET;
@@ -29,7 +31,7 @@ public:
 
   /// default constructor
   ConstMET();
-  ConstMET(float Magnitude,float Phi,float ScalarSum);
+  ConstMET(float magnitude,float phi,float scalarSum);
 
   /// constructor from existing METObj
   ConstMET(METObj* obj);
@@ -45,9 +47,12 @@ public:
 
 public:
 
-  const float& Magnitude() const;
-  const float& Phi() const;
-  const float& ScalarSum() const;
+  /// Access the  Magnitude (could be the pT or the ET of the MET vector)
+  const float& magnitude() const;
+  /// Access the  Azimuthal angle
+  const float& phi() const;
+  /// Access the  Corresponding sum pT or sum ET
+  const float& scalarSum() const;
 
 
 

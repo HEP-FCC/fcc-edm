@@ -13,9 +13,9 @@ Jet::Jet() : m_obj(new JetObj()){
  m_obj->acquire();
 }
 
-Jet::Jet(fcc::BareJet Core) : m_obj(new JetObj()) {
+Jet::Jet(fcc::BareJet core) : m_obj(new JetObj()) {
   m_obj->acquire();
-    m_obj->data.Core = Core;
+    m_obj->data.core = core;
 }
 
 
@@ -44,11 +44,48 @@ Jet::~Jet(){
 
 Jet::operator ConstJet() const {return ConstJet(m_obj);}
 
-  const fcc::BareJet& Jet::Core() const { return m_obj->data.Core; }
+  const fcc::BareJet& Jet::core() const { return m_obj->data.core; }
+const float& Jet::area() const { return m_obj->data.core.area; }
+const unsigned& Jet::bits() const { return m_obj->data.core.bits; }
+const ::fcc::LorentzVector& Jet::p4() const { return m_obj->data.core.p4; }
 
-  fcc::BareJet& Jet::Core() { return m_obj->data.Core; }
-void Jet::Core(class fcc::BareJet value) { m_obj->data.Core = value; }
+  fcc::BareJet& Jet::core() { return m_obj->data.core; }
+void Jet::core(class fcc::BareJet value) { m_obj->data.core = value; }
+void Jet::area(float value){ m_obj->data.core.area = value; }
+void Jet::bits(unsigned value){ m_obj->data.core.bits = value; }
+::fcc::LorentzVector& Jet::p4() { return m_obj->data.core.p4; }
+void Jet::p4(class ::fcc::LorentzVector value) { m_obj->data.core.p4 = value; }
 
+std::vector<fcc::ConstParticle>::const_iterator Jet::particles_begin() const {
+  auto ret_value = m_obj->m_particles->begin();
+  std::advance(ret_value, m_obj->data.particles_begin);
+  return ret_value;
+}
+
+std::vector<fcc::ConstParticle>::const_iterator Jet::particles_end() const {
+  auto ret_value = m_obj->m_particles->begin();
+//fg: this code fails if m_obj->data.particles==0
+//  std::advance(ret_value, m_obj->data.particles_end-1);
+//  return ++ret_value;
+  std::advance(ret_value, m_obj->data.particles_end);
+  return ret_value;
+}
+
+void Jet::addparticles(fcc::ConstParticle component) {
+  m_obj->m_particles->push_back(component);
+  m_obj->data.particles_end++;
+}
+
+unsigned int Jet::particles_size() const {
+  return (m_obj->data.particles_end-m_obj->data.particles_begin);
+}
+
+fcc::ConstParticle Jet::particles(unsigned int index) const {
+  if (particles_size() > index) {
+    return m_obj->m_particles->at(m_obj->data.particles_begin+index);
+  }
+  else throw std::out_of_range ("index out of bounds for existing references");
+}
 
 
 bool  Jet::isAvailable() const {

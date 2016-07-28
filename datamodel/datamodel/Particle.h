@@ -3,10 +3,10 @@
 #include "BareParticle.h"
 #include "ParticleData.h"
 #include <vector>
+#include "Track.h"
+#include "CaloCluster.h"
+#include <vector>
 #include "podio/ObjectID.h"
-
-// Reconstructed particle
-// author: C. Bernet, B. Hegner
 
 //forward declarations
 
@@ -20,6 +20,10 @@ class ParticleCollection;
 class ParticleCollectionIterator;
 class ConstParticle;
 
+/** @class Particle
+ *  Reconstructed particle
+ *  @author: C. Bernet, B. Hegner
+ */
 class Particle {
 
   friend ParticleCollection;
@@ -48,10 +52,57 @@ public:
 
 public:
 
+  /// Access the  Contains basic particle information.
   const fcc::BareParticle& Core() const;
+  /// Access the member of  Contains basic particle information.
+  const unsigned& bits() const;
+  /// Access the member of  Contains basic particle information.
+  const int& charge() const;
+  /// Access the member of  Contains basic particle information.
+  const ::fcc::LorentzVector& p4() const;
+  /// Access the member of  Contains basic particle information.
+  const unsigned& status() const;
+  /// Access the member of  Contains basic particle information.
+  const int& type() const;
+  /// Access the member of  Contains basic particle information.
+  const ::fcc::Point& vertex() const;
 
+  /// Get reference to the  Contains basic particle information.
   fcc::BareParticle& Core();
+  /// Set the  Contains basic particle information.
   void Core(class fcc::BareParticle value);
+  /// Set the  member of  Contains basic particle information.
+  void bits(unsigned value);
+
+  /// Set the  member of  Contains basic particle information.
+  void charge(int value);
+
+  /// Get reference to the member of  Contains basic particle information.
+  ::fcc::LorentzVector& p4();
+  /// Set the  member of  Contains basic particle information.
+  void p4(class ::fcc::LorentzVector value);
+  /// Set the  member of  Contains basic particle information.
+  void status(unsigned value);
+
+  /// Set the  member of  Contains basic particle information.
+  void type(int value);
+
+  /// Get reference to the member of  Contains basic particle information.
+  ::fcc::Point& vertex();
+  /// Set the  member of  Contains basic particle information.
+  void vertex(class ::fcc::Point value);
+
+  void addtracks(fcc::ConstTrack);
+  unsigned int tracks_size() const;
+  fcc::ConstTrack tracks(unsigned int) const;
+  std::vector<fcc::ConstTrack>::const_iterator tracks_begin() const;
+  std::vector<fcc::ConstTrack>::const_iterator tracks_end() const;
+
+  void addclusters(fcc::ConstCaloCluster);
+  unsigned int clusters_size() const;
+  fcc::ConstCaloCluster clusters(unsigned int) const;
+  std::vector<fcc::ConstCaloCluster>::const_iterator clusters_begin() const;
+  std::vector<fcc::ConstCaloCluster>::const_iterator clusters_end() const;
 
 
 

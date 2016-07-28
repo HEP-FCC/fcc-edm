@@ -33,8 +33,8 @@ public:
 
 public:
   MCParticleData data;
-  ::fcc::ConstGenVertex* m_StartVertex;
-  ::fcc::ConstGenVertex* m_EndVertex;
+  ::fcc::ConstGenVertex* m_startVertex;
+  ::fcc::ConstGenVertex* m_endVertex;
 
 
 };

@@ -13,9 +13,9 @@ ConstMET::ConstMET() : m_obj(new METObj()) {
  m_obj->acquire();
 }
 
-ConstMET::ConstMET(float Magnitude,float Phi,float ScalarSum) : m_obj(new METObj()){
+ConstMET::ConstMET(float magnitude,float phi,float scalarSum) : m_obj(new METObj()){
  m_obj->acquire();
-   m_obj->data.Magnitude = Magnitude;  m_obj->data.Phi = Phi;  m_obj->data.ScalarSum = ScalarSum;
+   m_obj->data.magnitude = magnitude;  m_obj->data.phi = phi;  m_obj->data.scalarSum = scalarSum;
 }
 
 
@@ -42,9 +42,12 @@ ConstMET::~ConstMET(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const float& ConstMET::Magnitude() const { return m_obj->data.Magnitude; }
-  const float& ConstMET::Phi() const { return m_obj->data.Phi; }
-  const float& ConstMET::ScalarSum() const { return m_obj->data.ScalarSum; }
+  /// Access the  Magnitude (could be the pT or the ET of the MET vector)
+  const float& ConstMET::magnitude() const { return m_obj->data.magnitude; }
+  /// Access the  Azimuthal angle
+  const float& ConstMET::phi() const { return m_obj->data.phi; }
+  /// Access the  Corresponding sum pT or sum ET
+  const float& ConstMET::scalarSum() const { return m_obj->data.scalarSum; }
 
 
 

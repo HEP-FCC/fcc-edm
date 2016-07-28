@@ -13,9 +13,9 @@ ConstEventInfo::ConstEventInfo() : m_obj(new EventInfoObj()) {
  m_obj->acquire();
 }
 
-ConstEventInfo::ConstEventInfo(int Number) : m_obj(new EventInfoObj()){
+ConstEventInfo::ConstEventInfo(int number) : m_obj(new EventInfoObj()){
  m_obj->acquire();
-   m_obj->data.Number = Number;
+   m_obj->data.number = number;
 }
 
 
@@ -42,7 +42,8 @@ ConstEventInfo::~ConstEventInfo(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const int& ConstEventInfo::Number() const { return m_obj->data.Number; }
+  /// Access the  Event number
+  const int& ConstEventInfo::number() const { return m_obj->data.number; }
 
 
 

@@ -9,6 +9,8 @@
 #include "podio/ObjBase.h"
 #include "JetData.h"
 
+#include <vector>
+#include "Particle.h"
 
 
 // forward declarations
@@ -30,6 +32,7 @@ public:
 
 public:
   JetData data;
+  std::vector<::fcc::ConstParticle>* m_particles;
 
 
 };

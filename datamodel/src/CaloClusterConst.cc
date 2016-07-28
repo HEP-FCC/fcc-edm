@@ -13,9 +13,9 @@ ConstCaloCluster::ConstCaloCluster() : m_obj(new CaloClusterObj()) {
  m_obj->acquire();
 }
 
-ConstCaloCluster::ConstCaloCluster(fcc::BareCluster Core) : m_obj(new CaloClusterObj()){
+ConstCaloCluster::ConstCaloCluster(fcc::BareCluster core) : m_obj(new CaloClusterObj()){
  m_obj->acquire();
-   m_obj->data.Core = Core;
+   m_obj->data.core = core;
 }
 
 
@@ -42,8 +42,35 @@ ConstCaloCluster::~ConstCaloCluster(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const fcc::BareCluster& ConstCaloCluster::Core() const { return m_obj->data.Core; }
+  const unsigned& ConstCaloCluster::bits() const { return m_obj->data.core.bits; }
+  const float& ConstCaloCluster::energy() const { return m_obj->data.core.energy; }
+  const ::fcc::Point& ConstCaloCluster::position() const { return m_obj->data.core.position; }
+  const float& ConstCaloCluster::time() const { return m_obj->data.core.time; }
+  /// Access the  contains basic cluster information
+  const fcc::BareCluster& ConstCaloCluster::core() const { return m_obj->data.core; }
 
+std::vector<fcc::ConstCaloHit>::const_iterator ConstCaloCluster::hits_begin() const {
+  auto ret_value = m_obj->m_hits->begin();
+  std::advance(ret_value, m_obj->data.hits_begin);
+  return ret_value;
+}
+
+std::vector<fcc::ConstCaloHit>::const_iterator ConstCaloCluster::hits_end() const {
+  auto ret_value = m_obj->m_hits->begin();
+  std::advance(ret_value, m_obj->data.hits_end-1);
+  return ++ret_value;
+}
+
+unsigned int ConstCaloCluster::hits_size() const {
+  return (m_obj->data.hits_end-m_obj->data.hits_begin);
+}
+
+fcc::ConstCaloHit ConstCaloCluster::hits(unsigned int index) const {
+  if (hits_size() > index) {
+    return m_obj->m_hits->at(m_obj->data.hits_begin+index);
+  }
+  else throw std::out_of_range ("index out of bounds for existing references");
+}
 
 
 bool  ConstCaloCluster::isAvailable() const {

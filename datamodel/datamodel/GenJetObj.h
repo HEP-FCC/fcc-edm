@@ -9,6 +9,8 @@
 #include "podio/ObjBase.h"
 #include "GenJetData.h"
 
+#include <vector>
+#include "MCParticle.h"
 
 
 // forward declarations
@@ -30,6 +32,7 @@ public:
 
 public:
   GenJetData data;
+  std::vector<::fcc::ConstMCParticle>* m_particles;
 
 
 };

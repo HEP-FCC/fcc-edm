@@ -14,7 +14,7 @@ METCollection::~METCollection() {
   clear();
   if (m_data != nullptr) delete m_data;
   
-};
+}
 
 const MET METCollection::operator[](unsigned int index) const {
   return MET(m_entries[index]);

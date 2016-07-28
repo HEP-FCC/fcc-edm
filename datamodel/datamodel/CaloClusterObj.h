@@ -9,6 +9,8 @@
 #include "podio/ObjBase.h"
 #include "CaloClusterData.h"
 
+#include <vector>
+#include "CaloHit.h"
 
 
 // forward declarations
@@ -30,6 +32,7 @@ public:
 
 public:
   CaloClusterData data;
+  std::vector<::fcc::ConstCaloHit>* m_hits;
 
 
 };

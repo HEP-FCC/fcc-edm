@@ -5,8 +5,8 @@
 
 namespace fcc {
 MCParticleObj::MCParticleObj() :
-    ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}, data(),m_StartVertex(nullptr)
-,m_EndVertex(nullptr)
+    ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}, data(), m_startVertex(nullptr)
+, m_endVertex(nullptr)
 
 { }
 
@@ -16,15 +16,23 @@ MCParticleObj::MCParticleObj(const podio::ObjectID id, MCParticleData data) :
 
 MCParticleObj::MCParticleObj(const MCParticleObj& other) :
     ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}
-    , data(other.data)
-{ }
+    , data(other.data), m_startVertex(nullptr), m_endVertex(nullptr)
+{
+  if (other.m_startVertex != nullptr) {
+     m_startVertex = new ::fcc::ConstGenVertex(*(other.m_startVertex));
+  }
+  if (other.m_endVertex != nullptr) {
+     m_endVertex = new ::fcc::ConstGenVertex(*(other.m_endVertex));
+  }
+
+}
 
 MCParticleObj::~MCParticleObj() {
   if (id.index == podio::ObjectID::untracked) {
 
   }
-    if (m_StartVertex != nullptr) delete m_StartVertex;
-    if (m_EndVertex != nullptr) delete m_EndVertex;
+    if (m_startVertex != nullptr) delete m_startVertex;
+    if (m_endVertex != nullptr) delete m_endVertex;
 
 }
 } // namespace fcc

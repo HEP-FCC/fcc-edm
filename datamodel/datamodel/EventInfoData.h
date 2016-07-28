@@ -1,15 +1,17 @@
 #ifndef EventInfoDATA_H
 #define EventInfoDATA_H
 
-// Event Info Data
-// author: C. Bernet, B. Hegner
-
 
 
 namespace fcc {
+/** @class EventInfoData
+ *  Event Info Data
+ *  @author: C. Bernet, B. Hegner
+ */
+
 class EventInfoData {
 public:
-  int Number;  ///< Event number
+  int number;  ///< Event number
 };
 } // namespace fcc
 

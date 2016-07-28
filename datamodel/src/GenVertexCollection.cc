@@ -14,7 +14,7 @@ GenVertexCollection::~GenVertexCollection() {
   clear();
   if (m_data != nullptr) delete m_data;
   
-};
+}
 
 const GenVertex GenVertexCollection::operator[](unsigned int index) const {
   return GenVertex(m_entries[index]);

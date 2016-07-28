@@ -13,7 +13,9 @@ METObj::METObj(const podio::ObjectID id, METData data) :
 METObj::METObj(const METObj& other) :
     ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}
     , data(other.data)
-{ }
+{
+
+}
 
 METObj::~METObj() {
   if (id.index == podio::ObjectID::untracked) {

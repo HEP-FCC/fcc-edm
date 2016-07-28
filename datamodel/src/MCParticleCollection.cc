@@ -8,7 +8,7 @@
 
 namespace fcc {
 
-MCParticleCollection::MCParticleCollection() : m_isValid(false), m_collectionID(0), m_entries() , m_rel_StartVertex(new std::vector<fcc::ConstGenVertex>()), m_rel_EndVertex(new std::vector<fcc::ConstGenVertex>()),m_data(new MCParticleDataContainer() ) {
+MCParticleCollection::MCParticleCollection() : m_isValid(false), m_collectionID(0), m_entries() , m_rel_startVertex(new std::vector<fcc::ConstGenVertex>()), m_rel_endVertex(new std::vector<fcc::ConstGenVertex>()),m_data(new MCParticleDataContainer() ) {
     m_refCollections.push_back(new std::vector<podio::ObjectID>());
   m_refCollections.push_back(new std::vector<podio::ObjectID>());
 
@@ -18,10 +18,10 @@ MCParticleCollection::~MCParticleCollection() {
   clear();
   if (m_data != nullptr) delete m_data;
     for (auto& pointer : m_refCollections) { if (pointer != nullptr) delete pointer; }
-  if (m_rel_StartVertex != nullptr) { delete m_rel_StartVertex; }
-  if (m_rel_EndVertex != nullptr) { delete m_rel_EndVertex; }
+  if (m_rel_startVertex != nullptr) { delete m_rel_startVertex; }
+  if (m_rel_endVertex != nullptr) { delete m_rel_endVertex; }
 
-};
+}
 
 const MCParticle MCParticleCollection::operator[](unsigned int index) const {
   return MCParticle(m_entries[index]);
@@ -46,10 +46,10 @@ MCParticle MCParticleCollection::create(){
 void MCParticleCollection::clear(){
   m_data->clear();
   for (auto& pointer : m_refCollections) { pointer->clear(); }
-  for (auto& item : (*m_rel_StartVertex)) { item.unlink(); }
-  m_rel_StartVertex->clear();
-  for (auto& item : (*m_rel_EndVertex)) { item.unlink(); }
-  m_rel_EndVertex->clear();
+  for (auto& item : (*m_rel_startVertex)) { item.unlink(); }
+  m_rel_startVertex->clear();
+  for (auto& item : (*m_rel_endVertex)) { item.unlink(); }
+  m_rel_endVertex->clear();
 
   for (auto& obj : m_entries) { delete obj; }
   m_entries.clear();
@@ -65,15 +65,15 @@ void MCParticleCollection::prepareForWrite(){
 
   }
   for (auto& obj : m_entries) {
-    if (obj->m_StartVertex != nullptr) {
-      m_refCollections[0]->emplace_back(obj->m_StartVertex->getObjectID());
+    if (obj->m_startVertex != nullptr) {
+      m_refCollections[0]->emplace_back(obj->m_startVertex->getObjectID());
     } else {
       m_refCollections[0]->push_back({-2,-2});
     }
   }
   for (auto& obj : m_entries) {
-    if (obj->m_EndVertex != nullptr) {
-      m_refCollections[1]->emplace_back(obj->m_EndVertex->getObjectID());
+    if (obj->m_endVertex != nullptr) {
+      m_refCollections[1]->emplace_back(obj->m_endVertex->getObjectID());
     } else {
       m_refCollections[1]->push_back({-2,-2});
     }
@@ -100,9 +100,9 @@ bool MCParticleCollection::setReferences(const podio::ICollectionProvider* colle
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
       fcc::GenVertexCollection* tmp_coll = static_cast<fcc::GenVertexCollection*>(coll);
-      m_entries[i]->m_StartVertex = new ConstGenVertex((*tmp_coll)[id.index]);
+      m_entries[i]->m_startVertex = new ConstGenVertex((*tmp_coll)[id.index]);
     } else {
-      m_entries[i]->m_StartVertex = nullptr;
+      m_entries[i]->m_startVertex = nullptr;
     }
   }
   for(unsigned int i = 0, size = m_entries.size(); i != size; ++i) {
@@ -111,9 +111,9 @@ bool MCParticleCollection::setReferences(const podio::ICollectionProvider* colle
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
       fcc::GenVertexCollection* tmp_coll = static_cast<fcc::GenVertexCollection*>(coll);
-      m_entries[i]->m_EndVertex = new ConstGenVertex((*tmp_coll)[id.index]);
+      m_entries[i]->m_endVertex = new ConstGenVertex((*tmp_coll)[id.index]);
     } else {
-      m_entries[i]->m_EndVertex = nullptr;
+      m_entries[i]->m_endVertex = nullptr;
     }
   }
 

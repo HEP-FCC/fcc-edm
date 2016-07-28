@@ -13,9 +13,9 @@ TrackState::TrackState() : m_obj(new TrackStateObj()){
  m_obj->acquire();
 }
 
-TrackState::TrackState(float Location,float Omega,float D0,float Z0) : m_obj(new TrackStateObj()) {
+TrackState::TrackState(float location,float omega,float d0,float z0) : m_obj(new TrackStateObj()) {
   m_obj->acquire();
-    m_obj->data.Location = Location;  m_obj->data.Omega = Omega;  m_obj->data.D0 = D0;  m_obj->data.Z0 = Z0;
+    m_obj->data.location = location;  m_obj->data.omega = omega;  m_obj->data.d0 = d0;  m_obj->data.z0 = z0;
 }
 
 
@@ -44,15 +44,15 @@ TrackState::~TrackState(){
 
 TrackState::operator ConstTrackState() const {return ConstTrackState(m_obj);}
 
-  const float& TrackState::Location() const { return m_obj->data.Location; }
-  const float& TrackState::Omega() const { return m_obj->data.Omega; }
-  const float& TrackState::D0() const { return m_obj->data.D0; }
-  const float& TrackState::Z0() const { return m_obj->data.Z0; }
+  const float& TrackState::location() const { return m_obj->data.location; }
+  const float& TrackState::omega() const { return m_obj->data.omega; }
+  const float& TrackState::d0() const { return m_obj->data.d0; }
+  const float& TrackState::z0() const { return m_obj->data.z0; }
 
-void TrackState::Location(float value){ m_obj->data.Location = value; }
-void TrackState::Omega(float value){ m_obj->data.Omega = value; }
-void TrackState::D0(float value){ m_obj->data.D0 = value; }
-void TrackState::Z0(float value){ m_obj->data.Z0 = value; }
+void TrackState::location(float value){ m_obj->data.location = value; }
+void TrackState::omega(float value){ m_obj->data.omega = value; }
+void TrackState::d0(float value){ m_obj->data.d0 = value; }
+void TrackState::z0(float value){ m_obj->data.z0 = value; }
 
 
 

@@ -9,6 +9,9 @@
 #include "podio/ObjBase.h"
 #include "ParticleData.h"
 
+#include <vector>
+#include "Track.h"
+#include "CaloCluster.h"
 
 
 // forward declarations
@@ -30,6 +33,8 @@ public:
 
 public:
   ParticleData data;
+  std::vector<::fcc::ConstTrack>* m_tracks;
+  std::vector<::fcc::ConstCaloCluster>* m_clusters;
 
 
 };

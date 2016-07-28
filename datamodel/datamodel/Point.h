@@ -2,14 +2,20 @@
 #define Point_H
 
 
+#include <iostream>
+
 namespace fcc {
 class Point {
 public:
-  float X;
-  float Y;
-  float Z;
+  float x;
+  float y;
+  float z;
 
 
 };
+
+
+
 } // namespace fcc
+
 #endif

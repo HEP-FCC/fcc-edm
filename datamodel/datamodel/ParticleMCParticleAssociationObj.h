@@ -33,8 +33,8 @@ public:
 
 public:
   ParticleMCParticleAssociationData data;
-  ::fcc::ConstParticle* m_Rec;
-  ::fcc::ConstMCParticle* m_Sim;
+  ::fcc::ConstParticle* m_rec;
+  ::fcc::ConstMCParticle* m_sim;
 
 
 };
