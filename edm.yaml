@@ -9,41 +9,41 @@ components:
 # Components cannot be stored in a collection
 
   fcc::LorentzVector:
-    Mass : float
-    Px : float
-    Py : float
-    Pz : float
+    mass : float
+    px : float
+    py : float
+    pz : float
 
   fcc::Point:
-    X : float
-    Y : float
-    Z : float
+    x : float
+    y : float
+    z : float
 
   # really need to expose some function f(Cellid) -> position
   fcc::BareHit:
-    Cellid : ulonglong
-    Energy : float
-    Time : float
-    Bits : unsigned
+    cellId : ulonglong
+    energy : float
+    time : float
+    bits : unsigned
 
   fcc::BareCluster:
-    Energy : float
-    Time : float
-    Position : fcc::Point
-    Bits : unsigned
+    energy : float
+    time : float
+    position : fcc::Point
+    bits : unsigned
 
   fcc::BareParticle:
-    Type: int
-    Charge: int
-    Status: unsigned
-    Vertex: fcc::Point
-    P4: fcc::LorentzVector
-    Bits: unsigned
+    type: int
+    charge: int
+    status: unsigned
+    vertex: fcc::Point
+    p4: fcc::LorentzVector
+    bits: unsigned
 
   fcc::BareJet:
-    P4: fcc::LorentzVector
-    Area: float
-    Bits: unsigned
+    p4: fcc::LorentzVector
+    area: float
+    bits: unsigned
 
 datatypes :
 # Datatypes are components that can be stored in a Collection
@@ -52,7 +52,7 @@ datatypes :
     Description : "Event Info Data"
     Author : "C. Bernet, B. Hegner"
     Members :
-     - int Number // Event number
+     - int number // Event number
 
   fcc::Particle :
     Description : "Reconstructed particle"
@@ -60,175 +60,173 @@ datatypes :
     Members :
      - fcc::BareParticle Core // Contains basic particle information.
     OneToManyRelations:
-     - fcc::Track Tracks // The Tracks used in reconstruction
-     - fcc::CaloCluster Clusters // The cluster used for reconstruction
+     - fcc::Track tracks // The Tracks used in reconstruction
+     - fcc::CaloCluster clusters // The cluster used for reconstruction
 
   fcc::TaggedParticle :
     Description : "Association between a Particle and some arbitrary Tag information"
     Author : "C. Helsens, J. Lingemann"
     Members:
-     - float Value // the value of the tag
+     - float value // the value of the tag
     OneToOneRelations :
-     - fcc::Particle Particle // Reference to the Particle
+     - fcc::Particle particle // Reference to the Particle
 
   fcc::MCParticle:
     Description: "Monte-Carlo Particle, either generated or simulated."
     Author : "C. Bernet, B. Hegner"
     Members:
-     - fcc::BareParticle Core // Basic particle information.
+     - fcc::BareParticle core // Basic particle information.
     OneToOneRelations:
-     - fcc::GenVertex StartVertex // Reference to the vertex in which the particle was created.
-     - fcc::GenVertex EndVertex // Reference to the vertex in which the particle was created.
+     - fcc::GenVertex startVertex // Reference to the vertex in which the particle was created.
+     - fcc::GenVertex endVertex // Reference to the vertex in which the particle was created.
 
   fcc::ParticleMCParticleAssociation:
     Description : "Association between a Particle and a MCParticle, used to keep track of the correspondence between MC and reconstructed particles"
     Author : "C. Bernet, B. Hegner"
     OneToOneRelations :
-      - fcc::Particle Rec // Reference to the reconstructed particle
-      - fcc::MCParticle Sim // Reference to the Monte-Carlo particle
+      - fcc::Particle rec // Reference to the reconstructed particle
+      - fcc::MCParticle sim // Reference to the Monte-Carlo particle
 
   fcc::Jet :
     Description : "Reconstructed jet."
     Author : "C. Bernet, B. Hegner"
     Members :
-     - fcc::BareJet Core // Basic jet information.
+     - fcc::BareJet core // Basic jet information.
     OneToManyRelations :
-     - fcc::Particle Particles // Particles clustered into this jet
+     - fcc::Particle particles // Particles clustered into this jet
 
   fcc::TaggedJet :
     Description : "Association between a Jet and arbitrary Tag information"
     Author : "C. Bernet, Z. Drasal, J. Lingemann"
     Members :
-     - float Tag // Result of the tagging algorithm
+     - float tag // Result of the tagging algorithm
     OneToOneRelations :
-     - fcc::Jet Jet // Reference to the jet
+     - fcc::Jet jet // Reference to the jet
 
   fcc::GenJet :
     Description : "Generated jet."
     Author : "C. Bernet, B. Hegner"
     Members :
-     - fcc::BareJet Core // Basic jet information.
+     - fcc::BareJet core // Basic jet information.
     OneToManyRelations :
-     - fcc::MCParticle Particles // Particles clustered into this jet
+     - fcc::MCParticle particles // Particles clustered into this jet
 
   fcc::TaggedGenJet :
     Description : "Association between a GenJet and arbitrary Tag information"
     Author : "C. Bernet, Z. Drasal"
     Members :
-     - float Tag // Result of the tagging algorithm
+     - float tag // Result of the tagging algorithm
     OneToOneRelations :
-     - fcc::GenJet Jet // Reference to the gen jet
+     - fcc::GenJet jet // Reference to the gen jet
 
   fcc::MET:
     Description : "Naive MET type"
     Author : "C. Bernet, B. Hegner"
     Members :
-     - float Magnitude // Magnitude (could be the pT or the ET of the MET vector)
-     - float Phi // Azimuthal angle
-     - float ScalarSum // Corresponding sum pT or sum ET
+     - float magnitude // Magnitude (could be the pT or the ET of the MET vector)
+     - float phi // Azimuthal angle
+     - float scalarSum // Corresponding sum pT or sum ET
 
   fcc::TrackHit:
     Description : "A tracker hit"
     Author : "C. Bernet, B. Hegner"
     Members:
-     - fcc::BareHit Core // contains basic hit information
+     - fcc::BareHit core // contains basic hit information
 
   fcc::CaloHit:
     Description : "A calorimeter hit"
     Author : "C. Bernet, B. Hegner"
     Members:
-     - fcc::BareHit Core // contains basic hit information
+     - fcc::BareHit core // contains basic hit information
 
   fcc::PositionedCaloHit:
-    Description: "A calorimeter hit and its global position"
-    Author: "J. Lingemann"
+    Description: "A calorimeter hit with its global position"
+    Author: "J. Lingemann, B. Hegner"
     Members:
-     - fcc::Point Position // The global position
-    OneToOneRelations:
-     - fcc::CaloHit Hit // The hit
+     - fcc::Point position // The global position
+     - fcc::BareHit core // The hit
 
   fcc::PositionedTrackHit:
-    Description: "A track hit and its global position"
-    Author: "J. Lingemann"
+    Description: "A track hit and with its global position"
+    Author: "J. Lingemann, B. Hegner"
     Members:
-     - fcc::Point Position // The global position
-    OneToOneRelations:
-     - fcc::TrackHit Hit // The hit
+     - fcc::Point position // The global position
+     - fcc::BareHit core // The hit
 
   fcc::CaloHitMCParticleAssociation:
     Description: "Association between a CaloHit and a particle that contributed to the hit."
     Author : "C. Bernet, B. Hegner"
     Members:
-     - float Fraction // Fraction of the particle energy used in the hit.
+     - float fraction // Fraction of the particle energy used in the hit.
     OneToOneRelations:
-     - fcc::CaloHit Hit // the hit
-     - fcc::MCParticle Particle // the particle
+     - fcc::CaloHit hit // the hit
+     - fcc::MCParticle particle // the particle
 
   fcc::CaloHitAssociation:
     Description: "Association between a CaloHit and the corresponding simulated CaloHit"
     Author : "C. Bernet, B. Hegner"
     OneToOneRelations:
-     - fcc::CaloHit Rec // The reconstruted hit.
-     - fcc::CaloHit Sim // The simulated hit.
+     - fcc::CaloHit rec // The reconstruted hit.
+     - fcc::CaloHit sim // The simulated hit.
 
   fcc::TrackCluster:
     Description : "A track cluster, made of TrackHits"
     Author : "C. Bernet, B. Hegner, J. Lingemann"
     Members:
-     - fcc::BareCluster Core // contains basic cluster information
+     - fcc::BareCluster core // contains basic cluster information
     OneToManyRelations :
-     - fcc::TrackHit Hits // Hits used in the cluster
+     - fcc::TrackHit hits // Hits used in the cluster
 
   fcc::CaloCluster:
     Description : "A calo cluster, made of CaloHits"
     Author : "C. Bernet, B. Hegner"
     Members:
-     - fcc::BareCluster Core // contains basic cluster information
+     - fcc::BareCluster core // contains basic cluster information
     OneToManyRelations :
-     - fcc::CaloHit Hits // Hits used in the cluster
+     - fcc::CaloHit hits // Hits used in the cluster
 
   fcc::TrackState:
     Description: "Track state at a given point on the track."
     Author : "C. Bernet, B. Hegner"
     Members:
-     - float Location // Location on the track. (Radius?)
-     - float Omega // Track curvature in cm.
-     - float D0 // Transverse impact parameter
-     - float Z0 // Longitudinal impact parameter
+     - float location // Location on the track. (Radius?)
+     - float omega // Track curvature in cm.
+     - float d0 // Transverse impact parameter
+     - float z0 // Longitudinal impact parameter
 
   fcc::Track:
     Description: "Track reconstructed from clusters in the inner tracker"
     Author : "C. Bernet, B. Hegner"
     Members:
-     - float Chi2 // chi2 returned by the track fit
-     - unsigned Ndf // Number of degrees of freedom of the track fit
-     - unsigned Bits // Stores flags
+     - float chi2 // chi2 returned by the track fit
+     - unsigned ndf // Number of degrees of freedom of the track fit
+     - unsigned bits // Stores flags
     OneToManyRelations :
-     - fcc::TrackCluster Clusters // Clusters used for reconstruction
-     - fcc::TrackState States // states along the track
+     - fcc::TrackCluster clusters // Clusters used for reconstruction
+     - fcc::TrackState states // states along the track
 
   fcc::WeightedTrack:
     Description: "A track associated to a vertex with its weight."
     Author: "J. Lingemann"
     Members:
-      - float Weight // Weight of the track in the vertex
+      - float weight // Weight of the track in the vertex
     OneToOneRelations:
-     - fcc::Track Track // The track.
+     - fcc::Track track // The track.
 
   fcc::Vertex:
     Description: "Vertex reconstructed from tracks"
     Author : "C. Bernet, B. Hegner"
     Members:
-     - float Chi2 // chi2 returned by the vertex fit
-     - unsigned Ndf // Number of degrees of freedom of the vertex fit
-     - fcc::Point Position // Vertex position in cm
-     - unsigned Bits // Stored flags
+     - float chi2 // chi2 returned by the vertex fit
+     - unsigned ndf // Number of degrees of freedom of the vertex fit
+     - fcc::Point position // Vertex position in cm
+     - unsigned bits // Stored flags
     OneToManyRelations:
-     - fcc::WeightedTrack Tracks
+     - fcc::WeightedTrack tracks
 
   fcc::GenVertex:
     Description: "Generated vertex. MCParticles refer to their start and end vertex."
     Author : "C. Bernet, B. Hegner"
     Members:
-     - fcc::Point Position // Vertex position in cm
-     - float Ctau // Time coordinate in cm
+     - fcc::Point position // Vertex position in cm
+     - float ctau // Time coordinate in cm
