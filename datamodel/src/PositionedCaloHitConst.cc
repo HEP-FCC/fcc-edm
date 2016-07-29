@@ -48,7 +48,7 @@ ConstPositionedCaloHit::~ConstPositionedCaloHit(){
   /// Access the  The global position
   const fcc::Point& ConstPositionedCaloHit::position() const { return m_obj->data.position; }
   const unsigned& ConstPositionedCaloHit::bits() const { return m_obj->data.core.bits; }
-  const ulonglong& ConstPositionedCaloHit::cellId() const { return m_obj->data.core.cellId; }
+  const unsigned long long& ConstPositionedCaloHit::cellId() const { return m_obj->data.core.cellId; }
   const float& ConstPositionedCaloHit::energy() const { return m_obj->data.core.energy; }
   const float& ConstPositionedCaloHit::time() const { return m_obj->data.core.time; }
   /// Access the  The hit

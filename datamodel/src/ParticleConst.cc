@@ -13,9 +13,9 @@ ConstParticle::ConstParticle() : m_obj(new ParticleObj()) {
  m_obj->acquire();
 }
 
-ConstParticle::ConstParticle(fcc::BareParticle Core) : m_obj(new ParticleObj()){
+ConstParticle::ConstParticle(fcc::BareParticle core) : m_obj(new ParticleObj()){
  m_obj->acquire();
-   m_obj->data.Core = Core;
+   m_obj->data.core = core;
 }
 
 
@@ -42,14 +42,14 @@ ConstParticle::~ConstParticle(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const unsigned& ConstParticle::bits() const { return m_obj->data.Core.bits; }
-  const int& ConstParticle::charge() const { return m_obj->data.Core.charge; }
-  const ::fcc::LorentzVector& ConstParticle::p4() const { return m_obj->data.Core.p4; }
-  const unsigned& ConstParticle::status() const { return m_obj->data.Core.status; }
-  const int& ConstParticle::type() const { return m_obj->data.Core.type; }
-  const ::fcc::Point& ConstParticle::vertex() const { return m_obj->data.Core.vertex; }
+  const unsigned& ConstParticle::bits() const { return m_obj->data.core.bits; }
+  const int& ConstParticle::charge() const { return m_obj->data.core.charge; }
+  const ::fcc::LorentzVector& ConstParticle::p4() const { return m_obj->data.core.p4; }
+  const unsigned& ConstParticle::status() const { return m_obj->data.core.status; }
+  const int& ConstParticle::type() const { return m_obj->data.core.type; }
+  const ::fcc::Point& ConstParticle::vertex() const { return m_obj->data.core.vertex; }
   /// Access the  Contains basic particle information.
-  const fcc::BareParticle& ConstParticle::Core() const { return m_obj->data.Core; }
+  const fcc::BareParticle& ConstParticle::core() const { return m_obj->data.core; }
 
 std::vector<fcc::ConstTrack>::const_iterator ConstParticle::tracks_begin() const {
   auto ret_value = m_obj->m_tracks->begin();

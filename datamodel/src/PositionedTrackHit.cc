@@ -50,7 +50,7 @@ const float& PositionedTrackHit::y() const { return m_obj->data.position.y; }
 const float& PositionedTrackHit::z() const { return m_obj->data.position.z; }
   const fcc::BareHit& PositionedTrackHit::core() const { return m_obj->data.core; }
 const unsigned& PositionedTrackHit::bits() const { return m_obj->data.core.bits; }
-const ulonglong& PositionedTrackHit::cellId() const { return m_obj->data.core.cellId; }
+const unsigned long long& PositionedTrackHit::cellId() const { return m_obj->data.core.cellId; }
 const float& PositionedTrackHit::energy() const { return m_obj->data.core.energy; }
 const float& PositionedTrackHit::time() const { return m_obj->data.core.time; }
 
@@ -62,7 +62,7 @@ void PositionedTrackHit::z(float value){ m_obj->data.position.z = value; }
   fcc::BareHit& PositionedTrackHit::core() { return m_obj->data.core; }
 void PositionedTrackHit::core(class fcc::BareHit value) { m_obj->data.core = value; }
 void PositionedTrackHit::bits(unsigned value){ m_obj->data.core.bits = value; }
-void PositionedTrackHit::cellId(ulonglong value){ m_obj->data.core.cellId = value; }
+void PositionedTrackHit::cellId(unsigned long long value){ m_obj->data.core.cellId = value; }
 void PositionedTrackHit::energy(float value){ m_obj->data.core.energy = value; }
 void PositionedTrackHit::time(float value){ m_obj->data.core.time = value; }
 

@@ -13,9 +13,9 @@ Particle::Particle() : m_obj(new ParticleObj()){
  m_obj->acquire();
 }
 
-Particle::Particle(fcc::BareParticle Core) : m_obj(new ParticleObj()) {
+Particle::Particle(fcc::BareParticle core) : m_obj(new ParticleObj()) {
   m_obj->acquire();
-    m_obj->data.Core = Core;
+    m_obj->data.core = core;
 }
 
 
@@ -44,24 +44,24 @@ Particle::~Particle(){
 
 Particle::operator ConstParticle() const {return ConstParticle(m_obj);}
 
-  const fcc::BareParticle& Particle::Core() const { return m_obj->data.Core; }
-const unsigned& Particle::bits() const { return m_obj->data.Core.bits; }
-const int& Particle::charge() const { return m_obj->data.Core.charge; }
-const ::fcc::LorentzVector& Particle::p4() const { return m_obj->data.Core.p4; }
-const unsigned& Particle::status() const { return m_obj->data.Core.status; }
-const int& Particle::type() const { return m_obj->data.Core.type; }
-const ::fcc::Point& Particle::vertex() const { return m_obj->data.Core.vertex; }
+  const fcc::BareParticle& Particle::core() const { return m_obj->data.core; }
+const unsigned& Particle::bits() const { return m_obj->data.core.bits; }
+const int& Particle::charge() const { return m_obj->data.core.charge; }
+const ::fcc::LorentzVector& Particle::p4() const { return m_obj->data.core.p4; }
+const unsigned& Particle::status() const { return m_obj->data.core.status; }
+const int& Particle::type() const { return m_obj->data.core.type; }
+const ::fcc::Point& Particle::vertex() const { return m_obj->data.core.vertex; }
 
-  fcc::BareParticle& Particle::Core() { return m_obj->data.Core; }
-void Particle::Core(class fcc::BareParticle value) { m_obj->data.Core = value; }
-void Particle::bits(unsigned value){ m_obj->data.Core.bits = value; }
-void Particle::charge(int value){ m_obj->data.Core.charge = value; }
-::fcc::LorentzVector& Particle::p4() { return m_obj->data.Core.p4; }
-void Particle::p4(class ::fcc::LorentzVector value) { m_obj->data.Core.p4 = value; }
-void Particle::status(unsigned value){ m_obj->data.Core.status = value; }
-void Particle::type(int value){ m_obj->data.Core.type = value; }
-::fcc::Point& Particle::vertex() { return m_obj->data.Core.vertex; }
-void Particle::vertex(class ::fcc::Point value) { m_obj->data.Core.vertex = value; }
+  fcc::BareParticle& Particle::core() { return m_obj->data.core; }
+void Particle::core(class fcc::BareParticle value) { m_obj->data.core = value; }
+void Particle::bits(unsigned value){ m_obj->data.core.bits = value; }
+void Particle::charge(int value){ m_obj->data.core.charge = value; }
+::fcc::LorentzVector& Particle::p4() { return m_obj->data.core.p4; }
+void Particle::p4(class ::fcc::LorentzVector value) { m_obj->data.core.p4 = value; }
+void Particle::status(unsigned value){ m_obj->data.core.status = value; }
+void Particle::type(int value){ m_obj->data.core.type = value; }
+::fcc::Point& Particle::vertex() { return m_obj->data.core.vertex; }
+void Particle::vertex(class ::fcc::Point value) { m_obj->data.core.vertex = value; }
 
 std::vector<fcc::ConstTrack>::const_iterator Particle::tracks_begin() const {
   auto ret_value = m_obj->m_tracks->begin();

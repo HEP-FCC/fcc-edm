@@ -63,7 +63,7 @@ public:
   /// Access the member of  The hit
   const unsigned& bits() const;
   /// Access the member of  The hit
-  const ulonglong& cellId() const;
+  const unsigned long long& cellId() const;
   /// Access the member of  The hit
   const float& energy() const;
   /// Access the member of  The hit
@@ -90,7 +90,7 @@ public:
   void bits(unsigned value);
 
   /// Set the  member of  The hit
-  void cellId(ulonglong value);
+  void cellId(unsigned long long value);
 
   /// Set the  member of  The hit
   void energy(float value);

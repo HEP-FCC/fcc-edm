@@ -48,7 +48,7 @@ ConstPositionedTrackHit::~ConstPositionedTrackHit(){
   /// Access the  The global position
   const fcc::Point& ConstPositionedTrackHit::position() const { return m_obj->data.position; }
   const unsigned& ConstPositionedTrackHit::bits() const { return m_obj->data.core.bits; }
-  const ulonglong& ConstPositionedTrackHit::cellId() const { return m_obj->data.core.cellId; }
+  const unsigned long long& ConstPositionedTrackHit::cellId() const { return m_obj->data.core.cellId; }
   const float& ConstPositionedTrackHit::energy() const { return m_obj->data.core.energy; }
   const float& ConstPositionedTrackHit::time() const { return m_obj->data.core.time; }
   /// Access the  The hit

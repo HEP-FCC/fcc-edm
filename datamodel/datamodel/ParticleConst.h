@@ -35,7 +35,7 @@ public:
 
   /// default constructor
   ConstParticle();
-  ConstParticle(fcc::BareParticle Core);
+  ConstParticle(fcc::BareParticle core);
 
   /// constructor from existing ParticleObj
   ConstParticle(ParticleObj* obj);
@@ -52,7 +52,7 @@ public:
 public:
 
   /// Access the  Contains basic particle information.
-  const fcc::BareParticle& Core() const;
+  const fcc::BareParticle& core() const;
   /// Access the member of  Contains basic particle information.
   const unsigned& bits() const;
   /// Access the member of  Contains basic particle information.

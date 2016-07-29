@@ -11,7 +11,7 @@ namespace fcc {
 
 class ParticleData {
 public:
-  fcc::BareParticle Core;  ///< Contains basic particle information.
+  fcc::BareParticle core;  ///< Contains basic particle information.
   unsigned int tracks_begin;
   unsigned int tracks_end;
   unsigned int clusters_begin;

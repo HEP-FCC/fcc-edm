@@ -8,7 +8,7 @@ namespace fcc {
 class BareHit {
 public:
   unsigned bits;
-  ulonglong cellId;
+  unsigned long long cellId;
   float energy;
   float time;
 

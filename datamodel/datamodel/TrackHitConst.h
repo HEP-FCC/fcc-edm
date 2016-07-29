@@ -53,7 +53,7 @@ public:
   /// Access the member of  contains basic hit information
   const unsigned& bits() const;
   /// Access the member of  contains basic hit information
-  const ulonglong& cellId() const;
+  const unsigned long long& cellId() const;
   /// Access the member of  contains basic hit information
   const float& energy() const;
   /// Access the member of  contains basic hit information

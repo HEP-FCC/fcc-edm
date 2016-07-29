@@ -50,7 +50,7 @@ const float& PositionedCaloHit::y() const { return m_obj->data.position.y; }
 const float& PositionedCaloHit::z() const { return m_obj->data.position.z; }
   const fcc::BareHit& PositionedCaloHit::core() const { return m_obj->data.core; }
 const unsigned& PositionedCaloHit::bits() const { return m_obj->data.core.bits; }
-const ulonglong& PositionedCaloHit::cellId() const { return m_obj->data.core.cellId; }
+const unsigned long long& PositionedCaloHit::cellId() const { return m_obj->data.core.cellId; }
 const float& PositionedCaloHit::energy() const { return m_obj->data.core.energy; }
 const float& PositionedCaloHit::time() const { return m_obj->data.core.time; }
 
@@ -62,7 +62,7 @@ void PositionedCaloHit::z(float value){ m_obj->data.position.z = value; }
   fcc::BareHit& PositionedCaloHit::core() { return m_obj->data.core; }
 void PositionedCaloHit::core(class fcc::BareHit value) { m_obj->data.core = value; }
 void PositionedCaloHit::bits(unsigned value){ m_obj->data.core.bits = value; }
-void PositionedCaloHit::cellId(ulonglong value){ m_obj->data.core.cellId = value; }
+void PositionedCaloHit::cellId(unsigned long long value){ m_obj->data.core.cellId = value; }
 void PositionedCaloHit::energy(float value){ m_obj->data.core.energy = value; }
 void PositionedCaloHit::time(float value){ m_obj->data.core.time = value; }
 

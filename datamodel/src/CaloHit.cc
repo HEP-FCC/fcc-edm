@@ -46,14 +46,14 @@ CaloHit::operator ConstCaloHit() const {return ConstCaloHit(m_obj);}
 
   const fcc::BareHit& CaloHit::core() const { return m_obj->data.core; }
 const unsigned& CaloHit::bits() const { return m_obj->data.core.bits; }
-const ulonglong& CaloHit::cellId() const { return m_obj->data.core.cellId; }
+const unsigned long long& CaloHit::cellId() const { return m_obj->data.core.cellId; }
 const float& CaloHit::energy() const { return m_obj->data.core.energy; }
 const float& CaloHit::time() const { return m_obj->data.core.time; }
 
   fcc::BareHit& CaloHit::core() { return m_obj->data.core; }
 void CaloHit::core(class fcc::BareHit value) { m_obj->data.core = value; }
 void CaloHit::bits(unsigned value){ m_obj->data.core.bits = value; }
-void CaloHit::cellId(ulonglong value){ m_obj->data.core.cellId = value; }
+void CaloHit::cellId(unsigned long long value){ m_obj->data.core.cellId = value; }
 void CaloHit::energy(float value){ m_obj->data.core.energy = value; }
 void CaloHit::time(float value){ m_obj->data.core.time = value; }
 

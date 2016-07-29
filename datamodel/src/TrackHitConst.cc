@@ -43,7 +43,7 @@ ConstTrackHit::~ConstTrackHit(){
 }
 
   const unsigned& ConstTrackHit::bits() const { return m_obj->data.core.bits; }
-  const ulonglong& ConstTrackHit::cellId() const { return m_obj->data.core.cellId; }
+  const unsigned long long& ConstTrackHit::cellId() const { return m_obj->data.core.cellId; }
   const float& ConstTrackHit::energy() const { return m_obj->data.core.energy; }
   const float& ConstTrackHit::time() const { return m_obj->data.core.time; }
   /// Access the  contains basic hit information

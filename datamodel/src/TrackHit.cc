@@ -46,14 +46,14 @@ TrackHit::operator ConstTrackHit() const {return ConstTrackHit(m_obj);}
 
   const fcc::BareHit& TrackHit::core() const { return m_obj->data.core; }
 const unsigned& TrackHit::bits() const { return m_obj->data.core.bits; }
-const ulonglong& TrackHit::cellId() const { return m_obj->data.core.cellId; }
+const unsigned long long& TrackHit::cellId() const { return m_obj->data.core.cellId; }
 const float& TrackHit::energy() const { return m_obj->data.core.energy; }
 const float& TrackHit::time() const { return m_obj->data.core.time; }
 
   fcc::BareHit& TrackHit::core() { return m_obj->data.core; }
 void TrackHit::core(class fcc::BareHit value) { m_obj->data.core = value; }
 void TrackHit::bits(unsigned value){ m_obj->data.core.bits = value; }
-void TrackHit::cellId(ulonglong value){ m_obj->data.core.cellId = value; }
+void TrackHit::cellId(unsigned long long value){ m_obj->data.core.cellId = value; }
 void TrackHit::energy(float value){ m_obj->data.core.energy = value; }
 void TrackHit::time(float value){ m_obj->data.core.time = value; }
 
