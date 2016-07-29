@@ -13,9 +13,9 @@ EventInfo::EventInfo() : m_obj(new EventInfoObj()){
  m_obj->acquire();
 }
 
-EventInfo::EventInfo(int Number) : m_obj(new EventInfoObj()) {
+EventInfo::EventInfo(int number) : m_obj(new EventInfoObj()) {
   m_obj->acquire();
-    m_obj->data.Number = Number;
+    m_obj->data.number = number;
 }
 
 
@@ -44,9 +44,9 @@ EventInfo::~EventInfo(){
 
 EventInfo::operator ConstEventInfo() const {return ConstEventInfo(m_obj);}
 
-  const int& EventInfo::Number() const { return m_obj->data.Number; }
+  const int& EventInfo::number() const { return m_obj->data.number; }
 
-void EventInfo::Number(int value){ m_obj->data.Number = value; }
+void EventInfo::number(int value){ m_obj->data.number = value; }
 
 
 

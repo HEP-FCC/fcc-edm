@@ -12,7 +12,6 @@ namespace fcc {
 class Particle;
 class ParticleCollection;
 class JetCollection;
-class JetParticleAssociationCollection;
 }
 class TLorentzVector;
 class TVector3;
@@ -69,8 +68,6 @@ private:
   fcc::ParticleCollection& m_particles;
   /// jet collection filled by the generator
   fcc::JetCollection& m_jets;
-  /// association collection filled by the generator that connects particles and jets
-  fcc::JetParticleAssociationCollection& m_jetParticleAssociations;
 };
 
 #endif

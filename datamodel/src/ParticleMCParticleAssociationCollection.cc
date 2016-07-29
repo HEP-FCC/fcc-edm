@@ -8,7 +8,7 @@
 
 namespace fcc {
 
-ParticleMCParticleAssociationCollection::ParticleMCParticleAssociationCollection() : m_isValid(false), m_collectionID(0), m_entries() , m_rel_Rec(new std::vector<fcc::ConstParticle>()), m_rel_Sim(new std::vector<fcc::ConstMCParticle>()),m_data(new ParticleMCParticleAssociationDataContainer() ) {
+ParticleMCParticleAssociationCollection::ParticleMCParticleAssociationCollection() : m_isValid(false), m_collectionID(0), m_entries() , m_rel_rec(new std::vector<fcc::ConstParticle>()), m_rel_sim(new std::vector<fcc::ConstMCParticle>()),m_data(new ParticleMCParticleAssociationDataContainer() ) {
     m_refCollections.push_back(new std::vector<podio::ObjectID>());
   m_refCollections.push_back(new std::vector<podio::ObjectID>());
 
@@ -18,10 +18,10 @@ ParticleMCParticleAssociationCollection::~ParticleMCParticleAssociationCollectio
   clear();
   if (m_data != nullptr) delete m_data;
     for (auto& pointer : m_refCollections) { if (pointer != nullptr) delete pointer; }
-  if (m_rel_Rec != nullptr) { delete m_rel_Rec; }
-  if (m_rel_Sim != nullptr) { delete m_rel_Sim; }
+  if (m_rel_rec != nullptr) { delete m_rel_rec; }
+  if (m_rel_sim != nullptr) { delete m_rel_sim; }
 
-};
+}
 
 const ParticleMCParticleAssociation ParticleMCParticleAssociationCollection::operator[](unsigned int index) const {
   return ParticleMCParticleAssociation(m_entries[index]);
@@ -46,10 +46,10 @@ ParticleMCParticleAssociation ParticleMCParticleAssociationCollection::create(){
 void ParticleMCParticleAssociationCollection::clear(){
   m_data->clear();
   for (auto& pointer : m_refCollections) { pointer->clear(); }
-  for (auto& item : (*m_rel_Rec)) { item.unlink(); }
-  m_rel_Rec->clear();
-  for (auto& item : (*m_rel_Sim)) { item.unlink(); }
-  m_rel_Sim->clear();
+  for (auto& item : (*m_rel_rec)) { item.unlink(); }
+  m_rel_rec->clear();
+  for (auto& item : (*m_rel_sim)) { item.unlink(); }
+  m_rel_sim->clear();
 
   for (auto& obj : m_entries) { delete obj; }
   m_entries.clear();
@@ -65,15 +65,15 @@ void ParticleMCParticleAssociationCollection::prepareForWrite(){
 
   }
   for (auto& obj : m_entries) {
-    if (obj->m_Rec != nullptr) {
-      m_refCollections[0]->emplace_back(obj->m_Rec->getObjectID());
+    if (obj->m_rec != nullptr) {
+      m_refCollections[0]->emplace_back(obj->m_rec->getObjectID());
     } else {
       m_refCollections[0]->push_back({-2,-2});
     }
   }
   for (auto& obj : m_entries) {
-    if (obj->m_Sim != nullptr) {
-      m_refCollections[1]->emplace_back(obj->m_Sim->getObjectID());
+    if (obj->m_sim != nullptr) {
+      m_refCollections[1]->emplace_back(obj->m_sim->getObjectID());
     } else {
       m_refCollections[1]->push_back({-2,-2});
     }
@@ -100,9 +100,9 @@ bool ParticleMCParticleAssociationCollection::setReferences(const podio::ICollec
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
       fcc::ParticleCollection* tmp_coll = static_cast<fcc::ParticleCollection*>(coll);
-      m_entries[i]->m_Rec = new ConstParticle((*tmp_coll)[id.index]);
+      m_entries[i]->m_rec = new ConstParticle((*tmp_coll)[id.index]);
     } else {
-      m_entries[i]->m_Rec = nullptr;
+      m_entries[i]->m_rec = nullptr;
     }
   }
   for(unsigned int i = 0, size = m_entries.size(); i != size; ++i) {
@@ -111,9 +111,9 @@ bool ParticleMCParticleAssociationCollection::setReferences(const podio::ICollec
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
       fcc::MCParticleCollection* tmp_coll = static_cast<fcc::MCParticleCollection*>(coll);
-      m_entries[i]->m_Sim = new ConstMCParticle((*tmp_coll)[id.index]);
+      m_entries[i]->m_sim = new ConstMCParticle((*tmp_coll)[id.index]);
     } else {
-      m_entries[i]->m_Sim = nullptr;
+      m_entries[i]->m_sim = nullptr;
     }
   }
 

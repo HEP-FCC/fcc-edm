@@ -13,9 +13,9 @@ ConstTrack::ConstTrack() : m_obj(new TrackObj()) {
  m_obj->acquire();
 }
 
-ConstTrack::ConstTrack(float Chi2,unsigned Ndf,unsigned Bits) : m_obj(new TrackObj()){
+ConstTrack::ConstTrack(float chi2,unsigned ndf,unsigned bits) : m_obj(new TrackObj()){
  m_obj->acquire();
-   m_obj->data.Chi2 = Chi2;  m_obj->data.Ndf = Ndf;  m_obj->data.Bits = Bits;
+   m_obj->data.chi2 = chi2;  m_obj->data.ndf = ndf;  m_obj->data.bits = bits;
 }
 
 
@@ -42,10 +42,57 @@ ConstTrack::~ConstTrack(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const float& ConstTrack::Chi2() const { return m_obj->data.Chi2; }
-  const unsigned& ConstTrack::Ndf() const { return m_obj->data.Ndf; }
-  const unsigned& ConstTrack::Bits() const { return m_obj->data.Bits; }
+  /// Access the  chi2 returned by the track fit
+  const float& ConstTrack::chi2() const { return m_obj->data.chi2; }
+  /// Access the  Number of degrees of freedom of the track fit
+  const unsigned& ConstTrack::ndf() const { return m_obj->data.ndf; }
+  /// Access the  Stores flags
+  const unsigned& ConstTrack::bits() const { return m_obj->data.bits; }
 
+std::vector<fcc::ConstTrackCluster>::const_iterator ConstTrack::clusters_begin() const {
+  auto ret_value = m_obj->m_clusters->begin();
+  std::advance(ret_value, m_obj->data.clusters_begin);
+  return ret_value;
+}
+
+std::vector<fcc::ConstTrackCluster>::const_iterator ConstTrack::clusters_end() const {
+  auto ret_value = m_obj->m_clusters->begin();
+  std::advance(ret_value, m_obj->data.clusters_end-1);
+  return ++ret_value;
+}
+
+unsigned int ConstTrack::clusters_size() const {
+  return (m_obj->data.clusters_end-m_obj->data.clusters_begin);
+}
+
+fcc::ConstTrackCluster ConstTrack::clusters(unsigned int index) const {
+  if (clusters_size() > index) {
+    return m_obj->m_clusters->at(m_obj->data.clusters_begin+index);
+  }
+  else throw std::out_of_range ("index out of bounds for existing references");
+}
+std::vector<fcc::ConstTrackState>::const_iterator ConstTrack::states_begin() const {
+  auto ret_value = m_obj->m_states->begin();
+  std::advance(ret_value, m_obj->data.states_begin);
+  return ret_value;
+}
+
+std::vector<fcc::ConstTrackState>::const_iterator ConstTrack::states_end() const {
+  auto ret_value = m_obj->m_states->begin();
+  std::advance(ret_value, m_obj->data.states_end-1);
+  return ++ret_value;
+}
+
+unsigned int ConstTrack::states_size() const {
+  return (m_obj->data.states_end-m_obj->data.states_begin);
+}
+
+fcc::ConstTrackState ConstTrack::states(unsigned int index) const {
+  if (states_size() > index) {
+    return m_obj->m_states->at(m_obj->data.states_begin+index);
+  }
+  else throw std::out_of_range ("index out of bounds for existing references");
+}
 
 
 bool  ConstTrack::isAvailable() const {

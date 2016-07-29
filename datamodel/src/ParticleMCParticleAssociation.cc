@@ -42,24 +42,24 @@ ParticleMCParticleAssociation::~ParticleMCParticleAssociation(){
 
 ParticleMCParticleAssociation::operator ConstParticleMCParticleAssociation() const {return ConstParticleMCParticleAssociation(m_obj);}
 
-  const fcc::ConstParticle ParticleMCParticleAssociation::Rec() const {
-    if (m_obj->m_Rec == nullptr) {
+  const fcc::ConstParticle ParticleMCParticleAssociation::rec() const {
+    if (m_obj->m_rec == nullptr) {
       return fcc::ConstParticle(nullptr);
     }
-    return fcc::ConstParticle(*(m_obj->m_Rec));
-  } const fcc::ConstMCParticle ParticleMCParticleAssociation::Sim() const {
-    if (m_obj->m_Sim == nullptr) {
+    return fcc::ConstParticle(*(m_obj->m_rec));
+  } const fcc::ConstMCParticle ParticleMCParticleAssociation::sim() const {
+    if (m_obj->m_sim == nullptr) {
       return fcc::ConstMCParticle(nullptr);
     }
-    return fcc::ConstMCParticle(*(m_obj->m_Sim));
+    return fcc::ConstMCParticle(*(m_obj->m_sim));
   }
-void ParticleMCParticleAssociation::Rec(fcc::ConstParticle value) {
-  if (m_obj->m_Rec != nullptr) delete m_obj->m_Rec;
-  m_obj->m_Rec = new ConstParticle(value);
+void ParticleMCParticleAssociation::rec(fcc::ConstParticle value) {
+  if (m_obj->m_rec != nullptr) delete m_obj->m_rec;
+  m_obj->m_rec = new ConstParticle(value);
 }
-void ParticleMCParticleAssociation::Sim(fcc::ConstMCParticle value) {
-  if (m_obj->m_Sim != nullptr) delete m_obj->m_Sim;
-  m_obj->m_Sim = new ConstMCParticle(value);
+void ParticleMCParticleAssociation::sim(fcc::ConstMCParticle value) {
+  if (m_obj->m_sim != nullptr) delete m_obj->m_sim;
+  m_obj->m_sim = new ConstMCParticle(value);
 }
 
 

@@ -4,9 +4,6 @@
 #include <vector>
 #include "podio/ObjectID.h"
 
-// Track state at a given point on the track.
-// author: C. Bernet, B. Hegner
-
 //forward declarations
 
 
@@ -19,6 +16,11 @@ class TrackState;
 class TrackStateCollection;
 class TrackStateCollectionIterator;
 
+/** @class ConstTrackState
+ *  Track state at a given point on the track.
+ *  @author: C. Bernet, B. Hegner
+ */
+
 class ConstTrackState {
 
   friend TrackState;
@@ -29,7 +31,7 @@ public:
 
   /// default constructor
   ConstTrackState();
-  ConstTrackState(float Location,float Omega,float D0,float Z0);
+  ConstTrackState(float location,float omega,float d0,float z0);
 
   /// constructor from existing TrackStateObj
   ConstTrackState(TrackStateObj* obj);
@@ -45,10 +47,14 @@ public:
 
 public:
 
-  const float& Location() const;
-  const float& Omega() const;
-  const float& D0() const;
-  const float& Z0() const;
+  /// Access the  Location on the track. (Radius?)
+  const float& location() const;
+  /// Access the  Track curvature in cm.
+  const float& omega() const;
+  /// Access the  Transverse impact parameter
+  const float& d0() const;
+  /// Access the  Longitudinal impact parameter
+  const float& z0() const;
 
 
 

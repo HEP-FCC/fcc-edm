@@ -13,9 +13,9 @@ GenVertex::GenVertex() : m_obj(new GenVertexObj()){
  m_obj->acquire();
 }
 
-GenVertex::GenVertex(fcc::Point Position,float Ctau) : m_obj(new GenVertexObj()) {
+GenVertex::GenVertex(fcc::Point position,float ctau) : m_obj(new GenVertexObj()) {
   m_obj->acquire();
-    m_obj->data.Position = Position;  m_obj->data.Ctau = Ctau;
+    m_obj->data.position = position;  m_obj->data.ctau = ctau;
 }
 
 
@@ -44,12 +44,18 @@ GenVertex::~GenVertex(){
 
 GenVertex::operator ConstGenVertex() const {return ConstGenVertex(m_obj);}
 
-  const fcc::Point& GenVertex::Position() const { return m_obj->data.Position; }
-  const float& GenVertex::Ctau() const { return m_obj->data.Ctau; }
+  const fcc::Point& GenVertex::position() const { return m_obj->data.position; }
+const float& GenVertex::x() const { return m_obj->data.position.x; }
+const float& GenVertex::y() const { return m_obj->data.position.y; }
+const float& GenVertex::z() const { return m_obj->data.position.z; }
+  const float& GenVertex::ctau() const { return m_obj->data.ctau; }
 
-  fcc::Point& GenVertex::Position() { return m_obj->data.Position; }
-void GenVertex::Position(class fcc::Point value) { m_obj->data.Position = value; }
-void GenVertex::Ctau(float value){ m_obj->data.Ctau = value; }
+  fcc::Point& GenVertex::position() { return m_obj->data.position; }
+void GenVertex::position(class fcc::Point value) { m_obj->data.position = value; }
+void GenVertex::x(float value){ m_obj->data.position.x = value; }
+void GenVertex::y(float value){ m_obj->data.position.y = value; }
+void GenVertex::z(float value){ m_obj->data.position.z = value; }
+void GenVertex::ctau(float value){ m_obj->data.ctau = value; }
 
 
 

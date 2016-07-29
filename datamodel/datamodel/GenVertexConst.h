@@ -5,9 +5,6 @@
 #include <vector>
 #include "podio/ObjectID.h"
 
-// Generated vertex. MCParticles refer to their start and end vertex.
-// author: C. Bernet, B. Hegner
-
 //forward declarations
 
 
@@ -20,6 +17,11 @@ class GenVertex;
 class GenVertexCollection;
 class GenVertexCollectionIterator;
 
+/** @class ConstGenVertex
+ *  Generated vertex. MCParticles refer to their start and end vertex.
+ *  @author: C. Bernet, B. Hegner
+ */
+
 class ConstGenVertex {
 
   friend GenVertex;
@@ -30,7 +32,7 @@ public:
 
   /// default constructor
   ConstGenVertex();
-  ConstGenVertex(fcc::Point Position,float Ctau);
+  ConstGenVertex(fcc::Point position,float ctau);
 
   /// constructor from existing GenVertexObj
   ConstGenVertex(GenVertexObj* obj);
@@ -46,8 +48,16 @@ public:
 
 public:
 
-  const fcc::Point& Position() const;
-  const float& Ctau() const;
+  /// Access the  Vertex position in cm
+  const fcc::Point& position() const;
+  /// Access the member of  Vertex position in cm
+  const float& x() const;
+  /// Access the member of  Vertex position in cm
+  const float& y() const;
+  /// Access the member of  Vertex position in cm
+  const float& z() const;
+  /// Access the  Time coordinate in cm
+  const float& ctau() const;
 
 
 

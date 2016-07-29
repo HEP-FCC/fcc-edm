@@ -3,10 +3,9 @@
 #include "Point.h"
 #include "VertexData.h"
 #include <vector>
+#include "WeightedTrack.h"
+#include <vector>
 #include "podio/ObjectID.h"
-
-// Vertex reconstructed from tracks
-// author: C. Bernet, B. Hegner
 
 //forward declarations
 
@@ -20,6 +19,10 @@ class VertexCollection;
 class VertexCollectionIterator;
 class ConstVertex;
 
+/** @class Vertex
+ *  Vertex reconstructed from tracks
+ *  @author: C. Bernet, B. Hegner
+ */
 class Vertex {
 
   friend VertexCollection;
@@ -30,7 +33,7 @@ public:
 
   /// default constructor
   Vertex();
-  Vertex(float Chi2,unsigned Ndf,fcc::Point Position,unsigned Bits);
+  Vertex(float chi2,unsigned ndf,fcc::Point position,unsigned bits);
 
   /// constructor from existing VertexObj
   Vertex(VertexObj* obj);
@@ -48,19 +51,49 @@ public:
 
 public:
 
-  const float& Chi2() const;
-  const unsigned& Ndf() const;
-  const fcc::Point& Position() const;
-  const unsigned& Bits() const;
+  /// Access the  chi2 returned by the vertex fit
+  const float& chi2() const;
+  /// Access the  Number of degrees of freedom of the vertex fit
+  const unsigned& ndf() const;
+  /// Access the  Vertex position in cm
+  const fcc::Point& position() const;
+  /// Access the member of  Vertex position in cm
+  const float& x() const;
+  /// Access the member of  Vertex position in cm
+  const float& y() const;
+  /// Access the member of  Vertex position in cm
+  const float& z() const;
+  /// Access the  Stored flags
+  const unsigned& bits() const;
 
-  void Chi2(float value);
+  /// Set the  chi2 returned by the vertex fit
+  void chi2(float value);
 
-  void Ndf(unsigned value);
+  /// Set the  Number of degrees of freedom of the vertex fit
+  void ndf(unsigned value);
 
-  fcc::Point& Position();
-  void Position(class fcc::Point value);
-  void Bits(unsigned value);
+  /// Get reference to the  Vertex position in cm
+  fcc::Point& position();
+  /// Set the  Vertex position in cm
+  void position(class fcc::Point value);
+  /// Set the  member of  Vertex position in cm
+  void x(float value);
 
+  /// Set the  member of  Vertex position in cm
+  void y(float value);
+
+  /// Set the  member of  Vertex position in cm
+  void z(float value);
+
+  /// Set the  Stored flags
+  void bits(unsigned value);
+
+
+  void addtracks(fcc::ConstWeightedTrack);
+  unsigned int tracks_size() const;
+  fcc::ConstWeightedTrack tracks(unsigned int) const;
+  std::vector<fcc::ConstWeightedTrack>::const_iterator tracks_begin() const;
+  std::vector<fcc::ConstWeightedTrack>::const_iterator tracks_end() const;
 
 
 

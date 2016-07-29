@@ -13,9 +13,9 @@ ConstCaloHit::ConstCaloHit() : m_obj(new CaloHitObj()) {
  m_obj->acquire();
 }
 
-ConstCaloHit::ConstCaloHit(fcc::BareHit Core) : m_obj(new CaloHitObj()){
+ConstCaloHit::ConstCaloHit(fcc::BareHit core) : m_obj(new CaloHitObj()){
  m_obj->acquire();
-   m_obj->data.Core = Core;
+   m_obj->data.core = core;
 }
 
 
@@ -42,7 +42,12 @@ ConstCaloHit::~ConstCaloHit(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const fcc::BareHit& ConstCaloHit::Core() const { return m_obj->data.Core; }
+  const unsigned& ConstCaloHit::bits() const { return m_obj->data.core.bits; }
+  const unsigned long long& ConstCaloHit::cellId() const { return m_obj->data.core.cellId; }
+  const float& ConstCaloHit::energy() const { return m_obj->data.core.energy; }
+  const float& ConstCaloHit::time() const { return m_obj->data.core.time; }
+  /// Access the  contains basic hit information
+  const fcc::BareHit& ConstCaloHit::core() const { return m_obj->data.core; }
 
 
 

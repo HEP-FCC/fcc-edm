@@ -13,9 +13,9 @@ Vertex::Vertex() : m_obj(new VertexObj()){
  m_obj->acquire();
 }
 
-Vertex::Vertex(float Chi2,unsigned Ndf,fcc::Point Position,unsigned Bits) : m_obj(new VertexObj()) {
+Vertex::Vertex(float chi2,unsigned ndf,fcc::Point position,unsigned bits) : m_obj(new VertexObj()) {
   m_obj->acquire();
-    m_obj->data.Chi2 = Chi2;  m_obj->data.Ndf = Ndf;  m_obj->data.Position = Position;  m_obj->data.Bits = Bits;
+    m_obj->data.chi2 = chi2;  m_obj->data.ndf = ndf;  m_obj->data.position = position;  m_obj->data.bits = bits;
 }
 
 
@@ -44,17 +44,53 @@ Vertex::~Vertex(){
 
 Vertex::operator ConstVertex() const {return ConstVertex(m_obj);}
 
-  const float& Vertex::Chi2() const { return m_obj->data.Chi2; }
-  const unsigned& Vertex::Ndf() const { return m_obj->data.Ndf; }
-  const fcc::Point& Vertex::Position() const { return m_obj->data.Position; }
-  const unsigned& Vertex::Bits() const { return m_obj->data.Bits; }
+  const float& Vertex::chi2() const { return m_obj->data.chi2; }
+  const unsigned& Vertex::ndf() const { return m_obj->data.ndf; }
+  const fcc::Point& Vertex::position() const { return m_obj->data.position; }
+const float& Vertex::x() const { return m_obj->data.position.x; }
+const float& Vertex::y() const { return m_obj->data.position.y; }
+const float& Vertex::z() const { return m_obj->data.position.z; }
+  const unsigned& Vertex::bits() const { return m_obj->data.bits; }
 
-void Vertex::Chi2(float value){ m_obj->data.Chi2 = value; }
-void Vertex::Ndf(unsigned value){ m_obj->data.Ndf = value; }
-  fcc::Point& Vertex::Position() { return m_obj->data.Position; }
-void Vertex::Position(class fcc::Point value) { m_obj->data.Position = value; }
-void Vertex::Bits(unsigned value){ m_obj->data.Bits = value; }
+void Vertex::chi2(float value){ m_obj->data.chi2 = value; }
+void Vertex::ndf(unsigned value){ m_obj->data.ndf = value; }
+  fcc::Point& Vertex::position() { return m_obj->data.position; }
+void Vertex::position(class fcc::Point value) { m_obj->data.position = value; }
+void Vertex::x(float value){ m_obj->data.position.x = value; }
+void Vertex::y(float value){ m_obj->data.position.y = value; }
+void Vertex::z(float value){ m_obj->data.position.z = value; }
+void Vertex::bits(unsigned value){ m_obj->data.bits = value; }
 
+std::vector<fcc::ConstWeightedTrack>::const_iterator Vertex::tracks_begin() const {
+  auto ret_value = m_obj->m_tracks->begin();
+  std::advance(ret_value, m_obj->data.tracks_begin);
+  return ret_value;
+}
+
+std::vector<fcc::ConstWeightedTrack>::const_iterator Vertex::tracks_end() const {
+  auto ret_value = m_obj->m_tracks->begin();
+//fg: this code fails if m_obj->data.tracks==0
+//  std::advance(ret_value, m_obj->data.tracks_end-1);
+//  return ++ret_value;
+  std::advance(ret_value, m_obj->data.tracks_end);
+  return ret_value;
+}
+
+void Vertex::addtracks(fcc::ConstWeightedTrack component) {
+  m_obj->m_tracks->push_back(component);
+  m_obj->data.tracks_end++;
+}
+
+unsigned int Vertex::tracks_size() const {
+  return (m_obj->data.tracks_end-m_obj->data.tracks_begin);
+}
+
+fcc::ConstWeightedTrack Vertex::tracks(unsigned int index) const {
+  if (tracks_size() > index) {
+    return m_obj->m_tracks->at(m_obj->data.tracks_begin+index);
+  }
+  else throw std::out_of_range ("index out of bounds for existing references");
+}
 
 
 bool  Vertex::isAvailable() const {

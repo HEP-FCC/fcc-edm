@@ -108,13 +108,13 @@ public:
   std::vector<TrackStateData>* _getBuffer() { return m_data;};
 
     template<size_t arraysize>
-  const std::array<float,arraysize> Location() const;
+  const std::array<float,arraysize> location() const;
   template<size_t arraysize>
-  const std::array<float,arraysize> Omega() const;
+  const std::array<float,arraysize> omega() const;
   template<size_t arraysize>
-  const std::array<float,arraysize> D0() const;
+  const std::array<float,arraysize> d0() const;
   template<size_t arraysize>
-  const std::array<float,arraysize> Z0() const;
+  const std::array<float,arraysize> z0() const;
 
 
 private:
@@ -137,38 +137,38 @@ TrackState  TrackStateCollection::create(Args&&... args){
 }
 
 template<size_t arraysize>
-const std::array<float,arraysize> TrackStateCollection::Location() const {
+const std::array<float,arraysize> TrackStateCollection::location() const {
   std::array<float,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
-    tmp[i] = m_entries[i]->data.Location;
+    tmp[i] = m_entries[i]->data.location;
  }
  return tmp;
 }
 template<size_t arraysize>
-const std::array<float,arraysize> TrackStateCollection::Omega() const {
+const std::array<float,arraysize> TrackStateCollection::omega() const {
   std::array<float,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
-    tmp[i] = m_entries[i]->data.Omega;
+    tmp[i] = m_entries[i]->data.omega;
  }
  return tmp;
 }
 template<size_t arraysize>
-const std::array<float,arraysize> TrackStateCollection::D0() const {
+const std::array<float,arraysize> TrackStateCollection::d0() const {
   std::array<float,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
-    tmp[i] = m_entries[i]->data.D0;
+    tmp[i] = m_entries[i]->data.d0;
  }
  return tmp;
 }
 template<size_t arraysize>
-const std::array<float,arraysize> TrackStateCollection::Z0() const {
+const std::array<float,arraysize> TrackStateCollection::z0() const {
   std::array<float,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
-    tmp[i] = m_entries[i]->data.Z0;
+    tmp[i] = m_entries[i]->data.z0;
  }
  return tmp;
 }

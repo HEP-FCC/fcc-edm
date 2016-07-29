@@ -12,7 +12,6 @@
 
 #include "datamodel/ParticleCollection.h"
 #include "datamodel/JetCollection.h"
-#include "datamodel/JetParticleAssociationCollection.h"
 
 #include "VectorUtils.h"
 
@@ -30,12 +29,10 @@ DummyGenerator::DummyGenerator(int npart,
   m_nprint(-1),
   m_ievt(0),
   m_particles(store.create<fcc::ParticleCollection>("GenParticle")),
-  m_jets(store.create<fcc::JetCollection>("GenJet")),
-  m_jetParticleAssociations(store.create<fcc::JetParticleAssociationCollection>("GenJetParticle"))
+  m_jets(store.create<fcc::JetCollection>("GenJet"))
   {
   writer.registerForWrite<fcc::ParticleCollection>("GenParticle");
   writer.registerForWrite<fcc::JetCollection>("GenJet");
-  writer.registerForWrite<fcc::JetParticleAssociationCollection>("GenJetParticle");
 }
 
 
@@ -82,10 +79,8 @@ void DummyGenerator::generate_jet(float energy, const TVector3& direction) {
         continue;
       else {
         fcc::Particle& ptc = result.second;
-        p4star += utils::lvFromPOD( ptc.Core().P4 );
-        fcc::JetParticleAssociation assoc = m_jetParticleAssociations.create();
-        assoc.Jet(jet);
-        assoc.Particle(ptc);
+        p4star += utils::lvFromPOD( ptc.p4() );
+        jet.addparticles(ptc);
         particles.push_back(ptc);
         success = true;
       }
@@ -96,11 +91,9 @@ void DummyGenerator::generate_jet(float energy, const TVector3& direction) {
   TLorentzVector opposite(-p4star.Vect(), p4star.E());
   auto result = generate_particle(&opposite);
   fcc::Particle& ptc = result.second;
-  TLorentzVector final = utils::lvFromPOD( ptc.Core().P4 );
+  TLorentzVector final = utils::lvFromPOD( ptc.p4() );
   p4star += final;
-  fcc::JetParticleAssociation assoc = m_jetParticleAssociations.create();
-  assoc.Jet(jet);
-  assoc.Particle(ptc);
+  jet.addparticles(ptc);
   particles.push_back(ptc);
 
   // now boosting all particles to lab frame
@@ -110,12 +103,12 @@ void DummyGenerator::generate_jet(float energy, const TVector3& direction) {
   TVector3 boost(direction.Unit());
   boost *= static_cast<double>(beta);
   for(fcc::Particle& ptc : particles) {
-    TLorentzVector lv = utils::lvFromPOD( ptc.Core().P4 );
+    TLorentzVector lv = utils::lvFromPOD( ptc.p4() );
     lv.Boost( boost );
-    ptc.Core().P4 = utils::lvToPOD(lv);
+    ptc.p4(utils::lvToPOD(lv));
     jetlv += lv;
   }
-  jet.Core().P4 = utils::lvToPOD(jetlv);
+  jet.p4 (utils::lvToPOD(jetlv));
 
   m_jets.push_back(jet);
 }
@@ -153,10 +146,10 @@ std::pair<bool, fcc::Particle> DummyGenerator::generate_particle(const TLorentzV
     float sinphi = sin(phistar);
     float pstar = m_pstar(m_engine);
 
-    lvpod.Mass = mass;
-    lvpod.Px = pstar * sintheta * cosphi;
-    lvpod.Py = pstar * sintheta * sinphi;
-    lvpod.Pz = pstar * costheta;
+    lvpod.mass = mass;
+    lvpod.px = pstar * sintheta * cosphi;
+    lvpod.py = pstar * sintheta * sinphi;
+    lvpod.pz = pstar * costheta;
   }
   else{
     float pmag = lv->Vect().Mag();
@@ -167,12 +160,12 @@ std::pair<bool, fcc::Particle> DummyGenerator::generate_particle(const TLorentzV
   int id = itype;
 
   auto ptc = m_particles.create();
-  ptc.Core().Type = id;
-  ptc.Core().P4 = lvpod;
+  ptc.type(id);
+  ptc.p4(lvpod);
 
   if(m_ievt<m_nprint) {
-    TLorentzVector lv = utils::lvFromPOD(ptc.Core().P4);
-    std::cout<<"\tparticle "<<ptc.Core().Type<<" "<<lv.Eta()<<" "<<lv.Phi()<<" "<<lv.Pt()<<" "<<lv.E()<<std::endl;
+    TLorentzVector lv = utils::lvFromPOD(ptc.p4());
+    std::cout<<"\tparticle "<<ptc.type()<<" "<<lv.Eta()<<" "<<lv.Phi()<<" "<<lv.Pt()<<" "<<lv.E()<<std::endl;
   }
 
   return std::pair<bool, fcc::Particle>(true, ptc);

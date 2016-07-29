@@ -5,9 +5,6 @@
 #include <vector>
 #include "podio/ObjectID.h"
 
-// A calorimeter hit
-// author: C. Bernet, B. Hegner
-
 //forward declarations
 
 
@@ -20,6 +17,11 @@ class CaloHit;
 class CaloHitCollection;
 class CaloHitCollectionIterator;
 
+/** @class ConstCaloHit
+ *  A calorimeter hit
+ *  @author: C. Bernet, B. Hegner
+ */
+
 class ConstCaloHit {
 
   friend CaloHit;
@@ -30,7 +32,7 @@ public:
 
   /// default constructor
   ConstCaloHit();
-  ConstCaloHit(fcc::BareHit Core);
+  ConstCaloHit(fcc::BareHit core);
 
   /// constructor from existing CaloHitObj
   ConstCaloHit(CaloHitObj* obj);
@@ -46,7 +48,16 @@ public:
 
 public:
 
-  const fcc::BareHit& Core() const;
+  /// Access the  contains basic hit information
+  const fcc::BareHit& core() const;
+  /// Access the member of  contains basic hit information
+  const unsigned& bits() const;
+  /// Access the member of  contains basic hit information
+  const unsigned long long& cellId() const;
+  /// Access the member of  contains basic hit information
+  const float& energy() const;
+  /// Access the member of  contains basic hit information
+  const float& time() const;
 
 
 

@@ -3,14 +3,20 @@
 #include "LorentzVector.h"
 
 
+#include <iostream>
+
 namespace fcc {
 class BareJet {
 public:
-  float Area;
-  unsigned Bits;
- ::fcc::LorentzVector P4;
+  float area;
+  unsigned bits;
+ ::fcc::LorentzVector p4;
 
 
 };
+
+
+
 } // namespace fcc
+
 #endif

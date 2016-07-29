@@ -108,11 +108,11 @@ public:
   std::vector<TrackData>* _getBuffer() { return m_data;};
 
     template<size_t arraysize>
-  const std::array<float,arraysize> Chi2() const;
+  const std::array<float,arraysize> chi2() const;
   template<size_t arraysize>
-  const std::array<unsigned,arraysize> Ndf() const;
+  const std::array<unsigned,arraysize> ndf() const;
   template<size_t arraysize>
-  const std::array<unsigned,arraysize> Bits() const;
+  const std::array<unsigned,arraysize> bits() const;
 
 
 private:
@@ -120,6 +120,10 @@ private:
   int m_collectionID;
   TrackObjPointerContainer m_entries;
   // members to handle 1-to-N-relations
+  std::vector<fcc::ConstTrackCluster>* m_rel_clusters; ///< Relation buffer for read / write
+  std::vector<std::vector<fcc::ConstTrackCluster>*> m_rel_clusters_tmp; ///< Relation buffer for internal book-keeping
+  std::vector<fcc::ConstTrackState>* m_rel_states; ///< Relation buffer for read / write
+  std::vector<std::vector<fcc::ConstTrackState>*> m_rel_states_tmp; ///< Relation buffer for internal book-keeping
 
   // members to handle streaming
   podio::CollRefCollection m_refCollections;
@@ -135,29 +139,29 @@ Track  TrackCollection::create(Args&&... args){
 }
 
 template<size_t arraysize>
-const std::array<float,arraysize> TrackCollection::Chi2() const {
+const std::array<float,arraysize> TrackCollection::chi2() const {
   std::array<float,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
-    tmp[i] = m_entries[i]->data.Chi2;
+    tmp[i] = m_entries[i]->data.chi2;
  }
  return tmp;
 }
 template<size_t arraysize>
-const std::array<unsigned,arraysize> TrackCollection::Ndf() const {
+const std::array<unsigned,arraysize> TrackCollection::ndf() const {
   std::array<unsigned,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
-    tmp[i] = m_entries[i]->data.Ndf;
+    tmp[i] = m_entries[i]->data.ndf;
  }
  return tmp;
 }
 template<size_t arraysize>
-const std::array<unsigned,arraysize> TrackCollection::Bits() const {
+const std::array<unsigned,arraysize> TrackCollection::bits() const {
   std::array<unsigned,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
-    tmp[i] = m_entries[i]->data.Bits;
+    tmp[i] = m_entries[i]->data.bits;
  }
  return tmp;
 }

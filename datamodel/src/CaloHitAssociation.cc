@@ -6,7 +6,7 @@
 #include "CaloHitAssociationCollection.h"
 #include <iostream>
 #include "CaloHit.h"
-#include "SimCaloHit.h"
+#include "CaloHit.h"
 
 
 namespace fcc {
@@ -42,24 +42,24 @@ CaloHitAssociation::~CaloHitAssociation(){
 
 CaloHitAssociation::operator ConstCaloHitAssociation() const {return ConstCaloHitAssociation(m_obj);}
 
-  const fcc::ConstCaloHit CaloHitAssociation::Rec() const {
-    if (m_obj->m_Rec == nullptr) {
+  const fcc::ConstCaloHit CaloHitAssociation::rec() const {
+    if (m_obj->m_rec == nullptr) {
       return fcc::ConstCaloHit(nullptr);
     }
-    return fcc::ConstCaloHit(*(m_obj->m_Rec));
-  } const fcc::ConstSimCaloHit CaloHitAssociation::Sim() const {
-    if (m_obj->m_Sim == nullptr) {
-      return fcc::ConstSimCaloHit(nullptr);
+    return fcc::ConstCaloHit(*(m_obj->m_rec));
+  } const fcc::ConstCaloHit CaloHitAssociation::sim() const {
+    if (m_obj->m_sim == nullptr) {
+      return fcc::ConstCaloHit(nullptr);
     }
-    return fcc::ConstSimCaloHit(*(m_obj->m_Sim));
+    return fcc::ConstCaloHit(*(m_obj->m_sim));
   }
-void CaloHitAssociation::Rec(fcc::ConstCaloHit value) {
-  if (m_obj->m_Rec != nullptr) delete m_obj->m_Rec;
-  m_obj->m_Rec = new ConstCaloHit(value);
+void CaloHitAssociation::rec(fcc::ConstCaloHit value) {
+  if (m_obj->m_rec != nullptr) delete m_obj->m_rec;
+  m_obj->m_rec = new ConstCaloHit(value);
 }
-void CaloHitAssociation::Sim(fcc::ConstSimCaloHit value) {
-  if (m_obj->m_Sim != nullptr) delete m_obj->m_Sim;
-  m_obj->m_Sim = new ConstSimCaloHit(value);
+void CaloHitAssociation::sim(fcc::ConstCaloHit value) {
+  if (m_obj->m_sim != nullptr) delete m_obj->m_sim;
+  m_obj->m_sim = new ConstCaloHit(value);
 }
 
 

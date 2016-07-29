@@ -14,7 +14,7 @@ TrackStateCollection::~TrackStateCollection() {
   clear();
   if (m_data != nullptr) delete m_data;
   
-};
+}
 
 const TrackState TrackStateCollection::operator[](unsigned int index) const {
   return TrackState(m_entries[index]);

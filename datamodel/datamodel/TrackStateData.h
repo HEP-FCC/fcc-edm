@@ -1,18 +1,20 @@
 #ifndef TrackStateDATA_H
 #define TrackStateDATA_H
 
-// Track state at a given point on the track.
-// author: C. Bernet, B. Hegner
-
 
 
 namespace fcc {
+/** @class TrackStateData
+ *  Track state at a given point on the track.
+ *  @author: C. Bernet, B. Hegner
+ */
+
 class TrackStateData {
 public:
-  float Location;  ///< Location on the track. (Radius?)
-  float Omega;  ///< Track curvature in cm.
-  float D0;  ///< Transverse impact parameter
-  float Z0;  ///< Longitudinal impact parameter
+  float location;  ///< Location on the track. (Radius?)
+  float omega;  ///< Track curvature in cm.
+  float d0;  ///< Transverse impact parameter
+  float z0;  ///< Longitudinal impact parameter
 };
 } // namespace fcc
 

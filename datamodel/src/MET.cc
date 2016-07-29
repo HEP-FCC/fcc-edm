@@ -13,9 +13,9 @@ MET::MET() : m_obj(new METObj()){
  m_obj->acquire();
 }
 
-MET::MET(float Magnitude,float Phi,float ScalarSum) : m_obj(new METObj()) {
+MET::MET(float magnitude,float phi,float scalarSum) : m_obj(new METObj()) {
   m_obj->acquire();
-    m_obj->data.Magnitude = Magnitude;  m_obj->data.Phi = Phi;  m_obj->data.ScalarSum = ScalarSum;
+    m_obj->data.magnitude = magnitude;  m_obj->data.phi = phi;  m_obj->data.scalarSum = scalarSum;
 }
 
 
@@ -44,13 +44,13 @@ MET::~MET(){
 
 MET::operator ConstMET() const {return ConstMET(m_obj);}
 
-  const float& MET::Magnitude() const { return m_obj->data.Magnitude; }
-  const float& MET::Phi() const { return m_obj->data.Phi; }
-  const float& MET::ScalarSum() const { return m_obj->data.ScalarSum; }
+  const float& MET::magnitude() const { return m_obj->data.magnitude; }
+  const float& MET::phi() const { return m_obj->data.phi; }
+  const float& MET::scalarSum() const { return m_obj->data.scalarSum; }
 
-void MET::Magnitude(float value){ m_obj->data.Magnitude = value; }
-void MET::Phi(float value){ m_obj->data.Phi = value; }
-void MET::ScalarSum(float value){ m_obj->data.ScalarSum = value; }
+void MET::magnitude(float value){ m_obj->data.magnitude = value; }
+void MET::phi(float value){ m_obj->data.phi = value; }
+void MET::scalarSum(float value){ m_obj->data.scalarSum = value; }
 
 
 

@@ -13,9 +13,9 @@ ConstGenJet::ConstGenJet() : m_obj(new GenJetObj()) {
  m_obj->acquire();
 }
 
-ConstGenJet::ConstGenJet(fcc::BareJet Core) : m_obj(new GenJetObj()){
+ConstGenJet::ConstGenJet(fcc::BareJet core) : m_obj(new GenJetObj()){
  m_obj->acquire();
-   m_obj->data.Core = Core;
+   m_obj->data.core = core;
 }
 
 
@@ -42,8 +42,34 @@ ConstGenJet::~ConstGenJet(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const fcc::BareJet& ConstGenJet::Core() const { return m_obj->data.Core; }
+  const float& ConstGenJet::area() const { return m_obj->data.core.area; }
+  const unsigned& ConstGenJet::bits() const { return m_obj->data.core.bits; }
+  const ::fcc::LorentzVector& ConstGenJet::p4() const { return m_obj->data.core.p4; }
+  /// Access the  Basic jet information.
+  const fcc::BareJet& ConstGenJet::core() const { return m_obj->data.core; }
 
+std::vector<fcc::ConstMCParticle>::const_iterator ConstGenJet::particles_begin() const {
+  auto ret_value = m_obj->m_particles->begin();
+  std::advance(ret_value, m_obj->data.particles_begin);
+  return ret_value;
+}
+
+std::vector<fcc::ConstMCParticle>::const_iterator ConstGenJet::particles_end() const {
+  auto ret_value = m_obj->m_particles->begin();
+  std::advance(ret_value, m_obj->data.particles_end-1);
+  return ++ret_value;
+}
+
+unsigned int ConstGenJet::particles_size() const {
+  return (m_obj->data.particles_end-m_obj->data.particles_begin);
+}
+
+fcc::ConstMCParticle ConstGenJet::particles(unsigned int index) const {
+  if (particles_size() > index) {
+    return m_obj->m_particles->at(m_obj->data.particles_begin+index);
+  }
+  else throw std::out_of_range ("index out of bounds for existing references");
+}
 
 
 bool  ConstGenJet::isAvailable() const {

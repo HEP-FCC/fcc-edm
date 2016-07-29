@@ -3,10 +3,9 @@
 #include "BareJet.h"
 #include "JetData.h"
 #include <vector>
+#include "Particle.h"
+#include <vector>
 #include "podio/ObjectID.h"
-
-// Reconstructed jet.
-// author: C. Bernet, B. Hegner
 
 //forward declarations
 
@@ -20,6 +19,11 @@ class Jet;
 class JetCollection;
 class JetCollectionIterator;
 
+/** @class ConstJet
+ *  Reconstructed jet.
+ *  @author: C. Bernet, B. Hegner
+ */
+
 class ConstJet {
 
   friend Jet;
@@ -30,7 +34,7 @@ public:
 
   /// default constructor
   ConstJet();
-  ConstJet(fcc::BareJet Core);
+  ConstJet(fcc::BareJet core);
 
   /// constructor from existing JetObj
   ConstJet(JetObj* obj);
@@ -46,8 +50,19 @@ public:
 
 public:
 
-  const fcc::BareJet& Core() const;
+  /// Access the  Basic jet information.
+  const fcc::BareJet& core() const;
+  /// Access the member of  Basic jet information.
+  const float& area() const;
+  /// Access the member of  Basic jet information.
+  const unsigned& bits() const;
+  /// Access the member of  Basic jet information.
+  const ::fcc::LorentzVector& p4() const;
 
+  unsigned int particles_size() const;
+  fcc::ConstParticle particles(unsigned int) const;
+  std::vector<fcc::ConstParticle>::const_iterator particles_begin() const;
+  std::vector<fcc::ConstParticle>::const_iterator particles_end() const;
 
 
   /// check whether the object is actually available

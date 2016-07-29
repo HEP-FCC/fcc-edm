@@ -3,7 +3,7 @@
 
 namespace fcc {
 JetObj::JetObj() :
-    ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}, data()
+    ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}, data(), m_particles(new std::vector<::fcc::ConstParticle>())
 { }
 
 JetObj::JetObj(const podio::ObjectID id, JetData data) :
@@ -12,11 +12,14 @@ JetObj::JetObj(const podio::ObjectID id, JetData data) :
 
 JetObj::JetObj(const JetObj& other) :
     ObjBase{{podio::ObjectID::untracked,podio::ObjectID::untracked},0}
-    , data(other.data)
-{ }
+    , data(other.data), m_particles(new std::vector<::fcc::ConstParticle>(*(other.m_particles)))
+{
+
+}
 
 JetObj::~JetObj() {
   if (id.index == podio::ObjectID::untracked) {
+    delete m_particles;
 
   }
 

@@ -15,9 +15,9 @@ ConstMCParticle::ConstMCParticle() : m_obj(new MCParticleObj()) {
  m_obj->acquire();
 }
 
-ConstMCParticle::ConstMCParticle(fcc::BareParticle Core) : m_obj(new MCParticleObj()){
+ConstMCParticle::ConstMCParticle(fcc::BareParticle core) : m_obj(new MCParticleObj()){
  m_obj->acquire();
-   m_obj->data.Core = Core;
+   m_obj->data.core = core;
 }
 
 
@@ -44,16 +44,25 @@ ConstMCParticle::~ConstMCParticle(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const fcc::BareParticle& ConstMCParticle::Core() const { return m_obj->data.Core; }
-  const fcc::ConstGenVertex ConstMCParticle::StartVertex() const {
-    if (m_obj->m_StartVertex == nullptr) {
+  const unsigned& ConstMCParticle::bits() const { return m_obj->data.core.bits; }
+  const int& ConstMCParticle::charge() const { return m_obj->data.core.charge; }
+  const ::fcc::LorentzVector& ConstMCParticle::p4() const { return m_obj->data.core.p4; }
+  const unsigned& ConstMCParticle::status() const { return m_obj->data.core.status; }
+  const int& ConstMCParticle::type() const { return m_obj->data.core.type; }
+  const ::fcc::Point& ConstMCParticle::vertex() const { return m_obj->data.core.vertex; }
+  /// Access the  Basic particle information.
+  const fcc::BareParticle& ConstMCParticle::core() const { return m_obj->data.core; }
+  /// Access the  Reference to the vertex in which the particle was created.
+  const fcc::ConstGenVertex ConstMCParticle::startVertex() const {
+    if (m_obj->m_startVertex == nullptr) {
       return fcc::ConstGenVertex(nullptr);
     }
-    return fcc::ConstGenVertex(*(m_obj->m_StartVertex));} const fcc::ConstGenVertex ConstMCParticle::EndVertex() const {
-    if (m_obj->m_EndVertex == nullptr) {
+    return fcc::ConstGenVertex(*(m_obj->m_startVertex));} /// Access the  Reference to the vertex in which the particle was created.
+  const fcc::ConstGenVertex ConstMCParticle::endVertex() const {
+    if (m_obj->m_endVertex == nullptr) {
       return fcc::ConstGenVertex(nullptr);
     }
-    return fcc::ConstGenVertex(*(m_obj->m_EndVertex));}
+    return fcc::ConstGenVertex(*(m_obj->m_endVertex));}
 
 
 bool  ConstMCParticle::isAvailable() const {

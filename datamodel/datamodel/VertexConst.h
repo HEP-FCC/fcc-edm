@@ -3,10 +3,9 @@
 #include "Point.h"
 #include "VertexData.h"
 #include <vector>
+#include "WeightedTrack.h"
+#include <vector>
 #include "podio/ObjectID.h"
-
-// Vertex reconstructed from tracks
-// author: C. Bernet, B. Hegner
 
 //forward declarations
 
@@ -20,6 +19,11 @@ class Vertex;
 class VertexCollection;
 class VertexCollectionIterator;
 
+/** @class ConstVertex
+ *  Vertex reconstructed from tracks
+ *  @author: C. Bernet, B. Hegner
+ */
+
 class ConstVertex {
 
   friend Vertex;
@@ -30,7 +34,7 @@ public:
 
   /// default constructor
   ConstVertex();
-  ConstVertex(float Chi2,unsigned Ndf,fcc::Point Position,unsigned Bits);
+  ConstVertex(float chi2,unsigned ndf,fcc::Point position,unsigned bits);
 
   /// constructor from existing VertexObj
   ConstVertex(VertexObj* obj);
@@ -46,11 +50,25 @@ public:
 
 public:
 
-  const float& Chi2() const;
-  const unsigned& Ndf() const;
-  const fcc::Point& Position() const;
-  const unsigned& Bits() const;
+  /// Access the  chi2 returned by the vertex fit
+  const float& chi2() const;
+  /// Access the  Number of degrees of freedom of the vertex fit
+  const unsigned& ndf() const;
+  /// Access the  Vertex position in cm
+  const fcc::Point& position() const;
+  /// Access the member of  Vertex position in cm
+  const float& x() const;
+  /// Access the member of  Vertex position in cm
+  const float& y() const;
+  /// Access the member of  Vertex position in cm
+  const float& z() const;
+  /// Access the  Stored flags
+  const unsigned& bits() const;
 
+  unsigned int tracks_size() const;
+  fcc::ConstWeightedTrack tracks(unsigned int) const;
+  std::vector<fcc::ConstWeightedTrack>::const_iterator tracks_begin() const;
+  std::vector<fcc::ConstWeightedTrack>::const_iterator tracks_end() const;
 
 
   /// check whether the object is actually available

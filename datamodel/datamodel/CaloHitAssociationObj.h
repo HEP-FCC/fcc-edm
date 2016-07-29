@@ -15,7 +15,7 @@
 class CaloHitAssociation;
 class ConstCaloHitAssociation;
 namespace fcc {class ConstCaloHit;
-class ConstSimCaloHit;
+class ConstCaloHit;
 }
 
 
@@ -33,8 +33,8 @@ public:
 
 public:
   CaloHitAssociationData data;
-  ::fcc::ConstCaloHit* m_Rec;
-  ::fcc::ConstSimCaloHit* m_Sim;
+  ::fcc::ConstCaloHit* m_rec;
+  ::fcc::ConstCaloHit* m_sim;
 
 
 };

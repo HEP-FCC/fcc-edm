@@ -3,10 +3,10 @@
 #include "BareParticle.h"
 #include "ParticleData.h"
 #include <vector>
+#include "Track.h"
+#include "CaloCluster.h"
+#include <vector>
 #include "podio/ObjectID.h"
-
-// Reconstructed particle
-// author: C. Bernet, B. Hegner
 
 //forward declarations
 
@@ -20,6 +20,11 @@ class Particle;
 class ParticleCollection;
 class ParticleCollectionIterator;
 
+/** @class ConstParticle
+ *  Reconstructed particle
+ *  @author: C. Bernet, B. Hegner
+ */
+
 class ConstParticle {
 
   friend Particle;
@@ -30,7 +35,7 @@ public:
 
   /// default constructor
   ConstParticle();
-  ConstParticle(fcc::BareParticle Core);
+  ConstParticle(fcc::BareParticle core);
 
   /// constructor from existing ParticleObj
   ConstParticle(ParticleObj* obj);
@@ -46,8 +51,29 @@ public:
 
 public:
 
-  const fcc::BareParticle& Core() const;
+  /// Access the  Contains basic particle information.
+  const fcc::BareParticle& core() const;
+  /// Access the member of  Contains basic particle information.
+  const unsigned& bits() const;
+  /// Access the member of  Contains basic particle information.
+  const int& charge() const;
+  /// Access the member of  Contains basic particle information.
+  const ::fcc::LorentzVector& p4() const;
+  /// Access the member of  Contains basic particle information.
+  const unsigned& status() const;
+  /// Access the member of  Contains basic particle information.
+  const int& type() const;
+  /// Access the member of  Contains basic particle information.
+  const ::fcc::Point& vertex() const;
 
+  unsigned int tracks_size() const;
+  fcc::ConstTrack tracks(unsigned int) const;
+  std::vector<fcc::ConstTrack>::const_iterator tracks_begin() const;
+  std::vector<fcc::ConstTrack>::const_iterator tracks_end() const;
+  unsigned int clusters_size() const;
+  fcc::ConstCaloCluster clusters(unsigned int) const;
+  std::vector<fcc::ConstCaloCluster>::const_iterator clusters_begin() const;
+  std::vector<fcc::ConstCaloCluster>::const_iterator clusters_end() const;
 
 
   /// check whether the object is actually available

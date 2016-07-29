@@ -5,9 +5,6 @@
 #include <vector>
 #include "podio/ObjectID.h"
 
-// A tracker hit
-// author: C. Bernet, B. Hegner
-
 //forward declarations
 
 
@@ -20,6 +17,11 @@ class TrackHit;
 class TrackHitCollection;
 class TrackHitCollectionIterator;
 
+/** @class ConstTrackHit
+ *  A tracker hit
+ *  @author: C. Bernet, B. Hegner
+ */
+
 class ConstTrackHit {
 
   friend TrackHit;
@@ -30,7 +32,7 @@ public:
 
   /// default constructor
   ConstTrackHit();
-  ConstTrackHit(fcc::BareHit Core);
+  ConstTrackHit(fcc::BareHit core);
 
   /// constructor from existing TrackHitObj
   ConstTrackHit(TrackHitObj* obj);
@@ -46,7 +48,16 @@ public:
 
 public:
 
-  const fcc::BareHit& Core() const;
+  /// Access the  contains basic hit information
+  const fcc::BareHit& core() const;
+  /// Access the member of  contains basic hit information
+  const unsigned& bits() const;
+  /// Access the member of  contains basic hit information
+  const unsigned long long& cellId() const;
+  /// Access the member of  contains basic hit information
+  const float& energy() const;
+  /// Access the member of  contains basic hit information
+  const float& time() const;
 
 
 

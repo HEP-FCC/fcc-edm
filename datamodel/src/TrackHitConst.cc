@@ -13,9 +13,9 @@ ConstTrackHit::ConstTrackHit() : m_obj(new TrackHitObj()) {
  m_obj->acquire();
 }
 
-ConstTrackHit::ConstTrackHit(fcc::BareHit Core) : m_obj(new TrackHitObj()){
+ConstTrackHit::ConstTrackHit(fcc::BareHit core) : m_obj(new TrackHitObj()){
  m_obj->acquire();
-   m_obj->data.Core = Core;
+   m_obj->data.core = core;
 }
 
 
@@ -42,7 +42,12 @@ ConstTrackHit::~ConstTrackHit(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const fcc::BareHit& ConstTrackHit::Core() const { return m_obj->data.Core; }
+  const unsigned& ConstTrackHit::bits() const { return m_obj->data.core.bits; }
+  const unsigned long long& ConstTrackHit::cellId() const { return m_obj->data.core.cellId; }
+  const float& ConstTrackHit::energy() const { return m_obj->data.core.energy; }
+  const float& ConstTrackHit::time() const { return m_obj->data.core.time; }
+  /// Access the  contains basic hit information
+  const fcc::BareHit& ConstTrackHit::core() const { return m_obj->data.core; }
 
 
 

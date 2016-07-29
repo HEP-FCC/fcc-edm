@@ -14,7 +14,7 @@ TrackHitCollection::~TrackHitCollection() {
   clear();
   if (m_data != nullptr) delete m_data;
   
-};
+}
 
 const TrackHit TrackHitCollection::operator[](unsigned int index) const {
   return TrackHit(m_entries[index]);

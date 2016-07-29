@@ -14,7 +14,7 @@ CaloHitCollection::~CaloHitCollection() {
   clear();
   if (m_data != nullptr) delete m_data;
   
-};
+}
 
 const CaloHit CaloHitCollection::operator[](unsigned int index) const {
   return CaloHit(m_entries[index]);

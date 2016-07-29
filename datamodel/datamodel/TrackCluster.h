@@ -3,10 +3,9 @@
 #include "BareCluster.h"
 #include "TrackClusterData.h"
 #include <vector>
+#include "TrackHit.h"
+#include <vector>
 #include "podio/ObjectID.h"
-
-// A track cluster, made of TrackHits
-// author: C. Bernet, B. Hegner
 
 //forward declarations
 
@@ -20,6 +19,10 @@ class TrackClusterCollection;
 class TrackClusterCollectionIterator;
 class ConstTrackCluster;
 
+/** @class TrackCluster
+ *  A track cluster, made of TrackHits
+ *  @author: C. Bernet, B. Hegner, J. Lingemann
+ */
 class TrackCluster {
 
   friend TrackClusterCollection;
@@ -30,7 +33,7 @@ public:
 
   /// default constructor
   TrackCluster();
-  TrackCluster(fcc::BareCluster Core);
+  TrackCluster(fcc::BareCluster core);
 
   /// constructor from existing TrackClusterObj
   TrackCluster(TrackClusterObj* obj);
@@ -48,10 +51,40 @@ public:
 
 public:
 
-  const fcc::BareCluster& Core() const;
+  /// Access the  contains basic cluster information
+  const fcc::BareCluster& core() const;
+  /// Access the member of  contains basic cluster information
+  const unsigned& bits() const;
+  /// Access the member of  contains basic cluster information
+  const float& energy() const;
+  /// Access the member of  contains basic cluster information
+  const ::fcc::Point& position() const;
+  /// Access the member of  contains basic cluster information
+  const float& time() const;
 
-  fcc::BareCluster& Core();
-  void Core(class fcc::BareCluster value);
+  /// Get reference to the  contains basic cluster information
+  fcc::BareCluster& core();
+  /// Set the  contains basic cluster information
+  void core(class fcc::BareCluster value);
+  /// Set the  member of  contains basic cluster information
+  void bits(unsigned value);
+
+  /// Set the  member of  contains basic cluster information
+  void energy(float value);
+
+  /// Get reference to the member of  contains basic cluster information
+  ::fcc::Point& position();
+  /// Set the  member of  contains basic cluster information
+  void position(class ::fcc::Point value);
+  /// Set the  member of  contains basic cluster information
+  void time(float value);
+
+
+  void addhits(fcc::ConstTrackHit);
+  unsigned int hits_size() const;
+  fcc::ConstTrackHit hits(unsigned int) const;
+  std::vector<fcc::ConstTrackHit>::const_iterator hits_begin() const;
+  std::vector<fcc::ConstTrackHit>::const_iterator hits_end() const;
 
 
 

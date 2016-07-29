@@ -1,14 +1,14 @@
 // standard includes
 #include <stdexcept>
 #include "CaloHitCollection.h"
-#include "SimCaloHitCollection.h"
+#include "CaloHitCollection.h"
 
 
 #include "CaloHitAssociationCollection.h"
 
 namespace fcc {
 
-CaloHitAssociationCollection::CaloHitAssociationCollection() : m_isValid(false), m_collectionID(0), m_entries() , m_rel_Rec(new std::vector<fcc::ConstCaloHit>()), m_rel_Sim(new std::vector<fcc::ConstSimCaloHit>()),m_data(new CaloHitAssociationDataContainer() ) {
+CaloHitAssociationCollection::CaloHitAssociationCollection() : m_isValid(false), m_collectionID(0), m_entries() , m_rel_rec(new std::vector<fcc::ConstCaloHit>()), m_rel_sim(new std::vector<fcc::ConstCaloHit>()),m_data(new CaloHitAssociationDataContainer() ) {
     m_refCollections.push_back(new std::vector<podio::ObjectID>());
   m_refCollections.push_back(new std::vector<podio::ObjectID>());
 
@@ -18,10 +18,10 @@ CaloHitAssociationCollection::~CaloHitAssociationCollection() {
   clear();
   if (m_data != nullptr) delete m_data;
     for (auto& pointer : m_refCollections) { if (pointer != nullptr) delete pointer; }
-  if (m_rel_Rec != nullptr) { delete m_rel_Rec; }
-  if (m_rel_Sim != nullptr) { delete m_rel_Sim; }
+  if (m_rel_rec != nullptr) { delete m_rel_rec; }
+  if (m_rel_sim != nullptr) { delete m_rel_sim; }
 
-};
+}
 
 const CaloHitAssociation CaloHitAssociationCollection::operator[](unsigned int index) const {
   return CaloHitAssociation(m_entries[index]);
@@ -46,10 +46,10 @@ CaloHitAssociation CaloHitAssociationCollection::create(){
 void CaloHitAssociationCollection::clear(){
   m_data->clear();
   for (auto& pointer : m_refCollections) { pointer->clear(); }
-  for (auto& item : (*m_rel_Rec)) { item.unlink(); }
-  m_rel_Rec->clear();
-  for (auto& item : (*m_rel_Sim)) { item.unlink(); }
-  m_rel_Sim->clear();
+  for (auto& item : (*m_rel_rec)) { item.unlink(); }
+  m_rel_rec->clear();
+  for (auto& item : (*m_rel_sim)) { item.unlink(); }
+  m_rel_sim->clear();
 
   for (auto& obj : m_entries) { delete obj; }
   m_entries.clear();
@@ -65,15 +65,15 @@ void CaloHitAssociationCollection::prepareForWrite(){
 
   }
   for (auto& obj : m_entries) {
-    if (obj->m_Rec != nullptr) {
-      m_refCollections[0]->emplace_back(obj->m_Rec->getObjectID());
+    if (obj->m_rec != nullptr) {
+      m_refCollections[0]->emplace_back(obj->m_rec->getObjectID());
     } else {
       m_refCollections[0]->push_back({-2,-2});
     }
   }
   for (auto& obj : m_entries) {
-    if (obj->m_Sim != nullptr) {
-      m_refCollections[1]->emplace_back(obj->m_Sim->getObjectID());
+    if (obj->m_sim != nullptr) {
+      m_refCollections[1]->emplace_back(obj->m_sim->getObjectID());
     } else {
       m_refCollections[1]->push_back({-2,-2});
     }
@@ -100,9 +100,9 @@ bool CaloHitAssociationCollection::setReferences(const podio::ICollectionProvide
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
       fcc::CaloHitCollection* tmp_coll = static_cast<fcc::CaloHitCollection*>(coll);
-      m_entries[i]->m_Rec = new ConstCaloHit((*tmp_coll)[id.index]);
+      m_entries[i]->m_rec = new ConstCaloHit((*tmp_coll)[id.index]);
     } else {
-      m_entries[i]->m_Rec = nullptr;
+      m_entries[i]->m_rec = nullptr;
     }
   }
   for(unsigned int i = 0, size = m_entries.size(); i != size; ++i) {
@@ -110,10 +110,10 @@ bool CaloHitAssociationCollection::setReferences(const podio::ICollectionProvide
     if (id.index != podio::ObjectID::invalid) {
       CollectionBase* coll = nullptr;
       collectionProvider->get(id.collectionID,coll);
-      fcc::SimCaloHitCollection* tmp_coll = static_cast<fcc::SimCaloHitCollection*>(coll);
-      m_entries[i]->m_Sim = new ConstSimCaloHit((*tmp_coll)[id.index]);
+      fcc::CaloHitCollection* tmp_coll = static_cast<fcc::CaloHitCollection*>(coll);
+      m_entries[i]->m_sim = new ConstCaloHit((*tmp_coll)[id.index]);
     } else {
-      m_entries[i]->m_Sim = nullptr;
+      m_entries[i]->m_sim = nullptr;
     }
   }
 

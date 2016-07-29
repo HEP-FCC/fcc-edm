@@ -13,9 +13,9 @@ ConstJet::ConstJet() : m_obj(new JetObj()) {
  m_obj->acquire();
 }
 
-ConstJet::ConstJet(fcc::BareJet Core) : m_obj(new JetObj()){
+ConstJet::ConstJet(fcc::BareJet core) : m_obj(new JetObj()){
  m_obj->acquire();
-   m_obj->data.Core = Core;
+   m_obj->data.core = core;
 }
 
 
@@ -42,8 +42,34 @@ ConstJet::~ConstJet(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const fcc::BareJet& ConstJet::Core() const { return m_obj->data.Core; }
+  const float& ConstJet::area() const { return m_obj->data.core.area; }
+  const unsigned& ConstJet::bits() const { return m_obj->data.core.bits; }
+  const ::fcc::LorentzVector& ConstJet::p4() const { return m_obj->data.core.p4; }
+  /// Access the  Basic jet information.
+  const fcc::BareJet& ConstJet::core() const { return m_obj->data.core; }
 
+std::vector<fcc::ConstParticle>::const_iterator ConstJet::particles_begin() const {
+  auto ret_value = m_obj->m_particles->begin();
+  std::advance(ret_value, m_obj->data.particles_begin);
+  return ret_value;
+}
+
+std::vector<fcc::ConstParticle>::const_iterator ConstJet::particles_end() const {
+  auto ret_value = m_obj->m_particles->begin();
+  std::advance(ret_value, m_obj->data.particles_end-1);
+  return ++ret_value;
+}
+
+unsigned int ConstJet::particles_size() const {
+  return (m_obj->data.particles_end-m_obj->data.particles_begin);
+}
+
+fcc::ConstParticle ConstJet::particles(unsigned int index) const {
+  if (particles_size() > index) {
+    return m_obj->m_particles->at(m_obj->data.particles_begin+index);
+  }
+  else throw std::out_of_range ("index out of bounds for existing references");
+}
 
 
 bool  ConstJet::isAvailable() const {

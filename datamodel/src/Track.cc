@@ -13,9 +13,9 @@ Track::Track() : m_obj(new TrackObj()){
  m_obj->acquire();
 }
 
-Track::Track(float Chi2,unsigned Ndf,unsigned Bits) : m_obj(new TrackObj()) {
+Track::Track(float chi2,unsigned ndf,unsigned bits) : m_obj(new TrackObj()) {
   m_obj->acquire();
-    m_obj->data.Chi2 = Chi2;  m_obj->data.Ndf = Ndf;  m_obj->data.Bits = Bits;
+    m_obj->data.chi2 = chi2;  m_obj->data.ndf = ndf;  m_obj->data.bits = bits;
 }
 
 
@@ -44,14 +44,74 @@ Track::~Track(){
 
 Track::operator ConstTrack() const {return ConstTrack(m_obj);}
 
-  const float& Track::Chi2() const { return m_obj->data.Chi2; }
-  const unsigned& Track::Ndf() const { return m_obj->data.Ndf; }
-  const unsigned& Track::Bits() const { return m_obj->data.Bits; }
+  const float& Track::chi2() const { return m_obj->data.chi2; }
+  const unsigned& Track::ndf() const { return m_obj->data.ndf; }
+  const unsigned& Track::bits() const { return m_obj->data.bits; }
 
-void Track::Chi2(float value){ m_obj->data.Chi2 = value; }
-void Track::Ndf(unsigned value){ m_obj->data.Ndf = value; }
-void Track::Bits(unsigned value){ m_obj->data.Bits = value; }
+void Track::chi2(float value){ m_obj->data.chi2 = value; }
+void Track::ndf(unsigned value){ m_obj->data.ndf = value; }
+void Track::bits(unsigned value){ m_obj->data.bits = value; }
 
+std::vector<fcc::ConstTrackCluster>::const_iterator Track::clusters_begin() const {
+  auto ret_value = m_obj->m_clusters->begin();
+  std::advance(ret_value, m_obj->data.clusters_begin);
+  return ret_value;
+}
+
+std::vector<fcc::ConstTrackCluster>::const_iterator Track::clusters_end() const {
+  auto ret_value = m_obj->m_clusters->begin();
+//fg: this code fails if m_obj->data.clusters==0
+//  std::advance(ret_value, m_obj->data.clusters_end-1);
+//  return ++ret_value;
+  std::advance(ret_value, m_obj->data.clusters_end);
+  return ret_value;
+}
+
+void Track::addclusters(fcc::ConstTrackCluster component) {
+  m_obj->m_clusters->push_back(component);
+  m_obj->data.clusters_end++;
+}
+
+unsigned int Track::clusters_size() const {
+  return (m_obj->data.clusters_end-m_obj->data.clusters_begin);
+}
+
+fcc::ConstTrackCluster Track::clusters(unsigned int index) const {
+  if (clusters_size() > index) {
+    return m_obj->m_clusters->at(m_obj->data.clusters_begin+index);
+  }
+  else throw std::out_of_range ("index out of bounds for existing references");
+}
+std::vector<fcc::ConstTrackState>::const_iterator Track::states_begin() const {
+  auto ret_value = m_obj->m_states->begin();
+  std::advance(ret_value, m_obj->data.states_begin);
+  return ret_value;
+}
+
+std::vector<fcc::ConstTrackState>::const_iterator Track::states_end() const {
+  auto ret_value = m_obj->m_states->begin();
+//fg: this code fails if m_obj->data.states==0
+//  std::advance(ret_value, m_obj->data.states_end-1);
+//  return ++ret_value;
+  std::advance(ret_value, m_obj->data.states_end);
+  return ret_value;
+}
+
+void Track::addstates(fcc::ConstTrackState component) {
+  m_obj->m_states->push_back(component);
+  m_obj->data.states_end++;
+}
+
+unsigned int Track::states_size() const {
+  return (m_obj->data.states_end-m_obj->data.states_begin);
+}
+
+fcc::ConstTrackState Track::states(unsigned int index) const {
+  if (states_size() > index) {
+    return m_obj->m_states->at(m_obj->data.states_begin+index);
+  }
+  else throw std::out_of_range ("index out of bounds for existing references");
+}
 
 
 bool  Track::isAvailable() const {

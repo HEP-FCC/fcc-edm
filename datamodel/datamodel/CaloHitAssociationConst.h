@@ -4,15 +4,12 @@
 #include <vector>
 #include "podio/ObjectID.h"
 
-// Association between a CaloHit and the corresponding SimCaloHit
-// author: C. Bernet, B. Hegner
-
 //forward declarations
 namespace fcc {
 class CaloHit;
 class ConstCaloHit;
-class SimCaloHit;
-class ConstSimCaloHit;
+class CaloHit;
+class ConstCaloHit;
 }
 
 
@@ -24,6 +21,11 @@ class CaloHitAssociationObj;
 class CaloHitAssociation;
 class CaloHitAssociationCollection;
 class CaloHitAssociationCollectionIterator;
+
+/** @class ConstCaloHitAssociation
+ *  Association between a CaloHit and the corresponding simulated CaloHit
+ *  @author: C. Bernet, B. Hegner
+ */
 
 class ConstCaloHitAssociation {
 
@@ -50,8 +52,10 @@ public:
 
 public:
 
-  const fcc::ConstCaloHit Rec() const;
-  const fcc::ConstSimCaloHit Sim() const;
+  /// Access the  The reconstruted hit.
+  const fcc::ConstCaloHit rec() const;
+  /// Access the  The simulated hit.
+  const fcc::ConstCaloHit sim() const;
 
 
 

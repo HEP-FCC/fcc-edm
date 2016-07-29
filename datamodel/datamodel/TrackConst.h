@@ -2,10 +2,10 @@
 #define ConstTrack_H
 #include "TrackData.h"
 #include <vector>
+#include "TrackCluster.h"
+#include "TrackState.h"
+#include <vector>
 #include "podio/ObjectID.h"
-
-// Track reconstructed from clusters in the inner tracker
-// author: C. Bernet, B. Hegner
 
 //forward declarations
 
@@ -19,6 +19,11 @@ class Track;
 class TrackCollection;
 class TrackCollectionIterator;
 
+/** @class ConstTrack
+ *  Track reconstructed from clusters in the inner tracker
+ *  @author: C. Bernet, B. Hegner
+ */
+
 class ConstTrack {
 
   friend Track;
@@ -29,7 +34,7 @@ public:
 
   /// default constructor
   ConstTrack();
-  ConstTrack(float Chi2,unsigned Ndf,unsigned Bits);
+  ConstTrack(float chi2,unsigned ndf,unsigned bits);
 
   /// constructor from existing TrackObj
   ConstTrack(TrackObj* obj);
@@ -45,10 +50,21 @@ public:
 
 public:
 
-  const float& Chi2() const;
-  const unsigned& Ndf() const;
-  const unsigned& Bits() const;
+  /// Access the  chi2 returned by the track fit
+  const float& chi2() const;
+  /// Access the  Number of degrees of freedom of the track fit
+  const unsigned& ndf() const;
+  /// Access the  Stores flags
+  const unsigned& bits() const;
 
+  unsigned int clusters_size() const;
+  fcc::ConstTrackCluster clusters(unsigned int) const;
+  std::vector<fcc::ConstTrackCluster>::const_iterator clusters_begin() const;
+  std::vector<fcc::ConstTrackCluster>::const_iterator clusters_end() const;
+  unsigned int states_size() const;
+  fcc::ConstTrackState states(unsigned int) const;
+  std::vector<fcc::ConstTrackState>::const_iterator states_begin() const;
+  std::vector<fcc::ConstTrackState>::const_iterator states_end() const;
 
 
   /// check whether the object is actually available

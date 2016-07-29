@@ -5,9 +5,6 @@
 #include <vector>
 #include "podio/ObjectID.h"
 
-// A tracker hit
-// author: C. Bernet, B. Hegner
-
 //forward declarations
 
 
@@ -20,6 +17,10 @@ class TrackHitCollection;
 class TrackHitCollectionIterator;
 class ConstTrackHit;
 
+/** @class TrackHit
+ *  A tracker hit
+ *  @author: C. Bernet, B. Hegner
+ */
 class TrackHit {
 
   friend TrackHitCollection;
@@ -30,7 +31,7 @@ public:
 
   /// default constructor
   TrackHit();
-  TrackHit(fcc::BareHit Core);
+  TrackHit(fcc::BareHit core);
 
   /// constructor from existing TrackHitObj
   TrackHit(TrackHitObj* obj);
@@ -48,10 +49,33 @@ public:
 
 public:
 
-  const fcc::BareHit& Core() const;
+  /// Access the  contains basic hit information
+  const fcc::BareHit& core() const;
+  /// Access the member of  contains basic hit information
+  const unsigned& bits() const;
+  /// Access the member of  contains basic hit information
+  const unsigned long long& cellId() const;
+  /// Access the member of  contains basic hit information
+  const float& energy() const;
+  /// Access the member of  contains basic hit information
+  const float& time() const;
 
-  fcc::BareHit& Core();
-  void Core(class fcc::BareHit value);
+  /// Get reference to the  contains basic hit information
+  fcc::BareHit& core();
+  /// Set the  contains basic hit information
+  void core(class fcc::BareHit value);
+  /// Set the  member of  contains basic hit information
+  void bits(unsigned value);
+
+  /// Set the  member of  contains basic hit information
+  void cellId(unsigned long long value);
+
+  /// Set the  member of  contains basic hit information
+  void energy(float value);
+
+  /// Set the  member of  contains basic hit information
+  void time(float value);
+
 
 
 

@@ -3,10 +3,9 @@
 #include "BareCluster.h"
 #include "CaloClusterData.h"
 #include <vector>
+#include "CaloHit.h"
+#include <vector>
 #include "podio/ObjectID.h"
-
-// A calo cluster, made of CaloHits
-// author: C. Bernet, B. Hegner
 
 //forward declarations
 
@@ -20,6 +19,11 @@ class CaloCluster;
 class CaloClusterCollection;
 class CaloClusterCollectionIterator;
 
+/** @class ConstCaloCluster
+ *  A calo cluster, made of CaloHits
+ *  @author: C. Bernet, B. Hegner
+ */
+
 class ConstCaloCluster {
 
   friend CaloCluster;
@@ -30,7 +34,7 @@ public:
 
   /// default constructor
   ConstCaloCluster();
-  ConstCaloCluster(fcc::BareCluster Core);
+  ConstCaloCluster(fcc::BareCluster core);
 
   /// constructor from existing CaloClusterObj
   ConstCaloCluster(CaloClusterObj* obj);
@@ -46,8 +50,21 @@ public:
 
 public:
 
-  const fcc::BareCluster& Core() const;
+  /// Access the  contains basic cluster information
+  const fcc::BareCluster& core() const;
+  /// Access the member of  contains basic cluster information
+  const unsigned& bits() const;
+  /// Access the member of  contains basic cluster information
+  const float& energy() const;
+  /// Access the member of  contains basic cluster information
+  const ::fcc::Point& position() const;
+  /// Access the member of  contains basic cluster information
+  const float& time() const;
 
+  unsigned int hits_size() const;
+  fcc::ConstCaloHit hits(unsigned int) const;
+  std::vector<fcc::ConstCaloHit>::const_iterator hits_begin() const;
+  std::vector<fcc::ConstCaloHit>::const_iterator hits_end() const;
 
 
   /// check whether the object is actually available

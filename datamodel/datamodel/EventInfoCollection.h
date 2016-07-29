@@ -108,7 +108,7 @@ public:
   std::vector<EventInfoData>* _getBuffer() { return m_data;};
 
     template<size_t arraysize>
-  const std::array<int,arraysize> Number() const;
+  const std::array<int,arraysize> number() const;
 
 
 private:
@@ -131,11 +131,11 @@ EventInfo  EventInfoCollection::create(Args&&... args){
 }
 
 template<size_t arraysize>
-const std::array<int,arraysize> EventInfoCollection::Number() const {
+const std::array<int,arraysize> EventInfoCollection::number() const {
   std::array<int,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
-    tmp[i] = m_entries[i]->data.Number;
+    tmp[i] = m_entries[i]->data.number;
  }
  return tmp;
 }

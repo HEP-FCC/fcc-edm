@@ -40,15 +40,17 @@ ConstParticleMCParticleAssociation::~ConstParticleMCParticleAssociation(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const fcc::ConstParticle ConstParticleMCParticleAssociation::Rec() const {
-    if (m_obj->m_Rec == nullptr) {
+  /// Access the  Reference to the reconstructed particle
+  const fcc::ConstParticle ConstParticleMCParticleAssociation::rec() const {
+    if (m_obj->m_rec == nullptr) {
       return fcc::ConstParticle(nullptr);
     }
-    return fcc::ConstParticle(*(m_obj->m_Rec));}  const fcc::ConstMCParticle ConstParticleMCParticleAssociation::Sim() const {
-    if (m_obj->m_Sim == nullptr) {
+    return fcc::ConstParticle(*(m_obj->m_rec));}  /// Access the  Reference to the Monte-Carlo particle
+  const fcc::ConstMCParticle ConstParticleMCParticleAssociation::sim() const {
+    if (m_obj->m_sim == nullptr) {
       return fcc::ConstMCParticle(nullptr);
     }
-    return fcc::ConstMCParticle(*(m_obj->m_Sim));}
+    return fcc::ConstMCParticle(*(m_obj->m_sim));}
 
 
 bool  ConstParticleMCParticleAssociation::isAvailable() const {

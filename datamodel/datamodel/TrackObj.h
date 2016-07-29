@@ -9,6 +9,9 @@
 #include "podio/ObjBase.h"
 #include "TrackData.h"
 
+#include <vector>
+#include "TrackCluster.h"
+#include "TrackState.h"
 
 
 // forward declarations
@@ -30,6 +33,8 @@ public:
 
 public:
   TrackData data;
+  std::vector<::fcc::ConstTrackCluster>* m_clusters;
+  std::vector<::fcc::ConstTrackState>* m_states;
 
 
 };

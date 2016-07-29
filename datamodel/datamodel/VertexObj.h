@@ -9,6 +9,8 @@
 #include "podio/ObjBase.h"
 #include "VertexData.h"
 
+#include <vector>
+#include "WeightedTrack.h"
 
 
 // forward declarations
@@ -30,6 +32,7 @@ public:
 
 public:
   VertexData data;
+  std::vector<::fcc::ConstWeightedTrack>* m_tracks;
 
 
 };

@@ -1,15 +1,17 @@
 #ifndef TrackHitDATA_H
 #define TrackHitDATA_H
 
-// A tracker hit
-// author: C. Bernet, B. Hegner
-
 #include "BareHit.h"
 
 namespace fcc {
+/** @class TrackHitData
+ *  A tracker hit
+ *  @author: C. Bernet, B. Hegner
+ */
+
 class TrackHitData {
 public:
-  fcc::BareHit Core;  ///< contains basic hit information
+  fcc::BareHit core;  ///< contains basic hit information
 };
 } // namespace fcc
 

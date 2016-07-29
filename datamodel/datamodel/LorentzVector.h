@@ -2,15 +2,21 @@
 #define LorentzVector_H
 
 
+#include <iostream>
+
 namespace fcc {
 class LorentzVector {
 public:
-  float Mass;
-  float Px;
-  float Py;
-  float Pz;
+  float mass;
+  float px;
+  float py;
+  float pz;
 
 
 };
+
+
+
 } // namespace fcc
+
 #endif

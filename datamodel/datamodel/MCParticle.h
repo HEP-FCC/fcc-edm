@@ -5,9 +5,6 @@
 #include <vector>
 #include "podio/ObjectID.h"
 
-// Monte-Carlo Particle, either generated or simulated.
-// author: C. Bernet, B. Hegner
-
 //forward declarations
 namespace fcc {
 class GenVertex;
@@ -26,6 +23,10 @@ class MCParticleCollection;
 class MCParticleCollectionIterator;
 class ConstMCParticle;
 
+/** @class MCParticle
+ *  Monte-Carlo Particle, either generated or simulated.
+ *  @author: C. Bernet, B. Hegner
+ */
 class MCParticle {
 
   friend MCParticleCollection;
@@ -36,7 +37,7 @@ public:
 
   /// default constructor
   MCParticle();
-  MCParticle(fcc::BareParticle Core);
+  MCParticle(fcc::BareParticle core);
 
   /// constructor from existing MCParticleObj
   MCParticle(MCParticleObj* obj);
@@ -54,14 +55,53 @@ public:
 
 public:
 
-  const fcc::BareParticle& Core() const;
-  const fcc::ConstGenVertex StartVertex() const;
-  const fcc::ConstGenVertex EndVertex() const;
+  /// Access the  Basic particle information.
+  const fcc::BareParticle& core() const;
+  /// Access the member of  Basic particle information.
+  const unsigned& bits() const;
+  /// Access the member of  Basic particle information.
+  const int& charge() const;
+  /// Access the member of  Basic particle information.
+  const ::fcc::LorentzVector& p4() const;
+  /// Access the member of  Basic particle information.
+  const unsigned& status() const;
+  /// Access the member of  Basic particle information.
+  const int& type() const;
+  /// Access the member of  Basic particle information.
+  const ::fcc::Point& vertex() const;
+  /// Access the  Reference to the vertex in which the particle was created.
+  const fcc::ConstGenVertex startVertex() const;
+  /// Access the  Reference to the vertex in which the particle was created.
+  const fcc::ConstGenVertex endVertex() const;
 
-  fcc::BareParticle& Core();
-  void Core(class fcc::BareParticle value);
-  void StartVertex(fcc::ConstGenVertex value);
-  void EndVertex(fcc::ConstGenVertex value);
+  /// Get reference to the  Basic particle information.
+  fcc::BareParticle& core();
+  /// Set the  Basic particle information.
+  void core(class fcc::BareParticle value);
+  /// Set the  member of  Basic particle information.
+  void bits(unsigned value);
+
+  /// Set the  member of  Basic particle information.
+  void charge(int value);
+
+  /// Get reference to the member of  Basic particle information.
+  ::fcc::LorentzVector& p4();
+  /// Set the  member of  Basic particle information.
+  void p4(class ::fcc::LorentzVector value);
+  /// Set the  member of  Basic particle information.
+  void status(unsigned value);
+
+  /// Set the  member of  Basic particle information.
+  void type(int value);
+
+  /// Get reference to the member of  Basic particle information.
+  ::fcc::Point& vertex();
+  /// Set the  member of  Basic particle information.
+  void vertex(class ::fcc::Point value);
+  /// Set the  Reference to the vertex in which the particle was created.
+  void startVertex(fcc::ConstGenVertex value);
+  /// Set the  Reference to the vertex in which the particle was created.
+  void endVertex(fcc::ConstGenVertex value);
 
 
 

@@ -13,9 +13,9 @@ GenJet::GenJet() : m_obj(new GenJetObj()){
  m_obj->acquire();
 }
 
-GenJet::GenJet(fcc::BareJet Core) : m_obj(new GenJetObj()) {
+GenJet::GenJet(fcc::BareJet core) : m_obj(new GenJetObj()) {
   m_obj->acquire();
-    m_obj->data.Core = Core;
+    m_obj->data.core = core;
 }
 
 
@@ -44,11 +44,48 @@ GenJet::~GenJet(){
 
 GenJet::operator ConstGenJet() const {return ConstGenJet(m_obj);}
 
-  const fcc::BareJet& GenJet::Core() const { return m_obj->data.Core; }
+  const fcc::BareJet& GenJet::core() const { return m_obj->data.core; }
+const float& GenJet::area() const { return m_obj->data.core.area; }
+const unsigned& GenJet::bits() const { return m_obj->data.core.bits; }
+const ::fcc::LorentzVector& GenJet::p4() const { return m_obj->data.core.p4; }
 
-  fcc::BareJet& GenJet::Core() { return m_obj->data.Core; }
-void GenJet::Core(class fcc::BareJet value) { m_obj->data.Core = value; }
+  fcc::BareJet& GenJet::core() { return m_obj->data.core; }
+void GenJet::core(class fcc::BareJet value) { m_obj->data.core = value; }
+void GenJet::area(float value){ m_obj->data.core.area = value; }
+void GenJet::bits(unsigned value){ m_obj->data.core.bits = value; }
+::fcc::LorentzVector& GenJet::p4() { return m_obj->data.core.p4; }
+void GenJet::p4(class ::fcc::LorentzVector value) { m_obj->data.core.p4 = value; }
 
+std::vector<fcc::ConstMCParticle>::const_iterator GenJet::particles_begin() const {
+  auto ret_value = m_obj->m_particles->begin();
+  std::advance(ret_value, m_obj->data.particles_begin);
+  return ret_value;
+}
+
+std::vector<fcc::ConstMCParticle>::const_iterator GenJet::particles_end() const {
+  auto ret_value = m_obj->m_particles->begin();
+//fg: this code fails if m_obj->data.particles==0
+//  std::advance(ret_value, m_obj->data.particles_end-1);
+//  return ++ret_value;
+  std::advance(ret_value, m_obj->data.particles_end);
+  return ret_value;
+}
+
+void GenJet::addparticles(fcc::ConstMCParticle component) {
+  m_obj->m_particles->push_back(component);
+  m_obj->data.particles_end++;
+}
+
+unsigned int GenJet::particles_size() const {
+  return (m_obj->data.particles_end-m_obj->data.particles_begin);
+}
+
+fcc::ConstMCParticle GenJet::particles(unsigned int index) const {
+  if (particles_size() > index) {
+    return m_obj->m_particles->at(m_obj->data.particles_begin+index);
+  }
+  else throw std::out_of_range ("index out of bounds for existing references");
+}
 
 
 bool  GenJet::isAvailable() const {

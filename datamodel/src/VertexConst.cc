@@ -13,9 +13,9 @@ ConstVertex::ConstVertex() : m_obj(new VertexObj()) {
  m_obj->acquire();
 }
 
-ConstVertex::ConstVertex(float Chi2,unsigned Ndf,fcc::Point Position,unsigned Bits) : m_obj(new VertexObj()){
+ConstVertex::ConstVertex(float chi2,unsigned ndf,fcc::Point position,unsigned bits) : m_obj(new VertexObj()){
  m_obj->acquire();
-   m_obj->data.Chi2 = Chi2;  m_obj->data.Ndf = Ndf;  m_obj->data.Position = Position;  m_obj->data.Bits = Bits;
+   m_obj->data.chi2 = chi2;  m_obj->data.ndf = ndf;  m_obj->data.position = position;  m_obj->data.bits = bits;
 }
 
 
@@ -42,11 +42,40 @@ ConstVertex::~ConstVertex(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const float& ConstVertex::Chi2() const { return m_obj->data.Chi2; }
-  const unsigned& ConstVertex::Ndf() const { return m_obj->data.Ndf; }
-  const fcc::Point& ConstVertex::Position() const { return m_obj->data.Position; }
-  const unsigned& ConstVertex::Bits() const { return m_obj->data.Bits; }
+  /// Access the  chi2 returned by the vertex fit
+  const float& ConstVertex::chi2() const { return m_obj->data.chi2; }
+  /// Access the  Number of degrees of freedom of the vertex fit
+  const unsigned& ConstVertex::ndf() const { return m_obj->data.ndf; }
+  const float& ConstVertex::x() const { return m_obj->data.position.x; }
+  const float& ConstVertex::y() const { return m_obj->data.position.y; }
+  const float& ConstVertex::z() const { return m_obj->data.position.z; }
+  /// Access the  Vertex position in cm
+  const fcc::Point& ConstVertex::position() const { return m_obj->data.position; }
+  /// Access the  Stored flags
+  const unsigned& ConstVertex::bits() const { return m_obj->data.bits; }
 
+std::vector<fcc::ConstWeightedTrack>::const_iterator ConstVertex::tracks_begin() const {
+  auto ret_value = m_obj->m_tracks->begin();
+  std::advance(ret_value, m_obj->data.tracks_begin);
+  return ret_value;
+}
+
+std::vector<fcc::ConstWeightedTrack>::const_iterator ConstVertex::tracks_end() const {
+  auto ret_value = m_obj->m_tracks->begin();
+  std::advance(ret_value, m_obj->data.tracks_end-1);
+  return ++ret_value;
+}
+
+unsigned int ConstVertex::tracks_size() const {
+  return (m_obj->data.tracks_end-m_obj->data.tracks_begin);
+}
+
+fcc::ConstWeightedTrack ConstVertex::tracks(unsigned int index) const {
+  if (tracks_size() > index) {
+    return m_obj->m_tracks->at(m_obj->data.tracks_begin+index);
+  }
+  else throw std::out_of_range ("index out of bounds for existing references");
+}
 
 
 bool  ConstVertex::isAvailable() const {

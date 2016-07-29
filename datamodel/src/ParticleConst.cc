@@ -13,9 +13,9 @@ ConstParticle::ConstParticle() : m_obj(new ParticleObj()) {
  m_obj->acquire();
 }
 
-ConstParticle::ConstParticle(fcc::BareParticle Core) : m_obj(new ParticleObj()){
+ConstParticle::ConstParticle(fcc::BareParticle core) : m_obj(new ParticleObj()){
  m_obj->acquire();
-   m_obj->data.Core = Core;
+   m_obj->data.core = core;
 }
 
 
@@ -42,8 +42,59 @@ ConstParticle::~ConstParticle(){
   if ( m_obj != nullptr) m_obj->release();
 }
 
-  const fcc::BareParticle& ConstParticle::Core() const { return m_obj->data.Core; }
+  const unsigned& ConstParticle::bits() const { return m_obj->data.core.bits; }
+  const int& ConstParticle::charge() const { return m_obj->data.core.charge; }
+  const ::fcc::LorentzVector& ConstParticle::p4() const { return m_obj->data.core.p4; }
+  const unsigned& ConstParticle::status() const { return m_obj->data.core.status; }
+  const int& ConstParticle::type() const { return m_obj->data.core.type; }
+  const ::fcc::Point& ConstParticle::vertex() const { return m_obj->data.core.vertex; }
+  /// Access the  Contains basic particle information.
+  const fcc::BareParticle& ConstParticle::core() const { return m_obj->data.core; }
 
+std::vector<fcc::ConstTrack>::const_iterator ConstParticle::tracks_begin() const {
+  auto ret_value = m_obj->m_tracks->begin();
+  std::advance(ret_value, m_obj->data.tracks_begin);
+  return ret_value;
+}
+
+std::vector<fcc::ConstTrack>::const_iterator ConstParticle::tracks_end() const {
+  auto ret_value = m_obj->m_tracks->begin();
+  std::advance(ret_value, m_obj->data.tracks_end-1);
+  return ++ret_value;
+}
+
+unsigned int ConstParticle::tracks_size() const {
+  return (m_obj->data.tracks_end-m_obj->data.tracks_begin);
+}
+
+fcc::ConstTrack ConstParticle::tracks(unsigned int index) const {
+  if (tracks_size() > index) {
+    return m_obj->m_tracks->at(m_obj->data.tracks_begin+index);
+  }
+  else throw std::out_of_range ("index out of bounds for existing references");
+}
+std::vector<fcc::ConstCaloCluster>::const_iterator ConstParticle::clusters_begin() const {
+  auto ret_value = m_obj->m_clusters->begin();
+  std::advance(ret_value, m_obj->data.clusters_begin);
+  return ret_value;
+}
+
+std::vector<fcc::ConstCaloCluster>::const_iterator ConstParticle::clusters_end() const {
+  auto ret_value = m_obj->m_clusters->begin();
+  std::advance(ret_value, m_obj->data.clusters_end-1);
+  return ++ret_value;
+}
+
+unsigned int ConstParticle::clusters_size() const {
+  return (m_obj->data.clusters_end-m_obj->data.clusters_begin);
+}
+
+fcc::ConstCaloCluster ConstParticle::clusters(unsigned int index) const {
+  if (clusters_size() > index) {
+    return m_obj->m_clusters->at(m_obj->data.clusters_begin+index);
+  }
+  else throw std::out_of_range ("index out of bounds for existing references");
+}
 
 
 bool  ConstParticle::isAvailable() const {

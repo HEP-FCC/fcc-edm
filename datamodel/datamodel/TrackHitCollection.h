@@ -108,7 +108,7 @@ public:
   std::vector<TrackHitData>* _getBuffer() { return m_data;};
 
     template<size_t arraysize>
-  const std::array<fcc::BareHit,arraysize> Core() const;
+  const std::array<fcc::BareHit,arraysize> core() const;
 
 
 private:
@@ -131,11 +131,11 @@ TrackHit  TrackHitCollection::create(Args&&... args){
 }
 
 template<size_t arraysize>
-const std::array<class fcc::BareHit,arraysize> TrackHitCollection::Core() const {
+const std::array<class fcc::BareHit,arraysize> TrackHitCollection::core() const {
   std::array<class fcc::BareHit,arraysize> tmp;
   auto valid_size = std::min(arraysize,m_entries.size());
   for (unsigned i = 0; i<valid_size; ++i){
-    tmp[i] = m_entries[i]->data.Core;
+    tmp[i] = m_entries[i]->data.core;
  }
  return tmp;
 }
