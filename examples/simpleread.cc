@@ -41,7 +41,7 @@ int main(){
     if (evinfoPresent) {
       auto evinfo = (*evinfocoll)[0];
       if (iev < 10) {
-        std::cout << "read " << evinfo.Number() << std::endl;
+        std::cout << "read " << evinfo.number() << std::endl;
       }
     }
 
@@ -52,8 +52,8 @@ int main(){
     if (particlesPresent) {
       auto ptc = (*particles)[0];
       if (iev < 10) {
-        std::cout << ptc.Core().Type << std::endl;
-        std::cout << ptc.Core().P4.Px << std::endl;
+        std::cout << ptc.type() << std::endl;
+        std::cout << ptc.p4().px << std::endl;
       }
     }
 
