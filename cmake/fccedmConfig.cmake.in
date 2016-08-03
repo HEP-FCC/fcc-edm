@@ -1,0 +1,14 @@
+# - Config file for the fccedm package
+# It defines the following variables
+#  FCCEDM_INCLUDE_DIRS - include directories for fccedm
+#  FCCEDM_LIBRARIES    - libraries to link against
+#  FCCEDM_EXECUTABLE   - the bar executable
+
+# Compute paths
+get_filename_component(FCCEDM_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+
+get_filename_component(FCCEDM_INCLUDE_DIRS "${FCCEDM_CMAKE_DIR}/../@INSTALL_INCLUDE_DIR@" ABSOLUTE)
+get_filename_component(FCCEDM_BINARY_DIR "${FCCEDM_CMAKE_DIR}/../@INSTALL_BIN_DIR@" ABSOLUTE)
+get_filename_component(FCCEDM_LIBRARY_DIR "${FCCEDM_CMAKE_DIR}/../@INSTALL_LIB_DIR@" ABSOLUTE)
+
+include(${FCCEDM_CMAKE_DIR}/../lib/cmake/fccedmTargets.cmake)

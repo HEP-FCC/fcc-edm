@@ -1,4 +1,4 @@
-#include "JetUtils.h"
+#include "utilities/JetUtils.h"
 
 #include "datamodel/Particle.h"
 #include "datamodel/Jet.h"

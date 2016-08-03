@@ -1,5 +1,6 @@
 include_directories(
         ${CMAKE_SOURCE_DIR}/datamodel
+        ${CMAKE_SOURCE_DIR}/utilities
 )
 
 add_executable(fccedm-write write.cc)
@@ -22,12 +23,13 @@ install(TARGETS fccedm-write fccedm-read fccedm-simplewrite fccedm-simpleread
 add_test(NAME fccedm-simplewrite COMMAND fccedm-simplewrite)
 set_property(TEST fccedm-simplewrite PROPERTY ENVIRONMENT LD_LIBRARY_PATH=$ENV{PODIO}/lib:${CMAKE_INSTALL_PREFIX}/lib:${CMAKE_INSTALL_PREFIX}/examples:$ENV{LD_LIBRARY_PATH})
 
-add_test(NAME fccedm-simpleread COMMAND fccedm-simpleread DEPENDS fccedm-simplewrite)
+add_test(NAME fccedm-simpleread COMMAND fccedm-simpleread)
 set_property(TEST fccedm-simpleread PROPERTY ENVIRONMENT LD_LIBRARY_PATH=$ENV{PODIO}/lib:${CMAKE_INSTALL_PREFIX}/lib:${CMAKE_INSTALL_PREFIX}/examples:$ENV{LD_LIBRARY_PATH})
+set_property(TEST fccedm-simpleread PROPERTY DEPENDS fccedm-simplewrite)
 
 add_test(NAME fccedm-write COMMAND fccedm-write)
 set_property(TEST fccedm-write PROPERTY ENVIRONMENT LD_LIBRARY_PATH=$ENV{PODIO}/lib:${CMAKE_INSTALL_PREFIX}/lib:${CMAKE_INSTALL_PREFIX}/examples:$ENV{LD_LIBRARY_PATH})
 
-add_test(NAME fccedm-read COMMAND fccedm-read DEPENDS fccedm-write)
+add_test(NAME fccedm-read COMMAND fccedm-read)
 set_property(TEST fccedm-read PROPERTY ENVIRONMENT LD_LIBRARY_PATH=$ENV{PODIO}/lib:${CMAKE_INSTALL_PREFIX}/lib:${CMAKE_INSTALL_PREFIX}/examples:$ENV{LD_LIBRARY_PATH})
-
+set_property(TEST fccedm-read PROPERTY DEPENDS fccedm-write)
