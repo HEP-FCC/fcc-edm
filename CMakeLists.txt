@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 
 project(fccedm)
-set(fccedm_MAJOR_VERSION 1)
-set(fccedm_MINOR_VERSION 0)
+set(fccedm_MAJOR_VERSION 0)
+set(fccedm_MINOR_VERSION 4)
 set(fccedm_PATCH_VERSION 0)
 set(fccedm_VERSION
   ${fccedm_MAJOR_VERSION}.${fccedm_MINOR_VERSION}.${fccedm_PATCH_VERSION})
