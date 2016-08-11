@@ -7,6 +7,9 @@ set(FCCEDM_PATCH_VERSION 0)
 set(FCCEDM_VERSION
   ${FCCEDM_MAJOR_VERSION}.${FCCEDM_MINOR_VERSION}.${FCCEDM_PATCH_VERSION})
 
+execute_process(COMMAND python $ENV{PODIO}/python/podio_class_generator.py edm.yaml datamodel datamodel
+                WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+
 #--- Declare options -----------------------------------------------------------
 option(fccedm_documentation "Whether or not to create doxygen doc target.")
 
@@ -83,10 +86,13 @@ if(fccedm_documentation)
 	include(cmake/fccedmDoxygen.cmake)
 endif()
 
+configure_file(${CMAKE_SOURCE_DIR}/cmake/Datamodel.cmake
+  "${CMAKE_SOURCE_DIR}/datamodel/CMakeLists.txt" @ONLY)
 # Add sub-directories
 add_subdirectory(datamodel)
 add_subdirectory(utilities)
 add_subdirectory(examples)
+
 
 # The interesting stuff goes here
 # ===============================
