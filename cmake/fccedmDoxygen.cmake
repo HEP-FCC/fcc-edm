@@ -7,6 +7,8 @@ if(DOXYGEN_FOUND)
   endif()
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doc/Doxyfile.in
                  ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doc/doxy-boot.js.in
+                 ${CMAKE_BINARY_DIR}/doxygen/html/doxy-boot.js)
   add_custom_target(doc
                     ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
                     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
