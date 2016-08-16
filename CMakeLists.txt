@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 2.8)
 project(fccedm CXX)
 
-set(FCCEDM_MAJOR_VERSION 1)
-set(FCCEDM_MINOR_VERSION 0)
+set(FCCEDM_MAJOR_VERSION 0)
+set(FCCEDM_MINOR_VERSION 4)
 set(FCCEDM_PATCH_VERSION 0)
 set(FCCEDM_VERSION
-  ${FCCEDM_MAJOR_VERSION}.${FCCEDM_MINOR_VERSION}.${FCCEDM_PATCH_VERSION})
+  ${FCCEDM_MAJOR_VERSION}.${FCCEDM_MINOR_VERSION})
 
 execute_process(COMMAND python $ENV{PODIO}/python/podio_class_generator.py edm.yaml datamodel datamodel
                 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
