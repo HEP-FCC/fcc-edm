@@ -1,5 +1,10 @@
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
+  # temporarily override the version for doxy generation (for nightly snapshots)
+  set(tmp ${FCCEDM_VERSION})
+  if(DOXYVERSION)
+    set(FCCEDM_VERSION ${DOXYVERSION})
+  endif()
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doc/Doxyfile.in
                  ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
   add_custom_target(doc
@@ -8,4 +13,7 @@ if(DOXYGEN_FOUND)
                     COMMENT "Generating API documentation with Doxygen" VERBATIM)
 
   install( DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/doxygen DESTINATION doxygen OPTIONAL)
+  # revert version to old value
+  set(FCCEDM_VERSION ${tmp})
+  unset(tmp)
 endif(DOXYGEN_FOUND)
