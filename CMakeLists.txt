@@ -11,7 +11,7 @@ execute_process(COMMAND python $ENV{PODIO}/python/podio_class_generator.py edm.y
                 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 #--- Declare options -----------------------------------------------------------
-option(fccedm_documentation "Whether or not to create doxygen doc target.")
+option(CREATE_DOC "Whether or not to create doxygen doc target.")
 
 # Offer the user the choice of overriding the installation directories
 set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for libraries")
@@ -83,7 +83,7 @@ include(CTest)
 
 #--- target for Doxygen documentation ------------------------------------------
 if(fccedm_documentation)
-	include(cmake/fccedmDoxygen.cmake)
+  include(cmake/fccedmDoxygen.cmake)
 endif()
 
 configure_file(${CMAKE_SOURCE_DIR}/cmake/Datamodel.cmake
