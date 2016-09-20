@@ -33,7 +33,7 @@ components:
     bits : unsigned
 
   fcc::BareParticle:
-    type: int
+    pdgId: int
     charge: int
     status: unsigned
     vertex: fcc::Point
