@@ -46,16 +46,16 @@ int main(){
       std::cout<<"processing event "<<iev<<std::endl;
     // fill event information
     auto evinfo = fcc::EventInfo(); // evinfocoll.create();
-    evinfo.Number(iev);
+    evinfo.number(iev);
     evinfocoll.push_back(evinfo);
 
     auto ptc = fcc::Particle();
-    ptc.Core().Type = 25;
-    auto& p4 = ptc.Core().P4;
-    p4.Px = static_cast<float>(iev);
-    p4.Py = 0.;
-    p4.Pz = 0.;
-    p4.Mass = 126.;
+    ptc.pdgId(25);
+    auto& p4 = ptc.p4();
+    p4.px = static_cast<float>(iev);
+    p4.py = 0.;
+    p4.pz = 0.;
+    p4.mass = 126.;
     pcoll.push_back(ptc);
 
     writer.writeEvent();

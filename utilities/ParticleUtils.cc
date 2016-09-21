@@ -7,6 +7,8 @@
 
 // datamodel
 #include "datamodel/Particle.h"
+#include "datamodel/MCParticle.h"
+#include "datamodel/GenVertex.h"
 #include "datamodel/ParticleCollection.h"
 #include "datamodel/LorentzVector.h"
 
@@ -22,7 +24,7 @@
 namespace utils {
 
 
-  bool compareParticles(const fcc::Particle& lhs, const fcc::Particle& rhs) {
+  bool compareParticles(const fcc::ConstParticle& lhs, const fcc::ConstParticle& rhs) {
     const podio::ObjectID lhsId = lhs.getObjectID();
     const podio::ObjectID rhsId = rhs.getObjectID();
     if (lhsId.collectionID == rhsId.collectionID) {
@@ -32,9 +34,9 @@ namespace utils {
   }
 
   std::vector<fcc::Particle> unused(const fcc::ParticleCollection& p1s,
-                                    const std::vector<fcc::Particle>& p2s) {
+                                    const std::vector<fcc::ConstParticle>& p2s) {
     std::vector<fcc::Particle> results;
-    std::set<fcc::Particle, std::function<bool(const fcc::Particle&, const fcc::Particle&)>> p2set(compareParticles);
+    std::set<fcc::ConstParticle, std::function<bool(const fcc::ConstParticle&, const fcc::ConstParticle&)>> p2set(compareParticles);
     std::copy( p2s.begin(), p2s.end(),
                std::inserter( p2set, p2set.end() ) );
     // std::cout<<"set"<<std::endl;
@@ -61,7 +63,7 @@ namespace utils {
     float exc2 = exclusion*exclusion;
     std::vector<fcc::Particle> results;
     for(const auto& particle : ps) {
-      float dR2 = deltaR2(lv, particle.Core().P4);
+      float dR2 = deltaR2(lv, particle.p4());
       if( dR2>exc2 && dR2 <= dR2Max ) {
         results.emplace_back(particle);
       }
@@ -83,7 +85,7 @@ namespace utils {
   TLorentzVector sumP4(const std::vector<fcc::Particle>& ps) {
     TLorentzVector sum;
     for(const auto& particle : ps) {
-      TLorentzVector lv = lvFromPOD( particle.Core().P4 );
+      TLorentzVector lv = lvFromPOD( particle.p4() );
       sum += lv;
     }
     return sum;
@@ -92,14 +94,28 @@ namespace utils {
 
 } // namespace
 
-std::ostream& operator<<(std::ostream& out, const fcc::Particle& ptc) {
+std::ostream& operator<<(std::ostream& out, const fcc::BareParticle& ptc) {
   if(not out) return out;
-  const fcc::BareParticle& pcore = ptc.Core();
-  TLorentzVector p4 = utils::lvFromPOD(pcore.P4);
-  out<< "particle ID " << pcore.Type
+  TLorentzVector p4 = utils::lvFromPOD(ptc.p4);
+  out<< "particle PDG ID " << ptc.pdgId
      << " e " << p4.E()
      << " pt " << p4.Pt()
      << " eta " << p4.Eta()
      << " phi " << p4.Phi();
+  return out;
+}
+
+std::ostream& operator<<(std::ostream& out, const fcc::Particle& ptc) {
+  operator<<(out, ptc.core());
+  return out;
+}
+
+std::ostream& operator<<(std::ostream& out, const fcc::MCParticle& ptc) {
+  operator<<(out, ptc.core());
+  if(not out) return out;
+  out << " startVertex ID: (" << ptc.startVertex().getObjectID().collectionID;
+  out << ", " << ptc.startVertex().getObjectID().index << ")";
+  out << " endVertex ID: (" << ptc.endVertex().getObjectID().collectionID;
+  out << ", " << ptc.endVertex().getObjectID().index << ")";
   return out;
 }

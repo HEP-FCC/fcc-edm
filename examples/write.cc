@@ -4,7 +4,6 @@
 #include "datamodel/Particle.h"
 #include "datamodel/ParticleCollection.h"
 #include "datamodel/JetCollection.h"
-#include "datamodel/JetParticleAssociationCollection.h"
 #include "datamodel/LorentzVector.h"
 
 // Utility functions
@@ -60,7 +59,7 @@ int main(){
   for(unsigned i=0; i<nevents; ++i) {
   // fill event information
     auto evinfo = fcc::EventInfo();
-    evinfo.Number(i);
+    evinfo.number(i);
     evinfocoll.push_back(evinfo);
     processEvent(i, store, writer, generator);
   }
