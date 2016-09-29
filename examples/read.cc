@@ -1,10 +1,8 @@
 #include "datamodel/ParticleCollection.h"
 #include "datamodel/EventInfoCollection.h"
 #include "datamodel/JetCollection.h"
-#include "datamodel/JetParticleAssociationCollection.h"
 
 // Utility functions
-#include "utilities/JetUtils.h"
 #include "utilities/VectorUtils.h"
 #include "utilities/ParticleUtils.h"
 
@@ -33,7 +31,7 @@ void processEvent(podio::EventStore& store, bool verbose,
     auto evinfo = evinfocoll->at(0);
 
     if(verbose)
-      std::cout << "event number " << evinfo.Number() << std::endl;
+      std::cout << "event number " << evinfo.number() << std::endl;
   }
 
   // the following is commented out to test on-demand reading through Jet-Particle association,
@@ -50,29 +48,23 @@ void processEvent(podio::EventStore& store, bool verbose,
   // read jets
   const fcc::JetCollection* jrefs(nullptr);
   bool jets_available = store.get("GenJet",jrefs);
-  std::vector<fcc::Particle> injets;
+  std::vector<fcc::ConstParticle> injets;
 
   if (jets_available){
-    const fcc::JetParticleAssociationCollection* jprefs(nullptr);
-    bool assoc_available = store.get("GenJetParticle",jprefs);
     if(verbose) {
       reader.getCollectionIDTable()->print();
       std::cout << "jet collection:" << std::endl;
     }
     for(const auto& jet : *jrefs){
-      std::vector<fcc::Particle> jparticles = utils::associatedParticles(jet,
-                                                                         *jprefs);
-      TLorentzVector lv = utils::lvFromPOD(jet.Core().P4);
+      TLorentzVector lv = utils::lvFromPOD(jet.core().p4);
       if(verbose)
         std::cout << "\tjet: E=" << lv.E() << " "<<lv.Eta()<<" "<<lv.Phi()
-                  <<" npart="<<jparticles.size()<<std::endl;
-      if(assoc_available) {
-        for(const auto& part : jparticles) {
-          if(part.isAvailable()) {
-            if(verbose)
-              std::cout<<"\t\tassociated "<<part<<std::endl;
-            injets.push_back(part);
-          }
+                  <<" npart="<<jet.particles_size()<<std::endl;
+      for(auto part = jet.particles_begin(); part != jet.particles_end(); ++part) {
+        if(part->isAvailable()) {
+          if(verbose)
+            std::cout<<"\t\tassociated "<<part->core()<<std::endl;
+          injets.push_back(*part);
         }
       }
     }
@@ -90,7 +82,7 @@ void processEvent(podio::EventStore& store, bool verbose,
     for(const auto& ptc : *ptcs){
       if(verbose)
         std::cout<<"\t"<<ptc<<std::endl;
-      if( ptc.Core().Type == 4 ) {
+      if( ptc.core().pdgId == 4 ) {
         muons.push_back(ptc);
       }
     }
@@ -103,7 +95,7 @@ void processEvent(podio::EventStore& store, bool verbose,
     if(not muons.empty()) {
       const fcc::Particle& muon = muons[0];
       float dRMax = 0.5;
-      const std::vector<fcc::Particle> incone = utils::inCone( muon.Core().P4,
+      const std::vector<fcc::Particle> incone = utils::inCone( muon.core().p4,
                                                           *ptcs,
                                                           dRMax);
       float sumpt = utils::sumPt(incone);
