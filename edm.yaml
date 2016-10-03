@@ -67,7 +67,7 @@ datatypes :
     Description : "Association between a Particle and some arbitrary Tag information"
     Author : "C. Helsens, J. Lingemann"
     Members:
-     - float value // the value of the tag
+     - float tag // the value of the tag
     OneToOneRelations :
      - fcc::Particle particle // Reference to the Particle
 
