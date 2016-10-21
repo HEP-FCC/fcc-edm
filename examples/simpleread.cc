@@ -1,12 +1,15 @@
 // Data model
 #include "datamodel/EventInfo.h"
 #include "datamodel/EventInfoCollection.h"
-#include "datamodel/Particle.h"
-#include "datamodel/ParticleCollection.h"
+#include "datamodel/MCParticle.h"
+#include "datamodel/MCParticleCollection.h"
+#include "datamodel/TaggedGenJetCollection.h"
+#include "datamodel/TagCollection.h"
 #include "datamodel/LorentzVector.h"
 
 // Utility functions
 #include "utilities/VectorUtils.h"
+#include "utilities/JetUtils.h"
 
 // ROOT
 #include "TLorentzVector.h"
@@ -27,6 +30,7 @@ int main(){
 
   auto store = podio::EventStore();
   auto reader = podio::ROOTReader();
+  jetutils::JetUtils jetUtils(*(reader.getCollectionIDTable()));
 
   reader.openFile("simpleexample.root");
   store.setReader(&reader);
@@ -46,7 +50,7 @@ int main(){
     }
 
 
-    const fcc::ParticleCollection* particles;
+    const fcc::MCParticleCollection* particles;
     bool particlesPresent = store.get("mcparticles", particles);
 
     if (particlesPresent) {
@@ -55,6 +59,15 @@ int main(){
         std::cout << ptc.pdgId() << std::endl;
         std::cout << ptc.p4().px << std::endl;
       }
+    }
+
+    const fcc::TaggedGenJetCollection* jets;
+    bool jetsPresent = store.get("taggedjet", jets);
+    if (jetsPresent) {
+      auto jet = (*jets)[0];
+      auto tag1 = jetUtils.tag(jet, "tag1");
+      auto tag2 = jetUtils.tag(jet, "tag2");
+      std::cout << "tag1 = " << tag1.value() << "; tag2 = " << tag2.value();
     }
 
     store.clear();
