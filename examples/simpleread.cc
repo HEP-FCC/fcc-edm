@@ -30,11 +30,11 @@ int main(){
 
   auto store = podio::EventStore();
   auto reader = podio::ROOTReader();
-  jetutils::JetUtils jetUtils(*(reader.getCollectionIDTable()));
 
   reader.openFile("simpleexample.root");
   store.setReader(&reader);
   unsigned nevents= reader.getEntries();
+  jetutils::JetUtils jetUtils(*(reader.getCollectionIDTable()));
 
   for(unsigned iev=0; iev<nevents; ++iev) {
     if(iev % 1000 == 0)
@@ -62,12 +62,12 @@ int main(){
     }
 
     const fcc::TaggedGenJetCollection* jets;
-    bool jetsPresent = store.get("taggedjet", jets);
+    bool jetsPresent = store.get("taggedjets", jets);
     if (jetsPresent) {
       auto jet = (*jets)[0];
       auto tag1 = jetUtils.tag(jet, "tag1");
       auto tag2 = jetUtils.tag(jet, "tag2");
-      std::cout << "tag1 = " << tag1.value() << "; tag2 = " << tag2.value();
+      std::cout << "tag1 = " << tag1.value() << "; tag2 = " << tag2.value() << std::endl;
     }
 
     store.clear();

@@ -76,9 +76,9 @@ int main(){
     tagJet.jet(jet);
 
     auto tag1 = t1coll.create();
-    tag1.value(iev);
-    auto tag2 = t1coll.create();
-    tag2.value(-iev);
+    tag1.value(static_cast<float>(iev));
+    auto tag2 = t2coll.create();
+    tag2.value(-10000 + static_cast<float>(iev));
 
     tagJet.addtags(tag1);
     tagJet.addtags(tag2);
