@@ -63,11 +63,17 @@ datatypes :
      - fcc::Track tracks // The Tracks used in reconstruction
      - fcc::CaloCluster clusters // The cluster used for reconstruction
 
+  fcc::Tag:
+    Description : "Reconstructed particle"
+    Author : "C. Bernet, B. Hegner, C. Helsens, J. Lingemann"
+    Members:
+      - float value // the result of the tagging algorithm
+
   fcc::TaggedParticle :
     Description : "Association between a Particle and some arbitrary Tag information"
     Author : "C. Helsens, J. Lingemann"
-    Members:
-     - float value // the value of the tag
+    OneToManyRelations :
+     - fcc::Tag tags // Result of the tagging algorithm
     OneToOneRelations :
      - fcc::Particle particle // Reference to the Particle
 
@@ -98,8 +104,8 @@ datatypes :
   fcc::TaggedJet :
     Description : "Association between a Jet and arbitrary Tag information"
     Author : "C. Bernet, Z. Drasal, J. Lingemann"
-    Members :
-     - float tag // Result of the tagging algorithm
+    OneToManyRelations :
+     - fcc::Tag tags // Result of the tagging algorithm
     OneToOneRelations :
      - fcc::Jet jet // Reference to the jet
 
@@ -114,8 +120,8 @@ datatypes :
   fcc::TaggedGenJet :
     Description : "Association between a GenJet and arbitrary Tag information"
     Author : "C. Bernet, Z. Drasal"
-    Members :
-     - float tag // Result of the tagging algorithm
+    OneToManyRelations :
+     - fcc::Tag tags // Result of the tagging algorithm
     OneToOneRelations :
      - fcc::GenJet jet // Reference to the gen jet
 
