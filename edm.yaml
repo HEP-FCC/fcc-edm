@@ -66,8 +66,8 @@ datatypes :
   fcc::TaggedParticle :
     Description : "Association between a Particle and some arbitrary Tag information"
     Author : "C. Helsens, J. Lingemann"
-    OneToManyRelations:
-     - fcc::Tag tag // the value of the tag
+    Members:
+     - float tag // the value of the tag
     OneToOneRelations :
      - fcc::Particle particle // Reference to the Particle
 
@@ -95,17 +95,11 @@ datatypes :
     OneToManyRelations :
      - fcc::Particle particles // Particles clustered into this jet
 
-  fcc::Tag :
-    Description : "A tag containing output of some tag algorithm, e.g. b-tagging"
-    Author: "J. Lingemann"
-    Members:
-      - float tag // Result of the tagging algorithm
-
   fcc::TaggedJet :
     Description : "Association between a Jet and arbitrary Tag information"
     Author : "C. Bernet, Z. Drasal, J. Lingemann"
-    OneToManyRelations :
-     - fcc::Tag tag // Result of the tagging algorithm
+    Members :
+     - float tag // Result of the tagging algorithm
     OneToOneRelations :
      - fcc::Jet jet // Reference to the jet
 
@@ -120,8 +114,8 @@ datatypes :
   fcc::TaggedGenJet :
     Description : "Association between a GenJet and arbitrary Tag information"
     Author : "C. Bernet, Z. Drasal"
-    OneToManyRelations :
-     - fcc::Tag tag // Result of the tagging algorithm
+    Members :
+     - float tag // Result of the tagging algorithm
     OneToOneRelations :
      - fcc::GenJet jet // Reference to the gen jet
 
@@ -158,20 +152,6 @@ datatypes :
     Members:
      - fcc::Point position // The global position
      - fcc::BareHit core // The hit
-
-  fcc::TrackHitMCParticleAssociation:
-    Description: "Association between a TrackHit and a particle that contributed to the hit."
-    Author : "C. Bernet, B. Hegner, J. Lingemann"
-    OneToOneRelations:
-     - fcc::TrackHit hit // the hit
-     - fcc::MCParticle particle // the particle
-
-  fcc::TrackHitAssociation:
-    Description: "Association between a TrackHit and the corresponding simulated TrackHit"
-    Author : "C. Bernet, B. Hegner, J. Lingemann"
-    OneToOneRelations:
-     - fcc::TrackHit rec // The reconstruted hit.
-     - fcc::TrackHit sim // The simulated hit.
 
   fcc::CaloHitMCParticleAssociation:
     Description: "Association between a CaloHit and a particle that contributed to the hit."
