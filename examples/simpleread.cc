@@ -9,7 +9,7 @@
 
 // Utility functions
 #include "utilities/VectorUtils.h"
-#include "utilities/JetUtils.h"
+#include "utilities/TagUtils.h"
 
 // ROOT
 #include "TLorentzVector.h"
