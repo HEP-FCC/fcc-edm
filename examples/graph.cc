@@ -1,4 +1,4 @@
-#include "utilities/DirectedAcyclicGraph.h"
+#include "dag/DirectedAcyclicGraph.h"
 
 /** @file graph.cc
   *

@@ -9,8 +9,8 @@ void fcc::ParticleGraph::build(const fcc::MCParticleCollection& particles) {
   fcc::ParticleGraph::VertexMap endVertexMap;
 
   for (const auto& mcpart : particles) {
-    auto& startID = mcpart.StartVertex().getObjectID();
-    auto& endID = mcpart.EndVertex().getObjectID();
+    auto& startID = mcpart.startVertex().getObjectID();
+    auto& endID = mcpart.endVertex().getObjectID();
     auto siblingsIt = startVertexMap.find(startID.index);
     auto parentsIt = endVertexMap.find(endID.index);
 
@@ -38,8 +38,8 @@ void fcc::ParticleGraph::build(const fcc::MCParticleCollection& particles) {
   // p1 has endVertex "1", looking in startVertex map for "1" will find p2 and p3 which are its children
   // p2 has startVertex "1", looking for "1" in endVertex map finds p1, which is its parent
   for (const auto& mcpart : particles) {
-    auto& startID = mcpart.StartVertex().getObjectID();
-    auto& endID = mcpart.EndVertex().getObjectID();
+    auto& startID = mcpart.startVertex().getObjectID();
+    auto& endID = mcpart.endVertex().getObjectID();
     // to find children, look for the endVertex ID in the startVertex map (see above)
     auto childrenIt = startVertexMap.find(endID.index);
     // to find parents, look for the startVertex ID in the endVertex map (see above)

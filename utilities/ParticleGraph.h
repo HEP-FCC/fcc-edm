@@ -1,7 +1,7 @@
 #ifndef  FCC_GRAPHBUILDER_H
 #define  FCC_GRAPHBUILDER_H
 
-#include "utilities/DirectedAcyclicGraph.h"
+#include "dag/DirectedAcyclicGraph.h"
 #include "datamodel/MCParticleCollection.h"
 #include "podio/ObjectID.h"
 
