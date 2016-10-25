@@ -20,6 +20,7 @@
 // STL
 #include <iostream>
 #include <vector>
+#include <cassert>
 
 // podio specific includes
 #include "podio/EventStore.h"
@@ -34,7 +35,8 @@ int main(){
   reader.openFile("simpleexample.root");
   store.setReader(&reader);
   unsigned nevents= reader.getEntries();
-  jetutils::JetUtils jetUtils(*(reader.getCollectionIDTable()));
+  tagutils::TagUtils tagUtils(*(reader.getCollectionIDTable()));
+  int tag2Id = reader.getCollectionIDTable()->collectionID("tag2");
 
   for(unsigned iev=0; iev<nevents; ++iev) {
     if(iev % 1000 == 0)
@@ -65,9 +67,15 @@ int main(){
     bool jetsPresent = store.get("taggedjets", jets);
     if (jetsPresent) {
       auto jet = (*jets)[0];
-      auto tag1 = jetUtils.tag(jet, "tag1");
-      auto tag2 = jetUtils.tag(jet, "tag2");
-      std::cout << "tag1 = " << tag1.value() << "; tag2 = " << tag2.value() << std::endl;
+      // looks up the ID every time you request it (O(logN) of collections in IDTable)
+      auto tag1 = tagUtils.tag(jet, "tag1");
+      // instead use the locally cached ID
+      auto tag2 = tagutils::tag(jet, tag2Id);
+      if (nullptr != tag1 && nullptr != tag2 && iev < 10) {
+        std::cout << "tag1 = " << tag1->value() << "; tag2 = " << tag2->value() << std::endl;
+      }
+      auto tagNotPresent = tagUtils.tag(jet, "tag123");
+      assert(tagNotPresent == nullptr);
     }
 
     store.clear();
