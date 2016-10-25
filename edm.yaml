@@ -64,7 +64,7 @@ datatypes :
      - fcc::CaloCluster clusters // The cluster used for reconstruction
 
   fcc::Tag:
-    Description : "Reconstructed particle"
+    Description : "A tag for a particle or jet (containing b-tagging, isolation, or similar information)"
     Author : "C. Bernet, B. Hegner, C. Helsens, J. Lingemann"
     Members:
       - float value // the result of the tagging algorithm
