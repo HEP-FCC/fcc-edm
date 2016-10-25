@@ -9,16 +9,16 @@ namespace utils {
 
   TLorentzVector lvFromPOD(const fcc::LorentzVector& lv) {
     TLorentzVector tlv; // COLIN need to fill it
-    tlv.SetXYZM( lv.Px, lv.Py, lv.Pz, lv.Mass);
+    tlv.SetXYZM( lv.px, lv.py, lv.pz, lv.mass);
     return tlv;
   }
 
   fcc::LorentzVector lvToPOD(const TLorentzVector& tlv) {
     fcc::LorentzVector lv; // COLIN need to fill it
-    lv.Px = tlv.Px();
-    lv.Py = tlv.Py();
-    lv.Pz = tlv.Pz();
-    lv.Mass = tlv.M();
+    lv.px = tlv.Px();
+    lv.py = tlv.Py();
+    lv.pz = tlv.Pz();
+    lv.mass = tlv.M();
     return lv;
   }
 

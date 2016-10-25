@@ -1,14 +1,17 @@
 cmake_minimum_required(VERSION 2.8)
 project(fccedm CXX)
 
-set(FCCEDM_MAJOR_VERSION 1)
-set(FCCEDM_MINOR_VERSION 0)
+set(FCCEDM_MAJOR_VERSION 0)
+set(FCCEDM_MINOR_VERSION 4)
 set(FCCEDM_PATCH_VERSION 0)
 set(FCCEDM_VERSION
-  ${FCCEDM_MAJOR_VERSION}.${FCCEDM_MINOR_VERSION}.${FCCEDM_PATCH_VERSION})
+  ${FCCEDM_MAJOR_VERSION}.${FCCEDM_MINOR_VERSION})
+
+execute_process(COMMAND python $ENV{PODIO}/python/podio_class_generator.py edm.yaml datamodel datamodel
+                WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 #--- Declare options -----------------------------------------------------------
-option(fccedm_documentation "Whether or not to create doxygen doc target.")
+option(CREATE_DOC "Whether or not to create doxygen doc target.")
 
 # Offer the user the choice of overriding the installation directories
 set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for libraries")
@@ -80,13 +83,16 @@ include(CTest)
 
 #--- target for Doxygen documentation ------------------------------------------
 if(fccedm_documentation)
-	include(cmake/fccedmDoxygen.cmake)
+  include(cmake/fccedmDoxygen.cmake)
 endif()
 
+configure_file(${CMAKE_SOURCE_DIR}/cmake/Datamodel.cmake
+  "${CMAKE_SOURCE_DIR}/datamodel/CMakeLists.txt" @ONLY)
 # Add sub-directories
 add_subdirectory(datamodel)
 add_subdirectory(utilities)
 add_subdirectory(examples)
+
 
 # The interesting stuff goes here
 # ===============================
