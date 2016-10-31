@@ -50,7 +50,6 @@ Compilation
     cd build
     cmake -DCMAKE_INSTALL_PREFIX=$FCCEDM ..
     make -j 4 install
-    cd ..
 
 
 Test
