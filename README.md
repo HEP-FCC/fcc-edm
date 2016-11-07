@@ -50,7 +50,6 @@ Compilation
     cd build
     cmake -DCMAKE_INSTALL_PREFIX=$FCCEDM ..
     make -j 4 install
-    cd ..
 
 
 Test
@@ -66,10 +65,10 @@ Make sure that the ROOT dictionaries are in the LD_LIBRARY_PATH. This is automat
 
 The examples are located in the `examples` directory. This command writes an `example.root` file:
 ```
-$FCCEDM/bin/fcc-edm-write
+$FCCEDM/bin/fccedm-write
 ```
 
 That file can then be read with
 ```
-$FCCEDM/bin/fcc-edm-read
+$FCCEDM/bin/fccedm-read
 ```
