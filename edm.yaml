@@ -54,6 +54,12 @@ datatypes :
     Members :
      - int number // Event number
 
+  fcc::MCEventWeight :
+    Description : "Monte Carlo Event Weight"
+    Author : "M. Selvaggi"
+    Members :
+     - float weight // Event weight
+
   fcc::Particle :
     Description : "Reconstructed particle"
     Author : "C. Bernet, B. Hegner"
