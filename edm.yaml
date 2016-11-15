@@ -54,11 +54,11 @@ datatypes :
     Members :
      - int number // Event number
 
-  fcc::MCEventWeight :
-    Description : "Monte Carlo Event Weight"
+  fcc::Float :
+    Description : "Contains float"
     Author : "M. Selvaggi"
     Members :
-     - float weight // Event weight
+     - float value // The actual float value
 
   fcc::Particle :
     Description : "Reconstructed particle"
