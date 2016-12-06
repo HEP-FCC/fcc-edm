@@ -198,9 +198,9 @@ datatypes :
      - float omega // Track curvature in m-1.
      - float d0 // Transverse impact parameter in m
      - float z0 // Longitudinal impact parameter in m
-     - float tanLambda //slope dz/dpathlength
+     - float tanLambda // Slope dz/dpathlength
      - float phi0 // Azimuthal angle in radians
-     - fcc::point referencePoint //point from which d0, z0, phi0 are measured 
+     - fcc::point referencePoint // Point from which d0, z0, phi0 are measured 
 
   fcc::Track:
     Description: "Track reconstructed from clusters in the inner tracker"
