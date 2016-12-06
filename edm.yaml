@@ -192,13 +192,15 @@ datatypes :
      - fcc::CaloHit hits // Hits used in the cluster
 
   fcc::TrackState:
-    Description: "Track state at a given point on the track."
+    Description: "Track state at a given point on the track. Parameters as in LCIO: http://www-flc.desy.de/lcnotes/notes/LC-DET-2006-004.pdf"
     Author : "C. Bernet, B. Hegner"
     Members:
-     - float location // Location on the track. (Radius?)
-     - float omega // Track curvature in cm.
-     - float d0 // Transverse impact parameter
-     - float z0 // Longitudinal impact parameter
+     - float omega // Track curvature in m-1.
+     - float d0 // Transverse impact parameter in m
+     - float z0 // Longitudinal impact parameter in m
+     - float tanLambda //slope dz/dpathlength
+     - float phi0 // Azimuthal angle in radians
+     - fcc::point referencePoint //point from which d0, z0, phi0 are measured 
 
   fcc::Track:
     Description: "Track reconstructed from clusters in the inner tracker"
