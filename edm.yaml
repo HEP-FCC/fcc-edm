@@ -195,10 +195,10 @@ datatypes :
     Description: "Track state at a given point on the track. Parameters as in LCIO: http://www-flc.desy.de/lcnotes/notes/LC-DET-2006-004.pdf"
     Author : "C. Bernet, B. Hegner"
     Members:
-     - float omega // Track curvature in m-1.
-     - float d0 // Transverse impact parameter in m
-     - float z0 // Longitudinal impact parameter in m
-     - float tanLambda // Slope dz/dpathlength
+     - float omega // Track curvature in mm-1.
+     - float d0 // Transverse impact parameter in mm
+     - float z0 // Longitudinal impact parameter in mm
+     - float tanLambda // Slope dz/d(arclength in xy plane)
      - float phi0 // Azimuthal angle in radians
      - fcc::Point referencePoint // Point from which d0, z0, phi0 are measured 
 
