@@ -37,11 +37,11 @@ foreach(p LIB BIN INCLUDE CMAKE)
 endforeach()
 
 # Set up C++14
-set(CPP11FLAGS "-std=c++14")
+set(CPP_STANDARD_FLAGS "-std=c++14")
 if (${APPLE})
-    set(CPP11FLAGS "-std=c++14\ -stdlib=libc++")
+    set(CPP_STANDARD_FLAGS "-std=c++14\ -stdlib=libc++")
 endif()
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -DDROP_CGAL ${CPP11FLAGS} -Wall -Wextra -Wpedantic -Wno-unused-variable -Wno-unused-parameter")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -DDROP_CGAL ${CPP_STANDARD_FLAGS} -Wall -Wextra -Wpedantic -Wno-unused-variable -Wno-unused-parameter")
 
 
 # Make sure we find the Find*.cmake functions distributed with this package
