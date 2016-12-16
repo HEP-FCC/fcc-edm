@@ -191,24 +191,36 @@ datatypes :
     OneToManyRelations :
      - fcc::CaloHit hits // Hits used in the cluster
 
-  fcc::TrackState:
+ fcc::TrackState:
     Description: "Track state at a given point on the track."
     Author : "C. Bernet, B. Hegner"
     Members:
-     - float location // Location on the track. (Radius?)
-     - float omega // Track curvature in cm.
+     - float[6] trackParameters // track parameters consisting of five local coordinates describing the track and time information  
+     - float[6][6] covariance // the covariance matrix of the track parameters
+     OneToOneRelations:
+     - fcc::TrackCluster cluster // the belonging measurement      
+
+  fcc::PerigeeTrackState:
+    Description: "Track state at a given point on the track in perigee representation."
+    Author : "C. Bernet, B. Hegner"
+    Members:
+     - float phi // azimuthal angle describing the direction of the momentum
+     - float theta // polar angle describing the direction of the momentum
+     - float qOverP // describing the curvature, bending direction and momentum 
      - float d0 // Transverse impact parameter
      - float z0 // Longitudinal impact parameter
+     - fcc::Point referencePoint // Point from which d0, z0 are measured
 
   fcc::Track:
     Description: "Track reconstructed from clusters in the inner tracker"
     Author : "C. Bernet, B. Hegner"
-    Members:
+    Members:     
      - float chi2 // chi2 returned by the track fit
      - unsigned ndf // Number of degrees of freedom of the track fit
      - unsigned bits // Stores flags
+    OneToOneRelation:
+     - fcc::PerigeeTrackState // the track state at the beamline
     OneToManyRelations :
-     - fcc::TrackCluster clusters // Clusters used for reconstruction
      - fcc::TrackState states // states along the track
 
   fcc::WeightedTrack:
