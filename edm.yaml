@@ -192,16 +192,23 @@ datatypes :
      - fcc::CaloHit hits // Hits used in the cluster
 
   fcc::TrackState:
-    Description: "Track state at a given point on the track."
+    Description: "Track state at a given point on the track. The track parameters are chosen 
+    to be decribed in the curvilinear frame of the track. With the track parameters 
+    (local1:=0,local2:=0,phi,theta,q/p) defined at the origin of a surface perpendicular to 
+    the track. The local coordinates are zero per defintion. The azimuthal and polar angle
+    can be calculated from the direction of the momentum. The last parameter q/p can be 
+    calculated from the charge and the value of the momentum."
     Author : "C. Bernet, B. Hegner"
     Members:
-     - float[6] trackParameters // track parameters consisting of five local coordinates describing the track and time information  
-     - float[6][6] covariance // the covariance matrix of the track parameters
-    OneToOneRelations :
-     - fcc::TrackCluster cluster // the belonging measurement      
+     - fcc::Point position // global position specifying the location on the track  
+     - float[3] momentum   // the momentum at position  
+     - float charge        // the charge
+     - float[15] cov       // the covariance matrix describing the covariances of the five 
+       		           // track parameters. Duplicated entries have been left out, which 
+		           // reduces thesize to 15 entries      
 
   fcc::PerigeeTrackState:
-    Description: "Track state at a given point on the track in perigee representation."
+    Description: "Track state at the beamline."
     Author : "C. Bernet, B. Hegner"
     Members:
      - float phi // azimuthal angle describing the direction of the momentum
@@ -219,8 +226,9 @@ datatypes :
      - unsigned ndf // Number of degrees of freedom of the track fit
      - unsigned bits // Stores flags
     OneToOneRelations :
-     - fcc::PerigeeTrackState perigee// the track state at the beamline
+     - fcc::PerigeeTrackState perigee // track state at the beamline
     OneToManyRelations :
+     - fcc::TrackCluster clusters // Clusters used for reconstruction
      - fcc::TrackState states // states along the track
 
   fcc::WeightedTrack:
