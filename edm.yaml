@@ -193,30 +193,21 @@ datatypes :
 
   fcc::TrackState:
     Description: "Track state at a given point on the track. The track parameters are chosen 
-    to be decribed in the curvilinear frame of the track. With the track parameters 
-    (local1:=0,local2:=0,phi,theta,q/p) defined at the origin of a surface perpendicular to 
-    the track. The local coordinates are zero per defintion. The azimuthal and polar angle
-    can be calculated from the direction of the momentum. The last parameter q/p can be 
-    calculated from the charge and the value of the momentum."
-    Author : "C. Bernet, B. Hegner"
-    Members:
-     - fcc::Point position // global position specifying the location on the track  
-     - float[3] momentum   // the momentum at position  
-     - float charge        // the charge
-     - float[15] cov       // the covariance matrix describing the covariances of the five 
-       		           // track parameters. Duplicated entries have been left out, which 
-		           // reduces thesize to 15 entries      
-
-  fcc::PerigeeTrackState:
-    Description: "Track state at the beamline."
-    Author : "C. Bernet, B. Hegner"
+    to be decribed in the curvilinear frame of the track. The azimuthal and polar angle
+    describe the direction of the momentum. The bending direction and the momentum are described by q/p. 
+    In case it is the first track state at the beamline the impact parameters and their reference point
+    need to be specified. The covariance matrix describes the covariances of the five track parameters.
+    Duplicated entries have been left out, which reduces the size to 15 entries."
+    Author : "J. Hrdinka"
     Members:
      - float phi // azimuthal angle describing the direction of the momentum
      - float theta // polar angle describing the direction of the momentum
-     - float qOverP // describing the curvature, bending direction and momentum 
+     - float qOverP // describing the curvature, bending direction and momentum
      - float d0 // Transverse impact parameter
      - float z0 // Longitudinal impact parameter
      - fcc::Point referencePoint // Point from which d0, z0 are measured
+     - std::array<float,15> cov // the covariance matrix of the track parameters 
+                                     
 
   fcc::Track:
     Description: "Track reconstructed from clusters in the inner tracker"
@@ -225,11 +216,9 @@ datatypes :
      - float chi2 // chi2 returned by the track fit
      - unsigned ndf // Number of degrees of freedom of the track fit
      - unsigned bits // Stores flags
-    OneToOneRelations :
-     - fcc::PerigeeTrackState perigee // track state at the beamline
     OneToManyRelations :
      - fcc::TrackCluster clusters // Clusters used for reconstruction
-     - fcc::TrackState states // states along the track
+     - fcc::TrackState states // states along the track. The first state is taken at the point of closest approach.
 
   fcc::WeightedTrack:
     Description: "A track associated to a vertex with its weight."
