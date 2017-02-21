@@ -29,3 +29,5 @@
 
 # Generated datamodel
 datamodel
+build/*
+install/*
