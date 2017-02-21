@@ -1,16 +1,14 @@
 platform='unknown'
-sw_afs=0
 unamestr=`uname`
 
 export FCCEDM=$PWD/install
 
 if [[ "$unamestr" == 'Linux' ]]; then
     platform='Linux'
-    fs=$1
     if [[ -d /cvmfs/fcc.cern.ch/sw ]] ; then
     #should check domain to make sure we're at CERN
     #or is this software available somewhere in Lyon?
-    source /cvmfs/fcc.cern.ch/sw/0.8/init_fcc_stack.sh $fs
+    source /cvmfs/fcc.cern.ch/sw/0.8/init_fcc_stack.sh
     else
         if [ -z "$PODIO" ]; then
             echo "[ERROR] no podio setup detected, make sure it is setup"
