@@ -1,7 +1,11 @@
 platform='unknown'
 unamestr=`uname`
 
-export FCCEDM=$PWD/install
+if [ -z "$FCCEDM" ]; then
+    export FCCEDM=$PWD/install
+    echo "FCCEDM is unset, setting to $FCCEDM"
+fi
+
 
 if [[ "$unamestr" == 'Linux' ]]; then
     platform='Linux'
