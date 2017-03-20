@@ -4,7 +4,7 @@
   *
   * This is a very simple example for using the nodes and visitors defined by DirectedAcyclicGraph.
   * The idpair is very similar to the PODIO ObjectID, so this may be instructive. For a more complete
-  * example on how to use it in the context of the fcc-edm, have a look at the read example in fcc-physics.
+  * example on how to use it in the context of the fcc-edm, have a look at tests/graph*test.cc or FCCSW
   *
   * @author: A. Robson, J. Lingemann
   */

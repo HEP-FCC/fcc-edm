@@ -100,6 +100,7 @@ configure_file(${CMAKE_SOURCE_DIR}/cmake/Datamodel.cmake
 add_subdirectory(datamodel)
 add_subdirectory(utilities)
 add_subdirectory(examples)
+add_subdirectory(tests)
 
 
 # The interesting stuff goes here
