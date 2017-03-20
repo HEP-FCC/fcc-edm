@@ -15,14 +15,14 @@ void fcc::ParticleGraph::build(const fcc::MCParticleCollection& particles) {
     auto parentsIt = endVertexMap.find(endID.index);
 
     unsigned particleIdx = mcpart.getObjectID().index;
-    if (startID.collectionID != -2) {
+    if (startID.collectionID != -2) {  // check that the start vertex is tracked (in a valid collection)
       if (siblingsIt == end(startVertexMap)) {
         startVertexMap[startID.index] = std::vector<unsigned>{particleIdx};
       } else {
         siblingsIt->second.push_back(particleIdx);
       }
     }
-    if (endID.collectionID != -2) {
+    if (endID.collectionID != -2) {  // check that the end vertex is tracked (in a valid collection)
       if (parentsIt == end(endVertexMap)) {
         endVertexMap[endID.index] = std::vector<unsigned>{particleIdx};
       } else {
