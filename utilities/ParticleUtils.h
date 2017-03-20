@@ -10,8 +10,8 @@
 // forward declarations:
 namespace fcc {
 class Particle;
-class ConstParticle;
 class BareParticle;
+class ConstParticle;
 class MCParticle;
 class ParticleCollection;
 class LorentzVector;

@@ -63,6 +63,14 @@ find_package(ROOT REQUIRED COMPONENTS RIO Tree Physics)
 include_directories(${ROOT_INCLUDE_DIR})
 # include(${ROOT_USE_FILE})
 
+find_package(dag REQUIRED HINTS $ENV{FCCDAG})
+if(${DAG_FOUND})
+  message(STATUS "Found dag: ${DAG_DIR}")
+  include_directories(
+          ${DAG_INCLUDE_DIRS}
+  )
+endif(${DAG_FOUND})
+
 link_directories(${ROOT_LIBRARY_DIR})
 #add_definitions(-Wpadded)
 #--temporary fix of inconsistency in ROOT CMake macros
@@ -92,6 +100,7 @@ configure_file(${CMAKE_SOURCE_DIR}/cmake/Datamodel.cmake
 add_subdirectory(datamodel)
 add_subdirectory(utilities)
 add_subdirectory(examples)
+add_subdirectory(tests)
 
 
 # The interesting stuff goes here
