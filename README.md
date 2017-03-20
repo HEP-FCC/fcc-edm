@@ -31,13 +31,19 @@ On Mac OS or Ubuntu, you need to install the following software.
 
 https://github.com/HEP-FCC/podio
 
+### Directed Acyclic Graph
+
+https://github.com/HEP-FCC/dag
+
 
 Setting up
 --
 
 Before compiling or using:
 
-1. If on Mac OS, Ubuntu or using a custom PODIO installation, set up the PODIO environment.
+1. If on Mac OS, Ubuntu or using a custom installations:
+   -  set up the PODIO environment (sourcing the PODIO `init.sh`)
+   - set up the dag environment (set the FCCDAG environment variable to the install directory)
 
 2. Set up the FCC-EDM environment:
 ```
