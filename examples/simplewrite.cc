@@ -38,8 +38,8 @@ int main(){
   auto& evinfocoll = store.create<fcc::EventInfoCollection>("evtinfo");
   auto& pcoll = store.create<fcc::ParticleCollection>("mcparticles");
 
-  writer.registerForWrite<fcc::EventInfoCollection>("evtinfo");
-  writer.registerForWrite<fcc::ParticleCollection>("mcparticles");
+  writer.registerForWrite("evtinfo");
+  writer.registerForWrite("mcparticles");
 
   for(unsigned iev=0; iev<nevents; ++iev) {
     if(iev % 1000 == 0)

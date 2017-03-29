@@ -54,7 +54,7 @@ int main(){
   unsigned nevents=10000;
 
   auto& evinfocoll = store.create<fcc::EventInfoCollection>("EventInfo");
-  writer.registerForWrite<fcc::EventInfoCollection>("EventInfo");
+  writer.registerForWrite("EventInfo");
 
   for(unsigned i=0; i<nevents; ++i) {
   // fill event information
