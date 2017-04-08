@@ -109,6 +109,14 @@ datatypes :
     OneToOneRelations :
      - fcc::Jet jet // Reference to the jet
 
+  fcc::ResolvedJet :
+    Description : "Association between a Jet and its SubJets"
+    Author : "M. Selvaggi"
+    OneToManyRelations :
+     - fcc::Jet subjets // Reference to the subjets
+    OneToOneRelations :
+     - fcc::Jet jet // Reference to the jet
+
   fcc::GenJet :
     Description : "Generated jet."
     Author : "C. Bernet, B. Hegner"
@@ -124,6 +132,14 @@ datatypes :
      - float tag // Result of the tagging algorithm
     OneToOneRelations :
      - fcc::GenJet jet // Reference to the gen jet
+
+  fcc::ResolvedGenJet :
+    Description : "Association between a GenJet and its SubJets"
+    Author : "M. Selvaggi"
+    OneToManyRelations :
+     - fcc::GenJet subjets // Reference to the subjets
+    OneToOneRelations :
+     - fcc::GenJet jet // Reference to the jet
 
   fcc::MET:
     Description : "Naive MET type"
