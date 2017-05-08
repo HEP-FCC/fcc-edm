@@ -170,9 +170,11 @@ datatypes :
 
   fcc::PositionedTrackHit:
     Description: "A track hit and with its global position"
-    Author: "J. Lingemann, B. Hegner"
+    Author: "J. Lingemann, B. Hegner, J. Hrdinka"
     Members:
      - fcc::Point position // The global position
+     - float length // The length of the hit (distance between pre and post step)
+     - std::array<float,3> direction // The direction of the hit
      - fcc::BareHit core // The hit
 
   fcc::CaloHitMCParticleAssociation:
