@@ -26,11 +26,11 @@ elif [[ "$unamestr" == 'Darwin' ]]; then
 fi
 if [ -z "$PODIO" ]; then
     echo "[ERROR] no podio setup detected, make sure it is setup"
-    exit 1
+    return 1
 fi
 if [ -z "$FCCDAG" ]; then
     echo "[ERROR] no dag setup detected, make sure it is setup by setting the FCCDAG environment variable or adding it to your cmake prefix path"
-    exit 1
+    return 1
 fi
 
 echo platform detected: $platform
