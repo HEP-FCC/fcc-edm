@@ -23,6 +23,7 @@ elif [[ "$unamestr" == 'Darwin' ]]; then
     if [ ! -z "$PODIO" ]; then
         export DYLD_LIBRARY_PATH=$FCCEDM/lib:$DYLD_LIBRARY_PATH:$PODIO/lib
     fi
+    echo platform detected: $platform
 fi
 if [ -z "$PODIO" ]; then
     echo "[ERROR] no podio setup detected, make sure it is setup"
@@ -32,5 +33,3 @@ if [ -z "$FCCDAG" ]; then
     echo "[ERROR] no dag setup detected, make sure it is setup by setting the FCCDAG environment variable or adding it to your cmake prefix path"
     return 1
 fi
-
-echo platform detected: $platform
