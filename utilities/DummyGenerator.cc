@@ -31,8 +31,8 @@ DummyGenerator::DummyGenerator(int npart,
   m_particles(store.create<fcc::ParticleCollection>("GenParticle")),
   m_jets(store.create<fcc::JetCollection>("GenJet"))
   {
-  writer.registerForWrite<fcc::ParticleCollection>("GenParticle");
-  writer.registerForWrite<fcc::JetCollection>("GenJet");
+  writer.registerForWrite("GenParticle");
+  writer.registerForWrite("GenJet");
 }
 
 

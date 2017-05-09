@@ -19,8 +19,8 @@ int main() {
   auto& particleColl = store.create<fcc::MCParticleCollection>("mcparticles");
   auto& vtxColl = store.create<fcc::GenVertexCollection>("mcvertices");
 
-  writer.registerForWrite<fcc::MCParticleCollection>("mcparticles");
-  writer.registerForWrite<fcc::GenVertexCollection>("mcvertices");
+  writer.registerForWrite("mcparticles");
+  writer.registerForWrite("mcvertices");
 
   auto ptc = particleColl.create();
   auto vtxStartParent = vtxColl.create();
