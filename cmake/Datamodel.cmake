@@ -6,31 +6,23 @@ include_directories(
 file(GLOB sources src/*.cc)
 file(GLOB headers datamodel/*.h podio/PythonEventStore.h)
 
-add_library(datamodel SHARED ${sources} ${headers})
+add_library(datamodel SHARED ${sources})
+target_include_directories(datamodel PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 target_link_libraries(datamodel podio)
 
-REFLEX_GENERATE_DICTIONARY(datamodel ${headers} SELECTION src/selection.xml )
+REFLEX_GENERATE_DICTIONARY(datamodel ${headers} SELECTION src/selection.xml)
 add_library(datamodelDict SHARED datamodel.cxx)
 add_dependencies(datamodelDict datamodel-dictgen)
 target_link_libraries(datamodelDict datamodel podio ${ROOT_LIBRARIES})
 
-set_target_properties(datamodel PROPERTIES
-  PUBLIC_HEADER "${headers}")
-
 install(TARGETS datamodel datamodelDict
   # IMPORTANT: Add the datamodel library to the "export-set"
   EXPORT fccedmTargets
-  RUNTIME DESTINATION "${INSTALL_BIN_DIR}" COMPONENT bin
-  LIBRARY DESTINATION "${INSTALL_LIB_DIR}" COMPONENT shlib
-  PUBLIC_HEADER DESTINATION "${INSTALL_INCLUDE_DIR}/datamodel"
-  COMPONENT dev)
+  DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/datamodel/datamodel DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 install(FILES
-  "${PROJECT_BINARY_DIR}/datamodel/datamodelDict.rootmap"
-  DESTINATION "${INSTALL_LIB_DIR}" COMPONENT dev)
-
-if (${ROOT_VERSION} GREATER 6)
-  install(FILES
-      "${PROJECT_BINARY_DIR}/datamodel/datamodel_rdict.pcm"
-      DESTINATION "${INSTALL_LIB_DIR}" COMPONENT dev)
-endif()
+  ${PROJECT_BINARY_DIR}/datamodel/datamodelDict.rootmap
+  ${PROJECT_BINARY_DIR}/datamodel/datamodel_rdict.pcm
+  DESTINATION ${CMAKE_INSTALL_LIBDIR})

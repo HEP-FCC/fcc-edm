@@ -1,12 +1,13 @@
 include_directories(
+        ${CMAKE_SOURCE_DIR}
         ${CMAKE_SOURCE_DIR}/datamodel
 )
 
 add_executable(fccedm-graph-write graph_write_test.cc)
 add_executable(fccedm-graph-read graph_read_test.cc)
 
-target_link_libraries(fccedm-graph-read utilities datamodel podio datamodelDict ${ROOT_LIBRARIES})
-target_link_libraries(fccedm-graph-write utilities datamodel podio datamodelDict  ${ROOT_LIBRARIES})
+target_link_libraries(fccedm-graph-read utilities datamodel podio ${ROOT_LIBRARIES})
+target_link_libraries(fccedm-graph-write utilities datamodel podio  ${ROOT_LIBRARIES})
 
 
 # --- adding tests for examples ------------------------------
