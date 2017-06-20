@@ -34,10 +34,6 @@ if(APPLE)
 endif()
 
 
-# Regenreate datamodel when invoking cmake
-execute_process(COMMAND python $ENV{PODIO}/python/podio_class_generator.py edm.yaml datamodel datamodel
-                WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-
 option(fccedm_documentation "Whether or not to create doxygen doc target." OFF)
 
 list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS})
@@ -58,6 +54,10 @@ if(${podio_FOUND})
   include_directories(${podio_INCLUDE_DIRS})
   link_directories(${podio_LIBRARY_DIR})
 endif()
+
+# Regenreate datamodel when invoking cmake
+execute_process(COMMAND python ${podio_LIBRARY_DIR}/../python/podio_class_generator.py edm.yaml datamodel datamodel
+                WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 link_directories(${ROOT_LIBRARY_DIR})
 
