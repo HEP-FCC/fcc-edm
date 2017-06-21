@@ -54,7 +54,7 @@ datatypes :
     Members :
      - int number // Event number
 
-  fcc::Float :
+  fcc::FloatValue :
     Description : "Contains float"
     Author : "M. Selvaggi"
     Members :
