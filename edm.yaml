@@ -18,6 +18,10 @@ components:
     x : float
     y : float
     z : float
+  
+  fcc::StepPoints:
+    preStep : fcc::Point
+    postStep : fcc::Point
 
   # really need to expose some function f(Cellid) -> position
   fcc::BareHit:
@@ -169,10 +173,10 @@ datatypes :
      - fcc::BareHit core // The hit
 
   fcc::PositionedTrackHit:
-    Description: "A track hit and with its global position"
-    Author: "J. Lingemann, B. Hegner"
+    Description: "A track hit and with its global pre and post step positions."
+    Author: "J. Lingemann, B. Hegner, J. Hrdinka"
     Members:
-     - fcc::Point position // The global position
+     - fcc::StepPoints positions // The pre and post step points in global frame
      - fcc::BareHit core // The hit
 
   fcc::CaloHitMCParticleAssociation:
