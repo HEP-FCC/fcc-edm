@@ -105,7 +105,7 @@ void processEvent(podio::EventStore& store, bool verbose,
       }
       for(const auto& ptc : incone) {
         if( verbose )
-          std::cout<<"\t"<<ptc<<std::endl;
+          std::cout<<"\t"<<utils::to_string(ptc)<<std::endl;
       }
     }
   }
