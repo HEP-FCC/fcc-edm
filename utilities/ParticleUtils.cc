@@ -86,34 +86,26 @@ namespace utils {
   }
 
 
-} // namespace
 
-std::ostream& operator<<(std::ostream& out, const fcc::BareParticle& ptc) {
-  if(not out) return out;
-
+std::string to_string(const fcc::BareParticle& ptc) {
+  
   TLorentzVector p4 = utils::lvFromPOD(ptc.p4);
-  out<< "particle PDG ID " << ptc.pdgId
-     << " e " << p4.E()
-     << " pt " << p4.Pt()
-     << " eta " << p4.Eta()
-     << " phi " << p4.Phi();
-  return out;
+  return "particle PDG ID " +  std::to_string(ptc.pdgId)
+     + " e " + std::to_string(p4.E())
+     + " pt " + std::to_string(p4.Pt())
+     + " eta " + std::to_string(p4.Eta())
+     + " phi " + std::to_string(p4.Phi());
 }
 
-std::ostream& operator<<(std::ostream& out, const fcc::Particle& ptc) {
-  if(not out) return out;
-  operator<<(out, ptc.core());
-  return out;
+std::string to_string(const fcc::Particle& ptc) {
+  return utils::to_string(ptc.core());
 }
 
-std::ostream& operator<<(std::ostream& out, const fcc::MCParticle& ptc) {
-  if(not out) return out;
-
-  operator<<(out, ptc.core());
-  if(not out) return out;
-  out << " startVertex ID: (" << ptc.startVertex().getObjectID().collectionID;
-  out << ", " << ptc.startVertex().getObjectID().index << ")";
-  out << " endVertex ID: (" << ptc.endVertex().getObjectID().collectionID;
-  out << ", " << ptc.endVertex().getObjectID().index << ")";
-  return out;
+std::string to_string(const fcc::MCParticle& ptc) {
+  return utils::to_string(ptc.core()) +
+   " startVertex ID: (" + std::to_string(ptc.startVertex().getObjectID().collectionID) +
+  + ", " + std::to_string(ptc.startVertex().getObjectID().index) + ")" +
+  " endVertex ID: (" + std::to_string(ptc.endVertex().getObjectID().collectionID) +
+   ", " + std::to_string(ptc.endVertex().getObjectID().index) + ")";
 }
+} // namespace

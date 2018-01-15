@@ -43,10 +43,10 @@ namespace utils {
   /// returns the sum of the p4 of the particles in ps
   TLorentzVector sumP4(const std::vector<fcc::Particle>& ps);
 
+std::string to_string(const fcc::BareParticle& ptc);
+std::string to_string(const fcc::Particle& ptc);
+std::string to_string(const fcc::MCParticle& ptc);
 }
 
-std::ostream& operator<<(std::ostream& out, const fcc::BareParticle& ptc);
-std::ostream& operator<<(std::ostream& out, const fcc::Particle& ptc);
-std::ostream& operator<<(std::ostream& out, const fcc::MCParticle& ptc);
 
 #endif
