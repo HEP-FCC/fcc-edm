@@ -176,7 +176,7 @@ datatypes :
      - fcc::Point position // The pre step point in global frame
      - fcc::BareHit core // The hit
 
-  fcc::DigiTrackHitAAssociation:
+  fcc::DigiTrackHitAssociation:
     Description: "Association between a track hit and additional digi information"
     Author : "V.Volkl"
     Members:
