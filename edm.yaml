@@ -145,6 +145,7 @@ datatypes :
     Description : "Naive MET type"
     Author : "C. Bernet, B. Hegner"
     Members :
+     - fcc::Point position // The pre step point in global frame
      - float magnitude // Magnitude (could be the pT or the ET of the MET vector)
      - float phi // Azimuthal angle
      - float scalarSum // Corresponding sum pT or sum ET
@@ -169,18 +170,19 @@ datatypes :
      - fcc::BareHit core // The hit
 
   fcc::PositionedTrackHit:
-    Description: "A track hit and with its global pre and post step positions."
+    Description: "A track hit and with its global step positions."
     Author: "J. Lingemann, B. Hegner, J. Hrdinka"
     Members:
      - fcc::Point position // The pre step point in global frame
      - fcc::BareHit core // The hit
 
-  fcc::DigiTrackHit:
-    Description: "A track hit and with its global pre and post step positions."
-    Author: "J. Lingemann, B. Hegner, J. Hrdinka"
+  fcc::DigiTrackHitAAssociation:
+    Description: "Association between a track hit and additional digi information"
+    Author : "V.Volkl"
     Members:
-     - fcc::Point postStepPosition // The pre and post step points in global frame
-     - fcc::PositionedTrackHit hit // The hit
+     - fcc::Point postStepPosition // The post step point in global frame.
+    OneToOneRelations:
+     - fcc::PositionedTrackHit hit // the particle
 
   fcc::CaloHitMCParticleAssociation:
     Description: "Association between a CaloHit and a particle that contributed to the hit."
