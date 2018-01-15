@@ -100,7 +100,7 @@ void processEvent(podio::EventStore& store, bool verbose,
                                                           dRMax);
       float sumpt = utils::sumPt(incone);
       if( verbose ) {
-        std::cout<<"muon: "<<muon<<" sumpt "<<sumpt<<std::endl;
+        std::cout<<"muon: "<<utils::to_string(muon)<<" sumpt "<<sumpt<<std::endl;
         std::cout<<"\tparticles in cone:"<<std::endl;
       }
       for(const auto& ptc : incone) {
