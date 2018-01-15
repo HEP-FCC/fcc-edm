@@ -182,7 +182,7 @@ datatypes :
     Members:
      - fcc::Point postStepPosition // The post step point in global frame.
     OneToOneRelations:
-     - fcc::PositionedTrackHit hit // the particle
+     - fcc::PositionedTrackHit hit // The hit
 
   fcc::CaloHitMCParticleAssociation:
     Description: "Association between a CaloHit and a particle that contributed to the hit."
