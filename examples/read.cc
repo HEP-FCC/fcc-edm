@@ -63,7 +63,7 @@ void processEvent(podio::EventStore& store, bool verbose,
       for(auto part = jet.particles_begin(); part != jet.particles_end(); ++part) {
         if(part->isAvailable()) {
           if(verbose)
-            std::cout<<"\t\tassociated "<<part->core()<<std::endl;
+            std::cout<<"\t\tassociated "<< utils::to_string(part->core())<<std::endl;
           injets.push_back(*part);
         }
       }
@@ -81,7 +81,7 @@ void processEvent(podio::EventStore& store, bool verbose,
       std::cout << "particle collection:" << std::endl;
     for(const auto& ptc : *ptcs){
       if(verbose)
-        std::cout<<"\t"<<ptc<<std::endl;
+        std::cout<<"\t"<<utils::to_string(ptc)<<std::endl;
       if( ptc.core().pdgId == 4 ) {
         muons.push_back(ptc);
       }
