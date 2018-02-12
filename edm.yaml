@@ -242,7 +242,7 @@ datatypes :
      - unsigned ndf // Number of degrees of freedom of the track fit
      - unsigned bits // Stores flags
     OneToManyRelations :
-     - fcc::TrackCluster clusters // Clusters used for reconstruction
+     - fcc::PositionedTrackHit hits // Hits used for reconstruction
      - fcc::TrackState states // states along the track. The first state is taken at the point of closest approach.
 
   fcc::WeightedTrack:
