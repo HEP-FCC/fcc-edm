@@ -78,7 +78,7 @@ datatypes :
      - fcc::Particle particle // Reference to the Particle
 
   fcc::MCParticle:
-    Description: "Monte-Carlo Particle, either generated or simulated."
+    Description: "Monte-Carlo Particle, either generated or simulated. For the 'status' member of the particle, the HepMC Convention is used. For simulated particles, the status 201 is used to indicate secondary particles produced in detector simulation."
     Author : "C. Bernet, B. Hegner"
     Members:
      - fcc::BareParticle core // Basic particle information.
