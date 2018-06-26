@@ -205,6 +205,8 @@ datatypes :
     Author : "C. Bernet, B. Hegner, J. Lingemann"
     Members:
      - fcc::BareCluster core // contains basic cluster information
+    VectorMembers:
+     - float trackIDs // IDs for tracks contributing to the cluster
     OneToManyRelations :
      - fcc::TrackHit hits // Hits used in the cluster
 
