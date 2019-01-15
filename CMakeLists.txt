@@ -10,7 +10,6 @@ set(FCCEDM_VERSION
 # Make sure we find the Find*.cmake functions distributed with this package
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 find_package(podio REQUIRED HINTS $ENV{PODIO})
-message(STATUS "Found podio: ${podio_DIR}")
 # Make sure the library is found.
 # Not the case if LD_LIBRARY_PATH is wrong
 find_library(PODIOLIB podio PATHS ${podio_DIR}/../lib)
@@ -19,7 +18,7 @@ if (NOT PODIOLIB)
 endif()
 link_directories(${podio_LIBRARY_DIR})
 
-execute_process(COMMAND python ${podio_DIR}/../python/podio_class_generator.py edm.yaml datamodel datamodel
+execute_process(COMMAND python ${podio_CMAKE_DIR}/../python/podio_class_generator.py edm.yaml datamodel datamodel
                 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 #--- Declare options -----------------------------------------------------------
