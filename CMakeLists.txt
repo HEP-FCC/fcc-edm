@@ -7,7 +7,19 @@ set(FCCEDM_PATCH_VERSION 1)
 set(FCCEDM_VERSION
   ${FCCEDM_MAJOR_VERSION}.${FCCEDM_MINOR_VERSION})
 
-execute_process(COMMAND python $ENV{PODIO}/python/podio_class_generator.py edm.yaml datamodel datamodel
+# Make sure we find the Find*.cmake functions distributed with this package
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+find_package(podio REQUIRED HINTS $ENV{PODIO})
+message(STATUS "Found podio: ${podio_DIR}")
+# Make sure the library is found.
+# Not the case if LD_LIBRARY_PATH is wrong
+find_library(PODIOLIB podio PATHS ${podio_DIR}/../lib)
+if (NOT PODIOLIB)
+    message(FATAL_ERROR "libpodio.so(dylib) cannot be found dynamically. Make sure you have set up your environment to use PODIO")
+endif()
+link_directories(${podio_LIBRARY_DIR})
+
+execute_process(COMMAND python ${podio_DIR}/../python/podio_class_generator.py edm.yaml datamodel datamodel
                 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 #--- Declare options -----------------------------------------------------------
@@ -37,24 +49,13 @@ foreach(p LIB BIN INCLUDE CMAKE)
 endforeach()
 
 # Set up C++14
-set(CPP_STANDARD_FLAGS "-std=c++14")
+set(CMAKE_CXX_STANDARD 14)
 if (${APPLE})
     set(CPP_STANDARD_FLAGS "-std=c++14\ -stdlib=libc++")
 endif()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -DDROP_CGAL ${CPP_STANDARD_FLAGS} -Wall -Wextra -Wpedantic -Wno-unused-variable -Wno-unused-parameter")
 
 
-# Make sure we find the Find*.cmake functions distributed with this package
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-find_package(podio REQUIRED HINTS $ENV{PODIO})
-message(STATUS "Found podio: ${podio_DIR}")
-# Make sure the library is found.
-# Not the case if LD_LIBRARY_PATH is wrong
-find_library(PODIOLIB podio PATHS $ENV{PODIO}/lib)
-if (NOT PODIOLIB)
-    message(FATAL_ERROR "libpodio.so(dylib) cannot be found dynamically. Make sure you have sourced PODIO init*.sh file to set up your environment to use PODIO")
-endif()
-link_directories(${podio_LIBRARY_DIR})
 
 #--- Declare ROOT dependency ---------------------------------------------------
 list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS})
