@@ -7,8 +7,6 @@ set(FCCEDM_PATCH_VERSION 1)
 set(FCCEDM_VERSION
   ${FCCEDM_MAJOR_VERSION}.${FCCEDM_MINOR_VERSION})
 
-# Make sure we find the Find*.cmake functions distributed with this package
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 find_package(podio REQUIRED HINTS $ENV{PODIO})
 # Make sure the library is found.
 # Not the case if LD_LIBRARY_PATH is wrong
@@ -61,7 +59,7 @@ list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS})
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 find_package(ROOT REQUIRED COMPONENTS RIO Tree Physics)
 include_directories(${ROOT_INCLUDE_DIR})
-# include(${ROOT_USE_FILE})
+include(${ROOT_USE_FILE})
 
 find_package(dag REQUIRED HINTS $ENV{FCCDAG})
 if(${DAG_FOUND})
@@ -80,10 +78,10 @@ add_definitions(-Wno-unused-variable -Wno-unused-parameter)
 
 # set up include-directories
 include_directories(
-  "${PROJECT_SOURCE_DIR}"
-  "${PROJECT_BINARY_DIR}"
-  "${ROOT_INCLUDE_DIR}"
-  "${podio_INCLUDE_DIRS}"
+  ${PROJECT_SOURCE_DIR}
+  ${PROJECT_BINARY_DIR}
+  ${ROOT_INCLUDE_DIR}
+  ${podio_INCLUDE_DIRS}
   )
 
 # adding testing capabilities
