@@ -8,10 +8,10 @@ add_executable(fccedm-simplewrite simplewrite.cc)
 add_executable(fccedm-simpleread simpleread.cc)
 add_executable(fccedm-graph graph.cc)
 
-target_link_libraries(fccedm-write utilities datamodel podio datamodelDict ${ROOT_LIBRARIES})
-target_link_libraries(fccedm-read utilities datamodel podio datamodelDict  ${ROOT_LIBRARIES})
-target_link_libraries(fccedm-simplewrite utilities datamodel podio datamodelDict  ${ROOT_LIBRARIES})
-target_link_libraries(fccedm-simpleread utilities datamodel podio datamodelDict  ${ROOT_LIBRARIES})
+target_link_libraries(fccedm-write utilities datamodel podio datamodelDict)
+target_link_libraries(fccedm-read utilities datamodel podio datamodelDict )
+target_link_libraries(fccedm-simplewrite utilities datamodel podio datamodelDict )
+target_link_libraries(fccedm-simpleread utilities datamodel podio datamodelDict )
 target_link_libraries(fccedm-graph utilities)
 install(TARGETS fccedm-write fccedm-read fccedm-simplewrite fccedm-simpleread
   # IMPORTANT: Add the write executable to the "export-set"
@@ -31,4 +31,3 @@ set_property(TEST fccedm-write PROPERTY ENVIRONMENT LD_LIBRARY_PATH=$ENV{PODIO}/
 
 add_test(NAME fccedm-read COMMAND fccedm-read DEPENDS fccedm-write)
 set_property(TEST fccedm-read PROPERTY ENVIRONMENT LD_LIBRARY_PATH=$ENV{PODIO}/lib:${CMAKE_INSTALL_PREFIX}/lib:${CMAKE_INSTALL_PREFIX}/examples:$ENV{LD_LIBRARY_PATH})
-
