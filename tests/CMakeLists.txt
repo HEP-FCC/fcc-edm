@@ -5,8 +5,8 @@ include_directories(
 add_executable(fccedm-graph-write graph_write_test.cc)
 add_executable(fccedm-graph-read graph_read_test.cc)
 
-target_link_libraries(fccedm-graph-read utilities datamodel podio datamodelDict ${ROOT_LIBRARIES})
-target_link_libraries(fccedm-graph-write utilities datamodel podio datamodelDict  ${ROOT_LIBRARIES})
+target_link_libraries(fccedm-graph-read utilities datamodel podio datamodelDict)
+target_link_libraries(fccedm-graph-write utilities datamodel podio datamodelDict )
 
 
 # --- adding tests for examples ------------------------------

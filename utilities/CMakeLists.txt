@@ -6,7 +6,7 @@ file(GLOB sources *.cc)
 file(GLOB headers *.h)
 
 add_library(utilities SHARED ${sources} ${headers} )
-target_link_libraries(utilities datamodel podio ${ROOT_LIBRARIES} ${ROOT_COMPONENT_LIBRARIES})
+target_link_libraries(utilities datamodel podio ROOT::Physics)
 
 set_target_properties(utilities PROPERTIES
   PUBLIC_HEADER "${headers}")
