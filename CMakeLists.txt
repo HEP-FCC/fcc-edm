@@ -52,6 +52,8 @@ if(NOT CMAKE_CXX_STANDARD MATCHES "14|17")
   message(FATAL_ERROR "Unsupported C++ standard: ${CMAKE_CXX_STANDARD}")
 endif()
 
+message (STATUS "C++ standard: ${CMAKE_CXX_STANDARD}")
+
 if (${APPLE})
     set(CPP_STANDARD_FLAGS "-std=c++${CMAKE_CXX_STANDARD}\ -stdlib=libc++")
 endif()
