@@ -35,7 +35,7 @@ execute_process(COMMAND python ${podio_CMAKE_DIR}/../python/podio_class_generato
                 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 #--- Declare options -----------------------------------------------------------
-option(CREATE_DOC "Whether or not to create doxygen doc target.")
+option(fccedm_documentation "Whether or not to create doxygen doc target." OFF)
 
 # Offer the user the choice of overriding the installation directories
 set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for libraries")
@@ -44,6 +44,7 @@ set(INSTALL_INCLUDE_DIR include CACHE PATH
   "Installation directory for header files")
 
 
+# Use .so also on macOS so ROOT can load them
 if(APPLE)
   set(CMAKE_SHARED_LIBRARY_SUFFIX ".so")
 endif(APPLE)
