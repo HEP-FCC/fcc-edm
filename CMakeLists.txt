@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.3)
-project(fccedm VERSION 0.5.2)
+project(fccedm VERSION 0.5.4)
 set(fccedm_VERSION "${fccedm_VERSION_MAJOR}.${fccedm_VERSION_MINOR}.${fccedm_VERSION_PATCH}")
 
 # Define basic build settings
