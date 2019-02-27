@@ -1,11 +1,26 @@
-cmake_minimum_required(VERSION 2.8)
-project(fccedm CXX)
+cmake_minimum_required(VERSION 3.3)
+project(fccedm VERSION 0.5.2)
+set(fccedm_VERSION "${fccedm_VERSION_MAJOR}.${fccedm_VERSION_MINOR}")
 
-set(FCCEDM_MAJOR_VERSION 0)
-set(FCCEDM_MINOR_VERSION 5)
-set(FCCEDM_PATCH_VERSION 1)
-set(FCCEDM_VERSION
-  ${FCCEDM_MAJOR_VERSION}.${FCCEDM_MINOR_VERSION})
+# Define basic build settings
+# Use GNU-style hierarchy for installing build products
+include(GNUInstallDirs)
+
+# Define a default build type can be overriden by passing
+# ``-DCMAKE_BUILD_TYPE=<type>`` when invoking CMake
+if(NOT CMAKE_CONFIGURATION_TYPES)
+  if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE RelWithDebInfo
+      CACHE STRING "Choose the type of build, options are: None Release MinSizeRel Debug RelWithDebInfo"
+      FORCE
+      )
+  else()
+    set(CMAKE_BUILD_TYPE "${CMAKE_BUILD_TYPE}"
+      CACHE STRING "Choose the type of build, options are: None Release MinSizeRel Debug RelWithDebInfo"
+      FORCE
+      )
+  endif()
+endif()
 
 find_package(podio REQUIRED HINTS $ENV{PODIO})
 # Make sure the library is found.
