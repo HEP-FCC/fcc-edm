@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.3)
 project(fccedm VERSION 0.5.2)
-set(fccedm_VERSION "${fccedm_VERSION_MAJOR}.${fccedm_VERSION_MINOR}")
+set(fccedm_VERSION "${fccedm_VERSION_MAJOR}.${fccedm_VERSION_MINOR}.${fccedm_VERSION_PATCH}")
 
 # Define basic build settings
 # Use GNU-style hierarchy for installing build products
@@ -49,17 +49,6 @@ if(APPLE)
   set(CMAKE_SHARED_LIBRARY_SUFFIX ".so")
 endif(APPLE)
 
-set(DEF_INSTALL_CMAKE_DIR cmake)
-set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH
-  "Installation directory for CMake files")
-
-# Make relative paths absolute (needed later on)
-foreach(p LIB BIN INCLUDE CMAKE)
-  set(var INSTALL_${p}_DIR)
-  if(NOT IS_ABSOLUTE "${${var}}")
-    set(${var} "${CMAKE_INSTALL_PREFIX}/${${var}}")
-  endif()
-endforeach()
 
 # Set up C++ Standard
 set(CMAKE_CXX_STANDARD 14 CACHE STRING "")
@@ -92,12 +81,7 @@ if(${DAG_FOUND})
   )
 endif(${DAG_FOUND})
 
-link_directories(${ROOT_LIBRARY_DIR})
-#add_definitions(-Wpadded)
-#--temporary fix of inconsistency in ROOT CMake macros
-set(ROOT_genreflex_cmd ${ROOT_genreflex_CMD})
 
-add_definitions(-Wno-unused-variable -Wno-unused-parameter)
 
 # set up include-directories
 include_directories(
@@ -109,6 +93,10 @@ include_directories(
 
 # adding testing capabilities
 include(CTest)
+
+
+#--- enable CPack --------------------------------------------------------------
+include(cmake/fccedmCPack.cmake)
 
 #--- target for Doxygen documentation ------------------------------------------
 if(fccedm_documentation)
