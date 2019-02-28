@@ -1,3 +1,5 @@
+# TODO: re-enable dataframe test as root 6.16 is available
+
 include_directories(
         ${CMAKE_SOURCE_DIR}/datamodel
 )
