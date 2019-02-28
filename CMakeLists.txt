@@ -64,7 +64,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -DDROP_CGAL ${CPP_STANDARD_FLAGS} 
 #--- Declare ROOT dependency ---------------------------------------------------
 list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS})
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-find_package(ROOT REQUIRED COMPONENTS RIO Tree Physics ROOTDataFrame ROOTVecOps)
+find_package(ROOT REQUIRED COMPONENTS RIO Tree Physics) # TODO: Add  ROOTDataFrame ROOTVecOps as ROOT 6.16 available
 include_directories(${ROOT_INCLUDE_DIR})
 include(${ROOT_USE_FILE})
 
