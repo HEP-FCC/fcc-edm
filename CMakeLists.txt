@@ -1,11 +1,26 @@
-cmake_minimum_required(VERSION 2.8)
-project(fccedm CXX)
+cmake_minimum_required(VERSION 3.3)
+project(fccedm VERSION 0.5.2)
+set(fccedm_VERSION "${fccedm_VERSION_MAJOR}.${fccedm_VERSION_MINOR}.${fccedm_VERSION_PATCH}")
 
-set(FCCEDM_MAJOR_VERSION 0)
-set(FCCEDM_MINOR_VERSION 5)
-set(FCCEDM_PATCH_VERSION 1)
-set(FCCEDM_VERSION
-  ${FCCEDM_MAJOR_VERSION}.${FCCEDM_MINOR_VERSION})
+# Define basic build settings
+# Use GNU-style hierarchy for installing build products
+include(GNUInstallDirs)
+
+# Define a default build type can be overriden by passing
+# ``-DCMAKE_BUILD_TYPE=<type>`` when invoking CMake
+if(NOT CMAKE_CONFIGURATION_TYPES)
+  if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE RelWithDebInfo
+      CACHE STRING "Choose the type of build, options are: None Release MinSizeRel Debug RelWithDebInfo"
+      FORCE
+      )
+  else()
+    set(CMAKE_BUILD_TYPE "${CMAKE_BUILD_TYPE}"
+      CACHE STRING "Choose the type of build, options are: None Release MinSizeRel Debug RelWithDebInfo"
+      FORCE
+      )
+  endif()
+endif()
 
 find_package(podio REQUIRED HINTS $ENV{PODIO})
 # Make sure the library is found.
@@ -20,7 +35,7 @@ execute_process(COMMAND python ${podio_CMAKE_DIR}/../python/podio_class_generato
                 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 #--- Declare options -----------------------------------------------------------
-option(CREATE_DOC "Whether or not to create doxygen doc target.")
+option(fccedm_documentation "Whether or not to create doxygen doc target." OFF)
 
 # Offer the user the choice of overriding the installation directories
 set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for libraries")
@@ -29,21 +44,11 @@ set(INSTALL_INCLUDE_DIR include CACHE PATH
   "Installation directory for header files")
 
 
+# Use .so also on macOS so ROOT can load them
 if(APPLE)
   set(CMAKE_SHARED_LIBRARY_SUFFIX ".so")
 endif(APPLE)
 
-set(DEF_INSTALL_CMAKE_DIR cmake)
-set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH
-  "Installation directory for CMake files")
-
-# Make relative paths absolute (needed later on)
-foreach(p LIB BIN INCLUDE CMAKE)
-  set(var INSTALL_${p}_DIR)
-  if(NOT IS_ABSOLUTE "${${var}}")
-    set(${var} "${CMAKE_INSTALL_PREFIX}/${${var}}")
-  endif()
-endforeach()
 
 # Set up C++ Standard
 set(CMAKE_CXX_STANDARD 14 CACHE STRING "")
@@ -76,12 +81,7 @@ if(${DAG_FOUND})
   )
 endif(${DAG_FOUND})
 
-link_directories(${ROOT_LIBRARY_DIR})
-#add_definitions(-Wpadded)
-#--temporary fix of inconsistency in ROOT CMake macros
-set(ROOT_genreflex_cmd ${ROOT_genreflex_CMD})
 
-add_definitions(-Wno-unused-variable -Wno-unused-parameter)
 
 # set up include-directories
 include_directories(
@@ -93,6 +93,10 @@ include_directories(
 
 # adding testing capabilities
 include(CTest)
+
+
+#--- enable CPack --------------------------------------------------------------
+include(cmake/fccedmCPack.cmake)
 
 #--- target for Doxygen documentation ------------------------------------------
 if(fccedm_documentation)
@@ -107,39 +111,4 @@ add_subdirectory(utilities)
 add_subdirectory(examples)
 add_subdirectory(tests)
 
-
-# The interesting stuff goes here
-# ===============================
-
-# Add all targets to the build-tree export set
-export(TARGETS datamodel utilities fccedm-write fccedm-read fccedm-simplewrite
-  FILE "${PROJECT_BINARY_DIR}/fccedmTargets.cmake")
-
-# Export the package for use from the build-tree
-# (this registers the build-tree with a global CMake-registry)
-export(PACKAGE fccedm)
-
-# Create the fccedmConfig.cmake and fccedmConfigVersion files
-file(RELATIVE_PATH REL_INCLUDE_DIR "${INSTALL_CMAKE_DIR}"
-   "${INSTALL_INCLUDE_DIR}")
-# ... for the build tree
-set(CONF_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}" "${PROJECT_BINARY_DIR}")
-configure_file(fccedmConfig.cmake.in
-  "${PROJECT_BINARY_DIR}/fccedmConfig.cmake" @ONLY)
-# ... for the install tree
-set(CONF_INCLUDE_DIRS "\${FCCEDM_CMAKE_DIR}/${REL_INCLUDE_DIR}")
-configure_file(fccedmConfig.cmake.in
-  "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/fccedmConfig.cmake" @ONLY)
-# ... for both
-configure_file(fccedmConfigVersion.cmake.in
-  "${PROJECT_BINARY_DIR}/fccedmConfigVersion.cmake" @ONLY)
-
-# Install the fccedmConfig.cmake and fccedmConfigVersion.cmake
-install(FILES
-  "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/fccedmConfig.cmake"
-  "${PROJECT_BINARY_DIR}/fccedmConfigVersion.cmake"
-  DESTINATION "${INSTALL_CMAKE_DIR}" COMPONENT dev)
-
-# Install the export set for use with the install-tree
-install(EXPORT fccedmTargets DESTINATION
-  "${INSTALL_CMAKE_DIR}" COMPONENT dev)
+include(cmake/fccedmCreateConfig.cmake)
