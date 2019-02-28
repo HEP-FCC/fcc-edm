@@ -45,10 +45,17 @@ foreach(p LIB BIN INCLUDE CMAKE)
   endif()
 endforeach()
 
-# Set up C++14
-option(CMAKE_CXX_STANDARD "C++ standard" 14)
+# Set up C++ Standard
+set(CMAKE_CXX_STANDARD 14 CACHE STRING "")
+
+if(NOT CMAKE_CXX_STANDARD MATCHES "14|17")
+  message(FATAL_ERROR "Unsupported C++ standard: ${CMAKE_CXX_STANDARD}")
+endif()
+
+message (STATUS "C++ standard: ${CMAKE_CXX_STANDARD}")
+
 if (${APPLE})
-    set(CPP_STANDARD_FLAGS "-std=c++14\ -stdlib=libc++")
+    set(CPP_STANDARD_FLAGS "-std=c++${CMAKE_CXX_STANDARD}\ -stdlib=libc++")
 endif()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -DDROP_CGAL ${CPP_STANDARD_FLAGS} -Wall -Wextra -Wpedantic -Wno-unused-variable -Wno-unused-parameter")
 
