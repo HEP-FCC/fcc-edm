@@ -88,7 +88,7 @@ include_directories(
   ${PROJECT_SOURCE_DIR}
   ${PROJECT_BINARY_DIR}
   ${ROOT_INCLUDE_DIR}
-  ${podio_INCLUDE_DIRS}
+  ${podio_INCLUDE_DIR}
   )
 
 # adding testing capabilities
