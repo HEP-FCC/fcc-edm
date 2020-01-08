@@ -31,7 +31,7 @@ if (NOT PODIOLIB)
 endif()
 link_directories(${podio_LIBRARY_DIR})
 
-execute_process(COMMAND python ${podio_CMAKE_DIR}/../python/podio_class_generator.py edm.yaml datamodel datamodel
+execute_process(COMMAND python ${podio_DIR}/../../../python/podio_class_generator.py edm.yaml datamodel datamodel
                 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 #--- Declare options -----------------------------------------------------------
