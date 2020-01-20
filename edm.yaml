@@ -199,7 +199,7 @@ datatypes :
     Description: "Association between a CaloHit and the corresponding simulated CaloHit"
     Author : "C. Bernet, B. Hegner"
     OneToOneRelations:
-     - fcc::CaloHit rec // The reconstruted hit.
+     - fcc::CaloHit rec // The reconstructed hit.
      - fcc::CaloHit sim // The simulated hit.
 
   fcc::TrackCluster:
