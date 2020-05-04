@@ -9,7 +9,7 @@ include_directories(${CMAKE_SOURCE_DIR}/utilities)
 ROOT_GENERATE_DICTIONARY(G__utilities FCCLambdas.h LINKDEF LinkDef.h)
 
 add_library(utilities SHARED ${sources} ${headers} G__utilities.cxx )
-target_link_libraries(utilities datamodel podio ROOT::Physics)
+target_link_libraries(utilities datamodel podio::podioRootIO ROOT::Physics)
 
 set_target_properties(utilities PROPERTIES
   PUBLIC_HEADER "${headers}")

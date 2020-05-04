@@ -11,11 +11,11 @@ add_executable(fccedm-simplewrite simplewrite.cc)
 add_executable(fccedm-simpleread simpleread.cc)
 add_executable(fccedm-graph graph.cc)
 
-target_link_libraries(fccedm-write utilities datamodel podio datamodelDict)
-#target_link_libraries(fccedm-dataframe utilities datamodel podio datamodelDict ROOT::ROOTDataFrame)
-target_link_libraries(fccedm-read utilities datamodel podio datamodelDict )
-target_link_libraries(fccedm-simplewrite utilities datamodel podio datamodelDict )
-target_link_libraries(fccedm-simpleread utilities datamodel podio datamodelDict )
+target_link_libraries(fccedm-write utilities datamodel podio::podioRootIO datamodelDict)
+#target_link_libraries(fccedm-dataframe utilities datamodel podio::podioRootIO datamodelDict ROOT::ROOTDataFrame)
+target_link_libraries(fccedm-read utilities datamodel podio::podioRootIO datamodelDict )
+target_link_libraries(fccedm-simplewrite utilities datamodel podio::podioRootIO datamodelDict )
+target_link_libraries(fccedm-simpleread utilities datamodel podio::podioRootIO datamodelDict )
 target_link_libraries(fccedm-graph utilities)
 install(TARGETS fccedm-write fccedm-read fccedm-simplewrite fccedm-simpleread #fccedm-dataframe
   # IMPORTANT: Add the write executable to the "export-set"

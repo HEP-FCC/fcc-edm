@@ -23,13 +23,6 @@ if(NOT CMAKE_CONFIGURATION_TYPES)
 endif()
 
 find_package(podio REQUIRED HINTS $ENV{PODIO})
-# Make sure the library is found.
-# Not the case if LD_LIBRARY_PATH is wrong
-find_library(PODIOLIB podio PATHS ${podio_DIR}/../lib)
-if (NOT PODIOLIB)
-    message(FATAL_ERROR "libpodio.so(dylib) cannot be found dynamically. Make sure you have set up your environment to use PODIO")
-endif()
-link_directories(${podio_LIBRARY_DIR})
 
 execute_process(COMMAND python ${podio_DIR}/../../../python/podio_class_generator.py edm.yaml datamodel datamodel
                 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
@@ -69,9 +62,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -DDROP_CGAL ${CPP_STANDARD_FLAGS} 
 #--- Declare ROOT dependency ---------------------------------------------------
 list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS})
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-find_package(ROOT REQUIRED COMPONENTS RIO Tree Physics) # TODO: Add  ROOTDataFrame ROOTVecOps as ROOT 6.16 available
-include_directories(${ROOT_INCLUDE_DIR})
+find_package(ROOT REQUIRED COMPONENTS RIO Tree Physics)
+set(ROOT_genreflex_cmd ${ROOT_genreflex_CMD})
 include(${ROOT_USE_FILE})
+
 
 find_package(dag REQUIRED HINTS $ENV{FCCDAG})
 if(${DAG_FOUND})
