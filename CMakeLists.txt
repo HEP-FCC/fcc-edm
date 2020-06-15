@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.3)
-project(fccedm VERSION 0.5.4)
+project(fccedm VERSION 0.5.6)
 set(fccedm_VERSION "${fccedm_VERSION_MAJOR}.${fccedm_VERSION_MINOR}.${fccedm_VERSION_PATCH}")
 
 # Define basic build settings
@@ -22,7 +22,7 @@ if(NOT CMAKE_CONFIGURATION_TYPES)
   endif()
 endif()
 
-find_package(podio REQUIRED HINTS $ENV{PODIO})
+find_package(podio REQUIRED)
 
 execute_process(COMMAND python ${podio_DIR}/../../../python/podio_class_generator.py edm.yaml datamodel datamodel
                 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
@@ -67,13 +67,6 @@ set(ROOT_genreflex_cmd ${ROOT_genreflex_CMD})
 include(${ROOT_USE_FILE})
 
 
-find_package(dag REQUIRED HINTS $ENV{FCCDAG})
-if(${DAG_FOUND})
-  message(STATUS "Found dag: ${DAG_DIR}")
-  include_directories(
-          ${DAG_INCLUDE_DIRS}
-  )
-endif(${DAG_FOUND})
 
 
 
@@ -90,7 +83,10 @@ include(CTest)
 
 
 #--- enable CPack --------------------------------------------------------------
-include(cmake/fccedmCPack.cmake)
+option(ENABLE_CPACK "Whether or not to enable CPack" OFF)
+if(ENABLE_CPACK)
+  include(cmake/fccedmCPack.cmake)
+endif()
 
 #--- target for Doxygen documentation ------------------------------------------
 if(fccedm_documentation)
@@ -101,8 +97,10 @@ configure_file(${CMAKE_SOURCE_DIR}/cmake/Datamodel.cmake
   "${CMAKE_SOURCE_DIR}/datamodel/CMakeLists.txt" @ONLY)
 # Add sub-directories
 add_subdirectory(datamodel)
-add_subdirectory(utilities)
-add_subdirectory(examples)
-add_subdirectory(tests)
+  add_subdirectory(utilities)
+
+if(BUILD_TESTING)
+  add_subdirectory(examples)
+endif()
 
 include(cmake/fccedmCreateConfig.cmake)
