@@ -8,4 +8,6 @@
 
 #pragma link C++ function pt;
 #pragma link C++ function eta;
+#pragma link C++ class fcc::FloatData+;
+#pragma link C++ class std::vector<fcc::FloatData>+;
 #endif

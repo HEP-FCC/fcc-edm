@@ -6,7 +6,7 @@ file(GLOB sources *.cc)
 file(GLOB headers *.h)
 
 include_directories(${CMAKE_SOURCE_DIR}/utilities)
-ROOT_GENERATE_DICTIONARY(G__utilities FCCLambdas.h LINKDEF LinkDef.h)
+ROOT_GENERATE_DICTIONARY(G__utilities FloatData.h FCCLambdas.h LINKDEF LinkDef.h)
 
 add_library(utilities SHARED ${sources} ${headers} G__utilities.cxx )
 target_link_libraries(utilities datamodel podio::podioRootIO ROOT::Physics)
