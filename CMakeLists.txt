@@ -24,8 +24,6 @@ endif()
 
 find_package(podio REQUIRED)
 
-execute_process(COMMAND python ${podio_DIR}/../../../python/podio_class_generator.py edm.yaml datamodel datamodel
-                WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 #--- Declare options -----------------------------------------------------------
 option(fccedm_documentation "Whether or not to create doxygen doc target." OFF)
@@ -93,11 +91,11 @@ if(fccedm_documentation)
   include(cmake/fccedmDoxygen.cmake)
 endif()
 
-configure_file(${CMAKE_SOURCE_DIR}/cmake/Datamodel.cmake
-  "${CMAKE_SOURCE_DIR}/datamodel/CMakeLists.txt" @ONLY)
+#configure_file(${CMAKE_SOURCE_DIR}/cmake/Datamodel.cmake
+#  "${CMAKE_SOURCE_DIR}/datamodel/CMakeLists.txt" @ONLY)
 # Add sub-directories
 add_subdirectory(datamodel)
-  add_subdirectory(utilities)
+add_subdirectory(utilities)
 
 if(BUILD_TESTING)
   add_subdirectory(examples)
