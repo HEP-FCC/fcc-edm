@@ -2,6 +2,8 @@
 options:
   getSyntax: False
   exposePODMembers: True
+  includeSubfolder: True
+
 
 components:
 # A component is a POD designed to be embedded in another POD,
