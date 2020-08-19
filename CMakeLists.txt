@@ -42,6 +42,7 @@ endif(APPLE)
 
 
 # Set up C++ Standard
+# podio v0.11: forces 17
 set(CMAKE_CXX_STANDARD 17 CACHE STRING "")
 
 if(NOT CMAKE_CXX_STANDARD MATCHES "17")
@@ -53,7 +54,6 @@ message (STATUS "C++ standard: ${CMAKE_CXX_STANDARD}")
 if (${APPLE})
     set(CPP_STANDARD_FLAGS "-std=c++${CMAKE_CXX_STANDARD}\ -stdlib=libc++")
 endif()
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -DDROP_CGAL ${CPP_STANDARD_FLAGS} -Wall -Wextra -Wpedantic -Wno-unused-variable -Wno-unused-parameter")
 
 
 
@@ -91,8 +91,6 @@ if(fccedm_documentation)
   include(cmake/fccedmDoxygen.cmake)
 endif()
 
-#configure_file(${CMAKE_SOURCE_DIR}/cmake/Datamodel.cmake
-#  "${CMAKE_SOURCE_DIR}/datamodel/CMakeLists.txt" @ONLY)
 # Add sub-directories
 add_subdirectory(datamodel)
 add_subdirectory(utilities)
