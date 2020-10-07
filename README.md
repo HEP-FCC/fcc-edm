@@ -3,13 +3,13 @@ fcc-edm
 
 The FCC Event Data Model.
 
-The Data Model uses [PODIO](https://github.com/HEP-FCC/podio). On lxplus the PODIO installation is picked up by the `init.sh` script. 
+The Data Model uses [PODIO](https://github.com/aidasoft/podio). On lxplus the PODIO installation is picked up by the `init.sh` script. 
 
-If you are unable to use this central installation you'll have to [compile, install and setup](https://github.com/hegner/podio/blob/master/README.md) the environment for PODIO.
+If you are unable to use this central installation you'll have to [compile, install and setup](https://github.com/aidasoft/podio/blob/master/README.md) the environment for PODIO.
 
 Bug tracker
 --
-Please report any feature requests and issues at this [JIRA](https://sft.its.cern.ch/jira/projects/FCC/issues/) for the component DataModel.
+Please report any feature requests and issues in the github repository.
 
 Documentation
 --
@@ -18,18 +18,17 @@ Documentation
 - [Using FCC-EDM collections](doc/usage.md)
 - [Modifying the existing EDM](doc/how_to_modify.md)
 
-Browse the API documentation created with Doxygen at [http://fccsw.web.cern.ch/fccsw/fcc-edm/index.html](http://fccsw.web.cern.ch/fccsw/fcc-edm/index.html).
 
 Prerequisites
 --
 
-If you are on lxplus, all the necessary software is preinstalled.
+If you are on lxplus, all the necessary software is installed on CVMFS.
 
 On Mac OS or Ubuntu, you need to install the following software.
 
 ### podio
 
-https://github.com/HEP-FCC/podio
+https://github.com/aidasoft/podio
 
 ### Directed Acyclic Graph
 
@@ -54,7 +53,7 @@ Compilation
 --
     mkdir build
     cd build
-    cmake -DCMAKE_INSTALL_PREFIX=$FCCEDM ..
+    cmake -DCMAKE_INSTALL_PREFIX=../install ..
     make -j 4 install
 
 
@@ -71,10 +70,10 @@ Make sure that the ROOT dictionaries are in the LD_LIBRARY_PATH. This is automat
 
 The examples are located in the `examples` directory. This command writes an `example.root` file:
 ```
-$FCCEDM/bin/fccedm-write
+fccedm-write
 ```
 
 That file can then be read with
 ```
-$FCCEDM/bin/fccedm-read
+fccedm-read
 ```
