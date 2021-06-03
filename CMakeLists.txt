@@ -93,10 +93,10 @@ endif()
 
 # Add sub-directories
 add_subdirectory(datamodel)
-add_subdirectory(utilities)
-
-if(BUILD_TESTING)
-  add_subdirectory(examples)
-endif()
+# disabled due to recent breaking changes in podio
+#add_subdirectory(utilities)
+#if(BUILD_TESTING)
+#  add_subdirectory(examples)
+#endif()
 
 include(cmake/fccedmCreateConfig.cmake)
